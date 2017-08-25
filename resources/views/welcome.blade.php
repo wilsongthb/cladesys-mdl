@@ -83,8 +83,13 @@
                 </div>
 
                 <div class="links">
-                    <a href="{{ url('/') }} ">Raiz</a>
+                    <a href="{{ url('/logistic') }} ">Logistica</a>
                 </div>
+                <hr>
+                <div class="links">
+                    <a href="{{ url('/bower_components/gentelella/production/') }} ">Gentelella</a>
+                </div>
+                <hr>
                 <div class="links">
                     <a href="https://laravel.com/docs">Documentation</a>
                     <a href="https://laracasts.com">Laracasts</a>

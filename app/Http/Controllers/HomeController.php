@@ -25,4 +25,9 @@ class HomeController extends Controller
     {
         return view('home');
     }
+
+    public function view($view){
+        $view_html = substr($view, 0, -5);
+        return view('templates.'.$view_html);
+    }
 }

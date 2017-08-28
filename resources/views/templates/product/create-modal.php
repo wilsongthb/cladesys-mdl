@@ -1,4 +1,4 @@
-<button class="btn btn-success" ng-click="create.verForm()"><i class="fa fa-plus"></i> Agregar</button>
+<button class="btn btn-success" ng-click="create.verForm()"><i class="fa fa-plus"></i> Crear Producto</button>
 <!-- create -->
 <div class="modal fade" id="product-create-modal">
     <div class="modal-dialog modal-lg">

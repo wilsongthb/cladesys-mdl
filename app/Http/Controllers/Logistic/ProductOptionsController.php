@@ -10,6 +10,7 @@ use App\Models\ProductOptions;
 class ProductOptionsController extends Controller
 {
     public function getOrCreate(Request $request, $locations_id, $products_id){
+        // unico metodo para crear
         $fila = ProductOptions::
             where('products_id', $products_id)
             ->where('locations_id', $locations_id)
@@ -89,7 +90,28 @@ class ProductOptionsController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        // return $request->all();
+                // unico metodo para crear
+        $fila = ProductOptions::
+            where('products_id', $request->products_id)
+            ->where('locations_id', $request->locations_id)
+            ->first();
+        if($fila){
+            // return $fila;
+        }else{
+            $fila = new ProductOptions;
+
+            $fila->products_id = $request->products_id;
+            $fila->locations_id = $request->locations_id;
+
+            $fila->minimum = $request->minimum;
+            $fila->permanent = $request->permanent;
+            $fila->duration = $request->duration;
+            $fila->user_id = $request->user_id;
+            // $fila->user_id = \Auth::user()->id;
+            $fila->save();
+            // return $fila;
+        }
     }
 
     /**
@@ -142,6 +164,7 @@ class ProductOptionsController extends Controller
      */
     public function destroy($id)
     {
-        //
+        ProductOptions::destroy($id);
+        return "ok";
     }
 }

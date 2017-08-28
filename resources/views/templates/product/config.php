@@ -32,6 +32,31 @@
                     </div>
                 </div>
             </div>
+            
+            
+            <div class="row" form-control>
+                <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
+                    <product-selector products-id="resource.fila.products_id" ps-on-change=""></product-selector>
+                </div>
+                <div class="col-xs-12 col-sm-2 col-md-2 col-lg-2">
+                    <!-- <label>Stock Minimo</label> -->
+                    <input type="text" placeholder="Stock permanente" class="form-control" ng-model="resource.fila.minimum">    
+                </div>
+                <div class="col-xs-12 col-sm-2 col-md-2 col-lg-2">
+                    <!-- <label>Stock Permanente</label> -->
+                    <input type="text" placeholder="Stock minimo" class="form-control" ng-model="resource.fila.permanent">        
+                </div>
+                <div class="col-xs-12 col-sm-2 col-md-2 col-lg-2">
+                        <!-- <label>Duracion (dias)</label> -->
+                        <input type="text" placeholder="Duracion(dias)" class="form-control" ng-model="resource.fila.duration">    
+                </div>
+                <div class="col-xs-12 col-sm-2 col-md-2 col-lg-2">
+                    <button ng-click="resource.post()" class="btn btn-large btn-block btn-success">Guardar</button>
+                </div>
+            </div>
+            
+            
+
             <div class="row">
                 <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
                     <table class="table table-striped table-hover table-bordered">
@@ -52,17 +77,29 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr ng-repeat="d in resource.data.data">
+                            <tr ng-repeat="d in resource.data.data" ng-switch="d.state">
                                 <td ng-bind="d.id"></td>
                                 <td ng-bind="d.locations_name"></td>
                                 <td ng-bind="d.products_name"></td>
-                                <td ng-bind="d.minimum"></td>
-                                <td ng-bind="d.permanent"></td>
-                                <td ng-bind="d.duration"></td>
+                                <td ng-switch-default ng-bind="d.minimum"></td>
+                                <td ng-switch-default ng-bind="d.permanent"></td>
+                                <td ng-switch-default ng-bind="d.duration"></td>
+                                <td ng-switch-when="edit">
+                                    <input type="text" ng-model="d.minimum">
+                                </td>
+                                <td ng-switch-when="edit">
+                                    <input type="text" ng-model="d.permanent">
+                                </td>
+                                <td ng-switch-when="edit">
+                                    <input type="text" ng-model="d.duration">
+                                </td>
                                 <td>
-                                    <a href="{{config.editUrl}}/{{d.products_id}}"><button type="button" class="btn btn-default"><i class="fa fa-pencil"></i> </button></a>
-
-                                    <button ng-click="resource.delete(d.id)" type="button" class="btn btn-danger"><i class="fa fa-trash"></i> </button>
+                                    <div class="btn-group">
+                                        <button ng-switch-default class="btn btn-warning" ng-click="d.state = 'edit'"><i class="fa fa-cog"></i> </button>
+                                        <button ng-click="resource.put(d)" ng-switch-when="edit" class="btn btn-success"><i class="fa fa-save"></i> </button>
+                                        <a href="{{config.editUrl}}/{{d.products_id}}"><button type="button" class="btn btn-default"><i class="fa fa-pencil"></i> </button></a>
+                                        <button ng-click="resource.delete(d.id)" type="button" class="btn btn-danger"><i class="fa fa-trash"></i> </button>
+                                    </div>
                                 </td>
                             </tr>
                         </tbody>
@@ -94,21 +131,22 @@
 </div>
 
 
-<a class="btn btn-primary" data-toggle="modal" href='#formModal'>Trigger modal</a>
+
 <div class="modal fade" id="formModal">
-    <div class="modal-dialog">
+    <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                <h4 class="modal-title">Configurar Producto</h4>
+                <h4 class="modal-title">Configuraciones de Stock</h4>
             </div>
             <div class="modal-body">
-                
+                <product-options></product-options>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
-                <button type="button" class="btn btn-primary">Guardar</button>
+                <!-- <button type="button" class="btn btn-primary">Guardar</button> -->
             </div>
         </div>
     </div>
 </div>
+<a class="btn btn-primary" data-toggle="modal" href='#formModal'>Crear nueva Configuracion</a>

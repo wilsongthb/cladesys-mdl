@@ -9,11 +9,13 @@
     <input type="text" ng-model="resource.myFactory.id">
     <pre>{{resource}} </pre>
     <hr>
+    <!-- <pre>{{ this | json }} </pre> -->
+    <pre>{{products_id}} </pre>
 
-    <!-- <product-selector value-id="products_id"></product-selector> -->
+    <product-selector products-id="products_id" ps-on-change="change()"></product-selector>
     <!-- <product-values name-model="brands" value-id="xd"></product-values> -->
 </div>
 
 
 
-<product-options></product-options>
+<!-- <product-options></product-options> -->

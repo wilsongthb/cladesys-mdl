@@ -70,63 +70,7 @@ const ProductsConfig = {
     }
 })(G, ProductsConfig);
 
-(function(G) {
-    'use strict';
 
-    // Usage:
-    // 
-    // Creates:
-    // 
-
-    angular
-        .module('logistic')
-        .component('productsCreateModal', {
-            // template:'htmlTemplate',
-            templateUrl: G.url + '/view/product.create-modal.html',
-            controller: ProductsCreateController,
-            controllerAs: '$ctrl',
-            bindings: {
-                activate: '&'
-            },
-        });
-
-    ProductsCreateController.$inject = ['$scope', '$http'];
-    function ProductsCreateController($scope, $http) {
-        var $ctrl = this;
-
-        $scope.create = {
-            verForm: function(){
-                $('#product-create-modal').modal('show')
-            },
-            fila: {},
-            error: false,
-            post: function(){
-                this.fila.user_id = G.user.id
-                $http.post(G.apiUrl + '/products', this.fila)
-                .then(
-                    res => {
-                        // activate();
-                        $('#product-create-modal').modal('hide')
-                        $ctrl.$onChanges({})
-                    },
-                    res => { // error
-                        this.error = res
-                    }
-                )
-            }
-        }
-
-        ////////////////
-
-        $ctrl.$onInit = function() { 
-            $scope.state = true
-        };
-        $ctrl.$onChanges = function(changesObj) { 
-            $ctrl.activate()
-        };
-        $ctrl.$onDestroy = function() { };
-    }
-})(G);
 
 (function(G, Config) {
     'use strict';
@@ -186,8 +130,8 @@ const ProductsConfig = {
         .module('logistic')
         .controller('ProductsConfigController', ProductsConfigController);
 
-    ProductsConfigController.$inject = ['$http', '$scope', 'Locations'];
-    function ProductsConfigController($http, $scope, Locations) {
+    ProductsConfigController.$inject = ['$http', '$scope', 'Locations', '$window'];
+    function ProductsConfigController($http, $scope, Locations, $window) {
         var vm = this;
 
         $scope.config = Config
@@ -197,7 +141,9 @@ const ProductsConfig = {
             per_page: G.config.per_page,
             page: 1,
             search: '',
+            fila: {},
             error: false,
+            state: 'read',
             get: function(){
                 $http.get(G.apiUrl + '/' + 'product-options', {
                     params: {
@@ -212,6 +158,24 @@ const ProductsConfig = {
                     },
                     res => { // error
                         this.error = res
+                    }
+                )
+            },
+            put: function(req){
+                $http.put(G.apiUrl + '/product-options/' + req.id, req).then(
+                    res => {
+                        req.state = 'look'
+                    }
+                )
+            },
+            post: function(){
+                this.fila.locations_id = Locations.get()
+                this.fila.user_id = G.user.id
+                $http.post(G.apiUrl + '/product-options', this.fila)
+                .then(
+                    res => {
+                        this.fila = {}
+                        activate();
                     }
                 )
             },
@@ -230,6 +194,7 @@ const ProductsConfig = {
             }
         }
 
+        // $scope.activate = activate;
         activate();
 
         ////////////////
@@ -240,64 +205,4 @@ const ProductsConfig = {
     }
 })(G, ProductsConfig);
 
-(function(G) {
-    'use strict';
 
-    // Usage:
-    // 
-    // Creates:
-    // 
-
-    angular
-        .module('logistic')
-        .component('productSelector', {
-            // template:'htmlTemplate',
-            templateUrl: G.url + '/view/product.select.html',
-            controller: ProductSelectorController,
-            controllerAs: '$ctrl',
-            bindings: {
-                valueId: '=',
-                valueChange: '&',
-            },
-        });
-
-    ProductSelectorController.$inject = ['$scope', '$http'];
-    function ProductSelectorController($scope, $http) {
-        var $ctrl = this;
-
-        ////////////////
-
-        $ctrl.$onInit = function() { 
-            $scope.state = 'view'
-            $scope.ps = {
-                query: '',
-                get: function(){
-                    $http.get(G.apiUrl + '/products', 
-                        {params: {search: this.query}}
-                    ).then(
-                        res => {
-                            this.list = res.data.data
-                        }
-                    )
-                },
-                extChange: function(){
-                    if($scope.state === 'view'){
-                        this.getOne()
-                    }
-                },
-                getOne: function(){
-                    $http.get(G.apiUrl + '/products/' + $ctrl.valueId).then(
-                        res => {
-                            this.list = []
-                            this.list.push(res.data)
-                        }
-                    )
-                }
-            }
-            // $scope.ps.get()
-            $scope.ps.getOne()
-        };
-        $ctrl.$onChanges = function(changesObj) { };
-        $ctrl.$onDestroy = function() { };
-    }
-})(G);

@@ -39,6 +39,10 @@
         }
         $scope.products_id = 14
 
+        $scope.change = function(){
+            // console.log('change')
+        }
+
         activate();
 
         ////////////////

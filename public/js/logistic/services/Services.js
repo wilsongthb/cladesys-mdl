@@ -74,3 +74,44 @@
         function exposedFn() { }
         }
 })(G);
+
+(function(G) {
+    'use strict';
+
+    angular
+        .module('logistic')
+        .service('Products', Products);
+
+    Products.$inject = ['$http'];
+    function Products($http) {
+        this.exposedFn = exposedFn;
+        
+        this.list = []
+        this.get = function(query){
+            $http.get(G.apiUrl + '/products', {params: {search: query}})
+            .then(
+                (res) => {
+                    this.list = res.data.data
+                }
+            )
+        }
+        this.getOne = function(id){
+            $http.get(G.apiUrl + '/products/' + id).then(
+                res => {
+                    // this
+                    // this.get
+                    // this.fila = res.data
+                    // this.list = [res.data]
+                    this.list = [] 
+                    // this.list
+                    this.list.push(res.data)
+                }
+            )
+        }
+        // this.get('')
+
+        ////////////////
+
+        function exposedFn() { }
+        }
+})(G);

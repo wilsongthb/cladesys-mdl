@@ -19,12 +19,22 @@ class LocationsController extends Controller
         return Locations::
             select(
                 'l.*',
-                DB::raw("COUNT('po.id') AS po_quantity")
+                DB::raw("COUNT(po.id) AS po_quantity")
             )
             ->from('locations AS l')
             ->leftJoin('product_options AS po', 'po.locations_id', '=', 'l.id')
+            ->where('l.flagstate', 1)
             ->groupBy('l.id')
             ->get();
+        // return DB::select(DB::raw(
+        // "SELECT 
+        //     l.*,
+        //     COUNT(po.id) AS po_quantity
+        // FROM locations AS l
+        // LEFT JOIN product_options AS po ON po.locations_id = l.id
+        // WHERE l.flagstate = 1
+        // GROUP BY l.id
+        // "));
     }
 
     /**
@@ -45,7 +55,12 @@ class LocationsController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $fila = new Locations;
+        $fila->user_id = $request->user_id;
+        $fila->name = $request->name;
+        $fila->type = $request->type;
+        $fila->utility = $request->utility;
+        $fila->save();
     }
 
     /**
@@ -77,9 +92,16 @@ class LocationsController extends Controller
      * @param  \App\Models\Locations  $locations
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Locations $locations)
+    public function update(Request $request, Locations $locations, $id)
     {
-        //
+        // dd($locations, $id);
+        $fila = Locations::find($id);
+        // $fila = $locations;
+        $fila->user_id = $request->user_id;
+        $fila->name = $request->name;
+        $fila->type = $request->type;
+        $fila->utility = $request->utility;
+        $fila->save();
     }
 
     /**
@@ -88,8 +110,10 @@ class LocationsController extends Controller
      * @param  \App\Models\Locations  $locations
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Locations $locations)
+    public function destroy(Locations $locations, $id)
     {
-        //
+        $fila = Locations::find($id);
+        $fila->flagstate = 2;
+        $fila->save();
     }
 }

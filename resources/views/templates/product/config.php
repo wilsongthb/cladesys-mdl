@@ -85,13 +85,13 @@
                                 <td ng-switch-default ng-bind="d.permanent"></td>
                                 <td ng-switch-default ng-bind="d.duration"></td>
                                 <td ng-switch-when="edit">
-                                    <input type="text" ng-model="d.minimum">
+                                    <input type="text" ng-model="d.minimum" class="custom-input">
                                 </td>
                                 <td ng-switch-when="edit">
-                                    <input type="text" ng-model="d.permanent">
+                                    <input type="text" ng-model="d.permanent" class="custom-input">
                                 </td>
                                 <td ng-switch-when="edit">
-                                    <input type="text" ng-model="d.duration">
+                                    <input type="text" ng-model="d.duration" class="custom-input">
                                 </td>
                                 <td>
                                     <div class="btn-group">
@@ -149,4 +149,4 @@
         </div>
     </div>
 </div>
-<a class="btn btn-primary" data-toggle="modal" href='#formModal'>Crear nueva Configuracion</a>
+<a class="btn btn-primary" data-toggle="modal" href='#formModal'>Configuracion de Stock</a>

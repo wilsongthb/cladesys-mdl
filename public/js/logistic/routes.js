@@ -37,10 +37,50 @@
                         templateUrl: G.url + '/view/product.edit.html',
                         controller: 'ProductsEditController'
                     })
-
                     .when('/products-config', {
                         templateUrl: G.url + '/view/product.config.html',
                         controller: 'ProductsConfigController'
+                    })
+
+                    // SUPPLIERS
+                    .when('/suppliers', {
+                        templateUrl: `${G.url}/view/suppliers.index.html`,
+                        controller: 'SuppliersController'
+                    })
+                    .when('/suppliers/create', {
+                        templateUrl: `${G.url}/view/suppliers.create.html`,
+                        controller: 'SuppliersCreateController'
+                    })
+                    .when('/suppliers/edit/:id', {
+                        templateUrl: `${G.url}/view/suppliers.create.html`,
+                        controller: 'SuppliersEditController'
+                    })
+
+                    //KARDEX
+                    .when('/inputs', {
+                        templateUrl: `${G.url}/view/inputs.index.html`,
+                        controller: 'InputsController'
+                    })
+                    .when('/inputs/create', {
+                        templateUrl: `${G.url}/view/inputs.create.html`,
+                        controller: 'InputsCreateController'
+                    })
+                    .when('/inputs/edit/:id', {
+                        templateUrl: `${G.url}/view/inputs.edit.html`,
+                        controller: 'InputsEditController'
+                    })
+
+                    .when('/outputs', {
+                        templateUrl: `${G.url}/view/outputs.index.html`,
+                        controller: 'OutputsController'
+                    })
+                    .when('/outputs/create', {
+                        templateUrl: `${G.url}/view/outputs.create.html`,
+                        controller: 'OutputsCreateController'
+                    })
+                    .when('/outputs/edit/:id', {
+                        templateUrl: `${G.url}/view/outputs.edit.html`,
+                        controller: 'OutputsEditController'
                     })
             }
         ]);

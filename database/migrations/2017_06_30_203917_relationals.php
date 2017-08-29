@@ -71,7 +71,12 @@ class Relationals extends Migration
             $table->integer('locations_id')->unsigned();
             $table->foreign('locations_id')->references('id')->on('locations');
             // no requerido
-            $table->string('observation', 500)->nullable();
+            // $table->string('observation', 500)->nullable();
+            $table->text('observation')->nullable();
+            $table->tinyInteger('type')->nullable()->default('1');  // en caso sea 2, esta relacionado con outputs_id
+            $table->integer('outputs_id')->unsigned()->nullable(); // para evitar referencias cruzadas XD
+            // $table->foreign('outputs_id')->references('id')->on('outputs')->onDelete('cascade');
+            $table->tinyInteger('status')->default('1');
         });
 
         Schema::create('input_details', function (Blueprint $table) {
@@ -81,15 +86,15 @@ class Relationals extends Migration
             $table->integer('user_id')->unsigned();// creador - ultimo editor
             $table->foreign('user_id')->references('id')->on('users');
             
-            $table->float('unit_price', 8, 2);
+            $table->float('unit_price', 20, 2);
             $table->integer('quantity');
-            $table->date('expiration');
-            $table->string('ticket_number', '20');
-            $table->tinyInteger('ticket_type');
-            $table->integer('suppliers_id')->unsigned();
+            $table->date('expiration')->nullable();
+            $table->string('ticket_number', '128')->nullable();
+            $table->tinyInteger('ticket_type')->nullable();
+            $table->integer('suppliers_id')->unsigned()->nullable();
             $table->foreign('suppliers_id')->references('id')->on('suppliers');
             $table->integer('inputs_id')->unsigned();
-            $table->foreign('inputs_id')->references('id')->on('inputs');
+            $table->foreign('inputs_id')->references('id')->on('inputs')->onDelete('cascade');
             $table->integer('products_id')->unsigned();
             $table->foreign('products_id')->references('id')->on('products');
             //no requerido

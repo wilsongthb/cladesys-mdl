@@ -1,4 +1,5 @@
-<!-- <input type="text" ng-model="$ctrl.productsId"> -->
+<!-- <input type="text" ng-model="$ctrl.InventoryId"> -->
+<!-- <pre>{{Inventory.list}} </pre> -->
 
 <div class="input-group" ng-switch on="state">
     <span class="input-group-btn">
@@ -20,17 +21,17 @@
         class="form-control" 
         ng-switch-when="search" 
         type="text" 
-        ng-model="ps.query" 
-        ng-change="Products.get(ps.query)" 
+        ng-model="is.query" 
+        ng-change="Inventory.get(is.query)" 
         ng-model-options="{debounce: 1000}">
     <select 
         class="form-control" 
         ng-switch-default 
-        ng-model="$ctrl.productsId"
+        ng-model="$ctrl.inputDetailsId"
         ng-change="$ctrl.$onChanges()"
         ng-required="$ctrl.requerido === 'true'">
-        <option ng-repeat="l in Products.list" ng-value="l.id">
-            {{l.name}} - {{l.categorie}} - {{l.measurement}}
+        <option ng-repeat="l in Inventory.list" ng-value="l.id">
+            {{l.products_name}} - Cantidad: {{l.stock}}
         </option>
     </select>
 </div>

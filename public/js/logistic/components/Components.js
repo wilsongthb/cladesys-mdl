@@ -34,10 +34,8 @@
                 guardado: false,
                 get: function(){
                     if(parseInt(this.products_id)){
-                        $http.get(
-                            G.apiUrl + '/product-options/' + Locations.get() + '/' + this.products_id,
-                            this.fila
-                        ).then(
+                        $http.post(
+                            G.apiUrl + '/product-options/' + Locations.get() + '/' + this.products_id).then(
                             res => {
                                 this.fila = res.data
                             }
@@ -67,7 +65,7 @@
     }
 })(G);
 
-(function() {
+(function(G) {
     'use strict';
 
     // Usage:
@@ -89,30 +87,6 @@
                         {{config.location.type[l.type]}} - {{l.name}} <span class="badge">{{l.po_quantity}}</span>
                     </a>
                 </div>
-                <!--
-                <table class="table table-condensed table-hover">
-                    <thead>
-                        <tr>
-                            <th>#</th>
-                            <th>NOMBRE</th>
-                            <th>TIPO</th>
-                            <th>PO</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr 
-                            ng-repeat="l in Locations.list track by l.id"  
-                            ng-class="{ success: l.id == Locations.get() }" 
-                            ng-click="Locations.set(l.id)"
-                            ng-if="l">
-                            <td ng-bind="l.id"></td>
-                            <td ng-bind="l.name"></td>
-                            <td ng-bind="config.location.type[l.type]"></td>
-                            <td ng-bind="l.po_quantity"></td>
-                        </tr>
-                    </tbody>
-                </table>
-                -->
             `,
             //templateUrl: 'templateUrl',
             controller: LocationSelectController,
@@ -135,7 +109,7 @@
         $ctrl.$onChanges = function(changesObj) { };
         $ctrl.$onDestroy = function() { };
     }
-})();
+})(G);
 
 (function(G) {
     'use strict';
@@ -157,8 +131,8 @@
             },
         });
 
-    ProductsCreateController.$inject = ['$scope', '$http'];
-    function ProductsCreateController($scope, $http) {
+    ProductsCreateController.$inject = ['$scope', '$http', 'Locations'];
+    function ProductsCreateController($scope, $http, Locations) {
         var $ctrl = this;
 
         $scope.create = {
@@ -170,6 +144,7 @@
             error: false,
             post: function(){
                 this.fila.user_id = G.user.id
+                this.fila.po_locations_id = Locations.get()
                 $http.post(G.apiUrl + '/products', this.fila)
                 .then(
                     res => {
@@ -215,11 +190,12 @@
             bindings: {
                 productsId: '=',
                 psOnChange: '&',
+                requerido: '='
             },
         });
 
-    ProductSelectorController.$inject = ['$scope', 'Products'];
-    function ProductSelectorController($scope, Products) {
+    ProductSelectorController.$inject = ['$scope', 'Products', '$window'];
+    function ProductSelectorController($scope, Products, $window) {
         var $ctrl = this;
 
         ////////////////
@@ -234,12 +210,15 @@
             $scope.Products.getOne($ctrl.productsId)
         };
         $ctrl.$onChanges = function(changesObj) { 
+            $window.setTimeout(function() {
+                $ctrl.psOnChange()
+            }, 300);
         };
         $ctrl.$onDestroy = function() { };
     }
 })(G);
 
-(function() {
+(function(G) {
     'use strict';
 
     // Usage:
@@ -249,26 +228,115 @@
 
     angular
         .module('logistic')
-        .component('createProductOptions', {
-            template:'htmlTemplate',
-            //templateUrl: 'templateUrl',
-            controller: CreateProductOptionsController,
+        .component('inventorySelector', {
+            // template:'htmlTemplate',
+            templateUrl: G.url + '/view/inventory.select.html',
+            controller: ProductSelectorController,
             controllerAs: '$ctrl',
             bindings: {
-                Binding: '=',
+                inputDetailsId: '=',
+                isOnChange: '&',
+                requerido: '='
             },
         });
 
-    CreateProductOptionsController.$inject = ['$scope'];
-    function CreateProductOptionsController($scope) {
+    ProductSelectorController.$inject = ['$scope', 'Inventory', '$window'];
+    function ProductSelectorController($scope, Inventory, $window) {
         var $ctrl = this;
-        
 
+        ////////////////
+        $scope.state = 'view'
+        $scope.Inventory = Inventory
+        $scope.Inventory.get('')
+        $scope.is = {
+            query: ''
+        }
+
+        $ctrl.$onInit = function() { 
+            // console.log($ctrl.productsId)   
+            // $scope.Products.getOne($ctrl.productsId)
+        };
+        $ctrl.$onChanges = function(changesObj) { 
+            $window.setTimeout(function() {
+                $ctrl.isOnChange()
+            }, 300);
+        };
+        $ctrl.$onDestroy = function() { };
+    }
+})(G);
+
+(function(G) {
+    'use strict';
+
+    // Usage:
+    // 
+    // Creates:
+    // 
+
+    angular
+        .module('logistic')
+        .component('locationsCrud', {
+            // template: ``,
+            templateUrl: G.url + '/view/locations.html',
+            controller: LocationSelectController,
+            controllerAs: '$ctrl',
+            bindings: {
+                // Binding: '=',
+            },
+        });
+
+    LocationSelectController.$inject = ['$scope', 'Locations', '$http', '$window'];
+    function LocationSelectController($scope, Locations, $http, $window) {
+        var $ctrl = this;
+
+        $scope.resource = {
+            fila: {},
+            showFormCreate: function(){
+                $('#formModalLocations').modal('show')
+                this.fila = {}
+            },
+            showFormModal: function(l){
+                $('#formModalLocations').modal('show')
+                this.fila = l
+            },
+            delete: function(l){
+                if($window.confirm('Desactivar la localizacion con id: ' + l.id)){
+                    $http.delete(G.apiUrl + '/locations/' + l.id).then(
+                        res => {
+                            Locations.init()
+                        }
+                    )
+                }
+            },
+            save: function(){
+                this.fila.user_id = G.user.id
+                if(this.fila.id){
+                    $http.put(G.apiUrl + '/locations/' + this.fila.id, this.fila).then(
+                        res => {
+                            $('#formModalLocations').modal('hide')
+                            Locations.init()
+                            this.fila = {}
+                        }
+                    )
+                }else{
+                    $http.post(G.apiUrl + '/locations', this.fila).then(
+                        res => {
+                            $('#formModalLocations').modal('hide')
+                            Locations.init()
+                            this.fila = {}
+                        }
+                    )
+                }
+            }
+        }
 
         ////////////////
 
-        $ctrl.$onInit = function() { };
+        $ctrl.$onInit = function() { 
+            $scope.Locations = Locations
+            $scope.config = G.config
+        };
         $ctrl.$onChanges = function(changesObj) { };
         $ctrl.$onDestroy = function() { };
     }
-})();
+})(G);

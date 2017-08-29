@@ -3,7 +3,6 @@ const ProductsConfig = {
     createUrl: G.appUrl + '/products/create',
     editUrl: G.appUrl + '/products/edit',
 };
-
 (function(G, Config) {
     'use strict';
 

@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Logistic;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\Products;
+use App\Models\ProductOptions;
 
 class ProductsController extends Controller
 {
@@ -74,8 +75,21 @@ class ProductsController extends Controller
         $fila->level = $request->get('level') ? $request->get('level') : "";
         $fila->units = $request->get('units') ? $request->get('units') : "";
 
-        // save
         $fila->save();
+
+        if($request->get('po_minimum') || $request->get('po_permanent') || $request->get('po_duration')){
+            $po = new ProductOptions;
+            $po->minimum = $request->po_minimum;
+            $po->permanent = $request->po_permanent;
+            $po->duration = $request->po_duration;
+            $po->locations_id = $request->po_locations_id;
+            $po->products_id = $fila->id;
+            $po->user_id = $request->user_id;
+            $po->save();
+        }
+
+        // save
+        
         return "ok";
     }
 

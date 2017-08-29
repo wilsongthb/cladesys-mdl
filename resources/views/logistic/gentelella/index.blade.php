@@ -33,6 +33,9 @@
         .btn {
             margin-bottom: 0px;
         }
+        .custom-input {
+            width: 50px;
+        }
     </style>
     <link href="{{ asset('/bower_components/angular-bootstrap/ui-bootstrap-csp.css') }} " rel="stylesheet">
     <link href="{{ asset('/bower_components/angular-ui-select/dist/select.css') }} " rel="stylesheet">
@@ -112,6 +115,7 @@
     <script src="{{ asset('/bower_components/angular-bootstrap/ui-bootstrap.js') }} "></script>
     <script src="{{ asset('/bower_components/angular-bootstrap/ui-bootstrap-tpls.js') }} "></script>
     <script src="{{ asset('/bower_components/angular-ui-select/dist/select.js') }} "></script>
+    <script src="{{ asset('/bower_components/money-formatter/dist/money-formatter.min.js') }} "></script>
     <!-- mis scripts -->
     <script src="{{ asset('/js/logistic/app.js') }} "></script>
     <script>

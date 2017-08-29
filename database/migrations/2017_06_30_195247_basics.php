@@ -48,7 +48,7 @@ class Basics extends Migration
 
             $table->tinyInteger('type');// 1: almacen, 2: sucursal, 3: otros
             $table->string('name'); // nombre del almacen o localizacion
-            $table->float('utility', 3, 2);// rango de -999% o  0% a 100% o 999%
+            $table->float('utility', 5, 2);// rango de -999% o  0% a 100% o 999%
             // responsable principal - creador
             $table->integer('user_id')->unsigned();
             $table->foreign('user_id')->references('id')->on('users');

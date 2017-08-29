@@ -8,14 +8,11 @@
     <input type="text" ng-model="resource.myService.id">
     <input type="text" ng-model="resource.myFactory.id">
     <pre>{{resource}} </pre>
-    <hr>
-    <!-- <pre>{{ this | json }} </pre> -->
     <pre>{{products_id}} </pre>
-
     <product-selector products-id="products_id" ps-on-change="change()"></product-selector>
-    <!-- <product-values name-model="brands" value-id="xd"></product-values> -->
+    <product-values name-model="brands" value-id="xd"></product-values>
+    <inventory-selector input-details-id="input_details_id"></inventory-selector>
 </div>
-
-
-
+<!-- <locations-crud></locations-crud> -->
 <!-- <product-options></product-options> -->
+

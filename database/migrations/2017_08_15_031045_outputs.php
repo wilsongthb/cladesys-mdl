@@ -16,12 +16,15 @@ class Outputs extends Migration
 
         Schema::create('outputs', function (Blueprint $table) {
             $table->increments('id');
+            $table->boolean('flagstate')->default('1');
+            $table->integer('user_id')->unsigned();
+            $table->foreign('user_id')->references('id')->on('users');
             
             // columnas
-            $table->tinyInteger('status');
+            $table->tinyInteger('status')->default('1');
             $table->tinyInteger('type');// en consts (SALIDA, VENTA, CONVERSION)
-            $table->integer('ticket_number')->unsigned();// Se reinicia cada año // id anual
-            $table->boolean('flagstate')->default('1');
+            $table->integer('ticket_number')->unsigned()->nullable();// Se reinicia cada año // id anual
+            
             
             // para type 2
             $table->string('names', 255)->nullable();
@@ -30,16 +33,14 @@ class Outputs extends Migration
             $table->string('address', 255)->nullable();
 
             // referencia a tickets
-            $table->integer('tickets_id')->unsigned();
+            $table->integer('ticket_type')->unsigned()->nullable();
             // $table->foreign('tickets_id')->references('id')->on('tickets');
 
             // referencia a locations // destino
-            $table->integer('locations_id')->unsigned();
+            $table->integer('locations_id')->unsigned()->nullable();
             $table->foreign('locations_id')->references('id')->on('locations');
 
             // referencia al usuario
-            $table->integer('user_id')->unsigned();
-            $table->foreign('user_id')->references('id')->on('users');
 
             // timestamps create_at y update_at
             $table->timestamps();
@@ -47,27 +48,28 @@ class Outputs extends Migration
 
         Schema::create('output_details', function (Blueprint $table) {
             $table->increments('id');
+            $table->boolean('flagstate')->default('1');
+            $table->integer('user_id')->unsigned();
+            $table->foreign('user_id')->references('id')->on('users');
+            $table->timestamps();
             
             // columnas
             $table->float('utility', 4, 2); // configuracion de utilidad
-            $table->float('unit_price', 11, 2);
+            $table->float('unit_price', 20, 2);
             $table->integer('quantity');
-            $table->boolean('flagstate')->default('1');
+
 
             // referencia a input_details
             $table->integer('input_details_id')->unsigned();
-            $table->foreign('input_details_id')->references('id')->on('input_details')->onDelete('cascade');// para evitar errores en outputs
+            $table->foreign('input_details_id')->references('id')
+                ->on('input_details')
+                ->onDelete('cascade');
+                // para evitar errores en outputs
 
             // referencia a outputs
             $table->integer('outputs_id')->unsigned();
             $table->foreign('outputs_id')->references('id')->on('outputs');
 
-            // referencia al usuario
-            $table->integer('user_id')->unsigned();
-            $table->foreign('user_id')->references('id')->on('users');
-
-            // timestamps create_at y update_at
-            $table->timestamps();
         });
 
     }

@@ -5,8 +5,7 @@
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                <h4 class="modal-title">FORMULARIO DE PRODUCTO</h4>
-                <input type="checkbox" ng-model="state">
+                <h4 class="modal-title">FORMULARIO DE PRODUCTO <input type="checkbox" ng-model="state"></h4>
             </div>
             <form ng-submit="create.post()">
                 <div class="modal-body" ng-if="state">
@@ -53,6 +52,22 @@
                         <div class="col-xs-6 col-sm-4 col-md-4 col-lg-4">
                             <label>Medida de Distribucion</label>
                             <product-values name-model="measurements" value-id="create.fila.measurements_id"></product-values>
+                        </div>
+                    </div>
+                    
+                    <div class="row">
+                        <legend>Configuración de Stock</legend>
+                        <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
+                            <label for="">Minimo</label>
+                            <input type="text" class="form-control" ng-model="create.fila.po_minimum" placeholder="0">
+                        </div>
+                        <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
+                            <label for="">Permanente</label>
+                            <input type="text" class="form-control" ng-model="create.fila.po_permanent" placeholder="0">
+                        </div>
+                        <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
+                            <label for="">Duracion en dias</label>
+                            <input type="text" class="form-control" ng-model="create.fila.po_duration" placeholder="0">
                         </div>
                     </div>
                     

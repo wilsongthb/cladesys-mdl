@@ -4,7 +4,6 @@
         <strong>ERROR:</strong> Error en el servidor, error de conexión
     </div>
 </div>
-
 <div class="row">
     <div class="x_panel">
         <div class="x_content">

@@ -41,7 +41,7 @@
                         </ul>
                     </li>
                     @endforeach
-                    <li><a><i class="fa fa-home"></i> Home <span class="fa fa-chevron-down"></span></a>
+                    {{--  <li><a><i class="fa fa-home"></i> Home <span class="fa fa-chevron-down"></span></a>
                         <ul class="nav child_menu">
                             <li><a href="index.html">Dashboard</a></li>
                             <li><a href="index2.html">Dashboard2</a></li>
@@ -91,10 +91,10 @@
                             <li><a href="fixed_sidebar.html">Fixed Sidebar</a></li>
                             <li><a href="fixed_footer.html">Fixed Footer</a></li>
                         </ul>
-                    </li>
+                    </li>  --}}
                 </ul>
             </div>
-            <div class="menu_section">
+            {{--  <div class="menu_section">
                 <h3>Live On</h3>
                 <ul class="nav side-menu">
                     <li><a><i class="fa fa-bug"></i> Additional Pages <span class="fa fa-chevron-down"></span></a>
@@ -135,7 +135,7 @@
                         </li>
                         <li><a href="javascript:void(0)"><i class="fa fa-laptop"></i> Landing Page <span class="label label-success pull-right">Coming Soon</span></a></li>
                 </ul>
-            </div>
+            </div>  --}}
 
         </div>
         <!-- /sidebar menu -->

@@ -3,7 +3,7 @@
 return [
     'per_page' => 25,
     'menu' => [
-        'Herramientas' => [
+        'Configuración' => [
             'icon' => '<i class="fa fa-cog"></i>',
             'list' => [
                 'Productos' => 'logistic/products',
@@ -11,30 +11,36 @@ return [
                 'Proveedores' => 'logistic/suppliers',
                 'Components' => 'logistic/components'
             ]
-            ],
-            'Kardex' => [
-                'icon' => '<i class="fa fa-tasks"></i>',
-                'list' => [
-                    'Entradas' => 'logistic/inputs',
-                    'Salidas' => 'logistic/outputs',
-                ]
+        ],
+        'Registros' => [
+            'icon' => '<i class="fa fa-tasks"></i>',
+            'list' => [
+                'Compras' => 'logistic/inputs',
+                'Ventas' => 'logistic/outputs',
             ]
+        ],
+        'Reportes' => [
+            'icon' => '<i class="fa fa-info"></i>',
+            'list' => [
+                'Stock Actual' => 'logistic/stock-location'
+            ]
+        ]
     ],
     'location' => [
         'default_id' => 1,
         'type' => [
             1 => 'ALMACEN',
             /**
-                Puede registra entradas y salidas
-                Puede generar comprobantes
-                Puede hacer costeos,
-                Puede hacer requerimientos
-                Puede ver requerimientos de las sucursales u otros almacenes
+             *   Puede registra entradas y salidas
+             *   Puede generar comprobantes
+             *   Puede hacer costeos,
+             *   Puede hacer requerimientos
+             *   Puede ver requerimientos de las sucursales u otros almacenes
             */
             2 => 'SUCURSAL'
             /**
-                Puede registrar salidas
-                Puede hacer requerimientos
+             *   Puede registrar salidas
+             *   Puede hacer requerimientos
             */
         ],
     ],
@@ -73,7 +79,7 @@ return [
             2 => 'ENVIADO/BLOQUEADO'
         ],
         'type' => [
-            1 => 'SALIDA', //uso final
+            1 => 'USO FINAL', //uso final
             2 => 'DISTRIBUCION', // enviado a otra localizacion
             3 => 'VENTA', // venta a una entidad
         ]

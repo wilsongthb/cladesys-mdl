@@ -766,3 +766,39 @@ const OutputsConfig = {
         }
     }
 })(G, OutputsConfig, window.moneyFormatter);
+
+
+// STOCK
+(function() {
+    'use strict';
+
+    angular
+        .module('logistic')
+        .controller('StockLocationController', StockLocationController);
+
+    StockLocationController.$inject = ['$http', '$scope', 'Locations'];
+    function StockLocationController($http, $scope, Locations) {
+        var vm = this;
+
+        $scope.Locations = Locations
+        
+        $scope.rsc = {
+            list: [],
+            get: function(){
+                $http.get(G.apiUrl + '/stock/' + Locations.get()).then(
+                    res => {
+                        this.list = res.data
+                    }
+                )
+            }
+        }
+
+        activate();
+
+        ////////////////
+
+        function activate() { 
+            $scope.rsc.get()
+        }
+    }
+})();

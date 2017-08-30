@@ -82,6 +82,12 @@
                         templateUrl: `${G.url}/view/outputs.edit.html`,
                         controller: 'OutputsEditController'
                     })
+
+                    // REPORTES
+                    .when('/stock-location', {
+                        templateUrl: `${G.url}/view/stock-location.html`,
+                        controller: 'StockLocationController'
+                    })
             }
         ]);
 })(G);

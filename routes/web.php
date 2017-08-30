@@ -38,8 +38,7 @@ Route::group(['middleware' => 'auth'], function(){
             Route::resource('outputs', 'Logistic\OutputsController');
             Route::resource('output-details', 'Logistic\OutputDetailsController');
             Route::get('inventory/{locations_id?}', 'Logistic\InventoryController@index');
-            Route::get('stock', 'Logistic\InventoryController@stock');
-            
+            Route::get('stock/{locations_id?}', 'Logistic\InventoryController@stock');
         });
         Route::get('/{a?}/{b?}/{c?}/{d?}', 'Logistic\MainController@index')->name('spa-logistic');
     });

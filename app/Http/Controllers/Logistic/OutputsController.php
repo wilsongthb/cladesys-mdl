@@ -17,7 +17,7 @@ class OutputsController extends Controller
         $output_details = OutputDetails::select('*')->where('outputs_id', $id)->get();
 
         $input = new Inputs;
-        $input->locations_id = $output->locations_id;
+        $input->locations_id = $output->target_locations_id;
         $input->user_id = Auth::user()->id;
         $input->observation = "ENTRADA DE DISTRIBUCION";
         $input->type = 2;

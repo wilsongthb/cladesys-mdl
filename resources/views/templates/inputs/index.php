@@ -48,8 +48,8 @@
                             <tr ng-repeat="d in resource.data.data">
                                 <td ng-bind="d.id"></td>
                                 <td ng-bind="d.locations_name"></td>
-                                <td ng-bind="g_config.inputs.status[d.status]"></td>
                                 <td ng-bind="g_config.inputs.type[d.type]"></td>
+                                <td ng-bind="g_config.inputs.status[d.status]"></td>
                                 <td></td>
                                 <td></td>
                                 <td ng-bind="d.measurement"></td>

@@ -41,9 +41,11 @@
         .module('logistic')
         .controller('RootController', RootController);
 
-    RootController.$inject = ['$scope'];
-    function RootController($scope) {
+    RootController.$inject = ['$scope', 'Locations'];
+    function RootController($scope, Locations) {
         var vm = this;
+
+        $scope.Locations = Locations
 
         activate();
 

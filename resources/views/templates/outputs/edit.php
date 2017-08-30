@@ -4,7 +4,7 @@
         <form ng-submit="detalle.save()">
             <div class="row">
                 <div class="col-xs-12 col-sm-4 col-md-3 col-lg-3">
-                    <div class="form-group">
+                    <div class="form-group" title="[cantidad] Nombre">
                         <label for="">Producto *</label>
                         <select ng-model="detalle.fila.input_details_id" class="form-control">
                             <option ng-repeat="i in Inventory.list" ng-value="i.id">

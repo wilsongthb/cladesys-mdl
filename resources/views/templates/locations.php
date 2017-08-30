@@ -1,4 +1,3 @@
-
 <div class="row">
     <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
         <h4 class="text-center">LOCALIZACIONES</h4>
@@ -9,14 +8,13 @@
                     <th>#</th>
                     <th>NOMBRE</th>
                     <th>TIPO</th>
-                    <th>PRODUCTOS CONFIGURADOS</th>
+                    <th title="PRODUCTOS CONFIGURADOS">PO</th>
                     <th>Utilidad</th>
                     <th></th>
                 </tr>
             </thead>
             <tbody>
-                <tr ng-repeat="l in Locations.list track by l.id" ng-class="{ success: l.id == Locations.get() }" 
-                    ng-click="Locations.set(l.id)"
+                <tr ng-repeat="l in Locations.list track by l.id" ng-class="{ success: l.id == Locations.get() }" ng-click="Locations.set(l.id)"
                     ng-if="l">
                     <td ng-bind="l.id"></td>
                     <td ng-bind="l.name"></td>
@@ -32,10 +30,6 @@
                 </tr>
             </tbody>
         </table>
-        
-        
-        
-        
         <div class="modal fade" id="formModalLocations">
             <div class="modal-dialog">
                 <div class="modal-content">
@@ -45,7 +39,7 @@
                     </div>
                     <form ng-submit="resource.save()">
                         <div class="modal-body">
-                            
+
                             <div class="form-group">
                                 <label>Nombre</label>
                                 <input type="text" ng-model="resource.fila.name" required class="form-control" maxlength="191">
@@ -65,14 +59,11 @@
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
-                            <!-- <button type="submit" class="btn btn-primary">Guardar</button> -->
-                            <input type="submit" class="btn btn-primary" value="Guardar">
+                            <button type="submit" class="btn btn-primary">Guardar</button>
                         </div>
                     </form>
                 </div>
             </div>
         </div>
-        
-        
     </div>
 </div>

@@ -126,8 +126,6 @@
         </form>
     </div>
 </div>
-
-
 <div class="row">
     <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
         
@@ -139,9 +137,9 @@
                     <th>CATEGORIA</th>
                     <th>CANTIDAD</th>
                     <th>PRECIO</th>
-                    <th>PROVEEDOR</th>
-                    <th>TIPO TICKET</th>
-                    <th>NUMERO TICKET</th>
+                    <th ng-show="resource.fila.type !== 2">PROVEEDOR</th>
+                    <th ng-show="resource.fila.type !== 2">TIPO TICKET</th>
+                    <th ng-show="resource.fila.type !== 2">NUMERO TICKET</th>
                     <th>SUBTOTTAL</th>
                 </tr>
             </thead>
@@ -152,9 +150,9 @@
                     <td ng-bind="id.products_categorie"></td>
                     <td ng-bind="id.quantity"></td>
                     <td class="text-right" ng-bind="detalle.enSoles(id.unit_price)"></td>
-                    <td ng-bind="id.suppliers_company_name"></td>
-                    <td ng-bind="config.ticket.type[id.ticket_type]"></td>
-                    <td ng-bind="id.ticket_number"></td>
+                    <td ng-show="resource.fila.type !== 2" ng-bind="id.suppliers_company_name"></td>
+                    <td ng-show="resource.fila.type !== 2" ng-bind="config.ticket.type[id.ticket_type]"></td>
+                    <td ng-show="resource.fila.type !== 2" ng-bind="id.ticket_number"></td>
                     <td class="text-right" ng-bind="detalle.enSoles(id.subtotal)"></td>
                     <td ng-if="resource.fila.status === 1">
                         <i title="Copiar" ng-click="detalle.copyToForm(id)" class="fa fa-copy"></i>
@@ -163,7 +161,8 @@
                     </td>
                 </tr>
                 <tr>
-                    <td colspan="7"></td>
+                    <td ng-show="resource.fila.type !== 2" colspan="3"></td>
+                    <td colspan="4"></td>
                     <th>TOTAL</th>
                     <td class="text-right" ng-bind="detalle.enSoles(detalle.total())"></td>
                 </tr>

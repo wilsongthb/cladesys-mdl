@@ -59,9 +59,11 @@
             <!-- footer content -->
             <footer>
                 <div class="pull-right">
-                    Gentelella - Bootstrap Admin Template by <a href="https://colorlib.com">Colorlib</a>
+                    <p>Gentelella - Bootstrap Admin Template by <a href="https://colorlib.com">Colorlib</a></p>
                 </div>
-                <div class="clearfix">CLEARFIX</div>
+                <div class="clearfix">
+                    <p>LOCALIZACION: @{{Locations.list[Locations.get()].name}} </p>
+                </div>
             </footer>
             <!-- /footer content -->
         </div>
@@ -116,6 +118,7 @@
     <script src="{{ asset('/bower_components/angular-bootstrap/ui-bootstrap-tpls.js') }} "></script>
     <script src="{{ asset('/bower_components/angular-ui-select/dist/select.js') }} "></script>
     <script src="{{ asset('/bower_components/money-formatter/dist/money-formatter.min.js') }} "></script>
+    <script src="{{ asset('/bower_components/number-format.js/lib/format.min.js') }} "></script>
     <!-- mis scripts -->
     <script src="{{ asset('/js/logistic/app.js') }} "></script>
     <script>

@@ -54,10 +54,8 @@
                                 <td></td>
                                 <td ng-bind="d.measurement"></td>
                                 <td>
-                                    <div ng-show="d.status === 1">
-                                        <a href="{{config.editUrl}}/{{d.id}}"><button type="button" class="btn btn-default"><i class="fa fa-pencil"></i> </button></a>
-                                        <button ng-click="resource.delete(d.id)" type="button" class="btn btn-danger"><i class="fa fa-trash"></i> </button>
-                                    </div>
+                                    <a href="{{config.editUrl}}/{{d.id}}"><button type="button" class="btn btn-default"><i class="fa fa-pencil"></i> </button></a>
+                                    <button ng-show="d.status === 1" ng-click="resource.delete(d.id)" type="button" class="btn btn-danger"><i class="fa fa-trash"></i> </button>
                                 </td>
                             </tr>
                         </tbody>

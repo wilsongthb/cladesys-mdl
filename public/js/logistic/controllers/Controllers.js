@@ -272,8 +272,8 @@ const InputsConfig = {
         .module('logistic')
         .controller('InputsController', InputsController);
 
-    InputsController.$inject = ['$scope', '$http', '$window'];
-    function InputsController($scope, $http, $window) {
+    InputsController.$inject = ['$scope', '$http', '$window', 'Locations'];
+    function InputsController($scope, $http, $window, Locations) {
         var vm = this;
         
         $scope.config = Config
@@ -287,7 +287,12 @@ const InputsConfig = {
             error: false,
             get: function(){
                 $http.get(G.apiUrl + '/' + Config.name, {
-                    params: {search: this.search, page: this.page, per_page: this.per_page}
+                    params: {
+                        search: this.search, 
+                        page: this.page, 
+                        per_page: this.per_page, 
+                        locations_id: Locations.get()
+                    }
                 }).then(
                     res => { // success
                         this.data = res.data
@@ -512,8 +517,8 @@ const OutputsConfig = {
         .module('logistic')
         .controller('OutputsController', OutputsController);
 
-    OutputsController.$inject = ['$scope', '$http', '$window'];
-    function OutputsController($scope, $http, $window) {
+    OutputsController.$inject = ['$scope', '$http', '$window', 'Locations'];
+    function OutputsController($scope, $http, $window, Locations) {
         var vm = this;
         
         $scope.config = Config
@@ -527,7 +532,12 @@ const OutputsConfig = {
             error: false,
             get: function(){
                 $http.get(G.apiUrl + '/' + Config.name, {
-                    params: {search: this.search, page: this.page, per_page: this.per_page}
+                    params: {
+                        search: this.search, 
+                        page: this.page, 
+                        per_page: this.per_page,
+                        locations_id: Locations.get()
+                    }
                 }).then(
                     res => { // success
                         this.data = res.data
@@ -561,7 +571,7 @@ const OutputsConfig = {
         }
     }
 })(G, OutputsConfig);
-(function(G, Config) {
+(function(G, Config, numberFormat) {
     'use strict';
 
     angular
@@ -574,6 +584,8 @@ const OutputsConfig = {
         
         $scope.Locations = Locations
 
+        $scope.numberFormat = numberFormat
+
         $scope.resource = {
             fila: {
                 // locations_id: Locations.get()
@@ -581,7 +593,6 @@ const OutputsConfig = {
             error: false,
             save: function(){
                 this.fila.user_id = G.user.id
-                // this.fila.type = 1 // ENTRADA
                 $http.post(G.apiUrl + '/' + Config.name, this.fila)
                 .then(
                     res => {
@@ -600,9 +611,11 @@ const OutputsConfig = {
 
         ////////////////
 
-        function activate() { }
+        function activate() { 
+            $scope.resource.fila.locations_id = Locations.get()
+        }
     }
-})(G, OutputsConfig);
+})(G, OutputsConfig, window.format);
 (function(G, Config, moneyFormatter) {
     'use strict';
 
@@ -653,7 +666,7 @@ const OutputsConfig = {
                 }
             },
             send: function(){
-                if($window.confirm('Estas Seguro(a) de bloquear el registro')){
+                if($window.confirm('Estas Seguro(a) de Enviar el registro\nEste sera bloqueado de edicion')){
                     this.fila.status = 2
                     this.fila.user_id = G.user.id
                     $http.post(G.apiUrl + '/' + Config.name + '/send/' + $routeParams.id, this.fila)

@@ -24,21 +24,19 @@ class Outputs extends Migration
             $table->tinyInteger('status')->default('1');
             $table->tinyInteger('type');// en consts (SALIDA, VENTA, CONVERSION)
             $table->integer('ticket_number')->unsigned()->nullable();// Se reinicia cada año // id anual
-            
-            
-            // para type 2
+            $table->integer('ticket_type')->unsigned()->nullable();
+            // para type 3
             $table->string('names', 255)->nullable();
             $table->integer('doc_type')->unsigned()->nullable();// DNI, RUC, en consts mas detalles
             $table->string('doc_number', 20)->nullable();// numero de DNI o RUC
             $table->string('address', 255)->nullable();
-
-            // referencia a tickets
-            $table->integer('ticket_type')->unsigned()->nullable();
-            // $table->foreign('tickets_id')->references('id')->on('tickets');
+            $table->text('observation')->nullable();
 
             // referencia a locations // destino
-            $table->integer('locations_id')->unsigned()->nullable();
+            $table->integer('locations_id')->unsigned(); // ORIGEN
             $table->foreign('locations_id')->references('id')->on('locations');
+            $table->integer('target_locations_id')->unsigned()->nullable(); // DESTINO // type 2
+            $table->foreign('target_locations_id')->references('id')->on('locations');
 
             // referencia al usuario
 
@@ -68,7 +66,9 @@ class Outputs extends Migration
 
             // referencia a outputs
             $table->integer('outputs_id')->unsigned();
-            $table->foreign('outputs_id')->references('id')->on('outputs');
+            $table->foreign('outputs_id')->references('id')
+                ->on('outputs')
+                ->onDelete('cascade');
 
         });
 

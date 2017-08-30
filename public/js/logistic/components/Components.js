@@ -84,7 +84,7 @@
                         ng-if="l" 
                         ng-class="{ active: l.id == Locations.get() }" 
                         ng-click="Locations.set(l.id)">
-                        {{config.location.type[l.type]}} - {{l.name}} <span class="badge">{{l.po_quantity}}</span>
+                        {{l.name}} <span class="badge">{{config.location.type[l.type]}}</span>
                     </a>
                 </div>
             `,

@@ -16,13 +16,15 @@ class InputsController extends Controller
     public function index(Request $request)
     {
         $per_page = ($request->per_page) ? $request->per_page : config('logistic.per_page');
+        $locations_id = $request->locations_id;
         return Inputs::
             select(
                 'i.*',
                 'l.name AS locations_name'
             )->from('inputs AS i')
             ->leftJoin('locations AS l', 'l.id', '=', 'i.locations_id')
-            // ->where('i.flagstate', 1)
+            ->where('i.locations_id', $locations_id)
+            ->orderBy('i.id', 'DESC')
             ->paginate($per_page);
     }
 

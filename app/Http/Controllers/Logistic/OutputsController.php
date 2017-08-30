@@ -5,12 +5,52 @@ namespace App\Http\Controllers\Logistic;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\Outputs;
+use App\Models\OutputDetails;
+use App\Models\InputDetails;
+use App\Models\Inputs;
+use Auth;
 
 class OutputsController extends Controller
 {
     public function send($id){
-        $fila = Outputs::find($id);
-        dd($fila);
+        $output = Outputs::find($id);
+        $output_details = OutputDetails::select('*')->where('outputs_id', $id)->get();
+
+        $input = new Inputs;
+        $input->locations_id = $output->locations_id;
+        $input->user_id = Auth::user()->id;
+        $input->observation = "ENTRADA DE DISTRIBUCION";
+        $input->type = 2;
+        $input->status = 2; // BLOQUEADO
+        $input->outputs_id = $output->id;
+        $input->save();
+
+        foreach ($output_details as $key => $output_detail) {
+            // dd($value);
+            $origin_input_detail = InputDetails::find($output_detail->input_details_id);
+            $input_detail = new InputDetails;
+            $input_detail->user_id = Auth::user()->id;
+            $input_detail->unit_price = $output_detail->unit_price;
+            $input_detail->quantity = $output_detail->quantity;
+            $input_detail->inputs_id = $input->id;
+
+            $input_detail->expiration = $origin_input_detail->expiration;
+            $input_detail->ticket_number = $origin_input_detail->ticket_number;
+            $input_detail->ticket_type = $origin_input_detail->ticket_type;
+            $input_detail->suppliers_id = $origin_input_detail->suppliers_id;
+            $input_detail->products_id = $origin_input_detail->products_id;
+            $input_detail->fabrication = $origin_input_detail->fabrication;
+            $input_detail->lot = $origin_input_detail->lot;
+            $input_detail->save();
+
+            // var_dump($input_detail);
+        }
+
+        $output->status = 2;
+        $output->save();
+        return "ok";
+
+        // dd($output_details);
     }
     /**
      * Display a listing of the resource.
@@ -26,6 +66,8 @@ class OutputsController extends Controller
                 'l.name AS locations_name'
             )->from('outputs AS o')
             ->leftJoin('locations AS l', 'l.id', 'o.locations_id')
+            ->where('o.locations_id', $request->locations_id)
+            ->orderBy('o.id', 'DESC')
             ->paginate($per_page);
     }
 
@@ -56,6 +98,7 @@ class OutputsController extends Controller
         $fila->address = $request->address;
         $fila->ticket_type = $request->ticket_type;
         $fila->locations_id = $request->locations_id;
+        $fila->target_locations_id = $request->target_locations_id;
         $fila->user_id = $request->user_id;
         $fila->save();
         return $fila;
@@ -110,6 +153,7 @@ class OutputsController extends Controller
         $fila->address = $request->address;
         $fila->ticket_type = $request->ticket_type;
         $fila->locations_id = $request->locations_id;
+        $fila->target_locations_id = $request->target_locations_id;
         $fila->user_id = $request->user_id;
         $fila->save();
     }

@@ -160,7 +160,7 @@
 
         // this.list = []
         this.get= function(query){
-            $http.get(G.apiUrl + '/inventory', {params: {search: query, locations_id: Locations.get()}})
+            $http.get(G.apiUrl + '/inventory/' + Locations.get())
             .then(
                 res => {
                     this.list = {}

@@ -44,11 +44,14 @@
         .module('logistic')
         .service('Locations', Locations);
 
-    Locations.$inject = ['$http'];
-    function Locations($http) {
+    Locations.$inject = ['$http', '$route'];
+    function Locations($http, $route) {
         this.exposedFn = exposedFn;
         this.get = function(){ return parseInt(localStorage.logistic_locations_id) }
-        this.set = function(id){ localStorage.logistic_locations_id = id }
+        this.set = function(id){ 
+            localStorage.logistic_locations_id = id // guarda cambios
+            $route.reload() // recarga la pagina
+        }
         this.init = function(){
             // id init
             if(!localStorage.logistic_locations_id){

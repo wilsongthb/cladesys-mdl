@@ -5,17 +5,19 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
-        <title>Laravel</title>
+        <title>{{config('app.name')}} </title>
 
         <!-- Fonts -->
         <link href="https://fonts.googleapis.com/css?family=Raleway:100,600" rel="stylesheet" type="text/css">
-
+        <link rel="stylesheet" href="{{ asset('/bower_components/material-design-lite/material.min.css') }} ">
+        <link rel="stylesheet" href="{{ asset('/bower_components/material-design-icons/iconfont/material-icons.css') }} ">
+        <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Roboto:300,400,500,700" type="text/css">
         <!-- Styles -->
         <style>
             html, body {
                 background-color: #fff;
                 color: #636b6f;
-                font-family: 'Raleway', sans-serif;
+                font-family: 'Roboto', sans-serif;
                 font-weight: 100;
                 height: 100vh;
                 margin: 0;
@@ -49,6 +51,10 @@
                 font-size: 84px;
             }
 
+            .links {
+                min-height: 100px;
+            }
+
             .links > a {
                 color: #636b6f;
                 padding: 0 25px;
@@ -66,7 +72,7 @@
     </head>
     <body>
         <div class="flex-center position-ref full-height">
-            @if (Route::has('login'))
+            {{--  @if (Route::has('login'))
                 <div class="top-right links">
                     @if (Auth::check())
                         <a href="{{ url('/home') }}">Home</a>
@@ -75,22 +81,60 @@
                         <a href="{{ url('/register') }}">Register</a>
                     @endif
                 </div>
-            @endif
+            @endif  --}}
 
             <div class="content">
                 <div class="title m-b-md">
-                    Laravel
+                    <h1>{{config('app.name')}} </h1>
                 </div>
-
+                @if (!Auth::check())
+                <form method="POST" action="{{ route('login') }}">
+                    {{ csrf_field() }}
+                    <p>
+                        <div class="mdl-textfield mdl-js-textfield">
+                            <input 
+                            class="mdl-textfield__input" 
+                            type="email" 
+                            id="email"
+                            name="email"
+                            value="{{ old('email') }}" 
+                            required 
+                            autofocus>
+                            <label class="mdl-textfield__label" for="email">Email</label>
+                        </div>
+                    </p>
+                    <p>
+                        <div class="mdl-textfield mdl-js-textfield">
+                            <input 
+                            class="mdl-textfield__input" 
+                            type="password" 
+                            id="password"
+                            name="password"
+                            required>
+                            <label class="mdl-textfield__label" for="password">Contraseña</label>
+                        </div>
+                    </p>
+                    <p>
+                        <input type="checkbox" name="remember" {{ old('remember') ? 'checked' : '' }}> Recordarme
+                    </p>
+                    <p>
+                        <button type="submit" class="mdl-button mdl-js-button mdl-button--raised">
+                            Ingresar
+                        </button>
+                    </p>
+                    <p>
+                        <a class="btn btn-link" href="{{ route('password.request') }}">
+                            Olvidaste tu contraseña
+                        </a>
+                    </p>
+                </form>
+                @else
                 <div class="links">
                     <a href="{{ url('/logistic') }} ">Logistica</a>
                 </div>
-                <hr>
+                @endif
                 <div class="links">
                     <a href="{{ url('/bower_components/gentelella/production/') }} ">Gentelella</a>
-                </div>
-                <hr>
-                <div class="links">
                     <a href="https://laravel.com/docs">Documentation</a>
                     <a href="https://laracasts.com">Laracasts</a>
                     <a href="https://laravel-news.com">News</a>
@@ -98,6 +142,9 @@
                     <a href="https://github.com/laravel/laravel">GitHub</a>
                 </div>
             </div>
+
         </div>
+        
+        <script src="{{ asset('/bower_components/material-design-lite/material.min.js') }}"></script>
     </body>
 </html>

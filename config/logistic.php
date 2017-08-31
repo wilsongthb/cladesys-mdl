@@ -2,30 +2,53 @@
 
 return [
     'per_page' => 25,
+    'name' => 'logistic',
     'menu' => [
-        'Configuración' => [
+        'Utilitarios' => [
             'icon' => '<i class="fa fa-cog"></i>',
             'list' => [
-                'Productos' => 'logistic/products',
-                'Configuracion de Productos' => 'logistic/products-config',
-                'Proveedores' => 'logistic/suppliers',
-                'Components' => 'logistic/components'
+                'Usuarios' => '',
+                'Contraseñas' => '',
+                'Configuración de la aplicación' => '',
             ]
         ],
-        'Registros' => [
+        'Productos' => [
+            'icon' => '<i class="fa fa-book"></i>',
+            'list' => [
+                'Productos' => '/products',
+                'Configuracion de Productos' => '/products-config',
+            ]
+        ],
+        'Compra' => [
+            'icon' => '<i class="fa fa-envelope"></i>',
+            'list' => [
+                'Requerimientos' => '/requeriments',
+                'Cotización' => '/quotations',
+                'Comparación' => '/comparison',
+                'Compra' => '/purchase',
+                'Ingreso a Almacén' => '/inputs'
+            ]
+        ],
+        'Distribución' => [
             'icon' => '<i class="fa fa-tasks"></i>',
             'list' => [
-                'Compras' => 'logistic/inputs',
-                'Ventas' => 'logistic/outputs',
+                'Destino Area' => '/outputs',
+                'Venta/Uso Final' => '/outputs',
             ]
         ],
         'Reportes' => [
             'icon' => '<i class="fa fa-info"></i>',
             'list' => [
-                'Stock Actual' => 'logistic/stock-location',
-                'Stock y Configuracion de Productos' => 'logistic/stock-location-po',
-                'Inventario General' => 'logistic/inventory-general',
-                'Estado del Stock' => 'logistic/stock-status',
+                'Stock Actual' => '/stock-location',
+                'Stock y Configuracion de Productos' => '/stock-location-po',
+                'Inventario General' => '/inventory-general',
+                'Estado del Stock' => '/stock-status',
+            ]
+        ],
+        'Contactos' => [
+            'icon' => '<i class="fa fa-book"></i>',
+            'list' => [
+                'Proveedores' => '/suppliers'
             ]
         ]
     ],

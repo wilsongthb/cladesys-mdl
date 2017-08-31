@@ -7,7 +7,7 @@
             <thead>
                 <tr>
                     <th colspan="6">PRODUCTO</th>
-                    <th colspan="2">CONDIGURACION DE STOCK</th>
+                    <th colspan="2">CONFIGURACION DE STOCK</th>
                     <th></th>
                 </tr>
                 <tr>

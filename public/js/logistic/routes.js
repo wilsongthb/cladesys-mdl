@@ -56,7 +56,7 @@
                         controller: 'SuppliersEditController'
                     })
 
-                    //KARDEX
+                    //dist
                     .when('/inputs', {
                         templateUrl: `${G.url}/view/inputs.index.html`,
                         controller: 'InputsController'
@@ -99,6 +99,9 @@
                     .when('/stock-status', {
                         templateUrl: `${G.url}/view/stock-status.html`,
                         controller: 'StockStatusController'
+                    })
+                    .when('/locations', {
+                        template: '<locations-crud></locations-crud>'
                     })
             }
         ]);

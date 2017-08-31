@@ -1,7 +1,7 @@
 <div class="row">
     <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-        <h4 class="text-center">LOCALIZACIONES</h4>
-        <button class="btn btn-success" ng-click="resource.showFormCreate()">Crear Localizacion</button>
+        <h4 class="text-center">AREAS</h4>
+        <button class="btn btn-success" ng-click="resource.showFormCreate()">Crear Nueva Area</button>
         <table class="table table-condensed table-hover">
             <thead>
                 <tr>
@@ -14,8 +14,7 @@
                 </tr>
             </thead>
             <tbody>
-                <tr ng-repeat="l in Locations.list track by l.id" ng-class="{ success: l.id == Locations.get() }" ng-click="Locations.set(l.id)"
-                    ng-if="l">
+                <tr ng-repeat="l in Locations.list track by l.id" ng-class="{ success: l.id == Locations.get() }" ng-if="l">
                     <td ng-bind="l.id"></td>
                     <td ng-bind="l.name"></td>
                     <td ng-bind="config.location.type[l.type]"></td>
@@ -35,14 +34,14 @@
                 <div class="modal-content">
                     <div class="modal-header">
                         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                        <h4 class="modal-title">Formulario de Localizacion</h4>
+                        <h4 class="modal-title">Formulario de Areas</h4>
                     </div>
                     <form ng-submit="resource.save()">
                         <div class="modal-body">
 
                             <div class="form-group">
                                 <label>Nombre</label>
-                                <input type="text" ng-model="resource.fila.name" required class="form-control" maxlength="191">
+                                <input type="text" ng-model="resource.fila.name" required class="form-control" maxlength="191" capitalize>
                             </div>
                             <div class="form-group">
                                 <label for="">Tipo</label>

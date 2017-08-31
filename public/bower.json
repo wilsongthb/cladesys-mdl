@@ -25,6 +25,7 @@
     "baseguide": "https://github.com/slavanga/baseguide.git#^2.0.1",
     "angular-ui-select": "^0.19.8",
     "angular-bootstrap": "^2.5.0",
-    "number-format.js": "^1.1.11"
+    "number-format.js": "^1.1.11",
+    "roboto-webfont-bower": "roboto-webfont#^0.1.1"
   }
 }

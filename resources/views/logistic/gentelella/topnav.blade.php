@@ -5,13 +5,17 @@
             <div class="nav toggle">
                 <a id="menu_toggle"><i class="fa fa-bars"></i></a>
             </div>
-
+            <ul class="nav navbar-nav">
+                <li class="active">
+                    <a href="">AREA: @{{Locations.list[Locations.get()].name}}</a>
+                </li>
+            </ul>
             <ul class="nav navbar-nav navbar-right">
                 <li class="">
                     <a href="javascript:;" class="user-profile dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-                    <img src="{{ asset('/bower_components/gentelella/production/images/user.png') }}" alt="">{{Auth::user()->name}}
-                    <span class=" fa fa-angle-down"></span>
-                  </a>
+                        <img src="{{ asset('/bower_components/gentelella/production/images/user.png') }}" alt="">{{Auth::user()->name}}
+                        <span class=" fa fa-angle-down"></span>
+                    </a>
                     <ul class="dropdown-menu dropdown-usermenu pull-right">
                         <li><a href="javascript:;"> Profile</a></li>
                         <li>
@@ -33,16 +37,6 @@
                     </ul>
                 </li>
                 <li role="presentation" class="dropdown">
-                        <a href="javascript:;" class="dropdown-toggle info-number" data-toggle="dropdown" aria-expanded="false">
-                            <i class="fa fa-envelope-o"></i>
-                            <span class="badge bg-green">322</span>
-                        </a>
-                        <ul id="menu2" class="dropdown-menu list-unstyled msg_list" role="menu">
-                            <li>
-                            </li>
-                        </ul>
-                </li>
-                <li role="presentation" class="dropdown">
                     <a href="javascript:;" class="dropdown-toggle info-number" data-toggle="dropdown" aria-expanded="false">
                         <i class="fa fa-envelope-o"></i>
                         <span class="badge bg-green">6</span>
@@ -60,7 +54,7 @@
                                 </span>
                             </a>
                         </li>
-                        <li>
+                        <li class="active">
                             <a>
                                 <span class="image"><img src="{{ asset('/bower_components/gentelella/production/images/img.jpg') }}" alt="Profile Image" /></span>
                                 <span>
@@ -103,6 +97,25 @@
                                     <i class="fa fa-angle-right"></i>
                                 </a>
                             </div>
+                        </li>
+                    </ul>
+                </li>
+                <li role="presentation" class="dropdown" title="Seleccionar un area">
+                    <a href="javascript:;" class="dropdown-toggle info-number" data-toggle="dropdown" aria-expanded="false">
+                        <i class="fa fa-archive"></i>
+                        <!-- <span class="badge bg-green">6</span> -->
+                    </a>
+                    <ul id="menu1" class="dropdown-menu list-unstyled msg_list" role="menu">
+                        <li ng-repeat="l in Locations.list track by l.id" ng-class="{ active: l.id == Locations.get() }" ng-click="Locations.set(l.id)" ng-if="l">
+                            <a>
+                                <h5>@{{l.name}}</h5>
+                            </a>
+                        </li>
+                        <li>
+                            <a class="text-center" href="{{url('logistic/locations')}} ">
+                                <strong>Ver Areas</strong>
+                                <i class="fa fa-angle-right"></i>
+                            </a>
                         </li>
                     </ul>
                 </li>

@@ -34,7 +34,7 @@
 
 })();
 
-(function() {
+(function(G) {
     'use strict';
 
     angular
@@ -46,6 +46,7 @@
         var vm = this;
 
         $scope.Locations = Locations
+        $scope.config = G.config
 
         activate();
 
@@ -53,4 +54,4 @@
 
         function activate() { }
     }
-})();
+})(G);

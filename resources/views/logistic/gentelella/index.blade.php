@@ -8,7 +8,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>Gentelella Alela! | </title>
+    <title>LOGISTICA</title>
 
     <!-- Bootstrap -->
     <link href="{{ asset('/bower_components/gentelella/vendors/bootstrap/dist/css/bootstrap.min.css') }} " rel="stylesheet">
@@ -34,7 +34,7 @@
             margin-bottom: 0px;
         }
         .custom-input {
-            width: 50px;
+            width: 30px;
         }
     </style>
     <link href="{{ asset('/bower_components/angular-bootstrap/ui-bootstrap-csp.css') }} " rel="stylesheet">
@@ -121,7 +121,6 @@
     <script src="{{ asset('/bower_components/number-format.js/lib/format.min.js') }} "></script>
     <script src="{{ asset('/bower_components/moment/min/moment.min.js') }} "></script>
     <!-- mis scripts -->
-    <script src="{{ asset('/js/logistic/app.js') }} "></script>
     <script>
         const G = {
             name: 'logistic',
@@ -133,6 +132,7 @@
             config: {!!json_encode(config('logistic')) !!}
         }
     </script>
+    <script src="{{ asset('/js/logistic/app.js') }} "></script>
     <script src="{{ asset('/js/logistic/routes.js') }} "></script>
     {{--  Services  --}}
     <script src="{{ asset('/js/logistic/services/Services.js') }} "></script>

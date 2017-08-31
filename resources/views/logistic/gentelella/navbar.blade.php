@@ -17,26 +17,18 @@
             </div>
         </div>
         <!-- /menu profile quick info -->
-
         <br />
-
         <!-- sidebar menu -->
         <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
             <div class="menu_section">
-                <a href="{{ url('/logistic') }} ">
-                    <h3>
-                        <i class="fa fa-home"></i> Principal
-                    </h3>
-                </a>
-            </div>
-            <div class="menu_section">
                 <h3>Logistica</h3>
                 <ul class="nav side-menu">
+                    <li><a href="{{ url('/logistic') }} "><i class="fa fa-home"></i> Principal</a></li>
                     @foreach (config('logistic.menu') as $title => $record)
                     <li><a>{!!$record['icon']!!} {{ $title }} <span class="fa fa-chevron-down"></span></a>
                         <ul class="nav child_menu">
                             @foreach ($record['list'] as $name => $link)
-                            <li><a href="{{url($link)}} ">{{$name}} </a></li>
+                            <li><a href="{{url('logistic'.$link)}} ">{{$name}} </a></li>
                             @endforeach
                         </ul>
                     </li>
@@ -142,7 +134,7 @@
 
         <!-- /menu footer buttons -->
         <div class="sidebar-footer hidden-small">
-            <a data-toggle="tooltip" data-placement="top" title="Settings">
+            <a data-toggle="tooltip" data-placement="top" title="Settings" href="{{url('logistic/components')}} ">
                 <span class="glyphicon glyphicon-cog" aria-hidden="true"></span>
               </a>
             <a data-toggle="tooltip" data-placement="top" title="FullScreen">

@@ -17,7 +17,10 @@ Route::get('/', function () {
 
 Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home');
+// Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/home', function(){ 
+    return redirect('/');
+});
 
 Route::group(['middleware' => 'auth'], function(){
     Route::get('view/{view}', 'HomeController@view');
@@ -42,7 +45,7 @@ Route::group(['middleware' => 'auth'], function(){
             Route::get('stock-po/{locations_id}', 'Logistic\InventoryController@stock_location_po');
             Route::get('stock-status/{locations_id}', 'Logistic\InventoryController@stock_status');
         });
-        Route::get('/{a?}/{b?}/{c?}/{d?}', 'Logistic\MainController@index')->name('spa-logistic');
+        Route::get('/{a?}/{b?}/{c?}/{d?}', 'Logistic\MainController@index')->name('logistic');
     });
 });
 

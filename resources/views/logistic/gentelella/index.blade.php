@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -119,6 +119,7 @@
     <script src="{{ asset('/bower_components/angular-ui-select/dist/select.js') }} "></script>
     <script src="{{ asset('/bower_components/money-formatter/dist/money-formatter.min.js') }} "></script>
     <script src="{{ asset('/bower_components/number-format.js/lib/format.min.js') }} "></script>
+    <script src="{{ asset('/bower_components/moment/min/moment.min.js') }} "></script>
     <!-- mis scripts -->
     <script src="{{ asset('/js/logistic/app.js') }} "></script>
     <script>

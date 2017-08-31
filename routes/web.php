@@ -38,7 +38,9 @@ Route::group(['middleware' => 'auth'], function(){
             Route::resource('outputs', 'Logistic\OutputsController');
             Route::resource('output-details', 'Logistic\OutputDetailsController');
             Route::get('inventory/{locations_id?}', 'Logistic\InventoryController@index');
-            Route::get('stock/{locations_id?}', 'Logistic\InventoryController@stock');
+            Route::get('stock/{locations_id}', 'Logistic\InventoryController@stock_location');
+            Route::get('stock-po/{locations_id}', 'Logistic\InventoryController@stock_location_po');
+            Route::get('stock-status/{locations_id}', 'Logistic\InventoryController@stock_status');
         });
         Route::get('/{a?}/{b?}/{c?}/{d?}', 'Logistic\MainController@index')->name('spa-logistic');
     });

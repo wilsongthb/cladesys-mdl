@@ -88,6 +88,18 @@
                         templateUrl: `${G.url}/view/stock-location.html`,
                         controller: 'StockLocationController'
                     })
+                    .when('/stock-location-po', {
+                        templateUrl: `${G.url}/view/stock-location-po.html`,
+                        controller: 'StockLocationPoController'
+                    })
+                    .when('/inventory-general', {
+                        templateUrl: `${G.url}/view/inventory-general.html`,
+                        controller: 'InventoryGeneralController'
+                    })
+                    .when('/stock-status', {
+                        templateUrl: `${G.url}/view/stock-status.html`,
+                        controller: 'StockStatusController'
+                    })
             }
         ]);
 })(G);

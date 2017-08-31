@@ -6,12 +6,20 @@
         <table class="table table-striped table-hover">
             <thead>
                 <tr>
+                    <th colspan="6">PRODUCTO</th>
+                    <th colspan="2">CONDIGURACION DE STOCK</th>
+                    <th></th>
+                </tr>
+                <tr>
                     <th>ID</th>
                     <th>Nombre</th>
                     <th>Categoria</th>
                     <th>Total entradas</th>
                     <th>Total salidas</th>
                     <th>Stock</th>
+                    <th>Minimo</th>
+                    <th>Permanente</th>
+                    <th>Duracion</th>
                 </tr>
             </thead>
             <tbody>
@@ -22,6 +30,9 @@
                     <td ng-bind="l.sum_id_quantity"></td>
                     <td ng-bind="l.sum_od_quantity"></td>
                     <td ng-bind="l.stock"></td>
+                    <td ng-bind="l.po_minimum"></td>
+                    <td ng-bind="l.po_permanent"></td>
+                    <td ng-bind="l.po_duration"></td>
                 </tr>
             </tbody>
         </table>

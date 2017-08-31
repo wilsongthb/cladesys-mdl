@@ -769,7 +769,7 @@ const OutputsConfig = {
 
 
 // STOCK
-(function() {
+(function(G) {
     'use strict';
 
     angular
@@ -801,4 +801,122 @@ const OutputsConfig = {
             $scope.rsc.get()
         }
     }
-})();
+})(G);
+(function(G) {
+    'use strict';
+
+    angular
+        .module('logistic')
+        .controller('StockLocationPoController', StockLocationPoController);
+
+    StockLocationPoController.$inject = ['$http', '$scope', 'Locations'];
+    function StockLocationPoController($http, $scope, Locations) {
+        var vm = this;
+
+        $scope.Locations = Locations
+        
+        $scope.rsc = {
+            list: [],
+            get: function(){
+                $http.get(G.apiUrl + '/stock-po/' + Locations.get()).then(
+                    res => {
+                        this.list = res.data
+                    }
+                )
+            }
+        }
+
+        activate();
+
+        ////////////////
+
+        function activate() { 
+            $scope.rsc.get()
+        }
+    }
+})(G);
+(function(G) {
+    'use strict';
+
+    angular
+        .module('logistic')
+        .controller('InventoryGeneralController', InventoryGeneralController);
+
+    InventoryGeneralController.$inject = ['$http', '$scope', 'Locations'];
+    function InventoryGeneralController($http, $scope, Locations) {
+        var vm = this;
+
+        $scope.Locations = Locations
+        
+        $scope.rsc = {
+            list: [],
+            get: function(){
+                $http.get(G.apiUrl + '/inventory').then(
+                    res => {
+                        this.list = res.data
+                    }
+                )
+            }
+        }
+
+        activate();
+
+        ////////////////
+
+        function activate() { 
+            $scope.rsc.get()
+        }
+    }
+})(G);
+(function(G, moment) {
+    'use strict';
+
+    angular
+        .module('logistic')
+        .controller('StockStatusController', StockStatusController);
+
+    StockStatusController.$inject = ['$http', '$scope', 'Locations'];
+    function StockStatusController($http, $scope, Locations) {
+        var vm = this;
+        
+        $scope.Locations = Locations
+        
+        $scope.rsc = {
+            list: [],
+            get: function(){
+                $http.get(G.apiUrl + '/stock-status/' + Locations.get()).then(
+                    res => {
+                        // this.list = res.data
+                        for(let i in res.data){
+                            let fila = res.data[i]
+                            this.list[this.list.length] = status(fila)
+                        }
+                    }
+                )
+            }
+        }
+
+        function status(stts){
+            stts.urgente = (stts.stock < stts.po_minimum) ? true : false;
+            stts.comprar = (stts.stock < stts.po_permanent) ? true : false;
+            if(stts.po_minimum === 0 && stts.po_permanent === 0){
+                let e = moment(stts.od_updated_at)
+                let t = moment(new Date())
+                let diff = t.diff(e, 'days')
+                console.log(diff)
+                stts.days = diff
+                stts.urgente = diff > stts.po_duration - 30 ? true : false; 
+                stts.comprar = diff > stts.po_duration - 60 ? true : false;
+            }
+            return stts
+        }
+
+        activate();
+
+        ////////////////
+
+        function activate() { 
+            $scope.rsc.get()
+        }
+    }
+})(G, window.moment);

@@ -22,7 +22,10 @@ return [
         'Reportes' => [
             'icon' => '<i class="fa fa-info"></i>',
             'list' => [
-                'Stock Actual' => 'logistic/stock-location'
+                'Stock Actual' => 'logistic/stock-location',
+                'Stock y Configuracion de Productos' => 'logistic/stock-location-po',
+                'Inventario General' => 'logistic/inventory-general',
+                'Estado del Stock' => 'logistic/stock-status',
             ]
         ]
     ],

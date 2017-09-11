@@ -77,16 +77,25 @@
                 </div>
             </div>
             <div class="row">
-                <div class="col-xs-12 col-sm-3 col-md-3 col-lg-3">
-                    <p>
+                <div class="col-xs-12 col-sm-3 col-md-3 col-lg-5">
+                    <!-- <p>
                         Pagina:
                         <input type="number" ng-model="resource.page" ng-model-options="{debounce: 1000}" ng-change="resource.get()">
-                    </p>
+                    </p> -->
+                    <ul 
+                        uib-pagination 
+                        items-per-page="resource.per_page"
+                        total-items="resource.data.total"
+                        ng-model="resource.page"
+                        ng-change="resource.get()"
+                        max-size="resource.maxSize"
+                        boundary-links="true"
+                        boundary-link-numbers="true"></ul>
                 </div>
-                <div class="col-xs-12 col-sm-3 col-md-3 col-lg-3">
+                <div class="col-xs-12 col-sm-3 col-md-3 col-lg-2">
                     Total: {{resource.data.total}}
                 </div>
-                <div class="col-xs-12 col-sm-3 col-md-3 col-lg-3">
+                <div class="col-xs-12 col-sm-3 col-md-3 col-lg-2">
                    Paginas: {{resource.data.last_page}}
                 </div>
                 <div class="col-xs-12 col-sm-3 col-md-3 col-lg-3">

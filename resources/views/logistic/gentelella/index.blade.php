@@ -34,7 +34,7 @@
             margin-bottom: 0px;
         }
         .custom-input {
-            width: 30px;
+            width: 60px;
         }
     </style>
     <link href="{{ asset('/bower_components/angular-bootstrap/ui-bootstrap-csp.css') }} " rel="stylesheet">
@@ -120,6 +120,11 @@
     <script src="{{ asset('/bower_components/money-formatter/dist/money-formatter.min.js') }} "></script>
     <script src="{{ asset('/bower_components/number-format.js/lib/format.min.js') }} "></script>
     <script src="{{ asset('/bower_components/moment/min/moment.min.js') }} "></script>
+    <script src="{{ asset('/bower_components/js-xlsx/dist/cpexcel.js') }} "></script>
+    <script src="{{ asset('/bower_components/js-xlsx/shim.js') }} "></script>
+    <script src="{{ asset('/bower_components/js-xlsx/jszip.js') }} "></script>
+    <script src="{{ asset('/bower_components/js-xlsx/xlsx.js') }} "></script>
+    <script src="{{ asset('/bower_components/file-saver/FileSaver.js') }} "></script>
     <!-- mis scripts -->
     <script>
         const G = {

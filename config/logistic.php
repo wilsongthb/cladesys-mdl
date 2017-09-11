@@ -1,28 +1,28 @@
 <?php
 
 return [
-    'per_page' => 25,
+    'per_page' => 12,
     'name' => 'logistic',
     'menu' => [
         'Utilitarios' => [
             'icon' => '<i class="fa fa-cog"></i>',
             'list' => [
-                'Usuarios' => '',
-                'Contraseñas' => '',
-                'Configuración de la aplicación' => '',
+                'Usuarios' => '/users',
+                'Contraseñas' => '/pass',
+                'Configuración de la aplicación' => '/config',
             ]
         ],
         'Productos' => [
             'icon' => '<i class="fa fa-book"></i>',
             'list' => [
-                'Productos' => '/products',
+                'Registro de Productos' => '/products',
                 'Configuracion de Productos' => '/products-config',
             ]
         ],
         'Compra' => [
             'icon' => '<i class="fa fa-envelope"></i>',
             'list' => [
-                'Requerimientos' => '/requeriments',
+                'Requerimientos' => '/orders',
                 'Cotización' => '/quotations',
                 'Comparación' => '/comparison',
                 'Compra' => '/purchase',
@@ -32,15 +32,17 @@ return [
         'Distribución' => [
             'icon' => '<i class="fa fa-tasks"></i>',
             'list' => [
-                'Destino Area' => '/outputs',
-                'Venta/Uso Final' => '/outputs',
+                'Salidas' => '/outputs',
+                'Distribuciones' => '/outputs1',
+                'Venta/Uso Final' => '/outputs2',
             ]
         ],
         'Reportes' => [
             'icon' => '<i class="fa fa-info"></i>',
             'list' => [
-                'Stock Actual' => '/stock-location',
-                'Stock y Configuracion de Productos' => '/stock-location-po',
+                // 'Stock Actual' => '/stock-location',
+                // 'Stock y Configuracion de Productos' => '/stock-location-po',
+                'Inventario' => '/inventory',
                 'Inventario General' => '/inventory-general',
                 'Estado del Stock' => '/stock-status',
             ]

@@ -109,11 +109,13 @@ class Relationals extends Migration
             $table->integer('user_id')->unsigned();// creador - ultimo editor
             $table->foreign('user_id')->references('id')->on('users');
             
-            $table->date('shipping'); // fecha de envio
+            $table->date('shipping')->nullable(); // fecha de envio
             $table->integer('locations_id')->unsigned();
             $table->foreign('locations_id')->references('id')->on('locations');
+            $table->integer('target_locations_id')->unsigned()->nullable();
+            $table->foreign('target_locations_id')->references('id')->on('locations');
             // no requerido
-            $table->char('status', 1)->default('1'); // estado del envio
+            $table->tinyInteger('status')->default('1'); // estado del envio
         });
 
         Schema::create('order_details', function (Blueprint $table) {
@@ -126,7 +128,7 @@ class Relationals extends Migration
             $table->integer('quantity');
             $table->string('detail')->nullable();
             $table->integer('orders_id')->unsigned();
-            $table->foreign('orders_id')->references('id')->on('orders');
+            $table->foreign('orders_id')->references('id')->on('orders')->onDelete('cascade');
             $table->integer('products_id')->unsigned()->nullable();
             $table->foreign('products_id')->references('id')->on('products');
         });

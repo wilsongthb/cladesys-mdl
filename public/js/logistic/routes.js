@@ -96,12 +96,55 @@
                         templateUrl: `${G.url}/view/inventory-general.html`,
                         controller: 'InventoryGeneralController'
                     })
+                    .when('/inventory', {
+                        templateUrl: `${G.url}/view/inventory.html`,
+                        controller: 'InventoryController'
+                    })
                     .when('/stock-status', {
                         templateUrl: `${G.url}/view/stock-status.html`,
                         controller: 'StockStatusController'
                     })
                     .when('/locations', {
                         template: '<locations-crud></locations-crud>'
+                    })
+
+                    // proceso de compra
+                    .when('/orders', {
+                        templateUrl: `${G.url}/view/requeriments.index.html`,
+                        controller: 'RequerimentsController'
+                    })
+                    .when('/orders/create', {
+                        templateUrl: `${G.url}/view/requeriments.create.html`,
+                        controller: 'RequerimentsCreateController'
+                    })
+                    .when('/orders/edit/:id', {
+                        templateUrl: `${G.url}/view/requeriments.edit.html`,
+                        controller: 'RequerimentsEditController'
+                    })
+
+                    //quotations
+                    .when('/quotations', {
+                        templateUrl: `${G.url}/view/quotations.index.html`,
+                        controller: 'QuotationsController'
+                    })
+                    .when('/quotations/edit/:id', {
+                        templateUrl: `${G.url}/view/quotations.edit.html`,
+                        controller: 'QuotationsEditController'
+                    })
+
+                    // comparacion
+                    .when('/comparison', {
+                        templateUrl: G.url + '/view/comparison.index.html',
+                        controller: 'ComparisonController'
+                    })
+                    .when('/comparison/edit/:id', {
+                        templateUrl: G.url + '/view/comparison.edit.html',
+                        controller: 'ComparisonEditController'
+                    })
+
+                    .when('/purchase', {
+                        templateUrl: G.url + '/view/purchase.index.html',
+                        controller: 'PurchaseController'
                     })
             }
         ]);

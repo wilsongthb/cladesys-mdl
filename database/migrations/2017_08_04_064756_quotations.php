@@ -21,7 +21,7 @@ class Quotations extends Migration
 
             // no es requerido un historial de este dato
             $table->integer('order_details_id')->unsigned();
-            $table->foreign('order_details_id')->references('id')->on('order_details');
+            $table->foreign('order_details_id')->references('id')->on('order_details')->onDelete('cascade');
 
             $table->float('unit_price', 20, 2);
             $table->integer('suppliers_id')->unsigned();

@@ -40,12 +40,20 @@ Route::group(['middleware' => 'auth'], function(){
             Route::post('outputs/send/{id}', 'Logistic\OutputsController@send');
             Route::resource('outputs', 'Logistic\OutputsController');
             Route::resource('output-details', 'Logistic\OutputDetailsController');
+            Route::resource('orders', 'Logistic\OrdersController');
+            Route::post('order-details/add-all-req', 'Logistic\OrderDetailsController@addAllReq');
+            Route::resource('order-details', 'Logistic\OrderDetailsController');
             Route::get('inventory/{locations_id?}', 'Logistic\InventoryController@index');
             Route::get('stock/{locations_id}', 'Logistic\InventoryController@stock_location');
             Route::get('stock-po/{locations_id}', 'Logistic\InventoryController@stock_location_po');
             Route::get('stock-status/{locations_id}', 'Logistic\InventoryController@stock_status');
+            Route::delete('quotations/remove-supplier', 'Logistic\QuotationsController@removeSupplier');
+            Route::put('quotations/select-more-cheap', 'Logistic\QuotationsController@selectMoreCheap');
+            Route::get('quotations/select-suppliers', 'Logistic\QuotationsController@selectSuppliers');
+            Route::Resource('quotations', 'Logistic\QuotationsController');
         });
+        Route::get('/purchase-order/{orders_id}/{supppliers_id}', 'Logistic\QuotationsController@purchaseOrder');
+        Route::get('/orders/print/{id}', 'Logistic\OrdersController@imprimir');
         Route::get('/{a?}/{b?}/{c?}/{d?}', 'Logistic\MainController@index')->name('logistic');
     });
 });
-

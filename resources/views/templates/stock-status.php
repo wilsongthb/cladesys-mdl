@@ -37,7 +37,7 @@
                     <td ng-bind="l.po_permanent"></td>
                     <td ng-bind="l.po_duration"></td>
                     <td>
-                            <span class="label label-success" ng-if="!l.comprar || !l.urgente">OK</span>
+                        <span class="label label-success" ng-if="!l.comprar && !l.urgente">OK</span>
                         <span class="label label-warning" ng-if="l.comprar || l.urgente">Comprar</span>
                         <span class="label label-danger" ng-if="l.urgente">Urgente</span>
                         <span title="{{l.od_updated_at}}" class="label label-warning" ng-if="l.days">Ultima salida hace {{l.days}} dias </span>

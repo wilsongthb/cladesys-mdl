@@ -8,10 +8,10 @@
         <title>{{config('app.name')}} </title>
 
         <!-- Fonts -->
-        <link href="https://fonts.googleapis.com/css?family=Raleway:100,600" rel="stylesheet" type="text/css">
+        {{--  <link href="https://fonts.googleapis.com/css?family=Raleway:100,600" rel="stylesheet" type="text/css">  --}}
         <link rel="stylesheet" href="{{ asset('/bower_components/material-design-lite/material.min.css') }} ">
         <link rel="stylesheet" href="{{ asset('/bower_components/material-design-icons/iconfont/material-icons.css') }} ">
-        <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Roboto:300,400,500,700" type="text/css">
+        {{--  <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Roboto:300,400,500,700" type="text/css">  --}}
         <!-- Styles -->
         <style>
             html, body {
@@ -82,6 +82,18 @@
                     @endif
                 </div>
             @endif  --}}
+            <div class="top-right links">
+                @if (Auth::check())
+                <a href="{{ route('logout') }}" onclick="event.preventDefault();
+                    document.getElementById('logout-form').submit();">
+                    <i class="fa fa-sign-out pull-right"></i> Cerrar Sesión
+                </a>
+                <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                    {{ csrf_field() }}
+                </form>
+                @endif
+            </div>
+            
 
             <div class="content">
                 <div class="title m-b-md">
@@ -137,9 +149,12 @@
                     <a href="{{ url('/bower_components/gentelella/production/') }} ">Gentelella</a>
                     <a href="https://laravel.com/docs">Documentation</a>
                     <a href="https://laracasts.com">Laracasts</a>
+                    <br>
                     <a href="https://laravel-news.com">News</a>
                     <a href="https://forge.laravel.com">Forge</a>
                     <a href="https://github.com/laravel/laravel">GitHub</a>
+                    <br>
+                    <a href="{{url('/bower_components')}} ">BOWER</a>
                 </div>
             </div>
 

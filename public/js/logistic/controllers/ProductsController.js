@@ -26,6 +26,7 @@ const ProductsConfig = {
         $scope.config = Config
 
         $scope.resource = {
+            maxSize: 5,
             data: {}, // respuesta de la base de datos
             per_page: G.config.per_page,
             page: 1,

@@ -931,7 +931,7 @@ foreach ($arr_in as $key => $fila) {
             if(strlen($value['min']) !== 0){
                 DB::table('product_options')->insert([
                     'minimum' => $value['min'],
-                    'permanent' => $value['min'] + 1,
+                    'permanent' => (int)$value['min'],
                     'duration' => '30',
                     'products_id' => $value['id'],
                     'locations_id' => 1,

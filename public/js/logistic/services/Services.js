@@ -94,11 +94,13 @@
             $http.get(G.apiUrl + '/products', {params: {search: query}})
             .then(
                 (res) => {
-                    this.list = {}
-                    for(let i in res.data.data){
-                        let row = res.data.data[i]
-                        this.list[row.id] = row
-                    }
+                    this.list = []
+                    this.list = res.data.data
+                    // this.list = []
+                    // for(let i in res.data.data){
+                    //     let row = res.data.data[i]
+                    //     this.list[row.id] = row
+                    // }
                     // this.list = res.data.data
                 }
             )

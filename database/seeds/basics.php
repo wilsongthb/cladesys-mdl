@@ -23,10 +23,22 @@ class basics extends Seeder
         ]);
 
         DB::table('locations')->insert([
-            [
+            [// id 1
                 'type' => '1',
                 'name' => 'ALMACEN GENERAL',
                 'utility' => '5',
+                'user_id' => '1'
+            ],
+            [// 2
+                'type' => '2',
+                'name' => 'AREA DE LABORATORIO',
+                'utility' => '0',
+                'user_id' => '1'
+            ],
+            [// 3
+                'type' => '2',
+                'name' => 'UNIDAD CLINICA CHARISMA',
+                'utility' => '0',
                 'user_id' => '1'
             ],
             [
@@ -43,16 +55,10 @@ class basics extends Seeder
             ],
             [
                 'type' => '2',
-                'name' => 'AREA DE LABORATORIO',
-                'utility' => '0',
-                'user_id' => '1'
-            ],
-            [
-                'type' => '2',
                 'name' => 'AREA DE BIOSEGURIDAD',
                 'utility' => '0',
                 'user_id' => '1'
             ]
         ]);
-    }
+    }   
 }

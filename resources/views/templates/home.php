@@ -25,16 +25,15 @@
         <div class="panel panel-default">
             <div class="panel-body">
 
-                <h1>LATIGAZO - LOGISTICS</h1>
+                <h1>CLADESYS - LOGISTICS</h1>
                 <h2>
-                    <p>Bienvenido al Sistema de Logistica, este <code>Sistema de Información</code> sirve para registrar productos,
+                    <p>Bienvenido al Sistema de Logistica, este Sistema de Información sirve para registrar productos,
                         controlar la entrada de estos al almacén, seguir su distribución, controlar el stock de los productos
                         </p>
                     <p>- Control de Usuarios (pendiente)</p>
                     <p>- Control de Diferentes ubicaciones </p>
                     <p>- Proceso de compra, requerimientos, cotización y compra</p>
                 </h2>
-
             </div>
         </div>
 

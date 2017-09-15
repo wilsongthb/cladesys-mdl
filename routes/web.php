@@ -22,7 +22,7 @@ Route::get('/home', function(){
     return redirect('/');
 });
 
-Route::group(['middleware' => 'auth'], function(){
+Route::group(['middleware' => ['auth', 'permissions']], function(){
     Route::get('view/{view}', 'HomeController@view');
     Route::group(['prefix' => 'logistic'], function(){
         Route::group(['prefix' => 'api'], function(){

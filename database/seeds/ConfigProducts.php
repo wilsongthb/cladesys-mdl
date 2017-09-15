@@ -112,7 +112,8 @@ class ConfigProducts extends Seeder
                 'user_id' => 1,
             ]);
 
-            var_dump($id);
+            // var_dump($id);
+            echo "product: $id".PHP_EOL;
 
             // config logistic
             if(

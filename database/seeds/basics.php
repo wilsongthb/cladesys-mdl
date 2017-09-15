@@ -17,7 +17,7 @@ class basics extends Seeder
     {
         DB::table('users')->insert([
             'id' => '1',
-            'name' => 'UserRoot',
+            'name' => 'root',
             'email' => 'root@localhost',
             'password' => bcrypt('root')
         ]);

@@ -23,6 +23,8 @@ Route::get('/home', function(){
 });
 
 Route::group(['middleware' => ['auth', 'permissions']], function(){
+    Route::resource('users', 'UsersController');
+    Route::resource('permissions', 'PermissionsController');
     Route::get('view/{view}', 'HomeController@view');
     Route::group(['prefix' => 'logistic'], function(){
         Route::group(['prefix' => 'api'], function(){

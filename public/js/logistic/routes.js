@@ -146,6 +146,11 @@
                         templateUrl: G.url + '/view/purchase.index.html',
                         controller: 'PurchaseController'
                     })
+
+                    .when('/users', {
+                        templateUrl: G.url + '/view/users.html',
+                        controller: 'UsersController'
+                    })
             }
         ]);
 })(G);

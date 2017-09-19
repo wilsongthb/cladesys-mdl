@@ -1,7 +1,14 @@
 <?php
 
 return [
-    'per_page' => 12,
+    'permissions' => [
+        // 1 => 'access',
+        2 => 'LEER/ACCEDER', // leer
+        3 => 'CREAR', // crear
+        4 => 'EDITAR', // actualizar/modificar
+        5 => 'ELIMINAR', // borrar
+    ],
+    'per_page' => 8,
     'name' => 'logistic',
     'menu' => [
         'Utilitarios' => [

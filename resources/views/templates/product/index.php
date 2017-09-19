@@ -37,7 +37,7 @@
                     <a class="btn btn-warning" data-toggle="modal" ng-click="showModal('#modalCateg')"><i class="fa fa-cog"></i> CATEGORIAS</a>
                     <a class="btn btn-warning" data-toggle="modal" ng-click="showModal('#modalBrands')"><i class="fa fa-cog"></i> MARCAS</a>
                     <a class="btn btn-warning" data-toggle="modal" ng-click="showModal('#modalPackings')"><i class="fa fa-cog"></i> MEDIDA DE COMPRA</a>
-                    <a class="btn btn-warning" data-toggle="modal" ng-click="showModal('#modalMeasu')"><i class="fa fa-cog"></i> MEDIDAD DE DISTRIBUCION</a>                    
+                    <a class="btn btn-warning" data-toggle="modal" ng-click="showModal('#modalMeasu')"><i class="fa fa-cog"></i> MEDIDAD DE DISTRIBUCION</a>
                 </div>
             </div>
             
@@ -77,38 +77,29 @@
                 </div>
             </div>
             <div class="row">
-                <div class="col-xs-12 col-sm-3 col-md-3 col-lg-5">
-                    <!-- <p>
-                        Pagina:
-                        <input type="number" ng-model="resource.page" ng-model-options="{debounce: 1000}" ng-change="resource.get()">
-                    </p> -->
+                
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-6">
                     <ul 
-                        uib-pagination 
-                        items-per-page="resource.per_page"
-                        total-items="resource.data.total"
-                        ng-model="resource.page"
-                        ng-change="resource.get()"
-                        max-size="resource.maxSize"
-                        boundary-links="true"
-                        boundary-link-numbers="true"></ul>
+                    uib-pagination 
+                    items-per-page="resource.per_page"
+                    total-items="resource.data.total"
+                    ng-model="resource.page"
+                    ng-change="resource.get()"
+                    max-size="resource.maxSize"
+                    boundary-links="true"
+                    boundary-link-numbers="true"></ul>
                 </div>
-                <div class="col-xs-12 col-sm-3 col-md-3 col-lg-2">
-                    Total: {{resource.data.total}}
-                </div>
-                <div class="col-xs-12 col-sm-3 col-md-3 col-lg-2">
-                   Paginas: {{resource.data.last_page}}
-                </div>
-                <div class="col-xs-12 col-sm-3 col-md-3 col-lg-3">
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-6 text-right">
                     <p>
-                        Cantidad por pagina:
-                        <input type="number" ng-model="resource.per_page" ng-model-options="{debounce: 1000}" ng-change="resource.get()">
+                        <label for="">Cantidad por pagina: </label>
+                        <input class="custom-input text-right" title="Cantidad por pagina" type="number" ng-model="resource.per_page" ng-model-options="{debounce: 1000}" ng-change="resource.get()">
                     </p>
+                    <label for="">Total: {{resource.data.total}}</label>
                 </div>
             </div>
         </div>
     </div>
 </div>
-
 <div class="modal fade" id="modalPackings">
     <div class="modal-dialog">
         <div class="modal-content">

@@ -1592,3 +1592,85 @@ const ComparisonConfig = {
         }
     }
 })(G);
+
+(function(Config) {
+    'use strict';
+
+    angular
+        .module('logistic')
+        .controller('UsersController', UsersController);
+
+    UsersController.$inject = ['$scope', '$http'];
+    function UsersController($scope, $http) {
+        var vm = this;
+
+        $scope.permissions = Config.config.permissions
+        // $scope.permissions = {}
+        // for(let i in Config.config.permissions){
+        //     $scope.permissions[i] = 
+        // }
+        
+        $scope.rsc= {
+            modifyPermission: function(user, permission){
+                // console.log(user.permissions[permission])
+                if(!user.permissions[permission].value){
+                    console.log("quitar")
+
+                    let p = user.permissions[permission]
+                    let permission_id = p.id
+
+                    $http.delete(Config.url + '/permissions/' + permission_id).then(
+                        res => activate()
+                    )
+                }else{
+                    console.log("agregar")
+                    $http.post(Config.url + '/permissions', {
+                        user_id: user.id,
+                        permission
+                    }).then(
+                        res => activate()
+                    )
+                }
+            },
+            get: function(){
+                $http.get(Config.url + '/users').then(
+                    res => {
+                        // console.log(res)
+                        this.list =  {}
+                        for(let i in res.data.users){
+                            let fila = res.data.users[i]
+                            fila.permissions = []
+                            this.list[fila.id] = fila
+                        }
+                        for(let i in res.data.permissions){
+                            let fila = res.data.permissions[i]
+                            fila.value = true
+                            // fila.permissions = []
+                            // this.list[fila.id] = fila
+                            this.list[fila.user_id].permissions[fila.permission] = fila
+
+                        }
+
+                        // this.list =  {}
+                        // for(let i in res.data.users){
+                        //     let fila = res.data.users[i]
+                        //     this.list[fila.id] = fila
+                        // }
+                        // this.list = res.data.users
+                        
+
+
+                    }
+                )
+            }
+        }
+
+        activate();
+
+        ////////////////
+
+        function activate() { 
+            $scope.rsc.get()
+        }
+    }
+})(G);

@@ -109,15 +109,15 @@
                     })
 
                     // proceso de compra
-                    .when('/orders', {
+                    .when('/requeriments', {
                         templateUrl: `${G.url}/view/requeriments.index.html`,
                         controller: 'RequerimentsController'
                     })
-                    .when('/orders/create', {
+                    .when('/requeriments/create', {
                         templateUrl: `${G.url}/view/requeriments.create.html`,
                         controller: 'RequerimentsCreateController'
                     })
-                    .when('/orders/edit/:id', {
+                    .when('/requeriments/edit/:id', {
                         templateUrl: `${G.url}/view/requeriments.edit.html`,
                         controller: 'RequerimentsEditController'
                     })

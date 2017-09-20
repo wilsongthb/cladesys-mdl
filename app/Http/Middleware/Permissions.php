@@ -48,6 +48,8 @@ class Permissions
 
         if(count($permiso) !== 0){
             // dd("bienvenido papu");
+            // dd($request);
+            // echo "<pre>$request->()</pre>";
             return $next($request);
         }else{
             // dd("no tienes permiso");

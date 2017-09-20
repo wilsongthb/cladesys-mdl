@@ -102,7 +102,7 @@ class Relationals extends Migration
             $table->string('lot', 20)->nullable();
         });
 
-        Schema::create('orders', function (Blueprint $table) {
+        Schema::create('requeriments', function (Blueprint $table) {
             $table->increments('id');
             $table->boolean('flagstate')->default('1');
             $table->timestamps();
@@ -118,7 +118,7 @@ class Relationals extends Migration
             $table->tinyInteger('status')->default('1'); // estado del envio
         });
 
-        Schema::create('order_details', function (Blueprint $table) {
+        Schema::create('requeriment_details', function (Blueprint $table) {
             $table->increments('id');
             $table->boolean('flagstate')->default('1');
             $table->timestamps();
@@ -127,8 +127,8 @@ class Relationals extends Migration
             
             $table->integer('quantity');
             $table->string('detail')->nullable();
-            $table->integer('orders_id')->unsigned();
-            $table->foreign('orders_id')->references('id')->on('orders')->onDelete('cascade');
+            $table->integer('requeriments_id')->unsigned();
+            $table->foreign('requeriments_id')->references('id')->on('requeriments')->onDelete('cascade');
             $table->integer('products_id')->unsigned()->nullable();
             $table->foreign('products_id')->references('id')->on('products');
         });
@@ -162,8 +162,8 @@ class Relationals extends Migration
     public function down()
     {
         Schema::dropIfExists('product_options');
-        Schema::dropIfExists('order_details');
-        Schema::dropIfExists('orders');
+        Schema::dropIfExists('requeriment_details');
+        Schema::dropIfExists('requeriments');
         
         Schema::dropIfExists('input_details');
         Schema::dropIfExists('inputs');

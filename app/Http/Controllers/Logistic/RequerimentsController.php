@@ -4,14 +4,14 @@ namespace App\Http\Controllers\Logistic;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Models\Orders;
-use App\Models\OrderDetails;
+use App\Models\Requeriments;
+use App\Models\RequerimentDetails;
 use DB;
 
-class OrdersController extends Controller
+class RequerimentsController extends Controller
 {
     public function imprimir($id){
-        $ord = OrderDetails::
+        $ord = RequerimentDetails::
             select(
                 'ord.*',
                 'p.code AS p_code',
@@ -20,13 +20,13 @@ class OrdersController extends Controller
                 'p.name AS p_name',
                 'b.value AS p_brand'
             )
-            ->from('order_details AS ord')
+            ->from('requeriment_details AS ord')
             ->leftJoin('products AS p', 'p.id', '=', 'ord.products_id')
             ->leftJoin('categories AS c', 'c.id', '=', 'p.categories_id')
             ->leftJoin('measurements AS m', 'm.id', '=', 'p.measurements_id')
             ->leftJoin('brands AS b', 'b.id', '=', 'p.brands_id')
             // ->leftJoin('')
-            ->where('ord.orders_id', $id)
+            ->where('ord.requeriments_id', $id)
             ->get();
             // dd($ord[1]);
         return view('templates.requeriments.print', [
@@ -41,14 +41,14 @@ class OrdersController extends Controller
     public function index(Request $request)
     {
         $per_page = ($request->per_page) ? $request->per_page : config('logistic.per_page');
-        return Orders::
+        return Requeriments::
             select(
                 'or.*',
                 'l.name AS locations_name',
                 DB::raw("COUNT(ord.id) AS total_details")
             )
-            ->from('orders AS or')
-            ->leftJoin('order_details AS ord', 'ord.orders_id', '=', 'or.id')
+            ->from('requeriments AS or')
+            ->leftJoin('requeriment_details AS ord', 'ord.requeriments_id', '=', 'or.id')
             ->leftJoin('locations AS l', 'l.id', '=', 'or.locations_id')
             ->where('or.flagstate', 1)
             ->where('or.locations_id', $request->locations_id)
@@ -74,7 +74,7 @@ class OrdersController extends Controller
      */
     public function store(Request $request)
     {
-        $fila = new Orders;
+        $fila = new Requeriments;
         $fila->locations_id = $request->locations_id;
         $fila->user_id = $request->user_id;
         $fila->save();
@@ -123,6 +123,6 @@ class OrdersController extends Controller
      */
     public function destroy($id)
     {
-        Orders::destroy($id);
+        Requeriments::destroy($id);
     }
 }

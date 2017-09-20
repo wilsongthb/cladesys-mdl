@@ -22,11 +22,11 @@ Route::get('/home', function(){
     return redirect('/');
 });
 
-Route::group(['middleware' => ['auth', 'permissions']], function(){
+Route::group(['middleware' => ['auth']], function(){
     Route::resource('users', 'UsersController');
     Route::resource('permissions', 'PermissionsController');
     Route::get('view/{view}', 'HomeController@view');
-    Route::group(['prefix' => 'logistic'], function(){
+    Route::group(['prefix' => 'logistic', 'middleware' => 'permissions'], function(){
         Route::group(['prefix' => 'api'], function(){
             Route::resource('brands', 'Logistic\BrandsController');
             Route::resource('measurements', 'Logistic\MeasurementsController');
@@ -42,9 +42,9 @@ Route::group(['middleware' => ['auth', 'permissions']], function(){
             Route::post('outputs/send/{id}', 'Logistic\OutputsController@send');
             Route::resource('outputs', 'Logistic\OutputsController');
             Route::resource('output-details', 'Logistic\OutputDetailsController');
-            Route::resource('orders', 'Logistic\OrdersController');
-            Route::post('order-details/add-all-req', 'Logistic\OrderDetailsController@addAllReq');
-            Route::resource('order-details', 'Logistic\OrderDetailsController');
+            Route::resource('requeriments', 'Logistic\RequerimentsController');
+            Route::post('requeriment-details/add-all-req', 'Logistic\RequerimentDetailsController@addAllReq');
+            Route::resource('requeriment-details', 'Logistic\RequerimentDetailsController');
             Route::get('inventory/{locations_id?}', 'Logistic\InventoryController@index');
             Route::get('stock/{locations_id}', 'Logistic\InventoryController@stock_location');
             Route::get('stock-po/{locations_id}', 'Logistic\InventoryController@stock_location_po');
@@ -56,6 +56,7 @@ Route::group(['middleware' => ['auth', 'permissions']], function(){
         });
         Route::get('/purchase-order/{orders_id}/{supppliers_id}', 'Logistic\QuotationsController@purchaseOrder');
         Route::get('/orders/print/{id}', 'Logistic\OrdersController@imprimir');
-        Route::get('/{a?}/{b?}/{c?}/{d?}', 'Logistic\MainController@index')->name('logistic');
+        Route::get('/gentelella/{a?}/{b?}/{c?}', 'Logistic\MainController@gentelella')->name('logisticGT');
+        Route::get('/', 'Logistic\MainController@index');
     });
 });

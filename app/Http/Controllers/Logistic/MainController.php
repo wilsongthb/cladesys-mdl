@@ -7,7 +7,7 @@ use App\Http\Controllers\Controller;
 
 class MainController extends Controller
 {
-    public function index(Request $request){
+    public function isAjax(Request $request){
         if($request->ajax() OR $request->isJson() OR $request->expectsJson()){
             dd([
                 'msj' => 'This Ajax response is not available',
@@ -16,7 +16,22 @@ class MainController extends Controller
                 'expectsJson' => $request->expectsJson()
             ]);
         }
-        return view('logistic.gentelella.index');
+    }
+    public function index(){
+        return redirect('logistic/gentelella');
+    }
+    public function gentelella(){
+        $menu = config('logistic.menu');
+        $modules = config('logistic.modules');
+
+        $this->isAjax(request());
+        return view('logistic.gentelella.index', [
+            'baseUrl' => url('logistic/gentelella').'/', // to angular html5 route mode
+            'appUrl' => url('logistic/gentelella'),
+            'apiUrl' => url('logistic/api'),
+            'menu' => $menu,
+            'modules' => $modules
+        ]);
     }
 }
 

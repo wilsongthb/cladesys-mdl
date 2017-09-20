@@ -5,24 +5,24 @@ namespace App\Http\Controllers\Logistic;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\Quotations;
-use App\Models\OrderDetails;
+use App\Models\RequerimentDetails;
 use App\Http\Controllers\Logistic\OrderDetailsController;
 use DB;
 use App\Models\Suppliers;
 
 class QuotationsController extends Controller
 {
-    public function purchaseOrder($orders_id, $suppliers_id){
+    public function purchaseOrder($requeriments_id, $suppliers_id){
         $q = Quotations::
         select(
             'q.*',
             'p.name AS p_name',
             'ord.quantity AS od_quantity'
         )->from('quotations AS q')
-        ->leftJoin('order_details AS ord', 'ord.id', '=', 'q.order_details_id')
-        ->leftJoin('orders AS or', 'or.id', '=', 'ord.orders_id')
+        ->leftJoin('requeriment_details AS ord', 'ord.id', '=', 'q.requeriment_details_id')
+        ->leftJoin('requeriments AS or', 'or.id', '=', 'ord.requeriments_id')
         ->join('products AS p', 'p.id', '=', 'ord.products_id')
-        ->where('or.id', $orders_id)
+        ->where('or.id', $requeriments_id)
         ->where('q.suppliers_id', $suppliers_id)
         ->where('q.status', true)
         ->get();
@@ -33,11 +33,11 @@ class QuotationsController extends Controller
         ]);
     }
     public function selectMoreCheap(Request $request){
-        // $ord = OrderDetails::
+        // $ord = RequerimentDetails::
         //     select(
         //         'ord.*'
-        //     )->from('order_details AS ord')
-        //     ->leftJoin('orders AS or', 'or.id', '=', 'ord.orders_id')
+        //     )->from('requeriment_details AS ord')
+        //     ->leftJoin('requeriments AS or', 'or.id', '=', 'ord.requeriments_id')
         //     ->where('or.id', $request->id)
         //     ->get();
         // $instOrd = new OrderDetailsController;
@@ -49,8 +49,8 @@ class QuotationsController extends Controller
         //     # code...
         // }
         DB::table('quotations AS q')
-            ->leftJoin('order_details AS od', 'od.id', '=', 'q.order_details_id')
-            ->leftJoin('orders AS o', 'o.id', '=', 'od.orders_id')
+            ->leftJoin('requeriment_details AS od', 'od.id', '=', 'q.requeriment_details_id')
+            ->leftJoin('requeriments AS o', 'o.id', '=', 'od.requeriments_id')
             ->where('o.id', $request->id)
             ->update(
                 ['q.status' => 0]
@@ -58,15 +58,15 @@ class QuotationsController extends Controller
 
         $quotations = Quotations::
         select(
-            'od.id AS order_details_id',
+            'od.id AS requeriment_details_id',
             // 'p.detail',
             'od.quantity',
             's.company_name',
             'q.*'
         )
         ->from('quotations AS q')
-        ->leftJoin('order_details AS od', 'od.id', '=', 'q.order_details_id')
-        ->leftJoin('orders AS o', 'o.id', '=', 'od.orders_id')
+        ->leftJoin('requeriment_details AS od', 'od.id', '=', 'q.requeriment_details_id')
+        ->leftJoin('requeriments AS o', 'o.id', '=', 'od.requeriments_id')
         ->leftJoin('suppliers AS s', 's.id', '=', 'q.suppliers_id')
         ->leftJoin('products AS p', 'p.id', '=', 'od.products_id')
         ->where('o.id', $request->id)
@@ -77,11 +77,11 @@ class QuotationsController extends Controller
         $qs = [];
 
         foreach($quotations as $key => $val){
-            if(!isset($qs[$val->order_details_id])){
-                $qs[$val->order_details_id] = [];
-                $qs[$val->order_details_id][$val->suppliers_id] = $val;
+            if(!isset($qs[$val->requeriment_details_id])){
+                $qs[$val->requeriment_details_id] = [];
+                $qs[$val->requeriment_details_id][$val->suppliers_id] = $val;
             }else{
-                $qs[$val->order_details_id][$val->suppliers_id] = $val;
+                $qs[$val->requeriment_details_id][$val->suppliers_id] = $val;
             }
         }
 
@@ -109,15 +109,15 @@ class QuotationsController extends Controller
     }
     public function removeSupplier(Request $request){
         // dd($request->all());
-        $orders_id = $request->orders_id;
+        $requeriments_id = $request->requeriments_id;
         $suppliers_id = $request->suppliers_id;
         
         $q = Quotations
             ::select('*')
             ->from('quotations AS q')
-            ->leftJoin('order_details AS ord', 'ord.id', '=', 'q.order_details_id')
-            ->leftJoin('orders AS or', 'or.id', '=', 'ord.orders_id')
-            ->where('or.id', $orders_id)
+            ->leftJoin('requeriment_details AS ord', 'ord.id', '=', 'q.requeriment_details_id')
+            ->leftJoin('requeriments AS or', 'or.id', '=', 'ord.requeriments_id')
+            ->where('or.id', $requeriments_id)
             ->where('q.suppliers_id', $suppliers_id)
             ->delete();
             // ->get();
@@ -135,8 +135,8 @@ class QuotationsController extends Controller
                 // 'or.id AS or_id'
             )->from('suppliers AS s')
             ->rightJoin('quotations AS q', 'q.suppliers_id', '=', 's.id')
-            ->leftJoin('order_details AS ord', 'ord.id', '=', 'q.order_details_id')
-            ->leftJoin('orders AS or', 'or.id', '=', 'ord.orders_id')
+            ->leftJoin('requeriment_details AS ord', 'ord.id', '=', 'q.requeriment_details_id')
+            ->leftJoin('requeriments AS or', 'or.id', '=', 'ord.requeriments_id')
             ->where('or.id', $request->id)
             ->where('q.status', 1)
             ->groupBy('s.id')
@@ -156,8 +156,8 @@ class QuotationsController extends Controller
                 'q.*'
             )->from('quotations AS q')
             // ->join('suppliers AS s', 's.id', '=', 'q.suppliers_id')
-            ->leftJoin('order_details AS od', 'od.id', '=', 'q.order_details_id')
-            ->leftJoin('orders AS o', 'o.id', '=', 'od.orders_id')
+            ->leftJoin('requeriment_details AS od', 'od.id', '=', 'q.requeriment_details_id')
+            ->leftJoin('requeriments AS o', 'o.id', '=', 'od.requeriments_id')
             ->where('o.id', $request->id)
             ->get();
 
@@ -167,15 +167,15 @@ class QuotationsController extends Controller
                 's.*'
             )
             ->join('suppliers AS s', 's.id', '=', 'q.suppliers_id')
-            ->leftJoin('order_details AS od', 'od.id', '=', 'q.order_details_id')
-            ->leftJoin('orders AS o', 'o.id', '=', 'od.orders_id')
+            ->leftJoin('requeriment_details AS od', 'od.id', '=', 'q.requeriment_details_id')
+            ->leftJoin('requeriments AS o', 'o.id', '=', 'od.requeriments_id')
             ->where('o.id', $request->id)
             ->get();
 
         // dd($suppliers);
 
         return [
-            'order_details' => $od->index($request),
+            'requeriment_details' => $od->index($request),
             'quotations' => $quotations,
             'suppliers' => $suppliers
         ];
@@ -205,7 +205,7 @@ class QuotationsController extends Controller
         $fila->unit_price = $request->unit_price;
         $fila->quantity = $request->quantity;
         // $fila->status = false;
-        $fila->order_details_id = $request->order_details_id;
+        $fila->requeriment_details_id = $request->requeriment_details_id;
         $fila->save();
     }
 
@@ -246,7 +246,7 @@ class QuotationsController extends Controller
         $fila->unit_price = $request->unit_price;
         $fila->quantity = $request->quantity;
         $fila->status = $request->status;
-        // $fila->order_details_id = $request->order_details_id;
+        // $fila->requeriment_details_id = $request->requeriment_details_id;
         $fila->save();
         dd($fila);
     }

@@ -31,8 +31,6 @@
     <!-- <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons"> -->
     <link rel="stylesheet" href="{{ asset('/bower_components/material-design-icons/iconfont/material-icons.css') }} ">
     <link rel="stylesheet" href="{{ asset('/bower_components/material-design-lite/material.min.css') }} ">
-    
-    
 </head>
 
 <body>

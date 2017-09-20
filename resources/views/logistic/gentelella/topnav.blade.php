@@ -149,7 +149,7 @@
                             <a href="javascript:;">@{{l.name}}</a>
                         </li>
                         <li>
-                            <a class="text-center" href="{{url('logistic/locations')}} ">
+                            <a class="text-center" href="{{ $appUrl }}/locations">
                                 <strong>Ver Areas</strong>
                                 <i class="fa fa-angle-right"></i>
                             </a>

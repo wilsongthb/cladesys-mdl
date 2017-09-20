@@ -7,7 +7,7 @@ overflow: auto;
         <thead>
             <tr>
                 <th>#</th>
-                <th>Value</th>
+                <th>Valor</th>
                 <th></th>
             </tr>
         </thead>
@@ -15,10 +15,10 @@ overflow: auto;
             <tr>
                 <td></td>
                 <td>
-                    <input type="text" ng-model="fila.value" capitalize class="form-control">
+                    <input type="text" placeholder="Nuevo valor" ng-model="fila.value" capitalize class="form-control">
                 </td>
                 <td>
-                    <button class="btn btn-success" ng-click="save(fila)"><i class="fa fa-plus"></i> </button>
+                    <button title="Crear nuevo valor" class="btn btn-success" ng-click="save(fila)"><i class="fa fa-plus"></i> </button>
                 </td>
             </tr>
             <tr ng-repeat="l in list | filter: buscar" ng-switch on="l.state">

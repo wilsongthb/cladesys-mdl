@@ -933,13 +933,20 @@ const OutputsConfig = {
             stts.urgente = (stts.stock < stts.po_minimum) ? true : false;
             stts.comprar = (stts.stock < stts.po_permanent) ? true : false;
             if(stts.po_minimum === 0 && stts.po_permanent === 0){
+                // console.log(stts.od_updated_at)
                 let e = moment(stts.od_updated_at)
                 let t = moment(new Date())
                 let diff = t.diff(e, 'days')
-                console.log(diff)
+                // console.log(diff)
                 stts.days = diff
                 stts.urgente = diff > stts.po_duration - 30 ? true : false; 
                 stts.comprar = diff > stts.po_duration - 60 ? true : false;
+                if(!stts.od_updated_at){
+                    // stts.od_updated_at = 
+                    stts.days = 0
+                    stts.urgente = true; 
+                    stts.comprar = false;
+                }
             }
             return stts
         }
@@ -957,9 +964,9 @@ const OutputsConfig = {
 
 //REQUERIMENTS
 const RequerimentsConfig = {
-    name: 'orders',
-    createUrl: G.appUrl + '/orders/create',
-    editUrl: G.appUrl + '/orders/edit',
+    name: 'requeriments',
+    createUrl: G.appUrl + '/requeriments/create',
+    editUrl: G.appUrl + '/requeriments/edit',
     quotationsUrl: G.appUrl + '/quotations/edit',
     comparisonUrl: G.appUrl + '/comparison/edit',
 };
@@ -1103,7 +1110,7 @@ const RequerimentsConfig = {
         $scope.det = {
             list: [],
             buttonAdd: false,
-            name: 'order-details',
+            name: 'requeriment-details',
             fila: {},
             buscar: '',
             get: function(){
@@ -1122,7 +1129,7 @@ const RequerimentsConfig = {
             agregarRequeridos: function(){
                 this.buttonAdd = true
                 $http.post(G.apiUrl + '/' + this.name + '/add-all-req', {
-                    orders_id: $routeParams.id,
+                    requeriments_id: $routeParams.id,
                     locations_id: Locations.get()
                 }).then(
                     res => {
@@ -1154,7 +1161,7 @@ const RequerimentsConfig = {
                         }
                     )
                 }else{
-                    this.fila.orders_id = $routeParams.id
+                    this.fila.requeriments_id = $routeParams.id
                     $http.post(G.apiUrl + '/' + this.name, this.fila)
                     .then(
                         res => {
@@ -1190,9 +1197,9 @@ const RequerimentsConfig = {
 
 // quotations
 const QuotationsConfig = {
-    name: 'orders',
+    name: 'requeriments',
     editUrl: G.appUrl + '/quotations/edit',
-    requerimentUrl: G.appUrl + '/orders/edit',
+    requerimentUrl: G.appUrl + '/requeriments/edit',
     comparisonUrl: G.appUrl + '/comparison/edit',
 };
 (function(G, Config) {
@@ -1289,7 +1296,7 @@ const QuotationsConfig = {
                 $http.get(G.apiUrl + '/quotations', { params: { id: $routeParams.id}})
                 .then(
                     res => { // success
-                        this.list = res.data.order_details
+                        this.list = res.data.requeriment_details
                         
                         for(let i in res.data.suppliers){
                             let fila = res.data.suppliers[i]
@@ -1298,11 +1305,11 @@ const QuotationsConfig = {
 
                         for(let j in res.data.quotations){
                             let fila = res.data.quotations[j]
-                            if(!this.quotations[fila.order_details_id]){
-                                this.quotations[fila.order_details_id] = {}
-                                this.quotations[fila.order_details_id][fila.suppliers_id] = fila
+                            if(!this.quotations[fila.requeriment_details_id]){
+                                this.quotations[fila.requeriment_details_id] = {}
+                                this.quotations[fila.requeriment_details_id][fila.suppliers_id] = fila
                             }else
-                                this.quotations[fila.order_details_id][fila.suppliers_id] = fila
+                                this.quotations[fila.requeriment_details_id][fila.suppliers_id] = fila
                         }
                     }
                 )
@@ -1317,7 +1324,7 @@ const QuotationsConfig = {
                         }
                     )
                 }else{
-                    q.order_details_id = d_id
+                    q.requeriment_details_id = d_id
                     q.suppliers_id = s_id
                     $http.post(G.apiUrl + '/quotations', q)
                     .then(
@@ -1336,7 +1343,7 @@ const QuotationsConfig = {
                 if($window.confirm('Borrar Proveedor, \nborrara tambien sus Cotizaciones')){
                     $http.delete(G.apiUrl + '/quotations/remove-supplier', {
                         params: { 
-                            orders_id: $routeParams.id,
+                            requeriments_id: $routeParams.id,
                             suppliers_id: s.id
                         },
                     })
@@ -1367,9 +1374,9 @@ const QuotationsConfig = {
 
 // COMPARAZIONES
 const ComparisonConfig = {
-    name: 'orders', // use to api resource,
+    name: 'requeriments', // use to api resource,
     editUrl: G.appUrl + '/comparison/edit',
-    requerimentUrl: G.appUrl + '/orders/edit',
+    requerimentUrl: G.appUrl + '/requeriments/edit',
     quotationsUrl: G.appUrl + '/quotations/edit',
 };
 (function(G, Config) {
@@ -1453,7 +1460,7 @@ const ComparisonConfig = {
                 $http.get(G.apiUrl + '/quotations', { params: { id: $routeParams.id}})
                 .then(
                     res => { // success
-                        this.list = res.data.order_details
+                        this.list = res.data.requeriment_details
                         
                         for(let i in res.data.suppliers){
                             let fila = res.data.suppliers[i]
@@ -1463,11 +1470,11 @@ const ComparisonConfig = {
                         for(let j in res.data.quotations){
                             let fila = res.data.quotations[j]
                             fila.status = fila.status === 1 ? true : false
-                            if(!this.quotations[fila.order_details_id]){
-                                this.quotations[fila.order_details_id] = {}
-                                this.quotations[fila.order_details_id][fila.suppliers_id] = fila
+                            if(!this.quotations[fila.requeriment_details_id]){
+                                this.quotations[fila.requeriment_details_id] = {}
+                                this.quotations[fila.requeriment_details_id][fila.suppliers_id] = fila
                             }else
-                                this.quotations[fila.order_details_id][fila.suppliers_id] = fila
+                                this.quotations[fila.requeriment_details_id][fila.suppliers_id] = fila
                         }
                     }
                 )
@@ -1482,7 +1489,7 @@ const ComparisonConfig = {
                         }
                     )
                 }else{
-                    q.order_details_id = d_id
+                    q.requeriment_details_id = d_id
                     q.suppliers_id = s_id
                     $http.post(G.apiUrl + '/quotations', q)
                     .then(
@@ -1501,7 +1508,7 @@ const ComparisonConfig = {
             //     if($window.confirm('Borrar Proveedor, \nborrara tambien sus Cotizaciones')){
             //         $http.delete(G.apiUrl + '/quotations/remove-supplier', {
             //             params: { 
-            //                 orders_id: $routeParams.id,
+            //                 requeriments_id: $routeParams.id,
             //                 suppliers_id: s.id
             //             },
             //         })
@@ -1540,10 +1547,10 @@ const ComparisonConfig = {
         var vm = this;
         
         $scope.dialogs = {
-            showModalSuppliers: function(orders_id){
+            showModalSuppliers: function(requeriments_id){
                 $('#modalSupplierSelect').modal('show')
-                $scope.rsc.getSuppliers(orders_id)
-                this.orders_id = orders_id
+                $scope.rsc.getSuppliers(requeriments_id)
+                this.requeriments_id = requeriments_id
             }
         }
 
@@ -1557,7 +1564,7 @@ const ComparisonConfig = {
             search: '',
             error: false,
             get: function(){
-                $http.get(G.apiUrl + '/orders', {
+                $http.get(G.apiUrl + '/requeriments', {
                     params: {
                         search: this.search, 
                         page: this.page, 
@@ -1574,9 +1581,9 @@ const ComparisonConfig = {
                     }
                 )
             },
-            getSuppliers: function(orders_id){
+            getSuppliers: function(requeriments_id){
                 $http.get(G.apiUrl + '/quotations/select-suppliers', {
-                    params: {id: orders_id}
+                    params: {id: requeriments_id}
                 }).then(
                     res => this.suppliers = res.data
                 )

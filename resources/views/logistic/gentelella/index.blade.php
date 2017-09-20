@@ -33,14 +33,14 @@
     <link href="{{ asset('/css/logistic.css') }} " rel="stylesheet">
     <link href="{{ asset('/bower_components/angular-bootstrap/ui-bootstrap-csp.css') }} " rel="stylesheet">
     <link href="{{ asset('/bower_components/angular-ui-select/dist/select.css') }} " rel="stylesheet">
-    <base href="{{ url('') }}/logistic/">
+    <base href="{{ $baseUrl }}">
 </head>
 
 <body class="nav-md">
 
     <div class="container body" ng-app="logistic" ng-controller="RootController">
         <div class="main_container">
-            @include('logistic.gentelella.navbar')
+            @include('logistic.gentelella.navbar', ['menu' => $menu])
 
             @include('logistic.gentelella.topnav')
 
@@ -124,11 +124,12 @@
         const G = {
             name: 'logistic',
             url: "{{ url('') }}",
-            appUrl: "{{ url('') }}/logistic",
-            apiUrl: "{{ url('') }}/logistic/api",
+            appUrl: "{{ $appUrl }}",
+            apiUrl: "{{ $apiUrl }}",
             user: {!!json_encode(Auth::user()) !!},
             console: true,
             config: {!!json_encode(config('logistic')) !!}
+            
         }
     </script>
     <script src="{{ asset('/js/logistic/app.js') }} "></script>

@@ -3,11 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\User;
-use App\Models\Permissions;
-// use App\
+use App\Models\UserModules;
 
-class UsersController extends Controller
+class UserModulesController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -16,11 +14,7 @@ class UsersController extends Controller
      */
     public function index()
     {
-        return [
-            'users' => User::all(),
-            'permissions' => Permissions::all(),
-            // 'user_modules' => 
-        ];
+        return UserModules::all();
     }
 
     /**

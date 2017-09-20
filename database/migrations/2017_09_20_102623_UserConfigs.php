@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class Permissions extends Migration
+class UserConfigs extends Migration
 {
     /**
      * Run the migrations.
@@ -13,13 +13,15 @@ class Permissions extends Migration
      */
     public function up()
     {
-        Schema::create('permissions', function (Blueprint $table) {
+        Schema::create('user_configs', function (Blueprint $table) {
             $table->increments('id');
             $table->timestamps();
+            
             $table->integer('user_id')->unsigned();
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
-            $table->integer('permission')->unsigned();
-            $table->unique(['user_id', 'permission']);
+
+            $table->string('clave');
+            $table->string('valor');
         });
     }
 
@@ -30,6 +32,6 @@ class Permissions extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('permissions');
+        Schema::dropIfExists('user_configs');
     }
 }

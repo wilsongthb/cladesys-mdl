@@ -58,5 +58,8 @@ Route::group(['middleware' => ['auth']], function(){
         Route::get('/orders/print/{id}', 'Logistic\OrdersController@imprimir');
         Route::get('/gentelella/{a?}/{b?}/{c?}', 'Logistic\MainController@gentelella')->name('logisticGT');
         Route::get('/', 'Logistic\MainController@index');
+        // Route::get('/', function(){
+        //     // dd("what");
+        // });
     });
 });

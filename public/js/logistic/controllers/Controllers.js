@@ -1681,3 +1681,40 @@ const ComparisonConfig = {
         }
     }
 })(G);
+
+(function(Config) {
+    'use strict';
+
+    angular
+        .module('logistic')
+        .controller('PermissionsController', PermissionsController);
+
+    PermissionsController.$inject = ['$scope', '$http'];
+    function PermissionsController($scope, $http) {
+        var vm = this;
+        
+        $scope.dialogs = {
+            mostrarModalEditarPermisos: function(user){
+                $('#modalUserPermissions').modal('show');
+                
+            }
+        }
+        $scope.rsc= {
+            get: function(){
+                $http.get(Config.url + '/users').then(
+                    res => {
+                        this.data = res.data
+                    }
+                )
+            }
+        }
+
+        activate();
+
+        ////////////////
+
+        function activate() { 
+            $scope.rsc.get()
+        }
+    }
+})(G);

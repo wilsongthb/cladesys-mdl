@@ -141,12 +141,12 @@
                 </li>  --}}
                 <li class="">
                     <a href="javascript:;" class="user-profile dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-                        @{{Locations.list[Locations.get()].name}}
+                        <span ng-bind="Locations.list[Locations.get()].name"></span>
                         <span class=" fa fa-angle-down"></span>
                     </a>
                     <ul class="dropdown-menu dropdown-usermenu pull-right">
                         <li ng-repeat="l in Locations.list track by l.id" ng-class="{ active: l.id == Locations.get() }" ng-click="Locations.set(l.id)" ng-if="l">
-                            <a href="javascript:;">@{{l.name}}</a>
+                            <a href="javascript:;"><span ng-bind="l.name"></span> </a>
                         </li>
                         <li>
                             <a class="text-center" href="{{ $appUrl }}/locations">

@@ -151,6 +151,11 @@
                         templateUrl: G.url + '/view/users.html',
                         controller: 'UsersController'
                     })
+
+                    .when('/permissions', {
+                        templateUrl: G.url + '/view/permissions.html',
+                        controller: 'PermissionsController'
+                    })
             }
         ]);
 })(G);

@@ -5,111 +5,111 @@ return [
         'products' => [
             'title' => 'Registro de Productos',
             'description' => 'Modulo para registrar los productos',
-            'api' => 'logistic/api/products',
+            // 'api' => 'logistic/api/products',
             # ----------------------------------
-            'icon' => '<i class="fa fa-book"></i>',
+            // 'icon' => '<i class="fa fa-book"></i>',
         ],
         'users' => [
             'title' => 'Usuarios',
             'description' => 'Modulo para gestionar los usuarios',
-            'api' => 'users',
+            // 'api' => 'users',
             # ----------------------------------
-            'icon' => '<i class="fa fa-book"></i>',
+            // 'icon' => '<i class="fa fa-book"></i>',
         ],
         'permissions' => [
             'title' => 'Permisos',
             'description' => 'Modulo para configurar los usuarios y sus permisos',
-            'api' => '',
-            # ----------------------------------
-            'icon' => '<i class="fa fa-book"></i>',
+            // 'api' => '',
+            // # ----------------------------------
+            // 'icon' => '<i class="fa fa-book"></i>',
         ],
         'config' => [
             'title' => 'Configuracion',
             'description' => 'Configuraciones de la aplicacion',
-            'api' => 'logistic/api/config',
-            # ----------------------------------
-            'icon' => '<i class="fa fa-book"></i>',
+            // 'api' => 'logistic/api/config',
+            // # ----------------------------------
+            // 'icon' => '<i class="fa fa-book"></i>',
         ],
         'products-config' => [
             'title' => 'Configuracion de Productos',
             'description' => 'Configuraciones de los productos, individual por cada Area',
-            'api' => 'logistic/api/product-options',
-            # ----------------------------------
-            'icon' => '<i class="fa fa-book"></i>',
+            // 'api' => 'logistic/api/product-options',
+            // # ----------------------------------
+            // 'icon' => '<i class="fa fa-book"></i>',
         ],
         'requeriments' => [
             'title' => 'Requerimientos',
             'description' => 'Modulo para realizar un requerimiento, para solicitar productos que requiere un Area o para realizar un proceso de cotizacion segun el Area',
-            'api' => 'logistic/api/requeriments',
-            # ----------------------------------
-            'icon' => '<i class="fa fa-book"></i>',
+            // 'api' => 'logistic/api/requeriments',
+            // # ----------------------------------
+            // 'icon' => '<i class="fa fa-book"></i>',
         ],
         'quotations' => [
             'title' => 'Cotizaciones',
             'description' => 'Modulo para realizar cotizaciones, la siguiente fase del proceso de compra por requerimientos',
-            'api' => 'logistic/api/quotations',
-            # ----------------------------------
-            'icon' => '<i class="fa fa-book"></i>',
+            // 'api' => 'logistic/api/quotations',
+            // # ----------------------------------
+            // 'icon' => '<i class="fa fa-book"></i>',
         ],
         'comparison' => [
             'title' => 'Comparaciones',
             'description' => 'Modulo para realizar comparaciones, permite relizar comparaciones entre los precios de diferentes proveedores registrados en la cotizaciòn',
-            'api' => 'logistic/api/comparison',
-            # ----------------------------------
-            'icon' => '<i class="fa fa-book"></i>',
+            // 'api' => 'logistic/api/comparison',
+            // # ----------------------------------
+            // 'icon' => '<i class="fa fa-book"></i>',
         ],
         'purchase' => [
             'title' => 'Compra',
             'description' => 'Modulo para generar ordenes de compra segun los productos de los proveedores seleccionados en la comparaciòn',
-            'api' => 'logistic/api/purchase',
-            # ----------------------------------
-            'icon' => '<i class="fa fa-book"></i>',
+            // 'api' => 'logistic/api/purchase',
+            // # ----------------------------------
+            // 'icon' => '<i class="fa fa-book"></i>',
         ],
         'inputs' => [
             'title' => 'Entradas a Almacén',
             'description' => 'Modulo para registrar productos que ingresan al almacén',
-            'api' => 'logistic/api/inputs',
-            # ----------------------------------
-            'icon' => '<i class="fa fa-book"></i>',
+            // 'api' => 'logistic/api/inputs',
+            // # ----------------------------------
+            // 'icon' => '<i class="fa fa-book"></i>',
         ],
         'outputs' => [
             'title' => 'Salidas del Almacén',
             'description' => 'Modulo para registrar productos que salen del almacén',
-            'api' => 'logistic/api/outputs',
-            # ----------------------------------
-            'icon' => '<i class="fa fa-book"></i>',
+            // 'api' => 'logistic/api/outputs',
+            // # ----------------------------------
+            // 'icon' => '<i class="fa fa-book"></i>',
         ],
         'inventory' => [
             'title' => 'Inventario',
             'description' => 'Modulo para registrar productos que salen del almacén',
-            'api' => 'logistic/api/outputs',
-            # ----------------------------------
-            'icon' => '<i class="fa fa-book"></i>',
+            // 'api' => 'logistic/api/outputs',
+            // # ----------------------------------
+            // 'icon' => '<i class="fa fa-book"></i>',
         ],
         'inventory-general' => [
             'title' => 'Inventario General',
             'description' => 'Modulo para registrar productos que salen del almacén',
-            'api' => 'logistic/api/outputs',
-            # ----------------------------------
-            'icon' => '<i class="fa fa-book"></i>',
+            // 'api' => 'logistic/api/outputs',
+            // # ----------------------------------
+            // 'icon' => '<i class="fa fa-book"></i>',
         ],
         'stock-status' => [
             'title' => 'Stock',
             'description' => 'Modulo para registrar productos que salen del almacén',
-            'api' => 'logistic/api/outputs',
-            # ----------------------------------
-            'icon' => '<i class="fa fa-book"></i>',
+            // 'api' => 'logistic/api/outputs',
+            // # ----------------------------------
+            // 'icon' => '<i class="fa fa-book"></i>',
         ],
         'suppliers' => [
             'title' => 'Proveedores',
             'description' => 'Modulo para registrar productos que salen del almacén',
-            'api' => 'logistic/api/outputs',
-            # ----------------------------------
-            'icon' => '<i class="fa fa-book"></i>',
+            // 'api' => 'logistic/api/outputs',
+            // # ----------------------------------
+            // 'icon' => '<i class="fa fa-book"></i>',
         ],
     ],
     'menu' => [
-        // 'categories' => [
+        'categories' => [
             'utilities' => [
                 'title' => 'Utilitarios',
                 'icon' => '<i class="fa fa-cog"></i>',
@@ -175,7 +175,7 @@ return [
                     'suppliers',
                 ]
             ],
-        // ],
+        ],
     ],
     'permissions' => [
         // 1 => 'access',

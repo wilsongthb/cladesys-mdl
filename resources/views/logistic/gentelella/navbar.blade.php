@@ -25,18 +25,22 @@
                 <!-- <pre>{{ print_r($menu) }} </pre> -->
                 <ul class="nav side-menu">
                     <li><a href="{{ url('/logistic') }} "><i class="fa fa-home"></i> Principal</a></li>
-                    @foreach ($menu as $title => $record)
-                    <li><a>{!!$record['icon']!!} {{ $record['title'] }} <span class="fa fa-chevron-down"></span></a>
-                        <ul class="nav child_menu">
-                            @foreach ($record['modules'] as $module)
-                            <li>
-                                <a href="{{ $appUrl }}/{{ $module }} " title="{{$modules[$module]['description']}} ">
-                                    {{$modules[$module]['title']}} 
-                                </a>
-                            </li>
-                            @endforeach
-                        </ul>
-                    </li>
+                    @foreach ($menu['categories'] as $title => $record)
+                        @if($record['show'])
+                        <li><a>{!!$record['icon']!!} {{ $record['title'] }} <span class="fa fa-chevron-down"></span></a>
+                            <ul class="nav child_menu">
+                                @foreach ($record['modules'] as $module)
+                                    @if (isset($modules[$module]))
+                                        <li>
+                                            <a href="{{ $appUrl }}/{{ $module }} " title="{{$modules[$module]['description']}} ">
+                                                {{$modules[$module]['title']}} 
+                                            </a>
+                                        </li>
+                                    @endif
+                                @endforeach
+                            </ul>
+                        </li>
+                        @endif
                     @endforeach
                 </ul>
             </div>

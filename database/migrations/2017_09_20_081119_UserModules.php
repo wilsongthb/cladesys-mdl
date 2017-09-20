@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class LocationsConfig extends Migration
+class UserModules extends Migration
 {
     /**
      * Run the migrations.
@@ -13,16 +13,12 @@ class LocationsConfig extends Migration
      */
     public function up()
     {
-        Schema::create('locations_config', function (Blueprint $table) {
+        Schema::create('user_modules', function (Blueprint $table) {
             $table->increments('id');
             $table->timestamps();
             $table->integer('user_id')->unsigned();
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
 
-            $table->integer('locations_id')->unsigned();
-            $table->foreign('locations_id')->references('id')->on('locations')->onDelete('cascade');
-
-            // config
             $table->string('module');
             $table->boolean('get')->default(true); // read
             $table->boolean('post')->default(true); // create
@@ -38,6 +34,6 @@ class LocationsConfig extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('locations_config');
+        Schema::dropIfExists('user_modules');
     }
 }

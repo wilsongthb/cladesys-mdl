@@ -53,9 +53,8 @@ class Permissions
             return $next($request);
         }else{
             // dd("no tienes permiso");
-                return response('No tienes permiso', 404)
-                    ->header('Content-Type', 'text/plain');
-            
+            return response('No tienes permiso', 404)
+                ->header('Content-Type', 'text/plain');
         }
 
         // if()

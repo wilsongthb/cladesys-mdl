@@ -7,7 +7,7 @@
     <link href="{{ asset('/bower_components/angular-ui-select/dist/select.css') }} " rel="stylesheet">
     <base href="{{ $baseUrl }}">
     <!-- LOGISTIC SCRIPTS -->
-    <script src="{{ asset('/js/logistic/custom.js') }} "></script>
+    
     <script src="{{ asset('/bower_components/angular/angular.js') }} "></script>
     <script src="{{ asset('/bower_components/angular-route/angular-route.js') }} "></script>
     <script src="{{ asset('/bower_components/angular-bootstrap/ui-bootstrap.js') }} "></script>

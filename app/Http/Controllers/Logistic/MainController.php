@@ -42,6 +42,7 @@ class MainController extends Controller
             return config('logistic.modules');
         }else{
             foreach ($userModules as $key => $value) {
+                
                 $modules[$value->module] = config('logistic.modules')[$value->module];
             }
             return $modules;

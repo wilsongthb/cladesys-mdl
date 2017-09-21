@@ -6,23 +6,44 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
-
+    
+    
     <link rel="stylesheet" href="{{ asset('/bower_components/normalize-css/normalize.css') }} ">
-    <link rel="stylesheet" href="{{ asset('/bower_components/mui/packages/cdn/css/mui.min.css') }} ">
-    <link rel="stylesheet" href="{{ asset('/bower_components/bootstrap/dist/css/bootstrap.min.css') }} ">
-    <link rel="stylesheet" href="{{ asset('/responsive-side-menu/static/style.css') }} ">
-    <style>
 
-    </style>
+    {{--  <link rel="stylesheet" href="{{ asset('/node_modules/bootstrap-material-design/dist/css/bootstrap-material-design.min.css') }} ">  --}}
+    <link rel="stylesheet" href="{{ asset('/bower_components/bootstrap/dist/css/bootstrap.min.css') }} ">
+    
+    <link rel="stylesheet" href="{{ asset('/bower_components/mui/packages/cdn/css/mui.min.css') }} ">
+
+    <link rel="stylesheet" href="{{ asset('/bower_components/font-awesome/css/font-awesome.min.css') }} ">
+    {{--  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Material+Icons">  --}}
+    {{--  <link rel="stylesheet" href="https://unpkg.com/bootstrap-material-design@4.0.0-beta.3/dist/css/bootstrap-material-design.min.css" integrity="sha384-k5bjxeyx3S5yJJNRD1eKUMdgxuvfisWKku5dwHQq9Q/Lz6H8CyL89KF52ICpX4cL" crossorigin="anonymous">  --}}
+    
+    
+    
+    
+    <link rel="stylesheet" href="{{ asset('/responsive-side-menu/static/style.css') }} ">
 </head>
 
-<body>
+<body ng-app="logistic" ng-controller="RootController">
     <div id="sidedrawer" class="mui--no-user-select">
         <div id="sidedrawer-brand" class="mui--appbar-line-height">
-            <span class="mui--text-title">Brand.io</span>
+            <span class="mui--text-title">{{config('app.name')}} </span>
         </div>
         <div class="mui-divider"></div>
         <ul>
+            <li>
+                <strong>
+                    <a href="{{ $appUrl }}/home " >Principal</a>
+                </strong>
+            </li>
+            @foreach ($modules as $module_name => $module)
+            <li>
+                <strong>
+                    <a href="{{ $appUrl }}/{{ $module_name }} ">{{ $module['title'] }} </a>
+                </strong>
+            </li>
+            @endforeach
             <li>
                 <strong>Category 1</strong>
                 <ul>
@@ -31,7 +52,7 @@
                     <li><a href="#">Item 3</a></li>
                 </ul>
             </li>
-            <li>
+            {{--  <li>
                 <strong>Category 2</strong>
                 <ul>
                     <li><a href="#">Item 1</a></li>
@@ -46,7 +67,7 @@
                     <li><a href="#">Item 2</a></li>
                     <li><a href="#">Item 3</a></li>
                 </ul>
-            </li>
+            </li>  --}}
         </ul>
     </div>
     <header id="header">
@@ -59,11 +80,17 @@
         </div>
     </header>
     <div id="content-wrapper">
-        
         <div class="mui--appbar-height">
         </div>
         <div class="mui-container-fluid">
-            
+            {{--  <a href="javascript:void(0)" class="btn btn-raised active"><code>.active</code></a>
+            <a href="javascript:void(0)" class="btn btn-raised btn-default">Default</a>
+            <a href="javascript:void(0)" class="btn btn-raised btn-primary">Primary</a>
+            <a href="javascript:void(0)" class="btn btn-raised btn-success">Success</a>
+            <a href="javascript:void(0)" class="btn btn-raised btn-info">Info</a>
+            <a href="javascript:void(0)" class="btn btn-raised btn-warning">Warning</a>
+            <a href="javascript:void(0)" class="btn btn-raised btn-danger">Danger</a>
+            <a href="javascript:void(0)" class="btn btn-raised btn-link">Link</a>
             <br>
             <h1>Brand.io</h1>
             <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris sollicitudin volutpat molestie. Nullam id tempor
@@ -84,19 +111,25 @@
             <p>Quisque interdum facilisis consectetur. Nam eu purus purus. Curabitur in ligula quam. Nam euismod ligula eu tellus
                 pellentesque laoreet. Aliquam erat volutpat. Curabitur eu bibendum velit. Cum sociis natoque penatibus et
                 magnis dis parturient montes, nascetur ridiculus mus. Nunc efficitur lorem sit amet quam porta pharetra.
-                Cras ultricies pellentesque eros sit amet semper.</p>
+                Cras ultricies pellentesque eros sit amet semper.</p>  --}}
+            <ng-view></ng-view>
         </div>
     </div>
-    <footer id="footer">
+    {{--  <footer id="footer">
         <div class="mui-container-fluid">
             <br> Made with ♥ by <a href="https://www.muicss.com">MUI</a>
         </div>
-    </footer>
+    </footer>  --}}
 
     <script src="{{ asset('/bower_components/mui/packages/cdn/js/mui.min.js') }} "></script>
     <script src="{{ asset('/bower_components/jquery/dist/jquery.min.js') }} "></script>
     <script src="{{ asset('/bower_components/bootstrap/dist/js/bootstrap.min.js') }} "></script>
     <script src="{{ asset('/responsive-side-menu/static/script.js') }} "></script>
-</body>
+    
+    <!-- <script src="{{ asset('/node_modules/bootstrap-material-design/js/bootstrapMaterialDesign.js') }} "></script> -->
 
+    
+    @include('logistic.app')
+    
+</body>
 </html>

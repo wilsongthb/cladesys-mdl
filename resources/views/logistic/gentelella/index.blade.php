@@ -99,7 +99,7 @@
     <!-- Custom Theme Scripts -->
     {{--  <script src="{{ asset('/bower_components/gentelella/build/js/custom.min.js') }} "></script>  --}}
     <script src="{{ asset('/bower_components/gentelella/src/js/helpers/smartresize.js') }} "></script>
-
+    <script src="{{ asset('/js/logistic/gentelella_custom.js') }} "></script>
     
     @include('logistic.app')
 

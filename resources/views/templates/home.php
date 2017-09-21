@@ -27,7 +27,7 @@
 
                 <h1>CLADESYS - LOGISTICS</h1>
                 <h2>
-                    <p>Bienvenido al Sistema de Logistica, este Sistema de Información sirve para administrar varios almcenes,
+                    <p>Bienvenido al Sistema de Logistica, este Sistema de Información sirve para administrar varios almacenes,
                         registrar productos, controlar la entrada de estos a los almacén, seguir su distribución entre estos
                         almacenes registrados, controlar el stock de los productos
                     </p>

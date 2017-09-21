@@ -91,13 +91,12 @@
                 <h4 class="modal-title">Selecciona un Proveedor</h4>
             </div>
             <div class="modal-body">
-
                 <div class="list-group">
-                    <a target="blank" ng-repeat="s in rsc.suppliers" href="{{G.appUrl + '/purchase-order'}}/{{dialogs.orders_id}}/{{s.id}} " class="list-group-item">{{s.company_name}} {{s.contact_name}} 
+                    <a target="blank" ng-repeat="s in rsc.suppliers" href="{{G.appUrl + '/purchase-order'}}/{{dialogs.requeriments_id}}/{{s.id}} " class="list-group-item">{{s.company_name}} {{s.contact_name}} 
                         <span class="badge">{{s.count_q}} </span>
+                        <!-- <pre>{{s}} </pre> -->
                     </a>
                 </div>
-
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>

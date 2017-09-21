@@ -1,0 +1,1 @@
+# Esta carpeta es para componentes creados para la aplicacion de logistica

@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\Quotations;
 use App\Models\RequerimentDetails;
-use App\Http\Controllers\Logistic\OrderDetailsController;
+use App\Http\Controllers\Logistic\RequerimentDetailsController;
 use DB;
 use App\Models\Suppliers;
 
@@ -40,11 +40,11 @@ class QuotationsController extends Controller
         //     ->leftJoin('requeriments AS or', 'or.id', '=', 'ord.requeriments_id')
         //     ->where('or.id', $request->id)
         //     ->get();
-        // $instOrd = new OrderDetailsController;
+        // $instOrd = new RequerimentDetailsController;
         // $ord = $instOrd->index($request);
         // dd($ord);
         // dd();
-        // $datos = $this->index($request, new OrderDetailsController);
+        // $datos = $this->index($request, new RequerimentDetailsController);
         // foreach ($variable as $key => $value) {
         //     # code...
         // }
@@ -149,7 +149,7 @@ class QuotationsController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(Request $request, OrderDetailsController $od)
+    public function index(Request $request, RequerimentDetailsController $od)
     {
         $quotations = Quotations::
             select(

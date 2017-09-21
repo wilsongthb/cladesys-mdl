@@ -13,6 +13,8 @@ class MainController extends Controller
     * Metodo principal
     */
     public function index(){
+        $this->isAjax(request());
+
         $logistic_theme = config('dev.user_config.logistic.theme');
 
         // dd($logistic_theme);
@@ -58,7 +60,7 @@ class MainController extends Controller
         return [
             'baseUrl' => url('logistic').'/', // to angular html5 route mode
             'appUrl' => url('logistic'),
-            'apiUrl' => url('logistic/api'),
+            'apiUrl' => url('rsc'),
             'modules' => $modules
         ];
     }
@@ -126,7 +128,7 @@ class MainController extends Controller
         }
         $resource['menu'] = $menu;
         
-        $this->isAjax(request());
+        
         // dd($resource);
 
         return view('logistic.gentelella.index', $resource);

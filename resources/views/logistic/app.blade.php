@@ -7,7 +7,6 @@
     <link href="{{ asset('/bower_components/angular-ui-select/dist/select.css') }} " rel="stylesheet">
     <base href="{{ $baseUrl }}">
     <!-- LOGISTIC SCRIPTS -->
-    
     <script src="{{ asset('/bower_components/angular/angular.js') }} "></script>
     <script src="{{ asset('/bower_components/angular-route/angular-route.js') }} "></script>
     <script src="{{ asset('/bower_components/angular-bootstrap/ui-bootstrap.js') }} "></script>
@@ -21,7 +20,8 @@
     <script src="{{ asset('/bower_components/js-xlsx/jszip.js') }} "></script>
     <script src="{{ asset('/bower_components/js-xlsx/xlsx.js') }} "></script>
     <script src="{{ asset('/bower_components/file-saver/FileSaver.js') }} "></script>
-    <!-- mis scripts -->
+    
+    <!-- MIS SCRIPTS -->
     <script>
         const G = {
             name: 'logistic',

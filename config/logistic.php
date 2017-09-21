@@ -11,6 +11,7 @@ return [
         5 => 'ELIMINAR', // borrar
     ],
     'name' => 'logistic',
+
     // STATIC
     // ===========================================================
     'modules' => [

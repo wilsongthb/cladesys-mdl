@@ -56,10 +56,6 @@ Route::group(['middleware' => ['auth']], function(){
         });
         Route::get('/purchase-order/{orders_id}/{supppliers_id}', 'Logistic\QuotationsController@purchaseOrder');
         Route::get('/orders/print/{id}', 'Logistic\OrdersController@imprimir');
-        Route::get('/gentelella/{a?}/{b?}/{c?}', 'Logistic\MainController@gentelella')->name('logisticGT');
-        Route::get('/', 'Logistic\MainController@index');
-        // Route::get('/', function(){
-        //     // dd("what");
-        // });
+        Route::get('/{a?}/{b?}/{c?}', 'Logistic\MainController@index')->name('logistic');
     });
 });

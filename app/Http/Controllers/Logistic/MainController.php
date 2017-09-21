@@ -9,9 +9,34 @@ use Auth;
 
 class MainController extends Controller
 {
-    public function getModules(Auth $auth){
+    /**
+    * Metodo principal
+    */
+    public function index(){
+        $logistic_theme = config('dev.user_config.logistic.theme');
+
+        // dd($logistic_theme);
+
+        if($logistic_theme === 'gentelella'){
+            return $this->gentelella();
+        }
+
+        if($logistic_theme === 'mui'){
+            return $this->mui();
+        }
+    }
+    /** 
+     *  Funcion para obtener los modulos disponibles para el usuario
+     *
+     *  Se encarga de crear un array con todos los modulos a los que
+     *  el usuario tiene acceso
+     *
+     *  @param \App\User $user
+     *  @return Array $modules
+     */
+
+    public function getModules($user){
         $modules = array();
-        $user = $auth::user();
         $userModules = UserModules::where('user_id', $user->id)->get();
         if(count($userModules) === 0){
             return config('logistic.modules');
@@ -22,6 +47,37 @@ class MainController extends Controller
             return $modules;
         }
     }
+
+    /**
+     * Crea un array con algunos recursos utiles para la SPA en
+     * Angular JS
+     */
+    public function resourcesToView(){
+        $modules = $this->getModules(Auth::user());
+        return [
+            'baseUrl' => url('logistic').'/', // to angular html5 route mode
+            'appUrl' => url('logistic'),
+            'apiUrl' => url('logistic/api'),
+            'modules' => $modules
+        ];
+    }
+
+    /**
+    * Esta funcion es para evitar que la carga de la pagina entre en bucle
+    
+    * ¿Porque?
+
+    * La razon de este error tiene relacion con la ruta especial para 
+    * el SPA de angular, laravel debe de pasarle el resto de la url
+    * a angular para que este se encarge del ruteo.
+
+    * El detalle esta en que cuando hacemos una llamada erronea a la url
+    * por ajax, este pide una copia de la pagina, esto es completamente 
+    * innecesario, es por ello que para evitar un consumo injustificado de
+    * recursos por un error en el ruteo nos vuelva a cargar la pagina en 
+    * una peticion ajax
+
+    */
     public function isAjax(Request $request){
         if($request->ajax() OR $request->isJson() OR $request->expectsJson()){
             // dd([
@@ -30,35 +86,33 @@ class MainController extends Controller
             //     'isJson' => $request->isJson(),
             //     'expectsJson' => $request->expectsJson()
             // ]);
-            return response(print_r([
+            exit(print_r([
                 'msj' => 'This Ajax response is not available',
                 'ajax' => $request->ajax(),
                 'isJson' => $request->isJson(),
                 'expectsJson' => $request->expectsJson()
-            ], true), 404)->header('Content-Type', 'text/plain');
+            ], true));
+            // return response(print_r([
+            //     'msj' => 'This Ajax response is not available',
+            //     'ajax' => $request->ajax(),
+            //     'isJson' => $request->isJson(),
+            //     'expectsJson' => $request->expectsJson()
+            // ], true), 404)->header('Content-Type', 'text/plain');
         }
     }
-    public function index(){
 
-        $logistic_theme = config('dev.user_config.logistic.theme');
-        // dd("ya fue", $logistic_theme);
-        if($logistic_theme === 'gentelella'){
-            // echo "gentelella";
-            // dd($this->gentelella());
-            return $this->gentelella();
-            // return redirect('logistic/gentelella');
-        }
-        
-    }
+    /**
+    * GENTELELLA THEME
+    * BOOTSTRAP
+    */
     public function gentelella(){
         $menu = config('logistic.menu');
-        $modules = $this->getModules(new Auth);
-        
+        $resource = $this->resourcesToView();
         $categories = array();
         foreach ($menu['categories'] as $categorie_name => &$categorie) {
             $confirm_modules = array();
             foreach ($categorie['modules'] as $module_name) {
-                if(isset($modules[$module_name])){
+                if(isset($resource['modules'][$module_name])){
                     array_push($confirm_modules, $module_name);
                 }
             }
@@ -66,18 +120,22 @@ class MainController extends Controller
                 $categorie['show'] = false;       
             }else{
                 $categorie['show'] = true;
-                $categorie['modules'] = $confirm_modules;    
+                $categorie['modules'] = $confirm_modules;
             }
         }
+        $resource['menu'] = $menu;
+        
         $this->isAjax(request());
-        return view('logistic.gentelella.index', [
-            // 'baseUrl' => url('logistic/gentelella').'/', // to angular html5 route mode
-            // 'appUrl' => url('logistic/gentelella'),
-            'baseUrl' => url('logistic').'/', // to angular html5 route mode
-            'appUrl' => url('logistic'),
-            'apiUrl' => url('logistic/api'),
-            'menu' => $menu,
-            'modules' => $modules
-        ]);
+        // dd($resource);
+
+        return view('logistic.gentelella.index', $resource);
+    }
+
+    /**
+    * MUI THEME
+    * BOOTSTRAP
+    */
+    public function mui(){
+        return view('logistic.mui.index', $this->resourcesToView());
     }
 }

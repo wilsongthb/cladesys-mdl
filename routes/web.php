@@ -30,15 +30,18 @@ Route::group(['middleware' => 'auth'], function(){
         Route::resource('users', 'UsersController');
         Route::resource('permissions', 'PermissionsController');
         Route::group(['prefix' => 'logistic'], function(){
-            Route::get('/purchase-order/{requeriments_id}/{supppliers_id}', 'Logistic\QuotationsController@purchaseOrder');
-            Route::get('/orders/print/{id}', 'Logistic\RequerimentsController@imprimir');
             Route::get('/{a?}/{b?}/{c?}', 'Logistic\MainController@index')->name('logistic');
         });
+
+        Route::get('/purchase-order/{requeriments_id}/{supppliers_id}', 'Logistic\QuotationsController@purchaseOrder');
+        Route::get('/orders/print/{id}', 'Logistic\RequerimentsController@imprimir');
+
     });
     
     Route::group([
         'prefix' => 'rsc',
-        'middleware' => 'permissions'
+        // 'middleware' => 'permissions'
+        'middleware' => 'user-modules'
     ], function(){
         Route::resource('brands', 'Logistic\BrandsController');
         Route::resource('measurements', 'Logistic\MeasurementsController');

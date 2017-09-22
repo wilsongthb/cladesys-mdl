@@ -142,7 +142,7 @@
                 </form>
                 @else
                 <div class="links">
-                    <a href="{{ url('/logistic') }} ">Logistica</a>
+                    <a href="{{ url('/logistic/home') }} ">Logistica</a>
                 </div>
                 @endif
                 

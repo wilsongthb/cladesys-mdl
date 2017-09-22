@@ -26,6 +26,10 @@ class MainController extends Controller
         if($logistic_theme === 'mui'){
             return $this->mui();
         }
+
+        if($logistic_theme === 'bootstrap'){
+            return $this->bootstrap();
+        }
     }
     /** 
      *  Funcion para obtener los modulos disponibles para el usuario
@@ -67,6 +71,10 @@ class MainController extends Controller
      */
     public function resourcesToView(){
         $modules = $this->getModules(Auth::user());
+        $categories = array();
+        foreach ($modules as $key => $value) {
+            
+        }
         return [
             'baseUrl' => url('logistic').'/', // to angular html5 route mode
             'appUrl' => url('logistic'),
@@ -150,5 +158,12 @@ class MainController extends Controller
     */
     public function mui(){
         return view('logistic.mui.index', $this->resourcesToView());
+    }
+
+    /**
+    * BOOTSTRAP
+    */
+    public function bootstrap(){
+        return view('logistic.bootstrap.index', $this->resourcesToView());
     }
 }

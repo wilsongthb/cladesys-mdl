@@ -18,62 +18,77 @@ return [
         'products' => [
             'title' => 'Registro de Productos',
             'description' => 'Modulo para registrar los productos',
+            'categorie' => 'products'
         ],
         'users' => [
             'title' => 'Usuarios',
             'description' => 'Modulo para gestionar los usuarios',
+            'categorie' => 'utilities'
         ],
         'permissions' => [
             'title' => 'Permisos',
             'description' => 'Modulo para configurar los usuarios y sus permisos',
+            'categorie' => 'utilities'
         ],
         'config' => [
             'title' => 'Configuracion',
             'description' => 'Configuraciones de la aplicacion',
+            'categorie' => 'utilities',
         ],
         'products-config' => [
             'title' => 'Configuracion de Productos',
             'description' => 'Configuraciones de los productos, individual por cada Area',
+            'categorie' => 'products',
         ],
         'requeriments' => [
             'title' => 'Requerimientos',
             'description' => 'Modulo para realizar un requerimiento, para solicitar productos que requiere un Area o para realizar un proceso de cotizacion segun el Area',
+            'categorie' => 'purchase',
         ],
         'quotations' => [
             'title' => 'Cotizaciones',
             'description' => 'Modulo para realizar cotizaciones, la siguiente fase del proceso de compra por requerimientos',
+            'categorie' => 'purchase',
         ],
         'comparison' => [
             'title' => 'Comparaciones',
             'description' => 'Modulo para realizar comparaciones, permite relizar comparaciones entre los precios de diferentes proveedores registrados en la cotizaciòn',
+            'categorie' => 'purchase',
         ],
         'purchase' => [
             'title' => 'Compra',
             'description' => 'Modulo para generar ordenes de compra segun los productos de los proveedores seleccionados en la comparaciòn',
+            'categorie' => 'purchase',
         ],
         'inputs' => [
             'title' => 'Entradas a Almacén',
             'description' => 'Modulo para registrar productos que ingresan al almacén',
+            'categorie' => 'purchase',
         ],
         'outputs' => [
             'title' => 'Salidas del Almacén',
             'description' => 'Modulo para registrar productos que salen del almacén',
+            'categorie' => 'distribution',
         ],
         'inventory' => [
             'title' => 'Inventario',
             'description' => 'Modulo para registrar productos que salen del almacén',
+            'categorie' => 'reports',
         ],
         'inventory-general' => [
             'title' => 'Inventario General',
             'description' => 'Modulo para registrar productos que salen del almacén',
+            'categorie' => 'reports',
         ],
         'stock-status' => [
             'title' => 'Stock',
             'description' => 'Modulo para registrar productos que salen del almacén',
+            'categorie' => 'reports',
         ],
         'suppliers' => [
             'title' => 'Proveedores',
             'description' => 'Modulo para registrar productos que salen del almacén',
+            'categorie' => 'directory',
         ],
     ],
     'menu' => [

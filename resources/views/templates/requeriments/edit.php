@@ -9,7 +9,7 @@
                         <div class="row">
                             <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
                                 <button ng-disabled="det.buttonAdd" ng-click="det.agregarRequeridos()" class="btn btn-primary"><i class="fa fa-spinner fa-pulse fa-fw" ng-show="det.buttonAdd"></i> {{!det.buttonAdd ? 'Agregar Productos Requeridos' : 'Cargando'}} </button>
-                                <a href="<?= url('logistic/orders/') ?>/print/{{$routeParams.id}}" target="_blank">
+                                <a href="<?= url('orders/') ?>/print/{{$routeParams.id}}" target="_blank">
                                     <button class="btn btn-success">Imprimir</button>
                                 </a>
                                 <a href="{{config.quotationsUrl + '/' + $routeParams.id}} " class="btn btn-warning"><i class="fa fa-money"></i> Cotización</a>

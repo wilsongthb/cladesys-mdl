@@ -22,18 +22,28 @@ class UserModules
 
         $user = Auth::user();
 
-        $module = ( isset($modules[1]) ? $modules[1] : '' );
-        $module .= ( isset($modules[2]) ? '/'.$modules[2] : '' );
+        $pattern_module = ( isset($modules[1]) ? $modules[1] : '' );
+        $module = $pattern_module . ( isset($modules[2]) ? '/'.$modules[2] : '' );
         
         // $method = $request->getMethod();
+
+        // $userModules = UserModulesModel
+        //     ::where('user_id', $user->id)
+        //     ->where('module', $pattern_module)
+        //     ->get();
+
+        
 
         $userModules = UserModulesModel
             ::where('user_id', $user->id)
             ->where('module', $module)
+            ->orWhere('module', $pattern_module)
             ->where($request->getMethod(), true)
             ->get();
+
         
-        // dd($module, $method, $userModules);
+        
+        // dd($module, $userModules);
 
         if(count($userModules) === 0){
             

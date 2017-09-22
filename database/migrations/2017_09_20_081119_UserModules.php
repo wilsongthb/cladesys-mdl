@@ -24,6 +24,8 @@ class UserModules extends Migration
             $table->boolean('post')->default(true); // create
             $table->boolean('put')->default(true); // update
             $table->boolean('delete')->default(true); // delete
+
+            $table->unique(['user_id', 'module']);
         });
     }
 

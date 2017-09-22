@@ -10,8 +10,8 @@ return [
     'user_config' => [
         // valores por defecto de la configuracion de usuario de logistica
         'logistic' => [
-            // 'theme' => 'gentelella'
-            'theme' => 'mui'
+            'theme' => 'gentelella'
+            // 'theme' => 'mui'
         ]
     ],
 ];

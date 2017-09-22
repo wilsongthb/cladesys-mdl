@@ -18,7 +18,7 @@ class Permissions extends Migration
             $table->timestamps();
             $table->integer('user_id')->unsigned();
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
-            $table->integer('permission')->unsigned();
+            $table->string('permission');
             $table->unique(['user_id', 'permission']);
         });
     }

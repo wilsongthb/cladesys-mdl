@@ -39,14 +39,24 @@ class MainController extends Controller
 
     public function getModules($user){
         $modules = array();
-        $userModules = UserModules::where('user_id', $user->id)->get();
+        $userModules = UserModules
+            ::where('user_id', $user->id)
+            ->where('module', 'LIKE', 'logistic/%')
+            ->get();
+        
         if(count($userModules) === 0){
             return config('logistic.modules');
         }else{
             foreach ($userModules as $key => $value) {
-                
-                $modules[$value->module] = config('logistic.modules')[$value->module];
+                $module = explode('/', $value->module);
+                $module = isset($module[1]) ? $module[1] : $module[0];
+
+                // solucion excepcional, el caso de la pagina de inicio
+                if($module === 'home') continue; 
+
+                $modules[$module] = config('logistic.modules')[$module];
             }
+            // dd($modules);
             return $modules;
         }
     }
@@ -106,7 +116,7 @@ class MainController extends Controller
 
     /**
     * GENTELELLA THEME
-    * BOOTSTRAP
+    * BOOTSTRAPy
     */
     public function gentelella(){
         $menu = config('logistic.menu');

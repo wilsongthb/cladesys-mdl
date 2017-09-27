@@ -1,3 +1,6 @@
+@extends('templates.layouts.container')
+
+@section('content')
 <h3 class="text-center">EDITAR ENTRADA</h3>
 <div class="row" ng-if="resource.fila.status === 1">
     <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
@@ -33,7 +36,7 @@
                             <option 
                                 ng-repeat="s in Suppliers.list" 
                                 ng-value="s.id">
-                                {{s.company_name}} - {{s.contact_name}}
+                                @{{s.company_name}} - @{{s.contact_name}}
                             </option>
                         </select>
                     </div>
@@ -55,7 +58,7 @@
                         <label>Precio Unitario *</label>
                         <div class="input-group">
                             <input type="text" ng-model="detalle.fila.unit_price" class="form-control" required>    
-                            <div class="input-group-addon">{{detalle.enSoles(detalle.fila.unit_price)}}</div>
+                            <div class="input-group-addon">@{{detalle.enSoles(detalle.fila.unit_price)}}</div>
                         </div>
                     </div>
                 </div>
@@ -146,7 +149,7 @@
             <tbody>
                 <tr ng-repeat="id in detalle.list">
                     <td ng-bind="id.id"></td>
-                    <td title="{{id.products_name}}" ng-bind="id.products_name"></td>
+                    <td title="@{{id.products_name}}" ng-bind="id.products_name"></td>
                     <td ng-bind="id.products_categorie"></td>
                     <td ng-bind="id.quantity"></td>
                     <td class="text-right" ng-bind="detalle.enSoles(id.unit_price)"></td>
@@ -171,10 +174,10 @@
         
     </div>
 </div>
-
 <div class="row">
     <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-        <h2>ESTADO: {{config.inputs.status[resource.fila.status]}} </h2>
+        <h2>ESTADO: @{{config.inputs.status[resource.fila.status]}} </h2>
         <button ng-if="resource.fila.status === 1" class="btn btn-info" ng-click="resource.lock()">Bloquear Edicion</button>
     </div>
 </div>
+@stop

@@ -1111,7 +1111,9 @@ const RequerimentsConfig = {
             list: [],
             buttonAdd: false,
             name: 'requeriment-details',
-            fila: {},
+            fila: {
+                products_id: null
+            },
             buscar: '',
             get: function(){
                 $http.get(G.apiUrl + '/' + this.name, {
@@ -1391,6 +1393,7 @@ const ComparisonConfig = {
         var vm = this;
 
         $scope.config = Config
+        $scope.g_config = G.config
 
         $scope.rsc = {
             data: {}, // respuesta de la base de datos
@@ -1535,7 +1538,7 @@ const ComparisonConfig = {
     }
 })(G, ComparisonConfig);
 // purchase¿
-(function(G) {
+(function(G, ComparisonConfig) {
     'use strict';
 
     angular
@@ -1553,7 +1556,7 @@ const ComparisonConfig = {
                 this.requeriments_id = requeriments_id
             }
         }
-
+        $scope.ComparisonConfig = ComparisonConfig
         $scope.G = G
 
         $scope.rsc = {
@@ -1598,7 +1601,7 @@ const ComparisonConfig = {
             $scope.rsc.get()
         }
     }
-})(G);
+})(G, ComparisonConfig);
 
 (function(Config) {
     'use strict';

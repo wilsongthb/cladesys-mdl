@@ -33,7 +33,7 @@
                     </div>
                 </div>
                 <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
-                    <legend>Información Adicional</legend>
+                    <legend>Información Complementaria</legend>
                     <div class="form-group">
                         <label>Razon Social</label>
                         <input class="form-control" type="text" ng-model="registro.company_name" capitalize maxlength="191">

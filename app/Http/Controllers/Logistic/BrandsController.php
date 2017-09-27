@@ -51,7 +51,7 @@ class BrandsController extends Controller
      */
     public function show($id)
     {
-        //
+        return Brands::find($id);
     }
 
     /**

@@ -1,7 +1,12 @@
 
+@extends('templates.layouts.container')
+
+
+@section('content')
+
 <div class="row">
     <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-        <h3 class="text-center">INVENTARIO DE {{Locations.list[Locations.get()].name}} </h3>
+        <h3 class="text-center">INVENTARIO GENERAL </h3>
         <input type="text" class="form-control" ng-model="buscar">
         <table class="table table-striped table-hover">
             <thead>
@@ -33,3 +38,5 @@
         </table>
     </div>
 </div>
+
+@stop

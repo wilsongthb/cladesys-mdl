@@ -32,16 +32,12 @@ class UserModules
         //     ->where('module', $pattern_module)
         //     ->get();
 
-        
-
         $userModules = UserModulesModel
             ::where('user_id', $user->id)
             ->where('module', $module)
             ->orWhere('module', $pattern_module)
             ->where($request->getMethod(), true)
             ->get();
-
-        
         
         // dd($module, $userModules);
 

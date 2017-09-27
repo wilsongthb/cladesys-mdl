@@ -151,6 +151,8 @@ class Relationals extends Migration
             $table->foreign('products_id')->references('id')->on('products');
             $table->integer('locations_id')->unsigned();
             $table->foreign('locations_id')->references('id')->on('locations');
+
+            $table->unique(['products_id', 'locations_id']);
         });
     }
 

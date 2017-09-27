@@ -28,7 +28,8 @@
     <!-- bootstrap-daterangepicker -->
     {{--  <link href="{{ asset('/bower_components/gentelella/vendors/bootstrap-daterangepicker/daterangepicker.css') }} " rel="stylesheet">  --}}
     <!-- Custom Theme Style -->
-    <link href="{{ asset('/bower_components/gentelella/build/css/custom.min.css') }} " rel="stylesheet">
+    {{--  <link href="{{ asset('/bower_components/gentelella/build/css/custom.min.css') }} " rel="stylesheet">  --}}
+    <link rel="stylesheet" href="{{ asset('/css/logistic.gentelella.css') }} ">
 
 </head>
 

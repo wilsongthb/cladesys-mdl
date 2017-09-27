@@ -1,3 +1,8 @@
+
+@extends('templates.layouts.container')
+
+
+@section('content')
 <h3 class="text-center">EDITAR SALIDA</h3>
 <div class="row" ng-if="resource.fila.status === 1">
     <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
@@ -8,7 +13,7 @@
                         <label for="">Producto *</label>
                         <select ng-model="detalle.fila.input_details_id" class="form-control">
                             <option ng-repeat="i in Inventory.list" ng-value="i.id">
-                                [{{i.stock}}] {{i.products_name}} 
+                                [@{{i.stock}}] @{{i.products_name}} 
                             </option>
                         </select>
                     </div>
@@ -28,7 +33,7 @@
                         <label>Precio Unitario *</label>
                         <div class="input-group">
                             <input type="text" ng-model="detalle.fila.unit_price" class="form-control" required>    
-                            <div class="input-group-addon">{{detalle.enSoles(detalle.fila.unit_price)}}</div>
+                            <div class="input-group-addon">@{{detalle.enSoles(detalle.fila.unit_price)}}</div>
                         </div>
                     </div>
                 </div>
@@ -72,7 +77,7 @@
             <tbody>
                 <tr ng-repeat="id in detalle.list">
                     <td ng-bind="id.id"></td>
-                    <td title="{{id.products_name}}" ng-bind="id.products_name"></td>
+                    <td title="@{{id.products_name}}" ng-bind="id.products_name"></td>
                     <td ng-bind="id.products_categorie"></td>
                     <td ng-bind="id.quantity"></td>
                     <td class="text-right" ng-bind="detalle.enSoles(id.unit_price)"></td>
@@ -99,8 +104,9 @@
 
 <div class="row">
     <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-        <h2>ESTADO: {{config.outputs.status[resource.fila.status]}} </h2>
+        <h2>ESTADO: @{{config.outputs.status[resource.fila.status]}} </h2>
         <button ng-if="resource.fila.status === 1 && (resource.fila.type === 3 || resource.fila.type === 1)" class="btn btn-info" ng-click="resource.lock()">Bloquear Edicion</button>
         <button ng-if="resource.fila.status === 1 && resource.fila.type === 2" class="btn btn-info" ng-click="resource.send()">Enviar</button>
     </div>
 </div>
+@stop

@@ -15,7 +15,7 @@
                             <strong>ERROR:</strong> Error en el servidor, error de conexión
                         </div>
                     </div>
-                    <div class="row">
+                    <div class="row form-group">
                         <div class="col-xs-12 col-sm-5 col-md-5 col-lg-5">
                             <label>Denominacion</label>
                             <input type="text" class="form-control" ng-model="create.fila.name" required maxlength="191" capitalize>
@@ -29,18 +29,16 @@
                         
                         <div class="col-xs-6 col-sm-3 col-md-3 col-lg-3">
                             <label>Marca</label>
-                            <div class="form-group">
-                                <product-values name-model="brands" value-id="create.fila.brands_id"></product-values>
-                            </div>
+                            <product-values name-model="brands" value-id="create.fila.brands_id"></product-values>
                         </div>
                     </div>
-                    <div class="row">
+                    <div class="row form-group">
                         <div class="col-xs-12 col-sm-6 col-md-4 col-lg-4">
                             <label>Categoria</label>
                             <product-values name-model="categories" value-id="create.fila.categories_id"></product-values>
                         </div>
                     </div>
-                    <div class="row">
+                    <div class="row form-group">
                         <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
                             <label>Empaquetado</label>
                             <product-values name-model="packings" value-id="create.fila.packings_id"></product-values>
@@ -54,9 +52,9 @@
                             <product-values name-model="measurements" value-id="create.fila.measurements_id"></product-values>
                         </div>
                     </div>
-                    
-                    <div class="row">
-                        <legend>Configuración de Stock</legend>
+                    <legend>Configuración de Stock</legend>
+                    <div class="row form-group">
+                        
                         <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
                             <label for="">Minimo</label>
                             <input type="text" class="form-control" ng-model="create.fila.po_minimum" placeholder="0">

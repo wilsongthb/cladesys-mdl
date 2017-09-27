@@ -130,12 +130,12 @@ const ProductsConfig = {
         .module('logistic')
         .controller('ProductsConfigController', ProductsConfigController);
 
-    ProductsConfigController.$inject = ['$http', '$scope', 'Locations', '$window'];
-    function ProductsConfigController($http, $scope, Locations, $window) {
+    ProductsConfigController.$inject = ['$http', '$scope', 'Locations', '$window', 'Products'];
+    function ProductsConfigController($http, $scope, Locations, $window, Products) {
         var vm = this;
 
         $scope.config = Config
-        
+        $scope.Products = Products
         $scope.resource = {
             data: {}, // respuesta de la base de datos
             per_page: G.config.per_page,
@@ -180,7 +180,7 @@ const ProductsConfig = {
                 )
             },
             delete: function(id){
-                if($window.confirm('Desactivar el registro con id:' + id)){
+                if($window.confirm('Eliminar el registro con id:' + id)){
                     $http.delete(G.apiUrl + '/product-options/' + id)
                     .then(
                         res => {
@@ -201,6 +201,7 @@ const ProductsConfig = {
 
         function activate() { 
             $scope.resource.get()
+            // $scope.Products.get()
         }
     }
 })(G, ProductsConfig);

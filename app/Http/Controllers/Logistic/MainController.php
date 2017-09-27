@@ -73,13 +73,18 @@ class MainController extends Controller
         $modules = $this->getModules(Auth::user());
         $categories = array();
         foreach ($modules as $key => $value) {
-            
+            // config('logistic.menu.categories')
+            $categories[$value['categorie']] = config('logistic.menu.categories')[$value['categorie']];
         }
+
+        // dd($categories);
+
         return [
             'baseUrl' => url('logistic').'/', // to angular html5 route mode
             'appUrl' => url('logistic'),
             'apiUrl' => url('rsc'),
-            'modules' => $modules
+            'modules' => $modules,
+            'categories' => $categories
         ];
     }
 

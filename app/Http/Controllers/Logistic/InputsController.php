@@ -9,6 +9,10 @@ use App\Models\Inputs;
 class InputsController extends Controller
 {
     /**
+    * @return Array of Inputs
+    */
+
+    /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response

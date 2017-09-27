@@ -35,7 +35,7 @@
         </div>
     </div>
 </div>
-
+<hr>
 
 <div class="row">
     <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
@@ -43,26 +43,23 @@
             <thead>
                 <tr>
                     <th>ID</th>
-                    <th class="hidden-xs">CATEGORIA</th>
                     <th>DENOMINACION</th>
                     <th class="hidden-xs">CODIGO</th>
                     <th class="hidden-xs">MARCA</th>
-                    {{--  <th class="hidden-xs">MEDIDA DE COMPRA</th>  --}}
-                    {{--  <th class="hidden-xs">CANTIDAD</th>  --}}
-                    {{--  <th class="hidden-xs">MEDIDA DE DISTRIBUCION</th>  --}}
                     <th></th>
                 </tr>
             </thead>
             <tbody>
                 <tr ng-repeat="d in resource.data.data">
                     <td ng-bind="d.id"></td>
-                    <td ng-bind="d.categorie" class="hidden-xs"></td>
-                    <td ng-bind="d.name"></td>
+                    <td>
+                        <span ng-bind="d.name"></span>
+                        <br>
+                        <code ng-bind="d.categorie"></code>
+                        <span ng-bind="d.packing + ' ' + d.units + ' ' + d.measurement"></span>
+                    </td>
                     <td ng-bind="d.code" class="hidden-xs"></td>
                     <td ng-bind="d.brand" class="hidden-xs"></td>
-                    {{--  <td ng-bind="d.packing" class="hidden-xs"></td>  --}}
-                    {{--  <td ng-bind="d.units" class="hidden-xs"></td>  --}}
-                    {{--  <td ng-bind="d.measurement" class="hidden-xs"></td>  --}}
                     <td>
                         <div class="btn-group">
                             <a title="Editar" class="btn btn-warning" href="@{{config.editUrl}}/@{{d.id}}"><i class="fa fa-pencil"></i></a>

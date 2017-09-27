@@ -53,6 +53,7 @@ class RequerimentsController extends Controller
             ->where('or.flagstate', 1)
             ->where('or.locations_id', $request->locations_id)
             ->groupBy('or.id')
+            ->orderBy('or.id', 'DESC')
             ->paginate($per_page);
     }
 

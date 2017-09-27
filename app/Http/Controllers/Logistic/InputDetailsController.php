@@ -10,13 +10,19 @@ use DB;
 
 class InputDetailsController extends Controller
 {
+    // public function 
+
     /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
+    * @return Response
+    */
+    private function lockedResponse(){
+        return response("locked", 401);
+    }
+
+    /**
+     * Obtener todos los registros
      */
-    public function index(Request $request)
-    {
+    public function getDetailsFrom($inputs_id){
         return InputDetails::
             select(
                 'id.*',
@@ -30,8 +36,18 @@ class InputDetailsController extends Controller
             ->leftJoin('products AS p', 'p.id', '=', 'id.products_id')
             ->leftJoin('suppliers AS s', 's.id', '=', 'id.suppliers_id')
             ->leftJoin('categories AS c', 'c.id', '=', 'p.categories_id')
-            ->where('i.id', $request->id)
+            ->where('i.id', $inputs_id)
             ->get();
+    }
+
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function index(Request $request)
+    {
+        return $this->getDetailsFrom($request->id);
     }
 
     /**
@@ -53,9 +69,8 @@ class InputDetailsController extends Controller
     public function store(Request $request)
     {
         $input = Inputs::find($request->inputs_id);
-        // dd($input);
         if($input->status === 2){
-            return "locked";
+            return $this->lockedResponse();
         }
 
         $fila = new InputDetails;
@@ -111,7 +126,7 @@ class InputDetailsController extends Controller
 
         $input = Inputs::find($fila->inputs_id);
         if($input->status === 2){
-            return "locked";
+            return $this->lockedResponse();
         }
 
         
@@ -144,7 +159,7 @@ class InputDetailsController extends Controller
 
         $input = Inputs::find($fila->inputs_id);
         if($input->status === 2){
-            return "locked";
+            return $this->lockedResponse();
         }
         
         $fila = InputDetails::destroy($id);

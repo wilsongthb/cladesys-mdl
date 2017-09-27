@@ -49,7 +49,7 @@ class CategoriesController extends Controller
      */
     public function show($id)
     {
-        //
+        return Categories::find($id);
     }
 
     /**

@@ -108,8 +108,10 @@
         this.getOne = function(id){
             $http.get(G.apiUrl + '/products/' + id).then(
                 res => {
-                    this.list = {}
+                    // this.list = {}
+                    this.list = []
                     this.list[res.data.id] = res.data
+
                 }
             )
         }

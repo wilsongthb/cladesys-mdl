@@ -1,7 +1,12 @@
 
+@extends('templates.layouts.container')
+
+
+@section('content')
+
 <div class="row">
     <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-        <h3 class="text-center">STOCK DEL {{Locations.list[Locations.get()].name}} </h3>
+        <h3 class="text-center">STOCK DEL @{{Locations.list[Locations.get()].name}} </h3>
         <input type="text" class="form-control" ng-model="buscar">
         <table class="table table-striped table-hover">
             <thead>
@@ -40,10 +45,12 @@
                         <span class="label label-success" ng-if="!l.comprar && !l.urgente">OK</span>
                         <span class="label label-warning" ng-if="l.comprar || l.urgente">Comprar</span>
                         <span class="label label-danger" ng-if="l.urgente">Urgente</span>
-                        <span title="{{l.od_updated_at}}" class="label label-warning" ng-if="l.days">Ultima salida hace {{l.days}} dias </span>
+                        <span title="@{{l.od_updated_at}}" class="label label-warning" ng-if="l.days">Ultima salida hace @{{l.days}} dias </span>
                     </td>
                 </tr>
             </tbody>
         </table>
     </div>
 </div>
+
+@stop

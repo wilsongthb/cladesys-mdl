@@ -11,8 +11,8 @@ return [
         // valores por defecto de la configuracion de usuario de logistica
         'logistic' => [
             'theme' => 'bootstrap',
-            // 'theme' => 'gentelella'
-            // 'theme' => 'mui'
+            // 'theme' => 'gentelella',
+            // 'theme' => 'mui',
         ]
     ],
 ];

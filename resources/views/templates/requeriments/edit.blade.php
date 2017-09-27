@@ -1,19 +1,26 @@
+
+@extends('templates.layouts.container')
+
+@section('content')
 <div class="row">
-    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-        <div class="panel panel-default">
-            <div class="panel-body">
-                <div class="row">
                     <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
                         <h3 class="text-center">EDITAR REQUERIMIENTO</h3>
 
                         <div class="row">
                             <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-                                <button ng-disabled="det.buttonAdd" ng-click="det.agregarRequeridos()" class="btn btn-primary"><i class="fa fa-spinner fa-pulse fa-fw" ng-show="det.buttonAdd"></i> {{!det.buttonAdd ? 'Agregar Productos Requeridos' : 'Cargando'}} </button>
-                                <a href="<?= url('orders/') ?>/print/{{$routeParams.id}}" target="_blank">
-                                    <button class="btn btn-success">Imprimir</button>
+                                <button 
+                                    ng-disabled="det.buttonAdd" 
+                                    ng-click="det.agregarRequeridos()" 
+                                    class="btn btn-primary">
+                                    <i class="fa fa-plus" ng-show="!det.buttonAdd"></i>
+                                    <i class="fa fa-spinner fa-pulse fa-fw" ng-show="det.buttonAdd"></i> 
+                                    @{{!det.buttonAdd ? 'Agregar Productos Requeridos' : 'Cargando'}} 
+                                </button>
+                                <a href="<?= url('orders/') ?>/print/@{{$routeParams.id}}" target="_blank">
+                                    <button class="btn btn-success"><i class="fa fa-print"></i> Imprimir</button>
                                 </a>
-                                <a href="{{config.quotationsUrl + '/' + $routeParams.id}} " class="btn btn-warning"><i class="fa fa-money"></i> Cotización</a>
-                                <a href="{{config.comparisonUrl + '/' + $routeParams.id}} " class="btn btn-warning"><i class="fa fa-cubes"></i> Comparación</a>
+                                <a href="@{{config.quotationsUrl + '/' + $routeParams.id}} " class="btn btn-warning"><i class="fa fa-money"></i> Cotización</a>
+                                <a href="@{{config.comparisonUrl + '/' + $routeParams.id}} " class="btn btn-warning"><i class="fa fa-cubes"></i> Comparación</a>
                                 <a href="" class="btn btn-success" ng-click="dialogs.toExcel()"><i class="fa fa-file-excel-o"></i> Exportar en Excel</a>
                             </div>
                         </div>
@@ -30,10 +37,10 @@
                                         <label for="">Producto *</label>
                                         <p class="form-control" title="Click para editar" disabled ng-if="det.fila.p_name" ng-bind="det.fila.p_name" ng-click="det.fila.p_name = null"></p>
                                         <ui-select ng-model="det.fila.products_id">
-                                            <ui-select-match ng-show="!det.fila.p_name" placeholder="Escribe para buscar">{{$select.selected.name}} </ui-select-match>
+                                            <ui-select-match ng-show="!det.fila.p_name" placeholder="Escribe para buscar">@{{$select.selected.name}} </ui-select-match>
                                             <ui-select-choices repeat="p.id as p in Products.list track by $index" refresh="Products.get($select.search)" refresh-delay="250">
-                                                <span>{{p.name}}</span>
-                                                <small>{{p.categorie}} - {{p.packing}} </small>
+                                                <span>@{{p.name}}</span>
+                                                <small>@{{p.categorie}} - @{{p.packing}} </small>
                                             </ui-select-choices>
                                         </ui-select>
                                     </div>
@@ -84,7 +91,4 @@
                         </div>
                     </div>
                 </div>
-            </div>
-        </div>
-    </div>
-</div>
+@stop

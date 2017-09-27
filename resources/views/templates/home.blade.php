@@ -13,18 +13,16 @@
     </div>
 </div> -->
 
+@extends('templates.layouts.container')
 
+
+@section('content')
 <div class="row">
-
     <div class="col-sm-2 col-md-2 col-lg-2">
-
     </div>
-
     <div class="col-xs-12 col-sm-8 col-md-8 col-lg-8">
-
         <div class="panel panel-default">
             <div class="panel-body">
-
                 <h1>CLADESYS - LOGISTICS</h1>
                 <h2>
                     <p>Bienvenido al Sistema de Logistica, este Sistema de Información sirve para administrar varios almacenes,
@@ -37,8 +35,6 @@
                 </h2>
             </div>
         </div>
-
-
         <div class="panel panel-default">
             <div class="panel-body">
                 <h3>Caracteristicas:</h3>
@@ -50,9 +46,8 @@
                 </ul>
             </div>
         </div>
-
-
     </div>
-
-
 </div>
+@stop
+
+

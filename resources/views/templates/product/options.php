@@ -4,38 +4,6 @@
         <label>LOCALIZACION: </label>
         <location-select></location-select>
         <label>PRODUCTO: </label>
-        
-        <!-- <div class="form-inline" ng-switch="po.state">
-            <span class="input-group-btn">
-                <button 
-                    class="btn"
-                    ng-switch-when="search" 
-                    ng-click="po.state = 'look'">
-                    <i class="fa fa-search"></i> 
-                </button>
-                <input 
-                    class="form-control"
-                    ng-switch-when="search"
-                    type="text"
-                    ng-model="po.products_name"
-                    ng-model-options="{debounce: 1000}"
-                    ng-change="Products.get(po.products_name)">
-            
-                <button 
-                    class="btn"
-                    ng-switch-when="look"
-                    ng-click="po.state = 'search'">
-                    <i class="fa fa-search"></i> 
-                </button>
-                <select 
-                    class="form-control"
-                    ng-switch-when="look"
-                    ng-model="po.products_id" 
-                    ng-change="po.get()">
-                    <option ng-repeat="p in Products.list" ng-value="p.id">{{p.name}}</option>
-                </select>
-            </span>
-        </div> -->
         <product-selector products-id="po.products_id" ps-on-change="po.get()"></product-selector>
         
     </div>

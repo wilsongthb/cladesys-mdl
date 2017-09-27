@@ -52,8 +52,9 @@ class Outputs extends Migration
             $table->timestamps();
             
             // columnas
-            $table->float('utility', 4, 2); // configuracion de utilidad
-            $table->float('unit_price', 20, 2);
+            $table->float('utility', 4, 2)->default('0'); // configuracion de utilidad
+            $table->float('unit_price', 20, 2); // valor registrado
+            $table->float('real_unit_price', 20, 2)->nullable(); // precio real calculado
             $table->integer('quantity');
 
 

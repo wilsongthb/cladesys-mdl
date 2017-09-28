@@ -43,7 +43,9 @@
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">{!!$categorie['icon']!!} {{$categorie['title']}} <b class="caret"></b></a>
                         <ul class="dropdown-menu">
                             @foreach ($categorie['modules'] as $module_name)
-                            <li><a href="{{ $appUrl }}/{{$module_name}} ">{{ $modules[$module_name]['title'] }} </a></li>
+                                @if (isset($modules[$module_name]))
+                                <li><a href="{{ $appUrl }}/{{$module_name}} ">{{ $modules[$module_name]['title'] }} </a></li>    
+                                @endif
                             @endforeach
                         </ul>
                     </li>

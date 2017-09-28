@@ -5,6 +5,7 @@ namespace App\Http\Middleware;
 use Closure;
 use App\Models\UserModules as UserModulesModel;
 use Auth;
+use DB;
 
 class UserModules
 {
@@ -25,7 +26,7 @@ class UserModules
         $pattern_module = ( isset($modules[1]) ? $modules[1] : '' );
         $module = $pattern_module . ( isset($modules[2]) ? '/'.$modules[2] : '' );
         
-        // $method = $request->getMethod();
+        $method = $request->getMethod();
 
         // $userModules = UserModulesModel
         //     ::where('user_id', $user->id)
@@ -34,11 +35,17 @@ class UserModules
 
         $userModules = UserModulesModel
             ::where('user_id', $user->id)
-            ->where('module', $module)
-            ->orWhere('module', $pattern_module)
-            ->where($request->getMethod(), true)
+            // ->raw("AND (module = '$module' OR module = '$pattern_module')")
+            ->where(DB::raw("(module = '$module' OR module = '$pattern_module')"), true)
+            // ->orWhere('module', $pattern_module)
+            ->where($method, 1)
+            // ->toSql();
             ->get();
         
+        // dd($userModules);
+        // dd($method);
+        // print_r($userModules);
+        // exit;
         // dd($module, $userModules);
 
         if(count($userModules) === 0){

@@ -22,10 +22,10 @@ class basics extends Seeder
             'password' => bcrypt('root')
         ]);
 
-        DB::table('permissions')->insert(['user_id' => '1','permission' => '2']);
-        DB::table('permissions')->insert(['user_id' => '1','permission' => '3']);
-        DB::table('permissions')->insert(['user_id' => '1','permission' => '4']);
-        DB::table('permissions')->insert(['user_id' => '1','permission' => '5']);
+        // DB::table('permissions')->insert(['user_id' => '1','permission' => '2']);
+        // DB::table('permissions')->insert(['user_id' => '1','permission' => '3']);
+        // DB::table('permissions')->insert(['user_id' => '1','permission' => '4']);
+        // DB::table('permissions')->insert(['user_id' => '1','permission' => '5']);
 
         // DB::table('permissions')->insert(['user_id', '1','permission', '2']);
 

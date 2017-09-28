@@ -23,16 +23,17 @@
     <div class="col-xs-12 col-sm-8 col-md-8 col-lg-8">
         <div class="panel panel-default">
             <div class="panel-body">
-                <h1>CLADESYS - LOGISTICS</h1>
-                <h2>
-                    <p>Bienvenido al Sistema de Logistica, este Sistema de Información sirve para administrar varios almacenes,
+                <h2>CLADESYS - LOGISTICS</h2>
+                <h3>
+                    <p>
+                        Bienvenido al Sistema de Logistica, este Sistema de Información sirve para administrar varios almacenes,
                         registrar productos, controlar la entrada de estos a los almacén, seguir su distribución entre estos
-                        almacenes registrados, controlar el stock de los productos
+                        almacenes registrados y controlar el stock de los productos.
                     </p>
                     <!-- <p>- Control de Usuarios (pendiente)</p>
                     <p>- Control de Diferentes ubicaciones </p>
                     <p>- Proceso de compra, requerimientos, cotización y compra</p> -->
-                </h2>
+                </h3>
             </div>
         </div>
         <div class="panel panel-default">

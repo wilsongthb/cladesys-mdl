@@ -14,8 +14,12 @@
 // Route::get('/home', 'HomeController@index')->name('home');
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('index');
 });
+
+// Route::get('/test', function () {
+//     return view('test');
+// });
 
 Auth::routes();
 
@@ -28,7 +32,6 @@ Route::group(['middleware' => 'auth'], function(){
 
     Route::group(['middleware' => 'user-modules'], function(){
         Route::resource('users', 'UsersController');
-        Route::resource('permissions', 'PermissionsController');
         Route::group(['prefix' => 'logistic'], function(){
             Route::get('/{a?}/{b?}/{c?}', 'Logistic\MainController@index')->name('logistic');
         });
@@ -40,7 +43,6 @@ Route::group(['middleware' => 'auth'], function(){
     
     Route::group([
         'prefix' => 'rsc',
-        // 'middleware' => 'permissions'
         'middleware' => 'user-modules'
     ], function(){
         Route::resource('brands', 'Logistic\BrandsController');

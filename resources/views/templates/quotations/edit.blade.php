@@ -32,13 +32,14 @@
                     <td ng-bind="d.id"></td>
                     <td ng-bind="d.p_name"></td>
                     <td ng-bind="d.quantity" class="text-right"></td>
-                    <td ng-repeat="s in det.Suppliers" ng-click="det.quotations[d.id][s.id].edit = true" class="text-right">
+                    <td ng-repeat="s in det.Suppliers" ng-click="det.editQuotation(d.id, s.id)" class="text-right">
                         <input 
-                        ng-if="det.quotations[d.id][s.id].edit"
+                        id="q_@{{d.id}}_@{{s.id}}"
+                        ng-show="det.quotations[d.id][s.id].edit"
                         type="text" 
                         class="custom-input" 
                         ng-model="det.quotations[d.id][s.id].unit_price"
-                        ng-model-options="{ debounce: 2000 }"
+                        ng-model-options="{ debounce: 1000 }"
                         ng-change="det.save(det.quotations[d.id][s.id], d.id, s.id)">
                         @{{ !det.quotations[d.id][s.id].edit ? enSoles(det.quotations[d.id][s.id].unit_price) : "" }}
                     </td>

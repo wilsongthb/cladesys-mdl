@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Logistic;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\OutputDetails;
+use App\Models\InputDetails;
 use DB;
 use App\Models\Outputs;
 
@@ -58,9 +59,14 @@ class OutputDetailsController extends Controller
             return "locked";
         }
 
+        $inputDetail = InputDetails::find($request->input_details_id);
+
         $fila = new OutputDetails;
-        $fila->utility = $request->utility;
-        $fila->unit_price = $request->unit_price;
+        $fila->utility = isset($request->utility) ? $request->utility : 0;
+        $fila->unit_price = ($output->type === 1) ? $inputDetail->unit_price : $request->unit_price;
+        // $fila->unit_price = $request->unit_price;
+        // $fila->unit_price = isset($request->unit_price) ? $request->unit_price : '';
+        // $fila->real_unit_price = 
         $fila->quantity = $request->quantity;
         $fila->input_details_id = $request->input_details_id;
         $fila->outputs_id = $request->outputs_id;

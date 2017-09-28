@@ -46,7 +46,15 @@
                 <div class="col-xs-12 col-sm-4 col-md-3 col-lg-3">
                     <div class="form-group">
                         <label for="">Producto *</label>
-                        <product-selector products-id="detalle.fila.products_id" requerido="true"></product-selector>
+                        {{--  <product-selector products-id="detalle.fila.products_id" requerido="true"></product-selector>  --}}
+                        <p class="form-control" title="Click para editar" disabled ng-if="detalle.fila.products_name" ng-bind="detalle.fila.products_name" ng-click="detalle.fila.products_name = null"></p>
+                        <ui-select ng-model="detalle.fila.products_id">
+                            <ui-select-match ng-show="!detalle.fila.products_name" placeholder="Escribe para buscar">@{{$select.selected.name}} </ui-select-match>
+                            <ui-select-choices repeat="p.id as p in Products.list track by $index" refresh="Products.get($select.search)" refresh-delay="250">
+                                <span>@{{p.name}}</span>
+                                <small>@{{p.categorie}} - @{{p.packing}} </small>
+                            </ui-select-choices>
+                        </ui-select>
                     </div>
                 </div>
                 <div class="col-xs-12 col-sm-4 col-md-3 col-lg-3">

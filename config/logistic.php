@@ -20,21 +20,21 @@ return [
             'description' => 'Modulo para registrar los productos',
             'categorie' => 'products'
         ],
-        'users' => [
-            'title' => 'Usuarios',
-            'description' => 'Modulo para gestionar los usuarios',
-            'categorie' => 'utilities'
-        ],
-        'permissions' => [
-            'title' => 'Permisos',
-            'description' => 'Modulo para configurar los usuarios y sus permisos',
-            'categorie' => 'utilities'
-        ],
-        'config' => [
-            'title' => 'Configuracion',
-            'description' => 'Configuraciones de la aplicacion',
-            'categorie' => 'utilities',
-        ],
+        // 'users' => [
+        //     'title' => 'Usuarios',
+        //     'description' => 'Modulo para gestionar los usuarios',
+        //     'categorie' => 'utilities'
+        // ],
+        // 'permissions' => [
+        //     'title' => 'Permisos',
+        //     'description' => 'Modulo para configurar los usuarios y sus permisos',
+        //     'categorie' => 'utilities'
+        // ],
+        // 'config' => [
+        //     'title' => 'Configuracion',
+        //     'description' => 'Configuraciones de la aplicacion',
+        //     'categorie' => 'utilities',
+        // ],
         'products-config' => [
             'title' => 'Configuracion de Productos',
             'description' => 'Configuraciones de los productos, individual por cada Area',
@@ -93,15 +93,15 @@ return [
     ],
     'menu' => [
         'categories' => [
-            'utilities' => [
-                'title' => 'Utilitarios',
-                'icon' => '<i class="fa fa-cog"></i>',
-                'modules' => [
-                    'users',
-                    'permissions',
-                    'config',
-                ]
-            ],
+            // 'utilities' => [
+            //     'title' => 'Utilitarios',
+            //     'icon' => '<i class="fa fa-cog"></i>',
+            //     'modules' => [
+            //         'users',
+            //         'permissions',
+            //         'config',
+            //     ]
+            // ],
             'products' => [
                 'title' => 'Productos',
                 'icon' => '<i class="fa fa-book"></i>',

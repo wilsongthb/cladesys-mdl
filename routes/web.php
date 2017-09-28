@@ -13,12 +13,19 @@
 
 // Route::get('/home', 'HomeController@index')->name('home');
 
+use Illuminate\Http\Request;
+
+
 Route::get('/', function () {
     return view('index');
 });
 
-// Route::get('/test', function () {
+// Route::get('/test', function (Request $request) {
 //     return view('test');
+// });
+// Route::post('/test', function (Request $request) {
+//     // dd($request->all());
+//     exit(print_r($request->all(), true));
 // });
 
 Auth::routes();
@@ -38,7 +45,10 @@ Route::group(['middleware' => 'auth'], function(){
 
         Route::get('/purchase-order/{requeriments_id}/{supppliers_id}', 'Logistic\QuotationsController@purchaseOrder');
         Route::get('/orders/print/{id}', 'Logistic\RequerimentsController@imprimir');
+    });
 
+    Route::get('/credentials', function(){
+        return view('credentials.index');
     });
     
     Route::group([
@@ -66,6 +76,8 @@ Route::group(['middleware' => 'auth'], function(){
         Route::get('stock/{locations_id}', 'Logistic\InventoryController@stock_location');
         Route::get('stock-po/{locations_id}', 'Logistic\InventoryController@stock_location_po');
         Route::get('stock-status/{locations_id}', 'Logistic\InventoryController@stock_status');
+        Route::get('real-price/{locations_id}/{products_id}', 'Logistic\InventoryController@real_price');
+        Route::get('real-price-id/{locations_id}/{products_id}', 'Logistic\InventoryController@real_price_id');
         Route::delete('quotations/remove-supplier', 'Logistic\QuotationsController@removeSupplier');
         Route::put('quotations/select-more-cheap', 'Logistic\QuotationsController@selectMoreCheap');
         Route::get('quotations/select-suppliers', 'Logistic\QuotationsController@selectSuppliers');

@@ -74,7 +74,8 @@ class InputDetailsController extends Controller
         }
 
         $fila = new InputDetails;
-        $fila->expiration = $request->expiration;
+        // // $fila->expiration = $request->expiration;
+        $fila->expiration = ($request->get('expiration')) ? $request->expiration : "";
         $fila->inputs_id = $request->inputs_id;
         $fila->products_id = $request->products_id;
         $fila->quantity = $request->quantity;

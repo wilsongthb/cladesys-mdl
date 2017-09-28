@@ -375,8 +375,8 @@ const InputsConfig = {
         .module('logistic')
         .controller('InputsEditController', InputsEditController);
 
-    InputsEditController.$inject = ['$routeParams', '$scope', '$http', 'Suppliers', '$window'];
-    function InputsEditController($routeParams, $scope, $http, Suppliers, $window) {
+    InputsEditController.$inject = ['$routeParams', '$scope', '$http', 'Suppliers', '$window', 'Products'];
+    function InputsEditController($routeParams, $scope, $http, Suppliers, $window, Products) {
         var vm = this;
 
         // datos para las fechas
@@ -387,9 +387,9 @@ const InputsConfig = {
             // minDate: new Date(),
             startingDay: 1
         };
-        $scope.pop = false;
-        $scope.pop1 = false;
-
+        $scope.pop = false
+        $scope.pop1 = false
+        $scope.Products = Products
         $scope.Suppliers = Suppliers
         $scope.Suppliers.get()
 
@@ -623,8 +623,8 @@ const OutputsConfig = {
         .module('logistic')
         .controller('OutputsEditController', OutputsEditController);
 
-    OutputsEditController.$inject = ['$routeParams', '$scope', '$http', 'Suppliers', '$window', 'Inventory'];
-    function OutputsEditController($routeParams, $scope, $http, Suppliers, $window, Inventory) {
+    OutputsEditController.$inject = ['$routeParams', '$scope', '$http', 'Suppliers', '$window', 'Inventory', 'Locations'];
+    function OutputsEditController($routeParams, $scope, $http, Suppliers, $window, Inventory, Locations) {
         var vm = this;
 
         // datos para las fechas
@@ -644,7 +644,7 @@ const OutputsConfig = {
 
         $scope.config = G.config
         
-        $scope.resource = {
+        $scope.rsc = {
             fila: {},
             get: function(){
                 $http.get(G.apiUrl + '/' + Config.name + '/' + $routeParams.id).then(
@@ -679,7 +679,7 @@ const OutputsConfig = {
             }
         }
 
-        $scope.detalle = {
+        $scope.det = {
             name: 'output-details',
             fila: {},
             list: [],
@@ -709,11 +709,14 @@ const OutputsConfig = {
                 }
             },
             copyToForm: function(fila){
-                this.fila = {
-                    ticket_type: fila.ticket_type,
-                    ticket_number: fila.ticket_number,
-                    suppliers_id: fila.suppliers_id,
-                }
+                // this.fila = {
+                //     ticket_type: fila.ticket_type,
+                //     ticket_number: fila.ticket_number,
+                //     suppliers_id: fila.suppliers_id,
+                // }
+                this.fila.ticket_type = fila.ticket_type
+                this.fila.ticket_number = fila.ticket_number
+                this.fila.suppliers_id = fila.suppliers_id
             },
             enSoles: function(dinero){
                 return moneyFormatter.format('PEN', dinero)
@@ -729,6 +732,26 @@ const OutputsConfig = {
                         this.list = res.data
                     }
                 )
+            },
+            // getRealPrice: function(products_id){
+            //     $http.get(G.apiUrl + '/real-price/' + Locations.get() + '/' + products_id)
+            //     .then(
+            //         res => {
+            //             this.fila.real_price = res[0].real_price
+            //         }
+            //     )
+            // },
+            getRealPriceId: function(input_details_id){
+                $http.get(G.apiUrl + '/real-price-id/' + Locations.get() + '/' + input_details_id)
+                .then(
+                    res => {
+                        this.fila.real_price = res.data[0].real_price
+                        this.calculateUnitPrice()
+                    }
+                )
+            },
+            calculateUnitPrice: function(){
+                this.fila.unit_price = this.fila.real_price + ((this.fila.utility/100) * this.fila.real_price)
             },
             save: function(){
                 if(this.fila.id){
@@ -758,9 +781,12 @@ const OutputsConfig = {
 
         ////////////////
 
-        function activate() { 
-            $scope.detalle.get()
-            $scope.resource.get()
+        function activate() {
+            $scope.det.fila = {
+                utility: Locations.list[Locations.get()].utility
+            } 
+            $scope.det.get()
+            $scope.rsc.get()
             $scope.Inventory.get()
             $scope.Suppliers.get()
         }
@@ -1359,6 +1385,16 @@ const QuotationsConfig = {
                         }
                     )
                 }
+            },
+            editQuotation: function(requeriments_id, suppliers_id){
+                
+                this.quotations[requeriments_id][suppliers_id].edit = true
+                setTimeout(function() {
+                    console.log("agg", 'q_' + requeriments_id + '_' + suppliers_id)
+                    document.getElementById('q_' + requeriments_id + '_' + suppliers_id).focus()
+
+                }, 200);
+
             }
         }
 

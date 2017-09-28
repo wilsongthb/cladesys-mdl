@@ -20,51 +20,9 @@
             
         </div> -->
         <div class="mdl-card__supporting-text">
-            {{--  @if (!Auth::check())
-            <h4>Iniciar Sesión</h4>
-            <form method="POST" action="{{ route('login') }}">
-                {{ csrf_field() }}
-                <p>
-                    <div class="mdl-textfield mdl-js-textfield">
-                        <input 
-                        class="mdl-textfield__input" 
-                        type="email" 
-                        id="email"
-                        name="email"
-                        value="{{ old('email') }}" 
-                        required 
-                        autofocus>
-                        <label class="mdl-textfield__label" for="email">Email</label>
-                    </div>
-                </p>
-                <p>
-                    <div class="mdl-textfield mdl-js-textfield">
-                        <input 
-                        class="mdl-textfield__input" 
-                        type="password" 
-                        id="password"
-                        name="password"
-                        required>
-                        <label class="mdl-textfield__label" for="password">Contraseña</label>
-                    </div>
-                </p>
-                <p>
-                    <input type="checkbox" name="remember" {{ old('remember') ? 'checked' : '' }}> Recordarme
-                </p>
-                <p>
-                    <button type="submit" class="mdl-button mdl-js-button mdl-button--raised">
-                        Ingresar
-                    </button>
-                </p>
-                <p>
-                    <a class="btn btn-link" href="{{ route('password.request') }}">
-                        Olvidaste tu contraseña
-                    </a>
-                </p>
-            </form>
-            @else  --}}
             <div class="mdl-typography--text-center">
                 <a href="{{ url('/logistic/home') }} " class="mdl-button mdl-js-button mdl-button--raised">Logistica</a>
+                <a href="{{ url('/credentials') }} " class="mdl-button mdl-js-button mdl-button--raised">Credenciales</a>
 
                 @if (Auth::check())
                 <hr>
@@ -79,7 +37,6 @@
                 </form>
                 @endif
             </div>
-            {{--  @endif  --}}
             <div class="mdl-card__actions">
             </div>
         </div>

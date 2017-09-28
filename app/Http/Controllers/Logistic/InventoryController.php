@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Logistic;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use DB;
+use App\Models\InputDetails;
 
 class InventoryController extends Controller
 {
@@ -21,9 +22,11 @@ class InventoryController extends Controller
                     SELECT
                         id.id,
                         id.quantity,
+                        id.unit_price,
                         id.created_at,
                         c.value AS p_categorie,
                         p.name AS products_name,
+                        p.id AS products_id,
                         SUM(IFNULL(od.quantity, 0)) AS od_total,
                         (id.quantity - SUM(IFNULL(od.quantity, 0))) AS stock,
                         l.name AS locations_name,
@@ -40,6 +43,39 @@ class InventoryController extends Controller
                 WHERE s.stock > 0";
                 // dd($sql);
         return DB::select(DB::raw($sql));
+    }
+
+    public function real_price($locations_id, $products_id){
+        // dd(DB::select(DB::raw(
+        // "SELECT 
+        //     SUM(id.quantity * id.unit_price)/SUM(id.quantity) AS real_price,
+        //     p.name AS p_name
+        // FROM input_details AS id
+        // JOIN products AS p ON p.id = id.products_id
+        // JOIN inputs AS i ON i.id = id.inputs_id
+        // WHERE i.locations_id = '$locations_id'
+        // AND id.products_id = '$products_id'
+        // "
+        // )));
+        return DB::select(DB::raw(
+            "SELECT 
+                SUM(id.quantity * id.unit_price)/SUM(id.quantity) AS real_price,
+                p.name AS p_name
+            FROM input_details AS id
+            JOIN products AS p ON p.id = id.products_id
+            JOIN inputs AS i ON i.id = id.inputs_id
+            WHERE i.locations_id = '$locations_id'
+            AND id.products_id = '$products_id'
+            "
+        ));
+    }
+
+    public function real_price_id($locations_id, $input_details_id){
+        $inputDetail = InputDetails::find($input_details_id);
+        if($inputDetail){
+            return $this->real_price($locations_id, $inputDetail->products_id);
+        }
+        
     }
 
     public function stock_location(Request $request, $locations_id = null){
@@ -130,6 +166,7 @@ class InventoryController extends Controller
             p.name AS p_name,
             c.value AS p_categorie,
             SUM(IFNULL(s.id_quantity, 0)) AS sum_id_quantity,
+            -- SUM(IFNULL(s.id_price_value, 0))/SUM(IFNULL(s.id_quantity, 0)) AS real_price,
             SUM(IFNULL(s.sum_od_quantity, 0)) AS sum_od_quantity,
             SUM(IFNULL(s.id_quantity, 0)) - SUM(IFNULL(s.sum_od_quantity, 0)) AS stock,
             MAX(s.od_updated_at) AS od_updated_at,
@@ -146,6 +183,7 @@ class InventoryController extends Controller
                 id.products_id AS id_products_id,
             --	p.name AS p_name,
                 id.quantity AS id_quantity,
+                -- id.unit_price*id.quantity AS id_price_value,
             --	o.id AS o_id,
             --	o.locations_id AS o_locations_id,
             --	o.`type` AS o_type,

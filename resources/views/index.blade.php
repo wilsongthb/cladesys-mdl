@@ -23,9 +23,9 @@
             <div class="mdl-typography--text-center">
                 <a href="{{ url('/logistic/home') }} " class="mdl-button mdl-js-button mdl-button--raised">Logistica</a>
                 <a href="{{ url('/credentials') }} " class="mdl-button mdl-js-button mdl-button--raised">Credenciales</a>
-
-                @if (Auth::check())
                 <hr>
+                @if (Auth::check())
+                
                 <a href="{{ route('logout') }}" 
                     class="mdl-button mdl-js-button mdl-button--raised"
                     onclick="event.preventDefault();
@@ -35,6 +35,8 @@
                 <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
                     {{ csrf_field() }}
                 </form>
+                @else
+                <a href="{{ url('/register') }} " class="mdl-button mdl-js-button mdl-button--raised">Registrar Nuevo Usuario</a>
                 @endif
             </div>
             <div class="mdl-card__actions">

@@ -23,7 +23,7 @@
     <div class="col-xs-12 col-sm-8 col-md-8 col-lg-8">
         <div class="panel panel-default">
             <div class="panel-body">
-                <h2>CLADESYS - LOGISTICS</h2>
+                <h1>CLADESYS - LOGISTICS</h1>
                 <h3>
                     <p>
                         Bienvenido al Sistema de Logistica, este Sistema de Información sirve para administrar varios almacenes,

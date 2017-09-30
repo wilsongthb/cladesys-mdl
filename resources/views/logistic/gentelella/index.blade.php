@@ -12,7 +12,7 @@
 
     {{--  normalize-css  --}}
     <link rel="stylesheet" href="{{ asset('/bower_components/normalize-css/normalize.css') }} ">
-    <link rel="stylesheet" href="{{ asset('/bower_components/mui/packages/cdn/css/mui.min.css') }} ">
+    {{--  <link rel="stylesheet" href="{{ asset('/bower_components/mui/packages/cdn/css/mui.min.css') }} ">  --}}
     <!-- Bootstrap -->
     <link href="{{ asset('/bower_components/gentelella/vendors/bootstrap/dist/css/bootstrap.min.css') }} " rel="stylesheet">
     <!-- Font Awesome -->

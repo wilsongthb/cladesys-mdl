@@ -1,7 +1,6 @@
 
 @extends('mdl.app')
 
-
 @section('content')
 <div class="mdl-grid" id="app">
     <div class="dml-cell mdl-cell--4-col">asda</div>

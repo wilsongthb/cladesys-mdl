@@ -4,7 +4,8 @@
     angular.module('logistic', [
         'ngRoute',
         'ui.select',
-        'ui.bootstrap'
+        'ui.bootstrap',
+        'ui.uploader'
     ]);
 })();
 

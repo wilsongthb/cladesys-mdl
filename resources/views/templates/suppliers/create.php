@@ -43,7 +43,7 @@
                         <select 
                             class="form-control"
                             ng-model="registro.doc_type">
-                            <?php foreach(config('logistic.doc.type') as $key => $doc){ ?>
+                            <?php foreach(config('logistic.client.doc.type') as $key => $doc){ ?>
                                 <option ng-value="<?= $key ?>"><?= $doc ?> </option>
                             <?php } ?>
                         </select>

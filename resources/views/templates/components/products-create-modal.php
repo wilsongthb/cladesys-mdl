@@ -20,8 +20,6 @@
                             <label>Denominacion</label>
                             <input type="text" class="form-control" ng-model="create.fila.name" required maxlength="191" capitalize>
                         </div>
-                        
-                        
                         <div class="col-xs-6 col-sm-4 col-md-4 col-lg-4">
                             <label>Codigo</label>
                             <input type="text" class="form-control" ng-model="create.fila.code" maxlength="128">
@@ -36,6 +34,14 @@
                         <div class="col-xs-12 col-sm-6 col-md-4 col-lg-4">
                             <label>Categoria</label>
                             <product-values name-model="categories" value-id="create.fila.categories_id"></product-values>
+                        </div>
+                        <div class="col-xs-12 col-sm-6 col-md-4 col-lg-4">
+                            <label>Imagén</label> <span ng-show="create.fila.image_path.length > 1" class="label label-success"><i class="fa fa-check"></i></span>
+                            <input type="file" id="ProductImageInput">
+                        </div>
+                        <div class="col-xs-12 col-sm-6 col-md-4 col-lg-4">
+                            <br>
+                            <a class="btn btn-success" ng-click="image.subir()">Subir Imagén</a>
                         </div>
                     </div>
                     <div class="row form-group">

@@ -16,7 +16,7 @@ class InputDetailsController extends Controller
     * @return Response
     */
     private function lockedResponse(){
-        return response("locked", 401);
+        return response("locked, Registro bloqueado", 401);
     }
 
     /**

@@ -1387,12 +1387,17 @@ const QuotationsConfig = {
                 }
             },
             editQuotation: function(requeriments_id, suppliers_id){
-                
+                // console.log('gogo')
+                if(!this.quotations[requeriments_id]){
+                    this.quotations[requeriments_id] = []
+                }
+                if(!this.quotations[requeriments_id][suppliers_id]){
+                    this.quotations[requeriments_id][suppliers_id] = {}
+                }
                 this.quotations[requeriments_id][suppliers_id].edit = true
                 setTimeout(function() {
-                    console.log("agg", 'q_' + requeriments_id + '_' + suppliers_id)
+                    // console.log("agg", 'q_' + requeriments_id + '_' + suppliers_id)
                     document.getElementById('q_' + requeriments_id + '_' + suppliers_id).focus()
-
                 }, 200);
 
             }

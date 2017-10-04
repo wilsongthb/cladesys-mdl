@@ -35,9 +35,18 @@
         </div>
     </div>
     <div class="row form-group">
-        <div class="col-xs-12 col-sm-6 col-md-4 col-lg-4">
+        <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
             <label>Categoria</label>
             <product-values name-model="categories" value-id="edit.fila.categories_id"></product-values>
+        </div>
+        <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
+            <label>Imagén</label> <span ng-show="edit.fila.image_path.length > 1" class="label label-success"><i class="fa fa-check"></i></span>
+            <input type="file" id="ProductImageInput">
+            <a href="{{url('')}}@{{edit.fila.image_path}}" ng-if="edit.fila.image_path.length > 1"><img width="100" src="{{url('')}}@{{edit.fila.image_path}} " alt=""></a>
+        </div>
+        <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
+            <br>
+            <a class="btn btn-success" ng-click="image.subir()">Subir Imagén</a>
         </div>
     </div>
     <div class="row form-group">

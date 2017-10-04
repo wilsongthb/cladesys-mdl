@@ -17,7 +17,7 @@
             <div class="form-group">
                 <label for="">Tipo *</label>
                 <select ng-model="resource.fila.type" class="form-control">
-                    <?php foreach(config('logistic.outputs.type') as $key => $val){ ?>
+                    <?php foreach(config('logistic.client.outputs.type') as $key => $val){ ?>
                     <option ng-value="<?= $key ?>"><?= $val ?> </option> 
                     <?php } ?>
                 </select>
@@ -40,7 +40,7 @@
                 <div class="form-group">
                     <label for="">TIPO DE DOCUMENTO</label>
                     <select class="form-control" ng-model="resource.fila.doc_type">
-                        <?php foreach(config('logistic.doc.type') as $key => $val){ ?>
+                        <?php foreach(config('logistic.client.doc.type') as $key => $val){ ?>
                         <option ng-value="<?= $key ?>"><?= $val ?> </option> 
                         <?php } ?>
                     </select>
@@ -56,7 +56,7 @@
                 <div class="form-group">
                     <label for="">TIPO DE COMPROBANTE</label>
                     <select class="form-control" ng-model="resource.fila.ticket_type">
-                        <?php foreach(config('logistic.ticket.type') as $key => $val){ ?>
+                        <?php foreach(config('logistic.client.ticket.type') as $key => $val){ ?>
                         <option ng-value="<?= $key ?>"><?= $val ?> </option> 
                         <?php } ?>
                     </select>

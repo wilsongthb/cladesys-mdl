@@ -43,22 +43,29 @@
             <thead>
                 <tr>
                     <th>ID</th>
+                    <th>IMAGEN</th>
                     <th>DENOMINACION</th>
-                    <th class="hidden-xs">CODIGO</th>
                     <th class="hidden-xs">MARCA</th>
                     <th></th>
                 </tr>
             </thead>
             <tbody>
-                <tr ng-repeat="d in resource.data.data">
+                <tr ng-repeat="d in resource.data.data" title="Creacion: @{{d.created_at}} Ultima Modificacion: @{{d.updated_at}} ">
                     <td ng-bind="d.id"></td>
+                    <td>
+                        <a ng-if="d.image_path.length > 1" href="{{url('')}}@{{d.image_path}}"><img  width="100" src="{{url('')}}@{{d.image_path}} " alt="Not Found"></a>
+                    </td>
                     <td>
                         <span ng-bind="d.name"></span>
                         <br>
-                        <code ng-bind="d.categorie"></code>
-                        <span ng-bind="d.packing + ' ' + d.units + ' ' + d.measurement"></span>
+                        <span class="label label-success" ng-bind="d.categorie"></span>
+                        <span 
+                            class="label label-warning" 
+                            ng-bind="d.packing + ' ' + d.units + ' ' + d.measurement" 
+                            title="Empaquetado - Unidades por paquete - Unidad de medida de distribucion"></span>
+                        <span class="label label-primary" ng-bind="d.code"></span>
                     </td>
-                    <td ng-bind="d.code" class="hidden-xs"></td>
+                    <!-- <td ng-bind="d.code" class="hidden-xs"></td> -->
                     <td ng-bind="d.brand" class="hidden-xs"></td>
                     <td>
                         <div class="btn-group">

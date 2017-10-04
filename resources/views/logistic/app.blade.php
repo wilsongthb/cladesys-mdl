@@ -1,11 +1,12 @@
 {{--  AQUI SE REGISTRAN LOS ASSETS DE LA APLICACION DE LOGISTICA  --}}
-{{--  SE PREPARA LA APLICACION PARA FUNCIONAR SIN NECESIDAD DE UN THEMA POR DEFECTO  --}}
-
+{{--  SE PREPARA LA APLICACION PARA FUNCIONAR SIN NECESIDAD DE UN TEMA POR DEFECTO  --}}
+    
+    {{--  LOGISTIC BASE URL  --}}
+    <base href="{{ $baseUrl }}">
     <!-- LOGISTIC LINKS -->
     <link href="{{ asset('/css/logistic.css') }} " rel="stylesheet">
     <link href="{{ asset('/bower_components/angular-bootstrap/ui-bootstrap-csp.css') }} " rel="stylesheet">
     <link href="{{ asset('/bower_components/angular-ui-select/dist/select.css') }} " rel="stylesheet">
-    <base href="{{ $baseUrl }}">
     <!-- LOGISTIC SCRIPTS -->
     <script src="{{ asset('/bower_components/angular/angular.js') }} "></script>
     <script src="{{ asset('/bower_components/angular-route/angular-route.js') }} "></script>
@@ -20,7 +21,7 @@
     <script src="{{ asset('/bower_components/js-xlsx/jszip.js') }} "></script>
     <script src="{{ asset('/bower_components/js-xlsx/xlsx.js') }} "></script>
     <script src="{{ asset('/bower_components/file-saver/FileSaver.js') }} "></script>
-    
+    <script src="{{asset('/bower_components/angular-ui-uploader/dist/uploader.js')}} "></script>
     <!-- MIS SCRIPTS -->
     <script>
         const G = {
@@ -30,7 +31,8 @@
             apiUrl: "{{ $apiUrl }}",
             user: {!! json_encode(Auth::user()) !!},
             console: true,
-            config: {!! json_encode(config('logistic')) !!}
+            config: {!! json_encode(config('logistic.client')) !!},
+            'X-CSRF-TOKEN': '{{csrf_token()}}'
         }
     </script>
     <script src="{{ asset('/js/logistic/app.js') }} "></script>

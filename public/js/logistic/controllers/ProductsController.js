@@ -79,8 +79,8 @@ const ProductsConfig = {
         .module('logistic')
         .controller('ProductsEditController', ProductsEditController);
 
-    ProductsEditController.$inject = ['$scope', '$http', '$routeParams', '$location'];
-    function ProductsEditController($scope, $http, $routeParams, $location) {
+    ProductsEditController.$inject = ['$scope', '$http', '$routeParams', '$location', 'uiUploader', '$log'];
+    function ProductsEditController($scope, $http, $routeParams, $location, uiUploader, $log) {
         var vm = this;
         
         var fila_id = $routeParams.id
@@ -113,12 +113,41 @@ const ProductsConfig = {
             }
         }
 
+        $scope.image = {
+            files: [],
+            subir: function(){
+                uiUploader.startUpload({
+                    url: G.apiUrl + '/images',
+                    headers: {
+                        'X-CSRF-TOKEN': G['X-CSRF-TOKEN']
+                    },
+                    concurrency: 2,
+                    onProgress: function(file) {
+                        $log.info(file.name + '=' + file.humanSize);
+                        $scope.$apply();
+                    },
+                    onCompleted: function(file, response) {
+                        $log.info(file + 'response' + response);
+                        $scope.edit.fila.image_path = response
+                    }
+                });
+            }
+        }
+
         activate();
 
         ////////////////
 
         function activate() { 
             $scope.edit.init()
+            // esperar un segundo para insertar el evento para uiUploader
+            var element = document.getElementById('ProductImageInput')
+            element.addEventListener('change', function(e) {
+                var files = e.target.files;
+                uiUploader.addFiles(files);
+                $scope.files = uiUploader.getFiles();
+                $scope.$apply();
+            })
         }
     }
 })(G, ProductsConfig);

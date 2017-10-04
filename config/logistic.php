@@ -3,13 +3,13 @@ return [
     /**
         En desuso
     */
-    'permissions' => [
-        // 1 => 'access',
-        2 => 'LEER/ACCEDER', // leer
-        3 => 'CREAR', // crear
-        4 => 'EDITAR', // actualizar/modificar
-        5 => 'ELIMINAR', // borrar
-    ],
+    // 'permissions' => [
+    //     // 1 => 'access',
+    //     2 => 'LEER/ACCEDER', // leer
+    //     3 => 'CREAR', // crear
+    //     4 => 'EDITAR', // actualizar/modificar
+    //     5 => 'ELIMINAR', // borrar
+    // ],
     'name' => 'logistic',
 
     // STATIC
@@ -147,51 +147,54 @@ return [
         ],
     ],
     'per_page' => 8,
-    'location' => [
-        'default_id' => 1,
-        'type' => [
-            1 => 'ALMACEN',
-            2 => 'SUCURSAL',
+    'client' => [
+        'per_page' => 8,
+        'location' => [
+            'default_id' => 1,
+            'type' => [
+                1 => 'ALMACEN',
+                2 => 'SUCURSAL',
+            ],
         ],
-    ],
-    'doc' => [
-        'type' => [
-            1 => 'DNI',
-            2 => 'RUC'
-        ]
-    ],
-    'ticket' => [
-        'type' => [
-            1 => 'BOLETA',
-            2 => 'FACTURA'
-        ]
-    ],
-    'order' => [
-        'status' => [
-            1 => 'REQUERIMIENTO',
-            2 => 'COTIZACION',
-            3 => 'ORDEN DE COMPRA',
-        ]
-    ],
-    'inputs' => [
-        'type' => [
-            1 => 'ENTRADA',
-            2 => 'DISTRIBUCION',
+        'doc' => [
+            'type' => [
+                1 => 'DNI',
+                2 => 'RUC'
+            ]
         ],
-        'status' => [
-            1 => 'ACTIVO',
-            2 => 'BLOQUEADO',
-        ]
-    ],
-    'outputs' => [
-        'status' => [
-            1 => 'ACTIVO',
-            2 => 'ENVIADO/BLOQUEADO'
+        'ticket' => [
+            'type' => [
+                1 => 'BOLETA',
+                2 => 'FACTURA'
+            ]
         ],
-        'type' => [
-            1 => 'USO FINAL', //uso final
-            2 => 'DISTRIBUCION', // enviado a otra localizacion
-            3 => 'VENTA', // venta a una entidad
-        ]
+        'order' => [
+            'status' => [
+                1 => 'REQUERIMIENTO',
+                2 => 'COTIZACION',
+                3 => 'ORDEN DE COMPRA',
+            ]
+        ],
+        'inputs' => [
+            'type' => [
+                1 => 'ENTRADA',
+                2 => 'DISTRIBUCION',
+            ],
+            'status' => [
+                1 => 'ACTIVO',
+                2 => 'BLOQUEADO',
+            ]
+        ],
+        'outputs' => [
+            'status' => [
+                1 => 'ACTIVO',
+                2 => 'ENVIADO/BLOQUEADO'
+            ],
+            'type' => [
+                1 => 'USO FINAL', //uso final
+                2 => 'DISTRIBUCION', // enviado a otra localizacion
+                3 => 'VENTA', // venta a una entidad
+            ]
+        ],
     ],
 ];

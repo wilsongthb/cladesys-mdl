@@ -123,7 +123,7 @@
         .module('logistic')
         .component('productsCreateModal', {
             // template:'htmlTemplate',
-            templateUrl: G.url + '/view/product.create-modal.html',
+            templateUrl: G.url + '/view/components.products-create-modal.html',
             controller: ProductsCreateController,
             controllerAs: '$ctrl',
             bindings: {
@@ -131,14 +131,24 @@
             },
         });
 
-    ProductsCreateController.$inject = ['$scope', '$http', 'Locations'];
-    function ProductsCreateController($scope, $http, Locations) {
+    ProductsCreateController.$inject = ['$scope', '$http', 'Locations', 'uiUploader', '$log'];
+    function ProductsCreateController($scope, $http, Locations, uiUploader, $log) {
         var $ctrl = this;
-
         $scope.create = {
             verForm: function(){
                 $('#product-create-modal').modal('show')
                 $scope.state = true
+                
+                setTimeout(function() {
+                    // esperar un segundo para insertar el evento para uiUploader
+                    var element = document.getElementById('ProductImageInput')
+                    element.addEventListener('change', function(e) {
+                        var files = e.target.files;
+                        uiUploader.addFiles(files);
+                        $scope.files = uiUploader.getFiles();
+                        $scope.$apply();
+                    })
+                }, 1000);
             },
             fila: {},
             error: false,
@@ -160,11 +170,30 @@
             }
         }
 
+        $scope.image = {
+            files: [],
+            subir: function(){
+                uiUploader.startUpload({
+                    url: G.apiUrl + '/images',
+                    headers: {
+                        'X-CSRF-TOKEN': G['X-CSRF-TOKEN']
+                    },
+                    concurrency: 2,
+                    onProgress: function(file) {
+                        $log.info(file.name + '=' + file.humanSize);
+                        $scope.$apply();
+                    },
+                    onCompleted: function(file, response) {
+                        $log.info(file + 'response' + response);
+                        $scope.create.fila.image_path = response
+                    }
+                });
+            }
+        }
+
         ////////////////
 
-        $ctrl.$onInit = function() { 
-            // $scope.state = true
-        };
+        $ctrl.$onInit = function() { };
         $ctrl.$onChanges = function(changesObj) { 
             $ctrl.activate()
         };

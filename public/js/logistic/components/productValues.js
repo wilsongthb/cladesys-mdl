@@ -10,7 +10,7 @@
         .module('logistic')
         .component('productValues', {
             // template:'htmlTemplate',
-            templateUrl: G.url + '/view/product.value.html',
+            templateUrl: G.url + '/view/components.product-values.html',
             controller: productValuesController,
             controllerAs: '$ctrl',
             bindings: {

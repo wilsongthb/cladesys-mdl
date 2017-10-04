@@ -10,13 +10,9 @@ use App\Models\ProductOptions;
 class ProductsController extends Controller
 {
     /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index(Request $request)
-    {
-        $per_page = ($request->per_page) ? $request->per_page : config('logistic.per_page');
+    * @return App\Models\Products; Query builder
+    */
+    public function select(){
         $res = Products::
             select(
                 'p.*',
@@ -30,15 +26,36 @@ class ProductsController extends Controller
             ->leftJoin('packings AS pa', 'pa.id', '=', 'p.packings_id')
             ->leftJoin('categories AS c', 'c.id', '=', 'p.categories_id')
             ->where('p.flagstate', 1);// si esta desactivado
-        if(strlen($request->search) > 0){// si se envia algun argumento de busqueda
+        return $res;
+    }
+
+    /**
+    * @param $query String - Cadena de texto para buscar en la base de datos
+    * @return App\Models\Products; Query builder
+    */
+    public function search($query){
+        $res = $this->select();
+        if(strlen($query) > 0){// si se envia algun argumento de busqueda
             // condiciones de busqueda
             $res
-                ->where('p.name', 'LIKE', "%$request->search%")
-                ->orWhere('p.code', 'LIKE', "%$request->search%")
-                ->orWhere('pa.value', 'LIKE', "%$request->search%")
-                ->orWhere('c.value', 'LIKE', "%$request->search%")
-                ->orWhere('b.value', 'LIKE', "%$request->search%");
+                ->where('p.name', 'LIKE', "%$query%")
+                ->orWhere('p.code', 'LIKE', "%$query%")
+                ->orWhere('pa.value', 'LIKE', "%$query%")
+                ->orWhere('c.value', 'LIKE', "%$query%")
+                ->orWhere('b.value', 'LIKE', "%$query%");
         }
+        return $res;
+    }
+
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function index(Request $request)
+    {
+        $per_page = $this->getPerPage($request);
+        $res = $this->search($request->search);
         $res->orderBy('p.id', 'DESC');
         return $res->paginate($per_page);
     }
@@ -71,7 +88,7 @@ class ProductsController extends Controller
         $fila->packings_id = $request->packings_id;
         $fila->measurements_id = $request->measurements_id;
         //no require
-        $fila->image_path = $request->get('image_path') ? $request->get('imge_path') : "";
+        $fila->image_path = $request->get('image_path') ? $request->get('image_path') : "";
         $fila->level = $request->get('level') ? $request->get('level') : "";
         $fila->units = $request->get('units') ? $request->get('units') : "";
 
@@ -134,7 +151,7 @@ class ProductsController extends Controller
         $fila->packings_id = $request->packings_id;
         $fila->measurements_id = $request->measurements_id;
         //no require
-        $fila->image_path = $request->get('image_path') ? $request->get('imge_path') : "";
+        $fila->image_path = $request->get('image_path') ? $request->get('image_path') : "";
         $fila->level = $request->get('level') ? $request->get('level') : "";
         $fila->units = $request->get('units') ? $request->get('units') : "";
 

@@ -20,13 +20,15 @@ Route::get('/', function () {
     return view('index');
 });
 
-// Route::get('/test', function (Request $request) {
-//     return view('test');
-// });
-// Route::post('/test', function (Request $request) {
-//     // dd($request->all());
-//     exit(print_r($request->all(), true));
-// });
+Route::get('/test', function (Request $request) {
+    return view('test');
+});
+Route::post('/test', function (Request $request) {
+    // dd($request->all());
+    // return $request->all();
+    // dd($request);
+    exit(print_r($request->all(), true));
+});
 
 Auth::routes();
 
@@ -82,5 +84,6 @@ Route::group(['middleware' => 'auth'], function(){
         Route::put('quotations/select-more-cheap', 'Logistic\QuotationsController@selectMoreCheap');
         Route::get('quotations/select-suppliers', 'Logistic\QuotationsController@selectSuppliers');
         Route::Resource('quotations', 'Logistic\QuotationsController');
+        Route::Resource('/images', 'ImagesController');
     });
 });

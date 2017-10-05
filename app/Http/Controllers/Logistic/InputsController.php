@@ -19,7 +19,6 @@ class InputsController extends Controller
      */
     public function index(Request $request)
     {
-        // $per_page = ($request->per_page) ? $request->per_page : config('logistic.per_page');
         $per_page = $this->getPerPage($request);
         $locations_id = $request->locations_id;
         return Inputs::

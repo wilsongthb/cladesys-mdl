@@ -54,7 +54,7 @@
                                         <div class="form-group">
                                             <label for="">Tipo</label>
                                             <select class="form-control" ng-model="resource.fila.type" required>
-                                                <?php foreach(config('logistic.location.type') as $clave => $tipo){ ?>
+                                                <?php foreach(config('logistic.client.location.type') as $clave => $tipo){ ?>
                                                 <option ng-value="<?= $clave ?>"><?= $tipo ?></option>
                                                 <?php } ?>
                                             </select>

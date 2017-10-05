@@ -40,7 +40,7 @@ class RequerimentsController extends Controller
      */
     public function index(Request $request)
     {
-        $per_page = ($request->per_page) ? $request->per_page : config('logistic.per_page');
+        $per_page = $this->getPerPage($request);
         return Requeriments::
             select(
                 'or.*',

@@ -15,7 +15,7 @@
                 <div class="col-xs-12 col-sm-4 col-md-3 col-lg-3">
                     <label>Tipo ticket *</label>
                     <select ng-model="detalle.fila.ticket_type" class="form-control" required>
-                        <?php foreach(config('logistic.ticket.type') as $key => $ticket){ ?>
+                        <?php foreach(config('logistic.client.ticket.type') as $key => $ticket){ ?>
                             <option ng-value="<?= $key ?>"><?= $ticket ?> </option>
                         <?php } ?>
                     </select>

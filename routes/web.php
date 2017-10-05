@@ -15,7 +15,6 @@
 
 use Illuminate\Http\Request;
 
-
 Route::get('/', function () {
     return view('index');
 });
@@ -38,13 +37,11 @@ Route::get('/home', function(){
 
 Route::group(['middleware' => 'auth'], function(){
     Route::get('view/{view}', 'HomeController@view');
-
     Route::group(['middleware' => 'user-modules'], function(){
         Route::resource('users', 'UsersController');
         Route::group(['prefix' => 'logistic'], function(){
             Route::get('/{a?}/{b?}/{c?}', 'Logistic\MainController@index')->name('logistic');
         });
-
         Route::get('/purchase-order/{requeriments_id}/{supppliers_id}', 'Logistic\QuotationsController@purchaseOrder');
         Route::get('/orders/print/{id}', 'Logistic\RequerimentsController@imprimir');
     });

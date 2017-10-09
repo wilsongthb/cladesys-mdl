@@ -14,20 +14,22 @@
 // Route::get('/home', 'HomeController@index')->name('home');
 
 use Illuminate\Http\Request;
+use App\Models\Products;
 
 Route::get('/', function () {
     return view('index');
 });
 
 Route::get('/test', function (Request $request) {
-    return view('test');
+    dd(Products::find(1));
+    // return view('test');
 });
-Route::post('/test', function (Request $request) {
-    // dd($request->all());
-    // return $request->all();
-    // dd($request);
-    exit(print_r($request->all(), true));
-});
+// Route::post('/test', function (Request $request) {
+//     // dd($request->all());
+//     // return $request->all();
+//     // dd($request);
+//     exit(print_r($request->all(), true));
+// });
 
 Auth::routes();
 

@@ -53,7 +53,7 @@
                 <tr ng-repeat="d in resource.data.data" title="Creacion: @{{d.created_at}} Ultima Modificacion: @{{d.updated_at}} ">
                     <td ng-bind="d.id"></td>
                     <td>
-                        <a ng-if="d.image_path.length > 1" href="{{url('')}}@{{d.image_path}}"><img  width="100" src="{{url('')}}@{{d.image_path}} " alt="Not Found"></a>
+                        <a ng-if="d.image_path.length > 1" href="{{url('')}}@{{d.image_path}}"><img  height="50" src="{{url('')}}@{{d.image_path}} " alt="Not Found"></a>
                     </td>
                     <td>
                         <span ng-bind="d.name"></span>

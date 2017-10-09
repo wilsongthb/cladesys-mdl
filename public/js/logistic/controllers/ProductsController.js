@@ -79,8 +79,8 @@ const ProductsConfig = {
         .module('logistic')
         .controller('ProductsEditController', ProductsEditController);
 
-    ProductsEditController.$inject = ['$scope', '$http', '$routeParams', '$location', 'uiUploader', '$log'];
-    function ProductsEditController($scope, $http, $routeParams, $location, uiUploader, $log) {
+    ProductsEditController.$inject = ['$scope', '$http', '$routeParams', '$location', 'uiUploader', '$log', '$window'];
+    function ProductsEditController($scope, $http, $routeParams, $location, uiUploader, $log, $window) {
         var vm = this;
         
         var fila_id = $routeParams.id
@@ -129,6 +129,7 @@ const ProductsConfig = {
                     onCompleted: function(file, response) {
                         $log.info(file + 'response' + response);
                         $scope.edit.fila.image_path = response
+                        $window.alert('Carga finalizada');
                     }
                 });
             }

@@ -34,13 +34,15 @@ class ImagesController extends Controller
      */
     public function store(Request $request)
     {
+        $dir_images = '/img/';
+
         if($request->hasFile('file')){
             $this->validate($request, [
                 'file' => 'required|image|mimes:jpeg,png,jpg,gif,svg',
             ]);
             $imageName = time().'.'.$request->file->getClientOriginalExtension();
-            $request->file->move(public_path('images'), $imageName);
-            return '/images/' . $imageName;
+            $request->file->move(public_path($dir_images), $imageName);
+            return $dir_images . $imageName;
         }
     }
 

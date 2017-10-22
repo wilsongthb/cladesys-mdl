@@ -99,7 +99,7 @@ class OutputsController extends Controller
         $fila->ticket_type = $request->ticket_type;
         $fila->locations_id = $request->locations_id;
         $fila->target_locations_id = $request->target_locations_id;
-        $fila->user_id = $request->user_id;
+        $fila->user_id = auth()->user()->id;
         $fila->save();
         return $fila;
     }
@@ -154,7 +154,7 @@ class OutputsController extends Controller
         $fila->ticket_type = $request->ticket_type;
         $fila->locations_id = $request->locations_id;
         $fila->target_locations_id = $request->target_locations_id;
-        $fila->user_id = $request->user_id;
+        $fila->user_id = auth()->user()->id;
         $fila->save();
     }
 

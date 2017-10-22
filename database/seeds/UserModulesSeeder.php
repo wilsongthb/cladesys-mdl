@@ -13,7 +13,5 @@ class UserModulesSeeder extends Seeder
     {
         DB::table('user_modules')->insert(['user_id' => '1', 'module' => 'logistic']);
         DB::table('user_modules')->insert(['user_id' => '1', 'module' => 'rsc']);
-        DB::table('user_modules')->insert(['user_id' => '1', 'module' => 'orders/print']);
-        DB::table('user_modules')->insert(['user_id' => '1', 'module' => 'purchase-order']);
     }
 }

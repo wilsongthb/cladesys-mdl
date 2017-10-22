@@ -9,26 +9,33 @@ use App\Models\ProductOptions;
 
 class ProductOptionsController extends Controller
 {
+    /**
+     * Se encarga de devolver una configuracion de todas maneras
+     * si la encuentra la @return
+     * si no la encuentra la crea y la @return
+     */
     public function getOrCreate(Request $request, $locations_id, $products_id){
         // unico metodo para crear
         $fila = ProductOptions::
             where('products_id', $products_id)
             ->where('locations_id', $locations_id)
             ->first();
-        if($fila){
-            return $fila;
-        }else{
+        // if($fila){
+        //     return $fila;
+        // }else{
+        if(!$fila){
             $fila = new ProductOptions;
             // $fila->minimum = $request->minimum;
             // $fila->permanent = $request->permanent;
             // $fila->duration = $request->duration;
             $fila->products_id = $products_id;
             $fila->locations_id = $locations_id;
-            // $fila->user_id = $request->user_id;
+            // $fila->user_id = auth()->user()->id;
             $fila->user_id = \Auth::user()->id;
             $fila->save();
-            return $fila;
+            
         }
+        return $fila;
     }
     /**
      * Display a listing of the resource.
@@ -43,10 +50,19 @@ class ProductOptionsController extends Controller
                 'po.*',
                 'p.id AS products_id',
                 'p.name AS products_name',
-                'l.name AS locations_name'
+                'l.name AS locations_name',
+                // adicionales
+                'c.value AS categorie',
+                'pa.value AS packing',
+                'p.units',
+                'm.value AS measurement',
+                'p.code'
             )
             ->from('product_options AS po')
             ->leftJoin('products AS p', 'p.id', '=', 'po.products_id')
+            ->leftJoin('categories AS c', 'c.id', 'p.categories_id')
+            ->leftJoin('packings AS pa', 'pa.id', 'p.packings_id')
+            ->rightJoin('measurements AS m', 'm.id', 'p.measurements_id')
             ->leftJoin('locations AS l', 'l.id', '=', 'po.locations_id')
             ->where('p.flagstate', 1)
             ->orderBy('po.id', 'DESC');
@@ -107,7 +123,7 @@ class ProductOptionsController extends Controller
             $fila->minimum = $request->minimum;
             $fila->permanent = $request->permanent;
             $fila->duration = $request->duration;
-            $fila->user_id = $request->user_id;
+            $fila->user_id = auth()->user()->id;
             // $fila->user_id = \Auth::user()->id;
             $fila->save();
             // return $fila;
@@ -151,7 +167,7 @@ class ProductOptionsController extends Controller
         $fila->duration = $request->duration;
         // $fila->products_id = $request->products_id;
         // $fila->locations_id = $request->locations_id;
-        $fila->user_id = $request->user_id;
+        $fila->user_id = auth()->user()->id;
         $fila->save();
         return $fila;
     }

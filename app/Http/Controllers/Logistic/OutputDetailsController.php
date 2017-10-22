@@ -70,7 +70,7 @@ class OutputDetailsController extends Controller
         $fila->quantity = $request->quantity;
         $fila->input_details_id = $request->input_details_id;
         $fila->outputs_id = $request->outputs_id;
-        $fila->user_id = $request->user_id;
+        $fila->user_id = auth()->user()->id;
         $fila->save();
     }
 
@@ -122,7 +122,7 @@ class OutputDetailsController extends Controller
         $fila->quantity = $request->quantity;
         // $fila->input_details_id = $request->input_details_id;
         // $fila->outputs_id = $request->outputs_id;
-        $fila->user_id = $request->user_id;
+        $fila->user_id = auth()->user()->id;
         $fila->save();
     }
 

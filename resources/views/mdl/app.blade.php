@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
+    <title>{{config('app.name')}} </title>
 
     {{--  <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Roboto:300,400,500,700" type="text/css">  --}}
     <link rel="stylesheet" href="{{asset('/bower_components/roboto-fontface/css/roboto/roboto-fontface.css')}} ">

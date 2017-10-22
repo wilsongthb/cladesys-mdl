@@ -56,7 +56,7 @@ class SuppliersController extends Controller
         $fila->region = $request->region;
         $fila->account_number = $request->account_number;
         $fila->bank = $request->bank;
-        $fila->user_id = $request->user_id;
+        $fila->user_id = auth()->user()->id;
         // opcional
         $fila->company_name = isset($request->company_name) ? $request->company_name : NULL;
         $fila->identity = isset($request->identity) ? $request->identity : NULL;
@@ -117,7 +117,7 @@ class SuppliersController extends Controller
         $fila->region = $request->region;
         $fila->account_number = $request->account_number;
         $fila->bank = $request->bank;
-        $fila->user_id = $request->user_id;
+        $fila->user_id = auth()->user()->id;
         // opcional
         $fila->company_name = isset($request->company_name) ? $request->company_name : NULL;
         $fila->identity = isset($request->identity) ? $request->identity : NULL;

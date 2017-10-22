@@ -6,6 +6,8 @@ use App\Models\Locations;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use DB;
+use Auth;
+use App\Models\UserLocations;
 
 class LocationsController extends Controller
 {
@@ -23,18 +25,11 @@ class LocationsController extends Controller
             )
             ->from('locations AS l')
             ->leftJoin('product_options AS po', 'po.locations_id', '=', 'l.id')
+            ->join('user_locations AS ul', 'ul.locations_id', 'l.id')
             ->where('l.flagstate', 1)
+            ->where('ul.user_id', Auth::user()->id)
             ->groupBy('l.id')
             ->get();
-        // return DB::select(DB::raw(
-        // "SELECT 
-        //     l.*,
-        //     COUNT(po.id) AS po_quantity
-        // FROM locations AS l
-        // LEFT JOIN product_options AS po ON po.locations_id = l.id
-        // WHERE l.flagstate = 1
-        // GROUP BY l.id
-        // "));
     }
 
     /**
@@ -56,11 +51,16 @@ class LocationsController extends Controller
     public function store(Request $request)
     {
         $fila = new Locations;
-        $fila->user_id = $request->user_id;
+        $fila->user_id = auth()->user()->id;
         $fila->name = $request->name;
         $fila->type = $request->type;
         $fila->utility = $request->utility;
         $fila->save();
+
+        $uL = new UserLocations;
+        $uL->user_id = Auth::user()->id;
+        $uL->locations_id = $fila->id;
+        $uL->save();
     }
 
     /**
@@ -97,7 +97,7 @@ class LocationsController extends Controller
         // dd($locations, $id);
         $fila = Locations::find($id);
         // $fila = $locations;
-        $fila->user_id = $request->user_id;
+        $fila->user_id = auth()->user()->id;
         $fila->name = $request->name;
         $fila->type = $request->type;
         $fila->utility = $request->utility;

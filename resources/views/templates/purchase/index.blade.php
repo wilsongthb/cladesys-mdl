@@ -94,7 +94,7 @@
             </div>
             <div class="modal-body">
                 <div class="list-group">
-                    <a target="blank" ng-repeat="s in rsc.suppliers" href="<?= url('') ?>@{{'/purchase-order'}}/@{{dialogs.requeriments_id}}/@{{s.id}} " class="list-group-item">@{{s.company_name}} @{{s.contact_name}} 
+                    <a target="blank" ng-repeat="s in rsc.suppliers" href="<?= url('') ?>/logistic@{{'/purchase-order'}}/@{{dialogs.requeriments_id}}/@{{s.id}} " class="list-group-item">@{{s.company_name}} @{{s.contact_name}} 
                         <span class="badge">@{{s.count_q}} </span>
                         <!-- <pre>@{{s}} </pre> -->
                     </a>

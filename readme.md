@@ -5,8 +5,9 @@ El projecto es sucession de cladesysLyA, el objetivos es hacer el anterior mas e
 ## Frameworks
 - Laravel 5.4
 - Angular 1
-- Material Design Lite
+- Material Design
 - Bootstrap
+- VueJS
 
 Cambios
 

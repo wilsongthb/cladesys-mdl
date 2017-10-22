@@ -77,7 +77,7 @@ class RequerimentsController extends Controller
     {
         $fila = new Requeriments;
         $fila->locations_id = $request->locations_id;
-        $fila->user_id = $request->user_id;
+        $fila->user_id = auth()->user()->id;
         $fila->save();
         return $fila;
     }

@@ -106,7 +106,7 @@ class RequerimentDetailsController extends Controller
     public function store(Request $request)
     {
         $fila = new RequerimentDetails;
-        $fila->user_id = $request->user_id;
+        $fila->user_id = auth()->user()->id;
         $fila->quantity = $request->quantity;
         $fila->products_id = $request->products_id;
         $fila->detail = $request->detail;
@@ -146,7 +146,7 @@ class RequerimentDetailsController extends Controller
     public function update(Request $request, $id)
     {
         $fila = RequerimentDetails::find($id);
-        $fila->user_id = $request->user_id;
+        $fila->user_id = auth()->user()->id;
         $fila->quantity = $request->quantity;
         $fila->products_id = $request->products_id;
         $fila->detail = $request->detail;

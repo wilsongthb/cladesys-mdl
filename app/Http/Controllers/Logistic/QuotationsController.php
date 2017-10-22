@@ -200,7 +200,7 @@ class QuotationsController extends Controller
     public function store(Request $request)
     {
         $fila = new Quotations;
-        $fila->user_id = $request->user_id;
+        $fila->user_id = auth()->user()->id;
         $fila->suppliers_id = $request->suppliers_id;
         $fila->unit_price = $request->unit_price;
         $fila->quantity = $request->quantity;
@@ -241,7 +241,7 @@ class QuotationsController extends Controller
     public function update(Request $request, $id)
     {
         $fila = Quotations::find($id);
-        $fila->user_id = $request->user_id;
+        $fila->user_id = auth()->user()->id;
         // $fila->suppliers_id = $request->suppliers_id;
         $fila->unit_price = $request->unit_price;
         $fila->quantity = $request->quantity;

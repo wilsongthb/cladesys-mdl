@@ -23,6 +23,8 @@
             <div class="mdl-typography--text-center">
                 <a href="{{ url('/logistic/home') }} " class="mdl-button mdl-js-button mdl-button--raised">Logistica</a>
                 <a href="{{ url('/credentials') }} " class="mdl-button mdl-js-button mdl-button--raised">Credenciales</a>
+                <a href="{{ url('/lab') }} " class="mdl-button mdl-js-button mdl-button--raised">Laboratorio</a>
+                <a href="{{ url('/instruments') }} " class="mdl-button mdl-js-button mdl-button--raised">Instrumentos</a>
                 <hr>
                 @if (Auth::check())
                 

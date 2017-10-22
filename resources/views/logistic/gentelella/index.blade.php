@@ -43,6 +43,9 @@
 
             <!-- page content -->
             <div class="right_col" role="main">
+                <div class="container">
+                    <span ng-show="layout.loading"><i class="fa fa-spinner fa-pulse fa-fw"></i> Cargando</span>
+                </div>
                 <ng-view></ng-view>
             </div>
             <!-- /page content -->

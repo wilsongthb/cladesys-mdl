@@ -224,7 +224,7 @@ const ProductsConfig = {
             }
         }
 
-        // $scope.activate = activate;
+        $scope.activate = activate;
         activate();
 
         ////////////////

@@ -13,16 +13,19 @@ class InputDetailsController extends Controller
     // public function 
 
     /**
+     * Retorna un response de error acerca del registro bloqueado
     * @return Response
     */
-    private function lockedResponse(){
+    private function lockedResponse()
+    {
         return response("locked, Registro bloqueado", 401);
     }
 
     /**
      * Obtener todos los registros
      */
-    public function getDetailsFrom($inputs_id){
+    public function getDetailsFrom($inputs_id)
+    {
         return InputDetails::
             select(
                 'id.*',
@@ -83,7 +86,7 @@ class InputDetailsController extends Controller
         $fila->ticket_number = $request->ticket_number;
         $fila->ticket_type = $request->ticket_type;
         $fila->unit_price = $request->unit_price;
-        $fila->user_id = $request->user_id;
+        $fila->user_id = auth()->user()->id;
 
         $fila->lot = ($request->get('lot')) ? $request->lot : "";
         $fila->fabrication = ($request->get('fabrication')) ? $request->fabrication : "";
@@ -139,7 +142,7 @@ class InputDetailsController extends Controller
         $fila->ticket_number = $request->ticket_number;
         $fila->ticket_type = $request->ticket_type;
         $fila->unit_price = $request->unit_price;
-        $fila->user_id = $request->user_id;
+        $fila->user_id = auth()->user()->id;
 
         $fila->lot = ($request->get('lot')) ? $request->lot : "";
         $fila->fabrication = ($request->get('fabrication')) ? $request->fabrication : "";

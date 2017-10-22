@@ -51,8 +51,10 @@
                         <ui-select ng-model="detalle.fila.products_id">
                             <ui-select-match ng-show="!detalle.fila.products_name" placeholder="Escribe para buscar">@{{$select.selected.name}} </ui-select-match>
                             <ui-select-choices repeat="p.id as p in Products.list track by $index" refresh="Products.get($select.search)" refresh-delay="250">
-                                <span>@{{p.name}}</span>
-                                <small>@{{p.categorie}} - @{{p.packing}} </small>
+                                <div title="@{{p.name}}">
+                                    <p>@{{p.name}}</p>
+                                    <small>@{{p.categorie}} - @{{p.packing}} </small>
+                                </div>
                             </ui-select-choices>
                         </ui-select>
                     </div>

@@ -80,7 +80,7 @@ class ProductsController extends Controller
     {
         $fila = new Products;
         // required
-        $fila->user_id = $request->user_id;
+        $fila->user_id = auth()->user()->id;
         $fila->name = $request->name;
         $fila->code = $request->code;
         $fila->brands_id = $request->brands_id;
@@ -101,7 +101,7 @@ class ProductsController extends Controller
             $po->duration = $request->po_duration;
             $po->locations_id = $request->po_locations_id;
             $po->products_id = $fila->id;
-            $po->user_id = $request->user_id;
+            $po->user_id = auth()->user()->id;
             $po->save();
         }
 
@@ -143,7 +143,7 @@ class ProductsController extends Controller
     {
         $fila = Products::find($id);
         // required
-        $fila->user_id = $request->user_id;
+        $fila->user_id = auth()->user()->id;
         $fila->name = $request->name;
         $fila->code = $request->code;
         $fila->brands_id = $request->brands_id;

@@ -16,7 +16,7 @@
                     <i class="fa fa-spinner fa-pulse fa-fw" ng-show="det.buttonAdd"></i> 
                     @{{!det.buttonAdd ? 'Agregar Productos Requeridos' : 'Cargando'}} 
                 </button>
-                <a href="<?= url('orders/') ?>/print/@{{$routeParams.id}}" target="_blank">
+                <a href="<?= url('/logistic/orders/') ?>/print/@{{$routeParams.id}}" target="_blank">
                     <button class="btn btn-success"><i class="fa fa-print"></i> Imprimir</button>
                 </a>
                 <a href="@{{config.quotationsUrl + '/' + $routeParams.id}} " class="btn btn-warning"><i class="fa fa-money"></i> Cotización</a>

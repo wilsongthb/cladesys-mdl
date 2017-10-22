@@ -37,6 +37,7 @@
     </script>
     <script src="{{ asset('/js/logistic/app.js') }} "></script>
     <script src="{{ asset('/js/logistic/routes.js') }} "></script>
+    
     {{--  Services  --}}
     <script src="{{ asset('/js/logistic/services/Services.js') }} "></script>
     {{--  contoladores  --}}

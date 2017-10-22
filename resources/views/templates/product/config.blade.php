@@ -42,18 +42,26 @@
                 repeat="p.id as p in Products.list track by $index"
                 refresh="Products.get($select.search)" 
                 refresh-delay="250">
-                @{{p.name}}
-                <p><small><code>@{{p.categorie}}</code> @{{p.packing}} @{{p.units}} @{{p.measurement}} </small></p>
+                <span title="@{{p.name}}">
+                    <span ng-bind="p.name"></span>
+                    <br>
+                    <span class="label label-success" ng-bind="p.categorie"></span>
+                    <span 
+                        class="label label-warning" 
+                        ng-bind="p.packing + ' ' + p.units + ' ' + p.measurement" 
+                        title="Empaquetado - Unidades por paquete - Unidad de medida de distribucion"></span>
+                    <span class="label label-primary" ng-bind="p.code"></span>
+                </span>
             </ui-select-choices>
         </ui-select>
     </div>
     <div class="col-xs-12 col-sm-2 col-md-2 col-lg-2">
         <!-- <label>Stock Minimo</label> -->
-        <input type="text" placeholder="Stock permanente" class="form-control" ng-model="resource.fila.minimum">    
+        <input type="text" placeholder="Stock minimo" class="form-control" ng-model="resource.fila.minimum">    
     </div>
     <div class="col-xs-12 col-sm-2 col-md-2 col-lg-2">
         <!-- <label>Stock Permanente</label> -->
-        <input type="text" placeholder="Stock minimo" class="form-control" ng-model="resource.fila.permanent">        
+        <input type="text" placeholder="Stock permanente" class="form-control" ng-model="resource.fila.permanent">        
     </div>
     <div class="col-xs-12 col-sm-2 col-md-2 col-lg-2">
             <!-- <label>Duracion (dias)</label> -->
@@ -89,7 +97,18 @@
                 <tr ng-repeat="d in resource.data.data" ng-switch="d.state">
                     <td ng-bind="d.id"></td>
                     <td ng-bind="d.locations_name"></td>
-                    <td ng-bind="d.products_name"></td>
+                    <td>
+                        <span title="@{{d.name}}">
+                            <span ng-bind="d.products_name"></span>
+                            <br>
+                            <span class="label label-success" ng-bind="d.categorie"></span>
+                            <span 
+                                class="label label-warning" 
+                                ng-bind="d.packing + ' ' + d.units + ' ' + d.measurement" 
+                                title="Empaquetado - Unidades por paquete - Unidad de medida de distribucion"></span>
+                            <span class="label label-primary" ng-bind="d.code"></span>
+                        </span>
+                    </td>
                     <td ng-switch-default ng-bind="d.minimum"></td>
                     <td ng-switch-default ng-bind="d.permanent"></td>
                     <td ng-switch-default ng-bind="d.duration"></td>

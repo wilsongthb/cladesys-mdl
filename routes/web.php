@@ -15,13 +15,17 @@
 
 use Illuminate\Http\Request;
 use App\Models\Products;
+use App\Models\Locations;
 
-Route::get('/', function () {
-    return view('index');
-});
+
 
 Route::get('/test', function (Request $request) {
-    dd(Products::find(1));
+    dd(auth()->user());
+
+
+    // $l = Locations::all();
+    // dd($l);
+    // dd(Products::find(1));
     // return view('test');
 });
 // Route::post('/test', function (Request $request) {
@@ -31,27 +35,31 @@ Route::get('/test', function (Request $request) {
 //     exit(print_r($request->all(), true));
 // });
 
+Route::get('/', function () {
+    return view('index');
+});
 Auth::routes();
-
 Route::get('/home', function(){ 
     return redirect('/');
 });
-
 Route::group(['middleware' => 'auth'], function(){
     Route::get('view/{view}', 'HomeController@view');
     Route::group(['middleware' => 'user-modules'], function(){
-        Route::resource('users', 'UsersController');
+        // Route::resource('users', 'UsersController');
         Route::group(['prefix' => 'logistic'], function(){
+            Route::get('/purchase-order/{requeriments_id}/{supppliers_id}', 'Logistic\QuotationsController@purchaseOrder');
+            Route::get('/orders/print/{id}', 'Logistic\RequerimentsController@imprimir');
             Route::get('/{a?}/{b?}/{c?}', 'Logistic\MainController@index')->name('logistic');
         });
-        Route::get('/purchase-order/{requeriments_id}/{supppliers_id}', 'Logistic\QuotationsController@purchaseOrder');
-        Route::get('/orders/print/{id}', 'Logistic\RequerimentsController@imprimir');
+        
     });
-
     Route::get('/credentials', function(){
         return view('credentials.index');
     });
-    
+    Route::get('/lab', function(){
+        return view('lab.index');
+    });
+    Route::get('/instruments/{a?}/{b?}/{c?}', 'InstrumentsController@index');
     Route::group([
         'prefix' => 'rsc',
         'middleware' => 'user-modules'
@@ -84,5 +92,9 @@ Route::group(['middleware' => 'auth'], function(){
         Route::get('quotations/select-suppliers', 'Logistic\QuotationsController@selectSuppliers');
         Route::Resource('quotations', 'Logistic\QuotationsController');
         Route::Resource('/images', 'ImagesController');
+        // LABORATORY
+        Route::Resource('/lab-encharged-jobs', 'Lab\LabEnchargedJobsController');
+        // CLINIC
+        Route::Resource('/clinic-doctors', 'Clinic\DoctorsController');
     });
 });

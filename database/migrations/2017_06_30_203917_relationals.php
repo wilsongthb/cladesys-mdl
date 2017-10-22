@@ -34,6 +34,7 @@ class Relationals extends Migration
             $table->integer('measurements_id')->unsigned();
             $table->foreign('measurements_id')->references('id')->on('measurements');
         });
+        echo "products - ";
 
         Schema::create('suppliers', function (Blueprint $table) {
             $table->increments('id');
@@ -60,6 +61,7 @@ class Relationals extends Migration
             $table->string('products_stock')->nullable(); // en json
             
         });
+        echo "suppliers - ";
 
         Schema::create('inputs', function (Blueprint $table) {
             $table->increments('id');
@@ -78,6 +80,7 @@ class Relationals extends Migration
             // $table->foreign('outputs_id')->references('id')->on('outputs')->onDelete('cascade');
             $table->tinyInteger('status')->default('1');
         });
+        echo "inputs - ";
 
         Schema::create('input_details', function (Blueprint $table) {
             $table->increments('id');
@@ -101,6 +104,7 @@ class Relationals extends Migration
             $table->date('fabrication')->nullable();
             $table->string('lot', 20)->nullable();
         });
+        echo "input_details - ";
 
         Schema::create('requeriments', function (Blueprint $table) {
             $table->increments('id');
@@ -117,6 +121,7 @@ class Relationals extends Migration
             // no requerido
             $table->tinyInteger('status')->default('1'); // estado del envio
         });
+        echo "requeriments - ";
 
         Schema::create('requeriment_details', function (Blueprint $table) {
             $table->increments('id');
@@ -132,7 +137,7 @@ class Relationals extends Migration
             $table->integer('products_id')->unsigned()->nullable();
             $table->foreign('products_id')->references('id')->on('products');
         });
-
+        echo "requeriment_details - ";
         
         Schema::create('product_options', function (Blueprint $table) {
             $table->increments('id');
@@ -154,6 +159,7 @@ class Relationals extends Migration
 
             $table->unique(['products_id', 'locations_id']);
         });
+        echo "product_options".PHP_EOL;
     }
 
     /**

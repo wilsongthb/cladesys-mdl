@@ -27,6 +27,11 @@ class HomeController extends Controller
     }
 
     public function view($view){
+
+        /**
+         * -5 : '.html'
+         */
+
         $view_html = substr($view, 0, -5);
         return view('templates.'.$view_html);
     }

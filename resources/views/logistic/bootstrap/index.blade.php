@@ -115,6 +115,9 @@
             </div>
             <!-- /.navbar-collapse -->
         </nav>
+        <div class="container">
+            <span ng-show="layout.loading"><i class="fa fa-spinner fa-pulse fa-fw"></i> Cargando</span>
+        </div>
         <ng-view></ng-view>
     </div>
 

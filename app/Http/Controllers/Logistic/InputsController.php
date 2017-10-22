@@ -21,6 +21,21 @@ class InputsController extends Controller
     {
         $per_page = $this->getPerPage($request);
         $locations_id = $request->locations_id;
+
+        // dd($request->all());
+
+        // dd(
+        //     $locations_id,
+        //     Inputs::
+        //     select(
+        //         'i.*',
+        //         'l.name AS locations_name'
+        //     )->from('inputs AS i')
+        //     ->leftJoin('locations AS l', 'l.id', '=', 'i.locations_id')
+        //     // ->where('i.locations_id', $locations_id)
+        //     ->orderBy('i.id', 'DESC')
+        //     ->paginate($per_page)
+        // );
         return Inputs::
             select(
                 'i.*',
@@ -51,7 +66,7 @@ class InputsController extends Controller
     public function store(Request $request)
     {
         $fila = new Inputs;
-        $fila->user_id = $request->user_id;
+        $fila->user_id = auth()->user()->id;
         $fila->locations_id = $request->locations_id;
         $fila->type = $request->type;
         $fila->save();
@@ -102,7 +117,7 @@ class InputsController extends Controller
         // }
         
         $fila->observation = $request->observation;
-        $fila->user_id = $request->user_id;
+        $fila->user_id = auth()->user()->id;
 
         $fila->save();
         return "locked";

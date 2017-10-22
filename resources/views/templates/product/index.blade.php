@@ -56,14 +56,16 @@
                         <a ng-if="d.image_path.length > 1" href="{{url('')}}@{{d.image_path}}"><img  height="50" src="{{url('')}}@{{d.image_path}} " alt="Not Found"></a>
                     </td>
                     <td>
-                        <span ng-bind="d.name"></span>
-                        <br>
-                        <span class="label label-success" ng-bind="d.categorie"></span>
-                        <span 
-                            class="label label-warning" 
-                            ng-bind="d.packing + ' ' + d.units + ' ' + d.measurement" 
-                            title="Empaquetado - Unidades por paquete - Unidad de medida de distribucion"></span>
-                        <span class="label label-primary" ng-bind="d.code"></span>
+                        <span title="@{{d.name}}">
+                            <span ng-bind="d.name"></span>
+                            <br>
+                            <span class="label label-success" ng-bind="d.categorie"></span>
+                            <span 
+                                class="label label-warning" 
+                                ng-bind="d.packing + ' ' + d.units + ' ' + d.measurement" 
+                                title="Empaquetado - Unidades por paquete - Unidad de medida de distribucion"></span>
+                            <span class="label label-primary" ng-bind="d.code"></span>
+                        </span>
                     </td>
                     <!-- <td ng-bind="d.code" class="hidden-xs"></td> -->
                     <td ng-bind="d.brand" class="hidden-xs"></td>

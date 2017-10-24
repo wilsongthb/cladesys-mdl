@@ -85,7 +85,7 @@ Route::group(['middleware' => 'auth'], function(){
         Route::resource('requeriments', 'Logistic\RequerimentsController');
         Route::post('requeriment-details/add-all-req', 'Logistic\RequerimentDetailsController@addAllReq');
         Route::resource('requeriment-details', 'Logistic\RequerimentDetailsController');
-        Route::get('inventory/{locations_id?}', 'Logistic\InventoryController@index');
+        Route::get('inventory/{locations_id?}/{show_zeros?}', 'Logistic\InventoryController@index');
         Route::get('stock/{locations_id}', 'Logistic\InventoryController@stock_location');
         Route::get('stock-po/{locations_id}', 'Logistic\InventoryController@stock_location_po');
         Route::get('stock-status/{locations_id}', 'Logistic\InventoryController@stock_status');

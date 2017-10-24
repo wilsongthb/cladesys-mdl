@@ -910,7 +910,7 @@ const OutputsConfig = {
         $scope.rsc = {
             list: [],
             get: function(){
-                $http.get(G.apiUrl + '/inventory/' + Locations.get()).then(
+                $http.get(G.apiUrl + '/inventory/' + Locations.get() + '/1').then(
                     res => {
                         this.list = res.data
                     }

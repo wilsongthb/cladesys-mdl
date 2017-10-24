@@ -4,9 +4,9 @@ namespace App\Http\Controllers\Clinic;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Models\ClinicPatients;
+use App\Models\InstrumentHistory;
 
-class PatientsController extends Controller
+class InstrumentHistoryController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,7 +15,17 @@ class PatientsController extends Controller
      */
     public function index()
     {
-        return ClinicPatients::paginate($this->getPerpage(request()));
+        return InstrumentHistory::
+            select(
+                'ih.*', 
+                'cp.names AS clinic_patients_names',
+                'p.name AS products_name'
+            )->
+            from('instrument_history AS ih')->
+            join('clinic_patients AS cp', 'cp.id', 'ih.clinic_patients_id')->
+            join('products AS p', 'p.id', 'ih.products_id')->
+            orderBy('ih.id', 'DESC')->
+            paginate($this->getPerPage(request()));
     }
 
     /**
@@ -36,8 +46,17 @@ class PatientsController extends Controller
      */
     public function store(Request $request)
     {
-        $reg = new ClinicPatients;
-        $reg->names = $request->names;
+        $reg = new InstrumentHistory;
+        $reg->clinic_doctors_id = $request->get('clinic_doctors_id') ? $request->get('clinic_doctors_id') : "";
+        $reg->clinic_doctors_id_collector = $request->get('clinic_doctors_id_collector') ? $request->get('clinic_doctors_id_collector') : "";
+        $reg->clinic_patients_id = $request->get('clinic_patients_id') ? $request->get('clinic_patients_id') : "";
+        $reg->products_id = $request->get('products_id') ? $request->get('products_id') : "";
+        $reg->charge = $request->get('charge') ? $request->get('charge') : "";
+        $reg->deliver = $request->get('deliver') ? $request->get('deliver') : "";
+        $reg->observation = $request->get('observation') ? $request->get('observation') : "";
+        $reg->status = $request->get('status') ? $request->get('status') : "";
+        $reg->quantity = $request->get('quantity') ? $request->get('quantity') : "";
+
         $reg->user_id = auth()->user()->id;
         $reg->save();
     }
@@ -50,7 +69,7 @@ class PatientsController extends Controller
      */
     public function show($id)
     {
-        return ClinicPatients::find($id);
+        //
     }
 
     /**
@@ -73,11 +92,7 @@ class PatientsController extends Controller
      */
     public function update(Request $request, $id)
     {
-        // $reg = new ClinicPatients;
-        $reg = ClinicPatients::find($id);
-        $reg->names = $request->names;
-        $reg->user_id = auth()->user()->id;
-        $reg->save();
+        //
     }
 
     /**
@@ -88,6 +103,6 @@ class PatientsController extends Controller
      */
     public function destroy($id)
     {
-        ClinicPatients::destroy($id);
+        //
     }
 }

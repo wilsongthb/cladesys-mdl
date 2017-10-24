@@ -12,6 +12,9 @@ return [
             2 => 'DEVUELTO'
         ]
     ],
+    'credential' => [
+        'modules' => []
+    ],
     'user_config' => [
         // valores por defecto de la configuracion de usuario de logistica
         'logistic' => [

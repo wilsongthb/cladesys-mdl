@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Foundation\Inspiring;
+use \DB as DB;
 
 /*
 |--------------------------------------------------------------------------
@@ -16,3 +17,19 @@ use Illuminate\Foundation\Inspiring;
 Artisan::command('inspire', function () {
     $this->comment(Inspiring::quote());
 })->describe('Display an inspiring quote');
+
+Artisan::command(
+    'ul {userId}',
+    function ($userId) {
+        $uls = new UserLocationsSeeder;
+        $uls->run($userId);
+    }
+)->describe('AUXS');
+
+Artisan::command(
+    'um {userId}',
+    function ($userId) {
+        $uls = new UserModulesSeeder;
+        $uls->run($userId);
+    }
+)->describe('AUXS');

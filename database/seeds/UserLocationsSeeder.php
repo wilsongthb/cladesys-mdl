@@ -10,14 +10,14 @@ class UserLocationsSeeder extends Seeder
      *
      * @return void
      */
-    public function run()
+    public function run($userId = 1)
     {
         $locations = DB::table('locations')->get();
 
         $reg = [];
 
         foreach ($locations as $key => $value) {
-            array_push($reg, ['user_id' => '1', 'locations_id' => $value->id]);
+            array_push($reg, ['user_id' => $userId, 'locations_id' => $value->id]);
         }
 
         DB::table('user_locations')->insert($reg);

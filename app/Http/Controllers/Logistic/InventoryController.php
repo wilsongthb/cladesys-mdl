@@ -9,12 +9,15 @@ use App\Models\InputDetails;
 
 class InventoryController extends Controller
 {
-    public function index($locations_id = null){
+    public function index($locations_id = null, $show_zeros = false){
         $location = "";
         if($locations_id){;
             $locations_id = (int)$locations_id;
             $location = "WHERE i.locations_id = '$locations_id'";    
         }
+
+        // minimo para mostrar
+        $minToShow = ($show_zeros) ? 0 : 1;
 
         $sql = "SELECT
                     s.*
@@ -40,7 +43,7 @@ class InventoryController extends Controller
                     $location
                     GROUP BY id.id
                 ) AS s
-                WHERE s.stock >= 0";
+                WHERE s.stock >= $minToShow";
                 // dd($sql);
         return DB::select(DB::raw($sql));
     }

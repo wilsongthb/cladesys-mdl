@@ -51,10 +51,14 @@ Route::group(['middleware' => 'auth'], function(){
             Route::get('/orders/print/{id}', 'Logistic\RequerimentsController@imprimir');
             Route::get('/{a?}/{b?}/{c?}', 'Logistic\MainController@index')->name('logistic');
         });
-        
     });
-    Route::get('/credentials', function(){
-        return view('credentials.index');
+    Route::get('/credentials/{a?}/{b?}/{c?}', function(){
+        return view('credentials.index', [
+            'appName' => 'CREDENTIALS',
+            'apiUrl' => url('rsc'),
+            'appUrl' => url('credentials'),
+            'baseUrl' => url('credentials')
+        ]);
     });
     Route::get('/lab', function(){
         return view('lab.index');
@@ -97,5 +101,7 @@ Route::group(['middleware' => 'auth'], function(){
         // CLINIC
         Route::Resource('clinic-doctors', 'Clinic\DoctorsController');
         Route::Resource('clinic-patients', 'Clinic\PatientsController');
+        Route::Resource('instrument-history', 'Clinic\InstrumentHistoryController');
+        
     });
 });

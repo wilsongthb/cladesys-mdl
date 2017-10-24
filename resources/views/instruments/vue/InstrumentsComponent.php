@@ -1,7 +1,12 @@
 <template id="instrument-component-template">
     <div>
         <h1>INSTRUMENTAL</h1>
-        
+
+        <div class="alert alert-success" v-show="form.success">
+            <button type="button" class="close" v-on:click="form.success = false" aria-hidden="true">&times;</button>
+            <strong>Exito</strong> Guardado en el sistema
+        </div>
+
         <form v-on:submit.prevent="onSubmit">
             
             <div class="row">
@@ -99,18 +104,16 @@
                 <tr>
                     <th>ID</th>
                     <th>Instrumento</th>
-                    <th>Doctor</th>
-                    <th>Movimiento</th>
+                    <th>Estado</th>
                     <th>Paciente</th>
                 </tr>
             </thead>
             <tbody>
-                <tr>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
+                <tr v-for="h in history.data">
+                    <td>{{h.id}} </td>
+                    <td>{{h.products_name}} </td>
+                    <td>{{Config.status[h.status]}} </td>
+                    <td>{{h.clinic_patients_names}} </td>
                 </tr>
             </tbody>
         </table>
@@ -125,26 +128,34 @@ const InstrumentsComponent = {
             products: [],
             doctors: [],
             patients: [],
-            reg: {}
+            reg: {},
+            history: {},
+            Config: LabAppConfig.Config,
+            form: {
+                success: false
+            }
         }
     },
     methods: {
         entregaHoy () {
             let today = new Date()
             this.reg.charge = today.getDate() + '/' + today.getMonth() + '/' + today.getFullYear()
+            this.$forceUpdate()
             // this.reg.charge = "2"
         },
         devuelveHoy () {
             let today = new Date()
             this.reg.deliver = today.getDate() + '/' + today.getMonth() + '/' + today.getFullYear()
+            this.$forceUpdate()
             // this.reg.charge = "2"
         },
         onSubmit () {
-            this.$http.post(LabAppConfig.apiUrl + '/instrument-history', this.regs)
+            this.$http.post(LabAppConfig.apiUrl + '/instrument-history', this.reg)
             .then(
                 res => {
-
-                    console.log(res)
+                    this.form.success = true
+                    this.getHistory()
+                    this.reg = {}
                 }
             )
         },
@@ -186,12 +197,21 @@ const InstrumentsComponent = {
             }).then(resp => {
                 this.patients = resp.body.data
             })
+        },
+        getHistory () {
+            this.$http.get(LabAppConfig.apiUrl + '/instrument-history')
+            .then(
+                res => {
+                    this.history = res.body
+                }
+            )
         }
     },
-    created () {
+    mounted () {
         this.getProducts()
         this.getDoctors()
         this.getPatients()
+        this.getHistory()
     }
 }
 </script>

@@ -36,6 +36,7 @@
     "roboto-fontface": "^0.8.0",
     "material-design-icons-dist": "^1.1.0",
     "vue-router": "https://github.com/vuejs/vue-router.git#^3.0.1",
-    "bootstrap-material-design": "^0.5.10"
+    "bootstrap-material-design": "^0.5.10",
+    "startbootstrap-clean-blog": "https://github.com/BlackrockDigital/startbootstrap-clean-blog.git#^3.3.7"
   }
 }

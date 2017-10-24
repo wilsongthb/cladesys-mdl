@@ -24,12 +24,13 @@
     <body>
         <div id="app">
             <App></App>
+            {{--  <Instruments-Component></Instruments-Component>  --}}
         </div>
 
-        <!-- jQuery -->
-    <script src="{{ asset('/bower_components/jquery/dist/jquery.min.js') }} "></script>
-    <!-- Bootstrap JavaScript -->
-    <script src="{{ asset('/bower_components/bootstrap/dist/js/bootstrap.min.js') }} "></script>
+            <!-- jQuery -->
+        <script src="{{ asset('/bower_components/jquery/dist/jquery.min.js') }} "></script>
+        <!-- Bootstrap JavaScript -->
+        <script src="{{ asset('/bower_components/bootstrap/dist/js/bootstrap.min.js') }} "></script>
 
         <script src="{{asset('bower_components/vue/dist/vue.js')}}  "></script>
         <script src="{{asset('bower_components/vue-resource/dist/vue-resource.min.js')}} "></script>
@@ -65,6 +66,7 @@
             const LabAppConfig = {
                 appUrl: "{{$appUrl}}",
                 apiUrl: "{{$apiUrl}}",
+                Config: {!! json_encode(config('dev.instrument_history')) !!}
             }
 
             const Foo = { template: '<div>foo</div>' }
@@ -94,7 +96,8 @@
                 el: '#app',
                 router,
                 components: {
-                    'app': App
+                    'app': App,
+                    'instruments-component': InstrumentsComponent
                 }
             })
         </script>

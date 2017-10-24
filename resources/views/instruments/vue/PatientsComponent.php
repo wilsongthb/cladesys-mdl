@@ -1,6 +1,6 @@
-<template id="doctors-component-template">
+<template id="patients-component-template">
     <div>
-        <router-link to="/doctors/create" append>
+        <router-link to="/patients/create" append>
             <button class="btn btn-success">
                 <i class="fa fa-plus"></i> Crear
             </button>
@@ -29,7 +29,7 @@
                     <td>
                         <div class="btn-group">
                             <a href="" class="btn btn-default" ><i class="fa fa-eye"></i> Ver</a>
-                            <router-link class="btn btn-warning" :to="'/doctors/edit/' + d.id"><i class="fa fa-edit"></i> Editar</router-link>
+                            <router-link class="btn btn-warning" :to="'/patients/edit/' + d.id"><i class="fa fa-edit"></i> Editar</router-link>
                             <a @click="remove(d.id)" class="btn btn-danger"><i class="fa fa-remove"></i> Eliminar</a>
                         </div>
                     </td>
@@ -40,8 +40,8 @@
     </div>
 </template>
 <script>
-const DoctorsComponent = {
-    template: '#doctors-component-template',
+const PatientsComponent = {
+    template: '#patients-component-template',
     data () {
         return {
             list: {},
@@ -55,7 +55,7 @@ const DoctorsComponent = {
         },
         remove (id) {
             if(confirm('Eliminar al registro ' + id)){
-                this.$http.delete(LabAppConfig.apiUrl + '/clinic-doctors/' + id).then(
+                this.$http.delete(LabAppConfig.apiUrl + '/clinic-patients/' + id).then(
                     res => {
                         this.get()
                     }
@@ -65,7 +65,7 @@ const DoctorsComponent = {
         get () {
             console.log(this.list)
             this.$http.get(
-                LabAppConfig.apiUrl + '/clinic-doctors',
+                LabAppConfig.apiUrl + '/clinic-patients',
                 {
                     params: { page: this.page }
                 }

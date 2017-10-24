@@ -1,5 +1,13 @@
 <template id="page-content-template">
-    <router-view></router-view>
+    
+    <div class="container">
+        <div class="panel panel-default">
+            <div class="panel-body">
+                <router-view></router-view>
+            </div>
+        </div>
+    </div>
+    
 </template>
 <script>
 

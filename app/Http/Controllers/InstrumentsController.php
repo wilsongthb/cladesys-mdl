@@ -11,7 +11,7 @@ class InstrumentsController extends Controller
             // 'name' => 'instruments',
             'appUrl' => url('/instruments'),
             'apiUrl' => url('/rsc'),
-            'appName' => 'CLADESYS -INSTRUMENTS',
+            'appName' => 'INSTRUMENTS',
             'baseUrl' => url('/instruments')
         ];
         return view('instruments.index', $appConfig);

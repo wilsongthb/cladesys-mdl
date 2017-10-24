@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class LabEnchargedJobs extends Migration
+class InstrumentHistory extends Migration
 {
     /**
      * Run the migrations.
@@ -13,27 +13,29 @@ class LabEnchargedJobs extends Migration
      */
     public function up()
     {
-        // Schema::dropIfExists('lab_encharged_job');
-        Schema::create('lab_encharged_jobs', function (Blueprint $table) {
+        Schema::create('instrument_history', function (Blueprint $table) {
             $table->increments('id');
             $table->timestamps();
 
             $table->integer('user_id')->unsigned();
             $table->foreign('user_id')->references('id')->on('users');
             $table->boolean('flagstate')->default(true);
-            
-            $table->string('description', 322);
-            $table->string('items', 322);
-            $table->text('observation');
-            $table->dateTime('charge'); // fecha de encargo
-            $table->dateTime('deliver'); // fecha de entrega
-            
 
             $table->integer('clinic_doctors_id')->unsigned();
             $table->foreign('clinic_doctors_id')->references('id')->on('clinic_doctors');
-
-            $table->integer('clinic_patients_id')->unsigned();
+            $table->integer('clinic_doctors_id_collector')->unsigned()->nullable();
+            $table->foreign('clinic_doctors_id_collector')->references('id')->on('clinic_doctors');
+            $table->integer('clinic_patients_id')->unsigned()->nullable();
             $table->foreign('clinic_patients_id')->references('id')->on('clinic_patients');
+            $table->integer('products_id')->unsigned();
+            $table->foreign('products_id')->references('id')->on('products');
+
+            $table->date('charge')->nullable();
+            $table->date('deliver')->nullable();
+            $table->string('observation')->nullable();
+            $table->tinyInteger('status')->nullable();
+            $table->integer('quantity')->default(1);
+            
         });
     }
 
@@ -44,6 +46,6 @@ class LabEnchargedJobs extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('lab_encharged_jobs');
+        Schema::dropIfExists('instrument_history');
     }
 }

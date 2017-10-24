@@ -4,20 +4,18 @@ namespace App\Http\Controllers\Clinic;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Models\ClinicDoctors;
+use App\Models\ClinicPatients;
 
-class DoctorsController extends Controller
+class PatientsController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(Request $request)
+    public function index()
     {
-        return ClinicDoctors::
-            orderBy('id','DESC')->
-            paginate($this->getPerpage($request));
+        return ClinicPatients::paginate($this->getPerpage(request()));
     }
 
     /**
@@ -38,10 +36,8 @@ class DoctorsController extends Controller
      */
     public function store(Request $request)
     {
-        // return $request->all();
-        $reg = new ClinicDoctors;
+        $reg = new ClinicPatients;
         $reg->names = $request->names;
-        // $reg->fam_names = $request->fam_names;
         $reg->user_id = auth()->user()->id;
         $reg->save();
     }
@@ -54,7 +50,7 @@ class DoctorsController extends Controller
      */
     public function show($id)
     {
-        return ClinicDoctors::find($id);
+        return ClinicPatients::find($id);
     }
 
     /**
@@ -65,7 +61,7 @@ class DoctorsController extends Controller
      */
     public function edit($id)
     {
-        
+        //
     }
 
     /**
@@ -77,11 +73,9 @@ class DoctorsController extends Controller
      */
     public function update(Request $request, $id)
     {
-        // return $request->all();
-        // $reg = new ClinicDoctors;
-        $reg = ClinicDoctors::find($id);
+        // $reg = new ClinicPatients;
+        $reg = ClinicPatients::find($id);
         $reg->names = $request->names;
-        // $reg->fam_names = $request->fam_names;
         $reg->user_id = auth()->user()->id;
         $reg->save();
     }
@@ -94,6 +88,6 @@ class DoctorsController extends Controller
      */
     public function destroy($id)
     {
-        return ClinicDoctors::destroy($id);
+        ClinicPatients::destroy($id);
     }
 }

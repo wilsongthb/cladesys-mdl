@@ -40,23 +40,12 @@ class InventoryController extends Controller
                     $location
                     GROUP BY id.id
                 ) AS s
-                WHERE s.stock > 0";
+                WHERE s.stock >= 0";
                 // dd($sql);
         return DB::select(DB::raw($sql));
     }
 
     public function real_price($locations_id, $products_id){
-        // dd(DB::select(DB::raw(
-        // "SELECT 
-        //     SUM(id.quantity * id.unit_price)/SUM(id.quantity) AS real_price,
-        //     p.name AS p_name
-        // FROM input_details AS id
-        // JOIN products AS p ON p.id = id.products_id
-        // JOIN inputs AS i ON i.id = id.inputs_id
-        // WHERE i.locations_id = '$locations_id'
-        // AND id.products_id = '$products_id'
-        // "
-        // )));
         return DB::select(DB::raw(
             "SELECT 
                 SUM(id.quantity * id.unit_price)/SUM(id.quantity) AS real_price,

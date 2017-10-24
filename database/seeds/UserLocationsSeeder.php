@@ -12,13 +12,14 @@ class UserLocationsSeeder extends Seeder
      */
     public function run()
     {
-        DB::table('user_locations')->insert([
-            ['user_id' => '1', 'locations_id' => '1'],
-            ['user_id' => '1', 'locations_id' => '2'],
-            ['user_id' => '1', 'locations_id' => '3'],
-            ['user_id' => '1', 'locations_id' => '4'],
-            ['user_id' => '1', 'locations_id' => '5'],
-            ['user_id' => '1', 'locations_id' => '6']
-        ]);
+        $locations = DB::table('locations')->get();
+
+        $reg = [];
+
+        foreach ($locations as $key => $value) {
+            array_push($reg, ['user_id' => '1', 'locations_id' => $value->id]);
+        }
+
+        DB::table('user_locations')->insert($reg);
     }
 }

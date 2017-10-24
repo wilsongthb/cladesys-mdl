@@ -1,4 +1,4 @@
-<template id="doctors-create-component-template">
+<template id="patients-create-component-template">
     <div>
         <h1>CREAR DOCTOR</h1>
         
@@ -28,8 +28,8 @@
     </div>
 </template>
 <script>
-const DoctorsCreateComponent = {
-    template: '#doctors-create-component-template',
+const PatientsCreateComponent = {
+    template: '#patients-create-component-template',
     data () {
         return {
             reg: {},
@@ -45,7 +45,7 @@ const DoctorsCreateComponent = {
     methods: {
         onSubmit () {
             this.form.sent = true
-            this.$http.post(LabAppConfig.apiUrl + '/clinic-doctors', this.reg).then(
+            this.$http.post(LabAppConfig.apiUrl + '/clinic-patients', this.reg).then(
                 res => {
                     console.log(res)
                     this.form.success = true

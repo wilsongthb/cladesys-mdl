@@ -1,14 +1,11 @@
 <template id="links-navigation-template">
-    <nav class="mdl-navigation">
-    <router-link class="mdl-navigation__link" to="/">HOME</router-link>
-        <router-link class="mdl-navigation__link" to="/foo">Go to Foo</router-link>
-        <router-link class="mdl-navigation__link" to="/bar">Go to Bar</router-link>
-        <router-link class="mdl-navigation__link" to="/doctors">Go to Doctors</router-link>
-        <!-- <a class="mdl-navigation__link" href="">Link</a>
-        <a class="mdl-navigation__link" href="">Link</a>
-        <a class="mdl-navigation__link" href="">Link</a>
-        <a class="mdl-navigation__link" href="">sadasd</a> -->
-    </nav>
+    <ul class="nav navbar-nav">
+        <!-- <router-link tag="li" active-class="active" class="nav-link" to="/"><a href="">HOME</a></router-link> -->
+        <!-- <router-link tag="li" active-class="active" class="nav-link" to="/foo"><a href="">Go to Foo</a></router-link>
+        <router-link tag="li" active-class="active" class="nav-link" to="/bar"><a href="">Go to Bar</a></router-link> -->
+        <router-link tag="li" active-class="active" class="nav-link" to="/doctors"><a href="">Doctores</a></router-link>
+        <router-link tag="li" active-class="active" class="nav-link" to="/patients"><a href="">Pacientes</a></router-link>
+    </ul>
 </template>
 <script>
 const LinksNavigation = {

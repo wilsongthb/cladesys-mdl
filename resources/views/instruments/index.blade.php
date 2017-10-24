@@ -7,9 +7,11 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <title>{{$appName}}</title>
 
+        <link rel="stylesheet" href="{{ asset('/bower_components/bootstrap/dist/css/bootstrap.min.css') }} ">
+        <link rel="stylesheet" href="{{asset('/bower_components/font-awesome/css/font-awesome.min.css')}} ">
+
         <link rel="stylesheet" href="{{asset('bower_components/roboto-fontface/css/roboto-condensed/roboto-condensed-fontface.css')}} ">
         <link rel="stylesheet" href="{{asset('bower_components/material-design-icons-dist/material-icons.css')}} ">
-        <link rel="stylesheet" href="{{asset('bower_components/material-design-lite/material.css')}} ">
         <link rel="stylesheet" href="{{asset('css/instruments.custom.css')}} ">
 
         <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
@@ -24,13 +26,25 @@
             <App></App>
         </div>
 
-        <script src="{{asset('bower_components/material-design-lite/material.js')}} "></script>
+        <!-- jQuery -->
+    <script src="{{ asset('/bower_components/jquery/dist/jquery.min.js') }} "></script>
+    <!-- Bootstrap JavaScript -->
+    <script src="{{ asset('/bower_components/bootstrap/dist/js/bootstrap.min.js') }} "></script>
+
         <script src="{{asset('bower_components/vue/dist/vue.js')}}  "></script>
         <script src="{{asset('bower_components/vue-resource/dist/vue-resource.min.js')}} "></script>
         <script src="{{asset('bower_components/vue-router/dist/vue-router.min.js')}} "></script>
+        <script src="{{asset('js/laravel-vue-pagination/src/laravel-vue-pagination.js')}} "></script>
+        <script src="{{asset('bower_components/vue-select/dist/vue-select.js')}} "></script>
+        
 
         <base href="{{$baseUrl}}">
         <!-- templates -->
+        @include('instruments.vue.InstrumentsComponent')
+        @include('instruments.vue.PatientsCreateComponent')
+        @include('instruments.vue.PatientsEditComponent')
+        @include('instruments.vue.PatientsComponent')
+        @include('instruments.vue.DoctorsEditComponent')
         @include('instruments.vue.DoctorsCreateComponent')
         @include('instruments.vue.DoctorsComponent')
         @include('instruments.vue.LinksNavigation')
@@ -45,6 +59,8 @@
             Vue.use(VueResource)
             Vue.use(VueRouter)
             Vue.http.headers.common['X-CSRF-TOKEN'] = '{{csrf_token()}}'
+            Vue.component('pagination', laravel_vue_pagination);
+            Vue.component('v-select', VueSelect.VueSelect);
             /* CONFIGURATION */
             const LabAppConfig = {
                 appUrl: "{{$appUrl}}",
@@ -57,12 +73,16 @@
 
             /* ROUTES */
             const routes = [
-                { path: '/', component: Foo },
+                { path: '/', component: InstrumentsComponent },
                 { path: '/foo', component: Foo },
                 { path: '/bar', component: Bar },
                 { path: '*', component: NotFoundComponent },
                 { path: '/doctors', component: DoctorsComponent },
                 { path: '/doctors/create', component: DoctorsCreateComponent },
+                { path: '/doctors/edit/:id', component: DoctorsEditComponent, props: true },
+                { path: '/patients', component: PatientsComponent },
+                { path: '/patients/create', component: PatientsCreateComponent },
+                { path: '/patients/edit/:id', component: PatientsEditComponent, props: true },
             ]
             const router = new VueRouter({
                 mode: 'history',

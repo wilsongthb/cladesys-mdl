@@ -1,6 +1,6 @@
-<template id="doctors-create-component-template">
+<template id="doctors-edit-component-template">
     <div>
-        <h1>CREAR DOCTOR</h1>
+        <h1>EDITAR DOCTOR</h1>
         
         <div class="alert alert-success" v-show="form.success">
             <button type="button" class="close" v-on:click="form.success = false" aria-hidden="true">&times;</button>
@@ -28,8 +28,9 @@
     </div>
 </template>
 <script>
-const DoctorsCreateComponent = {
-    template: '#doctors-create-component-template',
+const DoctorsEditComponent = {
+    template: '#doctors-edit-component-template',
+    props: ['id'],
     data () {
         return {
             reg: {},
@@ -40,12 +41,17 @@ const DoctorsCreateComponent = {
         }
     },
     created () {
-
+        this.$http.get(LabAppConfig.apiUrl + '/clinic-doctors/' + this.id)
+        .then(
+            res => {
+                this.reg = res.body
+            }
+        )
     },
     methods: {
         onSubmit () {
             this.form.sent = true
-            this.$http.post(LabAppConfig.apiUrl + '/clinic-doctors', this.reg).then(
+            this.$http.put(LabAppConfig.apiUrl + '/clinic-doctors/' + this.reg.id, this.reg).then(
                 res => {
                     console.log(res)
                     this.form.success = true

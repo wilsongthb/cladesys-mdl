@@ -91,10 +91,11 @@ Route::group(['middleware' => 'auth'], function(){
         Route::put('quotations/select-more-cheap', 'Logistic\QuotationsController@selectMoreCheap');
         Route::get('quotations/select-suppliers', 'Logistic\QuotationsController@selectSuppliers');
         Route::Resource('quotations', 'Logistic\QuotationsController');
-        Route::Resource('/images', 'ImagesController');
+        Route::Resource('images', 'ImagesController');
         // LABORATORY
-        Route::Resource('/lab-encharged-jobs', 'Lab\LabEnchargedJobsController');
+        Route::Resource('lab-encharged-jobs', 'Lab\LabEnchargedJobsController');
         // CLINIC
-        Route::Resource('/clinic-doctors', 'Clinic\DoctorsController');
+        Route::Resource('clinic-doctors', 'Clinic\DoctorsController');
+        Route::Resource('clinic-patients', 'Clinic\PatientsController');
     });
 });

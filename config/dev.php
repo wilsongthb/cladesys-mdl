@@ -6,7 +6,12 @@
 *    para propositos de prueba
 */
 return [
-        
+    'instrument_history' => [
+        'status' => [
+            1 => 'ENTREGADO',
+            2 => 'DEVUELTO'
+        ]
+    ],
     'user_config' => [
         // valores por defecto de la configuracion de usuario de logistica
         'logistic' => [

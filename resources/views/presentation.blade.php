@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 
 <head>
 
@@ -9,15 +9,20 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Clean Blog</title>
-
-    
+    <title>{{config('app.name')}} </title>
 
     <link href="{{asset('bower_components/startbootstrap-clean-blog/vendor/bootstrap/css/bootstrap.min.css')}} " rel="stylesheet">
     <link href="{{asset('bower_components/startbootstrap-clean-blog/css/clean-blog.min.css')}} " rel="stylesheet">
     <link href="{{asset('bower_components/startbootstrap-clean-blog/vendor/font-awesome/css/font-awesome.min.css')}} " rel="stylesheet">
     <link href='http://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
     <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
+
+    <style>
+    #map {
+        height: 400px;
+        width: 100%;
+    }
+    </style>
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -39,23 +44,20 @@
                     <span class="sr-only">Toggle navigation</span>
                     Menu <i class="fa fa-bars"></i>
                 </button>
-                <a class="navbar-brand" href="index.html">Start Bootstrap</a>
+                <a class="navbar-brand" href="{{url('')}} ">{{config('app.name')}} </a>
             </div>
 
             <!-- Collect the nav links, forms, and other content for toggling -->
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav navbar-right">
                     <li>
-                        <a href="index.html">Home</a>
+                        <a href="">Principal</a>
                     </li>
                     <li>
-                        <a href="about.html">About</a>
+                        <a href="">Nosotros</a>
                     </li>
                     <li>
-                        <a href="post.html">Sample Post</a>
-                    </li>
-                    <li>
-                        <a href="contact.html">Contact</a>
+                        <a href=" ">SISTEMA CLADESYS</a>
                     </li>
                 </ul>
             </div>
@@ -66,43 +68,44 @@
 
     <!-- Page Header -->
     <!-- Set your background image for this header on the line below. -->
-    <header class="intro-header" style="background-image: url('img/home-bg.jpg')">
+    <header class="intro-header" style="background-image: url('{{asset('bower_components/startbootstrap-clean-blog/img/home-bg.jpg')}}')">
         <div class="container">
             <div class="row">
                 <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
                     <div class="site-heading">
-                        <h1>Clean Blog</h1>
+                        <img src="{{asset('static_img/original_003.jpg')}} " alt="Logo charisma">
+                        <h1>CENTRO ODONTOLOGICO CHARISMA NISSI</h1>
                         <hr class="small">
-                        <span class="subheading">A Clean Blog Theme by Start Bootstrap</span>
+                        <span class="subheading">Sonreír es muy fácil.</span>
                     </div>
                 </div>
             </div>
         </div>
     </header>
-
+    
     <!-- Main Content -->
     <div class="container">
         <div class="row">
             <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
                 <div class="post-preview">
-                    <a href="post.html">
+                    <a href="">
                         <h2 class="post-title">
-                            Man must explore, and this is exploration at its greatest
+                            CONOCENOS
                         </h2>
                         <h3 class="post-subtitle">
-                            Problems look mighty small from 150 miles up
+                            Dónde estamos
                         </h3>
                     </a>
-                    <p class="post-meta">Posted by <a href="#">Start Bootstrap</a> on September 24, 2014</p>
+                    <p class="post-meta">Dirección: Jirón Puno N°121 4to piso Centro Comercial Plaza, Puno, Puno </p>
+                    <div id="map"></div>
                 </div>
                 <hr>
                 <div class="post-preview">
-                    <a href="post.html">
+                    <a href="">
                         <h2 class="post-title">
-                            I believe every human has a finite number of heartbeats. I don't intend to waste any of mine.
+                            NUESTROS SERVICIOS
                         </h2>
                     </a>
-                    <p class="post-meta">Posted by <a href="#">Start Bootstrap</a> on September 18, 2014</p>
                 </div>
                 <hr>
                 <div class="post-preview">
@@ -179,17 +182,35 @@
     </footer>
 
     <!-- jQuery -->
-    <script src="vendor/jquery/jquery.min.js"></script>
-
+    <script src="{{asset('bower_components/startbootstrap-clean-blog/vendor/jquery/jquery.min.js')}} "></script>
     <!-- Bootstrap Core JavaScript -->
-    <script src="vendor/bootstrap/js/bootstrap.min.js"></script>
-
+    <script src="{{asset('bower_components/startbootstrap-clean-blog/vendor/bootstrap/js/bootstrap.min.js')}} "></script>
     <!-- Contact Form JavaScript -->
-    <script src="js/jqBootstrapValidation.js"></script>
-    <script src="js/contact_me.js"></script>
-
+    <script src="{{asset('bower_components/startbootstrap-clean-blog/js/jqBootstrapValidation.js')}} "></script>
+    <script src="{{asset('bower_components/startbootstrap-clean-blog/js/contact_me.js')}} "></script>
     <!-- Theme JavaScript -->
-    <script src="js/clean-blog.min.js"></script>
+    <script src="{{asset('bower_components/startbootstrap-clean-blog/js/clean-blog.min.js')}} "></script>
+
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCi6ym6B803LzM6Aaug0yC0zmI23q8S_9E"></script>
+    <script>
+        // -15.837495, -70.026114
+        // var uluru = {lat: -15.837495, lng: -70.026114};
+        var uluru = {lat: -15.837495, lng: -70.026114};
+        var map
+        map = new google.maps.Map(document.getElementById('map'), {
+            zoom: 18,
+            center: uluru
+        })
+
+        const Clinica = new google.maps.Marker({
+            position: {
+                lat: -15.837472,
+                lng: -70.026066
+            },
+            label: "Clinica Charisma 4to Piso",
+            map: map
+        });    
+    </script>
 
 </body>
 

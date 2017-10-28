@@ -37,6 +37,7 @@
     "material-design-icons-dist": "^1.1.0",
     "vue-router": "https://github.com/vuejs/vue-router.git#^3.0.1",
     "bootstrap-material-design": "^0.5.10",
-    "startbootstrap-clean-blog": "https://github.com/BlackrockDigital/startbootstrap-clean-blog.git#^3.3.7"
+    "startbootstrap-clean-blog": "https://github.com/BlackrockDigital/startbootstrap-clean-blog.git#^3.3.7",
+    "jquery.floatThead": "floatThead#^2.0.3"
   }
 }

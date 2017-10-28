@@ -4,3 +4,8 @@
 .custom-input {
     width: 60px;
 }
+table.floatThead-table {
+    border-top: none;
+    border-bottom: none;
+    background-color: #FFF;
+}

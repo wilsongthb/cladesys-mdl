@@ -24,7 +24,7 @@ Artisan::command(
         $uls = new UserLocationsSeeder;
         $uls->run($userId);
     }
-)->describe('AUXS');
+)->describe('UserLocationsSeeder a userId');
 
 Artisan::command(
     'um {userId}',
@@ -32,4 +32,4 @@ Artisan::command(
         $uls = new UserModulesSeeder;
         $uls->run($userId);
     }
-)->describe('AUXS');
+)->describe('UserModulesSeeder a userId');

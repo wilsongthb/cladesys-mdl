@@ -12,6 +12,15 @@ use Auth;
 
 class OutputsController extends Controller
 {
+    /**
+     * SEND
+     * 
+     * Funcion para enviar una salida de distribucion como
+     * una entrada en otro almacen
+     * @param: id
+     * El id de la localizacion a donde enviar
+     */
+
     public function send($id){
         $output = Outputs::find($id);
         $output_details = OutputDetails::select('*')->where('outputs_id', $id)->get();
@@ -49,9 +58,8 @@ class OutputsController extends Controller
         $output->status = 2;
         $output->save();
         return "ok";
-
-        // dd($output_details);
     }
+
     /**
      * Display a listing of the resource.
      *
@@ -63,9 +71,11 @@ class OutputsController extends Controller
         return Outputs::
             select(
                 'o.*',
-                'l.name AS locations_name'
+                'l.name AS locations_name',
+                'l_d.name AS target_locations_id'
             )->from('outputs AS o')
-            ->leftJoin('locations AS l', 'l.id', 'o.locations_id')
+            ->leftJoin('locations AS l', 'l.id', 'o.locations_id') // almacen
+            ->leftJoin('locations AS l_d', 'l_d.id', 'o.target_locations_id') // destino
             ->where('o.locations_id', $request->locations_id)
             ->orderBy('o.id', 'DESC')
             ->paginate($per_page);

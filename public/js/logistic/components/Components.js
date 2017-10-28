@@ -369,3 +369,79 @@
         $ctrl.$onDestroy = function() { };
     }
 })(G);
+
+(function() {
+    'use strict';
+
+    // Usage:
+    // 
+    // Creates:
+    // 
+
+    angular
+        .module('logistic')
+        .component('laravelDateViewer', {
+            // template:'htmlTemplate',
+            //templateUrl: 'templateUrl',
+            template: `
+                <span title="{{$ctrl.datetime}}" ng-bind="date"></span>
+            `,
+            controller: LaravelDateViewerController,
+            controllerAs: '$ctrl',
+            bindings: {
+                datetime: '='
+            },
+        });
+
+    LaravelDateViewerController.$inject = ['$scope'];
+    function LaravelDateViewerController($scope) {
+        var $ctrl = this;
+        
+
+        ////////////////
+
+        $ctrl.$onInit = function() { 
+            $scope.date = $ctrl.datetime.split(' ')[0]
+        };
+        $ctrl.$onChanges = function(changesObj) { };
+        $ctrl.$onDestroy = function() { };
+    }
+})();
+
+// (function() {
+//     'use strict';
+
+//     // Usage:
+//     // 
+//     // Creates:
+//     // 
+
+//     angular
+//         .module('logistic')
+//         .component('inputOrigin', {
+//             // template:'htmlTemplate',
+//             //templateUrl: 'templateUrl',
+//             controller: InputOriginController,
+//             controllerAs: '$ctrl',
+//             bindings: {
+//                 input: '=',
+//             },
+//         });
+
+//     InputOriginController.$inject = ['$scope'];
+//     function InputOriginController($scope) {
+//         var $ctrl = this;
+        
+
+//         ////////////////
+
+//         $ctrl.$onInit = function() { 
+//             // console.log($ctrl.input)
+//             // if(!$ctrl.outputs_id){
+//             //     // $scope.origin = ""
+//             // }
+//         };
+//         $ctrl.$onChanges = function(changesObj) { };
+//         $ctrl.$onDestroy = function() { };
+//     }
+// })();

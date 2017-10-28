@@ -12,9 +12,15 @@ class UserModulesController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        return UserModules::all();
+        return UserModules::
+            select(
+                'um.*'
+            )->
+            from('user_modules AS um')->
+            where('um.user_id', $request->get('user_id'))->
+            get();
     }
 
     /**
@@ -35,7 +41,15 @@ class UserModulesController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $reg = new UserModules;
+        $reg->module = $request->get('module');
+        $reg->type = $request->get('type') ? $request->get('type') : "";
+        $reg->get = $request->get('get') ? $request->get('get') : true;
+        $reg->post = $request->get('post') ? $request->get('post') : false;
+        $reg->put = $request->get('put') ? $request->get('put') : false;
+        $reg->delete = $request->get('delete') ? $request->get('delete') : false;
+        $reg->user_id = $request->user_id;
+        $reg->save();
     }
 
     /**
@@ -69,7 +83,17 @@ class UserModulesController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        // $reg = new UserModules;
+        $reg = UserModules::find($id);
+        $reg->module = $request->get('module');
+        $reg->type = $request->get('type') ? $request->get('type') : "";
+        $reg->get = $request->get('get') ? $request->get('get') : true;
+        $reg->post = $request->get('post') ? $request->get('post') : false;
+        $reg->put = $request->get('put') ? $request->get('put') : false;
+        $reg->delete = $request->get('delete') ? $request->get('delete') : false;
+        // $reg->user_id = auth()->user()->id;
+        $reg->user_id = $request->user_id;
+        $reg->save();
     }
 
     /**
@@ -80,6 +104,6 @@ class UserModulesController extends Controller
      */
     public function destroy($id)
     {
-        //
+        UserModules::destroy($id);
     }
 }

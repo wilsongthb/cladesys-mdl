@@ -2,28 +2,37 @@
 {{--  SE PREPARA LA APLICACION PARA FUNCIONAR SIN NECESIDAD DE UN TEMA POR DEFECTO  --}}
     
     {{--  LOGISTIC BASE URL  --}}
-    <base href="{{ $baseUrl }}">
+    <base href="{{$baseUrl}}">
     <!-- LOGISTIC LINKS -->
-    <link href="{{ asset('/css/logistic.css') }} " rel="stylesheet">
-    <link href="{{ asset('/bower_components/angular-bootstrap/ui-bootstrap-csp.css') }} " rel="stylesheet">
-    <link href="{{ asset('/bower_components/angular-ui-select/dist/select.css') }} " rel="stylesheet">
+    <link href="{{asset('/css/logistic.css') }} " rel="stylesheet">
+    <link href="{{asset('/bower_components/angular-bootstrap/ui-bootstrap-csp.css') }} " rel="stylesheet">
+    <link href="{{asset('/bower_components/angular-ui-select/dist/select.css') }} " rel="stylesheet">
     <!-- LOGISTIC SCRIPTS -->
-    <script src="{{ asset('/bower_components/angular/angular.js') }} "></script>
-    <script src="{{ asset('/bower_components/angular-route/angular-route.js') }} "></script>
-    <script src="{{ asset('/bower_components/angular-bootstrap/ui-bootstrap.js') }} "></script>
-    <script src="{{ asset('/bower_components/angular-bootstrap/ui-bootstrap-tpls.js') }} "></script>
-    <script src="{{ asset('/bower_components/angular-ui-select/dist/select.js') }} "></script>
-    <script src="{{ asset('/bower_components/money-formatter/dist/money-formatter.min.js') }} "></script>
-    <script src="{{ asset('/bower_components/number-format.js/lib/format.min.js') }} "></script>
-    <script src="{{ asset('/bower_components/moment/min/moment.min.js') }} "></script>
-    <script src="{{ asset('/bower_components/js-xlsx/dist/cpexcel.js') }} "></script>
-    <script src="{{ asset('/bower_components/js-xlsx/shim.js') }} "></script>
-    <script src="{{ asset('/bower_components/js-xlsx/jszip.js') }} "></script>
-    <script src="{{ asset('/bower_components/js-xlsx/xlsx.js') }} "></script>
-    <script src="{{ asset('/bower_components/file-saver/FileSaver.js') }} "></script>
+    <script src="{{asset('/bower_components/angular/angular.js') }} "></script>
+    <script src="{{asset('/bower_components/angular-route/angular-route.js') }} "></script>
+    <script src="{{asset('/bower_components/angular-bootstrap/ui-bootstrap.js') }} "></script>
+    <script src="{{asset('/bower_components/angular-bootstrap/ui-bootstrap-tpls.js') }} "></script>
+    <script src="{{asset('/bower_components/angular-ui-select/dist/select.js') }} "></script>
+    <script src="{{asset('/bower_components/money-formatter/dist/money-formatter.min.js') }} "></script>
+    <script src="{{asset('/bower_components/number-format.js/lib/format.min.js') }} "></script>
+    <script src="{{asset('/bower_components/moment/min/moment.min.js') }} "></script>
+    <script src="{{asset('/bower_components/js-xlsx/dist/cpexcel.js') }} "></script>
+    <script src="{{asset('/bower_components/js-xlsx/shim.js') }} "></script>
+    <script src="{{asset('/bower_components/js-xlsx/jszip.js') }} "></script>
+    <script src="{{asset('/bower_components/js-xlsx/xlsx.js') }} "></script>
+    <script src="{{asset('/bower_components/file-saver/FileSaver.js') }} "></script>
     <script src="{{asset('/bower_components/angular-ui-uploader/dist/uploader.js')}} "></script>
+    <script src="{{asset('/bower_components/jquery.floatThead/dist/jquery.floatThead.min.js')}} "></script>
     <!-- MIS SCRIPTS -->
     <script>
+        setTimeout(function() {
+            var $table = $('.table-ash');
+            /*
+                table ALWAYS SHOW HEAD
+            */
+            $table.floatThead();
+        }, 2000);
+
         const G = {
             name: 'logistic',
             url: "{{ url('') }}",

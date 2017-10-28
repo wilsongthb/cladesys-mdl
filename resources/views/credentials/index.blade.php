@@ -36,8 +36,10 @@
         
 
         <base href="{{$baseUrl}}">
-        <!-- templates -->
-        
+        <!-- Components -->
+        @include('credentials.vue.UserLocations')
+        @include('credentials.vue.UserModules')
+        @include('credentials.vue.Users')
 
         <!-- Root Component -->
         @include('credentials.vue.App')
@@ -50,19 +52,20 @@
             Vue.component('pagination', laravel_vue_pagination);
             Vue.component('v-select', VueSelect.VueSelect);
             /* CONFIGURATION */
-            const LabAppConfig = {
+            const AppConfig = {
                 appUrl: "{{$appUrl}}",
                 apiUrl: "{{$apiUrl}}",
                 Config: {!! json_encode(config('dev.credentials')) !!}
             }
-
             const Foo = { template: '<div>foo</div>' }
             const Bar = { template: '<div>bar</div>' }
             const NotFoundComponent = { template: '<div>404 - No encontrado</div>' }
-
             /* ROUTES */
             const routes = [
-                { path: '/', component: Foo },
+                { path: '/user-locations/:id', component: UserLocations, props: true },
+                { path: '/user-modules/:id', component: UserModules, props: true },
+                { path: '/users', component: Users },
+                { path: '/', component: Users },
                 { path: '/foo', component: Foo },
                 { path: '/bar', component: Bar },
                 { path: '*', component: NotFoundComponent },
@@ -71,7 +74,6 @@
                 mode: 'history',
                 routes
             })
-
             /* ROOT */
             const LabApp  = new Vue({
                 el: '#app',

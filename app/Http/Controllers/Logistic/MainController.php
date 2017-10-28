@@ -46,7 +46,7 @@ class MainController extends Controller
         $userModules = UserModules
             ::where('user_id', $user->id)
             ->where('module', 'LIKE', 'logistic/%')
-            ->where('type', 'ng_module')
+            ->where('type', 'ng')
             ->get();
         
         if(count($userModules) === 0){

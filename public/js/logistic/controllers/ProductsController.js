@@ -231,7 +231,7 @@ const ProductsConfig = {
 
         function activate() { 
             $scope.resource.get()
-            // $scope.Products.get()
+            // // $scope.Products.get()
         }
     }
 })(G, ProductsConfig);

@@ -170,13 +170,34 @@
             $http.get(G.apiUrl + '/inventory/' + Locations.get())
             .then(
                 res => {
-                    this.list = {}
-                    for(let i in res.data){
-                        let row = res.data[i]
-                        this.list[row.id] = row
-                    }
+                    this.list = res.data
+                    // this.list = []
+                    // for(let i in res.data){
+                    //     let row = res.data[i]
+                    //     this.list[row.id] = row
+                    // }
                 }
             )
+        }
+        
+        ////////////////
+
+        function exposedFn() { }
+        }
+})();
+
+(function() {
+    'use strict';
+
+    angular
+        .module('logistic')
+        .service('MoneyFormat', MoneyFormat);
+
+    MoneyFormat.$inject = [];
+    function MoneyFormat() {
+        this.exposedFn = exposedFn;
+        this.enSoles = function(dinero){
+            return moneyFormatter.format('PEN', dinero)
         }
         
         ////////////////

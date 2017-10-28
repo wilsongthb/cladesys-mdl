@@ -25,6 +25,7 @@
                 <a href="{{ url('/credentials') }} " class="mdl-button mdl-js-button mdl-button--raised">Credenciales</a>
                 <a href="{{ url('/lab') }} " class="mdl-button mdl-js-button mdl-button--raised">Laboratorio</a>
                 <a href="{{ url('/instruments') }} " class="mdl-button mdl-js-button mdl-button--raised">Instrumentos</a>
+                <a href="{{ url('/presentation') }} " class="mdl-button mdl-js-button mdl-button--raised">Presentation</a>
                 <hr>
                 @if (Auth::check())
                 

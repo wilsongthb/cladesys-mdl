@@ -741,7 +741,15 @@ const OutputsConfig = {
             //         }
             //     )
             // },
-            getRealPriceId: function(input_details_id){
+            getRealPriceId: function(item){
+                
+
+                var input_details_id = item.id
+                this.fila.stock = item.stock
+                this.fila.quantity = 0
+                // console.log(input_details_id)
+                // return 
+
                 $http.get(G.apiUrl + '/real-price-id/' + Locations.get() + '/' + input_details_id)
                 .then(
                     res => {

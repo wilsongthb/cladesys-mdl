@@ -38,22 +38,27 @@
             <thead>
                 <tr>
                     <th>ID</th>
+                    <th>FECHA</th>
                     <th>ALMACEN</th>
                     <th>TIPO</th>
+                    <th>ORIGEN</th>
                     <th>ESTADO</th>
-                    {{--  <th>PRODUCTOS</th>
-                    <th>VALOR</th>  --}}
                     <th></th>
                 </tr>
             </thead>
             <tbody>
                 <tr ng-repeat="d in resource.data.data">
                     <td ng-bind="d.id"></td>
+                    <td>
+                        <laravel-date-viewer datetime="d.created_at"></laravel-date-viewer>
+                    </td>
                     <td ng-bind="d.locations_name"></td>
                     <td ng-bind="g_config.inputs.type[d.type]"></td>
+                    <td>
+                        <span ng-show="d.outputs_locations_name" ng-bind="d.outputs_locations_name"></span>
+                        <span ng-show="!d.outputs_locations_name" class="badge">COMPRA</span>
+                    </td>
                     <td ng-bind="g_config.inputs.status[d.status]"></td>
-                    {{--  <td></td>
-                    <td></td>  --}}
                     <td ng-bind="d.measurement"></td>
                     <td>
                         <div class="btn-group">

@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Logistic;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\Inputs;
+use DB;
 
 class InputsController extends Controller
 {
@@ -22,26 +23,16 @@ class InputsController extends Controller
         $per_page = $this->getPerPage($request);
         $locations_id = $request->locations_id;
 
-        // dd($request->all());
-
-        // dd(
-        //     $locations_id,
-        //     Inputs::
-        //     select(
-        //         'i.*',
-        //         'l.name AS locations_name'
-        //     )->from('inputs AS i')
-        //     ->leftJoin('locations AS l', 'l.id', '=', 'i.locations_id')
-        //     // ->where('i.locations_id', $locations_id)
-        //     ->orderBy('i.id', 'DESC')
-        //     ->paginate($per_page)
-        // );
         return Inputs::
             select(
                 'i.*',
-                'l.name AS locations_name'
+                'l.name AS locations_name',
+                // DB::raw('IFNULL(l_o.name, "COMPRA DIRECTA") AS outputs_locations_name')
+                'l_o.name AS outputs_locations_name'
             )->from('inputs AS i')
             ->leftJoin('locations AS l', 'l.id', '=', 'i.locations_id')
+            ->leftJoin('outputs AS o', 'o.id', 'i.outputs_id')
+            ->leftJoin('locations AS l_o', 'l_o.id', '=', 'o.locations_id')
             ->where('i.locations_id', $locations_id)
             ->orderBy('i.id', 'DESC')
             ->paginate($per_page);

@@ -1,14 +1,18 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Logistic;
 
 use Illuminate\Http\Request;
-use App\User;
-use App\Models\Permissions;
-// use App\
+use App\Http\Controllers\Controller;
+use App\Models\UserLocations;
+use App\Models\Locations;
 
-class UsersController extends Controller
+class UserLocationsController extends Controller
 {
+    public function getAllLocations(){
+        return Locations::get();
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -16,12 +20,15 @@ class UsersController extends Controller
      */
     public function index()
     {
-        // return [
-        //     'users' => User::all(),
-        //     'permissions' => Permissions::all(),
-        //     // 'user_modules' => 
-        // ];
-        return User::all();
+        return UserLocations::
+            select(
+                'ul.*',
+                'l.name AS locations_name'
+            )->
+            from('user_locations AS ul')->
+            leftJoin('locations AS l', 'l.id', 'ul.locations_id')->
+            where('ul.user_id', request()->user_id)->
+            get();
     }
 
     /**
@@ -42,7 +49,10 @@ class UsersController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $reg = new UserLocations;
+        $reg->locations_id = $request->locations_id;
+        $reg->user_id = $request->user_id;
+        $reg->save();
     }
 
     /**
@@ -76,11 +86,7 @@ class UsersController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $reg = User::find($id);
-        $reg->name = $request->get('name');
-        $reg->email = $request->get('email');
-
-        $reg->save();
+        //
     }
 
     /**
@@ -91,6 +97,6 @@ class UsersController extends Controller
      */
     public function destroy($id)
     {
-        User::destroy($id);
+        UserLocations::destroy($id);
     }
 }

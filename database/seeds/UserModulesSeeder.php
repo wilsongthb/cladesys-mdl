@@ -9,9 +9,10 @@ class UserModulesSeeder extends Seeder
      *
      * @return void
      */
-    public function run($userId)
+    public function run($userId = 1)
     {
-        DB::table('user_modules')->insert(['user_id' => $userId, 'module' => 'logistic']);
+        
+        DB::table('user_modules')->insert(['user_id' => $userId, 'module' => 'credentials']);
         DB::table('user_modules')->insert(['user_id' => $userId, 'module' => 'rsc']);
     }
 }

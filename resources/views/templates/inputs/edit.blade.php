@@ -49,8 +49,15 @@
                         {{--  <product-selector products-id="detalle.fila.products_id" requerido="true"></product-selector>  --}}
                         <p class="form-control" title="Click para editar" disabled ng-if="detalle.fila.products_name" ng-bind="detalle.fila.products_name" ng-click="detalle.fila.products_name = null"></p>
                         <ui-select ng-model="detalle.fila.products_id">
-                            <ui-select-match ng-show="!detalle.fila.products_name" placeholder="Escribe para buscar">@{{$select.selected.name}} </ui-select-match>
-                            <ui-select-choices repeat="p.id as p in Products.list track by $index" refresh="Products.get($select.search)" refresh-delay="250">
+                            <ui-select-match 
+                                ng-show="!detalle.fila.products_name" 
+                                placeholder="Escribe para buscar">
+                                @{{$select.selected.name}} 
+                            </ui-select-match>
+                            <ui-select-choices 
+                                repeat="p.id as p in Products.list track by $index" 
+                                refresh="Products.get($select.search)" 
+                                refresh-delay="250">
                                 <div title="@{{p.name}}">
                                     <p>@{{p.name}}</p>
                                     <small>@{{p.categorie}} - @{{p.packing}} </small>

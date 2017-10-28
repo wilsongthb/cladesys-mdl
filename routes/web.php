@@ -42,28 +42,20 @@ Auth::routes();
 Route::get('/home', function(){ 
     return redirect('/');
 });
+Route::get('/presentation', 'PresentationsController@index');
 Route::group(['middleware' => 'auth'], function(){
     Route::get('view/{view}', 'HomeController@view');
     Route::group(['middleware' => 'user-modules'], function(){
-        // Route::resource('users', 'UsersController');
         Route::group(['prefix' => 'logistic'], function(){
             Route::get('/purchase-order/{requeriments_id}/{supppliers_id}', 'Logistic\QuotationsController@purchaseOrder');
             Route::get('/orders/print/{id}', 'Logistic\RequerimentsController@imprimir');
             Route::get('/{a?}/{b?}/{c?}', 'Logistic\MainController@index')->name('logistic');
         });
+        Route::get('/credentials/{a?}/{b?}/{c?}', 'CredentialsController@index');
+        Route::get('/instruments/{a?}/{b?}/{c?}', 'InstrumentsController@index');
+        Route::get('/lab', function(){ return view('lab.index');});
     });
-    Route::get('/credentials/{a?}/{b?}/{c?}', function(){
-        return view('credentials.index', [
-            'appName' => 'CREDENTIALS',
-            'apiUrl' => url('rsc'),
-            'appUrl' => url('credentials'),
-            'baseUrl' => url('credentials')
-        ]);
-    });
-    Route::get('/lab', function(){
-        return view('lab.index');
-    });
-    Route::get('/instruments/{a?}/{b?}/{c?}', 'InstrumentsController@index');
+    
     Route::group([
         'prefix' => 'rsc',
         'middleware' => 'user-modules'
@@ -102,6 +94,10 @@ Route::group(['middleware' => 'auth'], function(){
         Route::Resource('clinic-doctors', 'Clinic\DoctorsController');
         Route::Resource('clinic-patients', 'Clinic\PatientsController');
         Route::Resource('instrument-history', 'Clinic\InstrumentHistoryController');
-        
+        // CREDENTIALS
+        Route::resource('users', 'UsersController');
+        Route::resource('user-modules', 'UserModulesController');
+        Route::get('user-locations/all', 'Logistic\UserLocationsController@getAllLocations');
+        Route::resource('user-locations', 'Logistic\UserLocationsController');
     });
 });

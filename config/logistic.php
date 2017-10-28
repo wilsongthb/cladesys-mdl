@@ -1,15 +1,5 @@
 <?php
 return [
-    /**
-        En desuso
-    */
-    // 'permissions' => [
-    //     // 1 => 'access',
-    //     2 => 'LEER/ACCEDER', // leer
-    //     3 => 'CREAR', // crear
-    //     4 => 'EDITAR', // actualizar/modificar
-    //     5 => 'ELIMINAR', // borrar
-    // ],
     'name' => 'logistic',
 
     // STATIC
@@ -20,21 +10,6 @@ return [
             'description' => 'Modulo para registrar los productos',
             'categorie' => 'products'
         ],
-        // 'users' => [
-        //     'title' => 'Usuarios',
-        //     'description' => 'Modulo para gestionar los usuarios',
-        //     'categorie' => 'utilities'
-        // ],
-        // 'permissions' => [
-        //     'title' => 'Permisos',
-        //     'description' => 'Modulo para configurar los usuarios y sus permisos',
-        //     'categorie' => 'utilities'
-        // ],
-        // 'config' => [
-        //     'title' => 'Configuracion',
-        //     'description' => 'Configuraciones de la aplicacion',
-        //     'categorie' => 'utilities',
-        // ],
         'products-config' => [
             'title' => 'Configuracion de Productos',
             'description' => 'Configuraciones de los productos, individual por cada Area',

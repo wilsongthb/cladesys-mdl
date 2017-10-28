@@ -17,7 +17,7 @@ class InventoryController extends Controller
         }
 
         // minimo para mostrar
-        $minToShow = ($show_zeros) ? 0 : 1;
+        $minToShow = ($show_zeros) ? config('dev.logistic.inventory_mintoshow') : 1;
 
         $sql = "SELECT
                     s.*
@@ -45,6 +45,51 @@ class InventoryController extends Controller
                 ) AS s
                 WHERE s.stock >= $minToShow";
                 // dd($sql);
+        return DB::select(DB::raw($sql));
+    }
+    public function indexGrouped($locations_id = null){
+        $location = "";
+        if($locations_id){;
+            $locations_id = (int)$locations_id;
+            $location = "WHERE i.locations_id = '$locations_id'";    
+        }
+
+        $sql = "SELECT
+                    MAX(s.id) AS id,
+                    SUM(s.quantity) AS quantity,
+                    MAX(s.unit_price) AS unit_price,
+                    MAX(s.created_at) AS created_at,
+                    s.p_categorie,
+                    s.products_name,
+                    s.products_id,
+                    SUM(s.od_total) AS od_total,
+                    -- (id.quantity - SUM(IFNULL(od.quantity, 0))) AS stock,
+                    SUM(s.stock) AS stock,
+                    s.locations_name,
+                    MAX(s.od_last_time) AS od_last_time
+                FROM (
+                    SELECT
+                        id.id,
+                        id.quantity,
+                        id.unit_price,
+                        id.created_at,
+                        c.value AS p_categorie,
+                        p.name AS products_name,
+                        p.id AS products_id,
+                        SUM(IFNULL(od.quantity, 0)) AS od_total,
+                        (id.quantity - SUM(IFNULL(od.quantity, 0))) AS stock,
+                        l.name AS locations_name,
+                        MAX(IFNULL(od.created_at, '')) AS od_last_time
+                    FROM input_details AS id
+                    LEFT JOIN products AS p ON p.id = id.products_id
+                    LEFT JOIN output_details AS od ON od.input_details_id = id.id
+                    LEFT JOIN inputs AS i ON i.id = id.inputs_id
+                    LEFT JOIN locations AS l ON l.id = i.locations_id
+                    LEFT JOIN categories AS c ON c.id = p.categories_id
+                    $location
+                    GROUP BY id.id
+                ) AS s
+                GROUP BY s.products_id";
         return DB::select(DB::raw($sql));
     }
 

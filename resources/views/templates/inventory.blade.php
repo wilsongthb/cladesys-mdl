@@ -7,6 +7,12 @@
 <div class="row">
     <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
         <h3 class="text-center">INVENTARIO DE @{{Locations.list[Locations.get()].name}} </h3>
+
+        
+        <div class="alert">
+            <input type="checkbox" ng-model="rsc.agrupar" ng-change="rsc.get()"> Agrupar por productos
+        </div>
+
         <input type="text" class="form-control" ng-model="buscar">
         <table class="table table-striped table-hover">
             <thead>

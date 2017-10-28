@@ -914,15 +914,27 @@ const OutputsConfig = {
         var vm = this;
 
         $scope.Locations = Locations
+
+        $scope.G = G
         
         $scope.rsc = {
+            agrupar: true,
             list: [],
             get: function(){
-                $http.get(G.apiUrl + '/inventory/' + Locations.get() + '/1').then(
-                    res => {
-                        this.list = res.data
-                    }
-                )
+                if(this.agrupar){
+                    $http.get(G.apiUrl + '/inventory-grouped/' + Locations.get()).then(
+                        res => {
+                            this.list = res.data
+                        }
+                    )
+                }else{
+                    $http.get(G.apiUrl + '/inventory/' + Locations.get() + '/1').then(
+                        res => {
+                            this.list = res.data
+                        }
+                    )
+                }
+                
             }
         }
 

@@ -26,7 +26,7 @@
     <!-- MIS SCRIPTS -->
     <script>
         setTimeout(function() {
-            var $table = $('.table-ash');
+            var $table = $('.table');
             /*
                 table ALWAYS SHOW HEAD
             */

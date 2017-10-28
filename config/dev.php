@@ -6,6 +6,9 @@
 *    para propositos de prueba
 */
 return [
+    'logistic' => [
+        'inventory_mintoshow' => -9999999
+    ],
     'instrument_history' => [
         'status' => [
             1 => 'ENTREGADO',

@@ -19,15 +19,20 @@
                                 [@{{i.stock}}] @{{i.unit_price}} @{{i.products_name}} 
                             </option>
                         </select>  --}} -->
+                        <p ng-show="det.fila.id" class="form-control" disabled>
+                            <span class="badge" ng-bind="det.fila.stock"></span>
+                            <span class="label label-success" ng-bind="det.enSoles(det.fila.unit_price)"></span>
+                            <span ng-bind="det.fila.products_name"></span>
+                        </p>
                         <ui-select 
                             ng-model="det.fila.input_details_id"
                             on-select="det.getRealPriceId($item)">
-                            <ui-select-match
+                            <ui-select-match  ng-show="!det.fila.id"
                                 placeholder="Escribe para buscar">
-                                [@{{$select.selected.stock}}] @{{$select.selected.products_name}}
+                                [@{{$select.selected.stock}}] [@{{det.enSoles($select.selected.unit_price)}}] @{{$select.selected.products_name}}
                             </ui-select-match>
                             <ui-select-choices
-                                repeat="i.id as i in Inventory.list track by $index">
+                                repeat="i.id as i in Inventory.list | filter : $select.search">
                                 <span class="badge" ng-bind="i.stock"></span>
                                 <span class="label label-success" ng-bind="det.enSoles(i.unit_price)"></span>
                                 <span ng-bind="i.products_name"></span>

@@ -16,3 +16,6 @@ Incompatibilidades de Material Design Lite:
 - Sobreposicion al usar el nav junto con modals de Bootstrap
 - Imposibilidad para renderizar las clases de estilo con js en Vue Router
 - Basicamente no interactua bien con otros frameworks que no necesariamente son de css
+
+# Version
+0.0.1

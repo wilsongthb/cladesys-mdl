@@ -43,7 +43,8 @@ class InventoryController extends Controller
                     $location
                     GROUP BY id.id
                 ) AS s
-                WHERE s.stock >= $minToShow";
+                WHERE s.stock >= $minToShow
+                ORDER BY s.products_name ASC";
                 // dd($sql);
         return DB::select(DB::raw($sql));
     }

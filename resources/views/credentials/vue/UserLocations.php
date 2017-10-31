@@ -74,7 +74,7 @@ const UserLocations = {
                     this.user = res.body
                 }
             )
-            this.$http.get(AppConfig.apiUrl + '/user-locations/', {
+            this.$http.get(AppConfig.apiUrl + '/user-locations', {
                 params: {
                     user_id: this.id
                 }

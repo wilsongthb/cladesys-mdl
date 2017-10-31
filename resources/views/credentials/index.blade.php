@@ -57,6 +57,7 @@
                 apiUrl: "{{$apiUrl}}",
                 Config: {!! json_encode(config('dev.credentials')) !!}
             }
+
             const Foo = { template: '<div>foo</div>' }
             const Bar = { template: '<div>bar</div>' }
             const NotFoundComponent = { template: '<div>404 - No encontrado</div>' }

@@ -99,13 +99,16 @@ const UserModules = {
     },
     methods: {
         leer () {
+            console.log(AppConfig)
+
+
             this.$http.get(AppConfig.apiUrl + '/users')
             .then(
                 res => {
                     this.user = res.body
                 }
             )
-            this.$http.get(AppConfig.apiUrl + '/user-modules/', {
+            this.$http.get(AppConfig.apiUrl + '/user-modules', {
                 params: {
                     user_id: this.id
                 }
@@ -159,6 +162,8 @@ const UserModules = {
     },
     created () {
         this.leer()
+
+        // console.log(AppConfig)
     }
 }
 </script>

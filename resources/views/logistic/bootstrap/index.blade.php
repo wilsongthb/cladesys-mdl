@@ -10,8 +10,10 @@
 
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="{{ asset('/bower_components/bootstrap/dist/css/bootstrap.min.css') }} ">
-
     <link rel="stylesheet" href="{{asset('/bower_components/font-awesome/css/font-awesome.min.css')}} ">
+
+    <link rel="stylesheet" href="{{asset('bower_components/bootstrap-material-design/dist/css/bootstrap-material-design.css')}} ">
+    <link rel="stylesheet" href="{{asset('bower_components/bootstrap-material-design/dist/css/ripples.css')}} ">
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -128,6 +130,9 @@
     <script src="{{ asset('/bower_components/jquery/dist/jquery.min.js') }} "></script>
     <!-- Bootstrap JavaScript -->
     <script src="{{ asset('/bower_components/bootstrap/dist/js/bootstrap.min.js') }} "></script>
+
+    <script src="{{asset('bower_components/bootstrap-material-design/dist/js/material.js')}} "></script>
+    <script src="{{asset('bower_components/bootstrap-material-design/dist/js/ripples.js')}} "></script>
 
     @include('logistic.app')
 </body>

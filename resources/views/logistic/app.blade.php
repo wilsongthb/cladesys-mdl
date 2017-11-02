@@ -25,13 +25,13 @@
     <script src="{{asset('/bower_components/jquery.floatThead/dist/jquery.floatThead.min.js')}} "></script>
     <!-- MIS SCRIPTS -->
     <script>
-        setTimeout(function() {
-            var $table = $('.table');
+        {{--  setTimeout(function() {
+            var $table = $('.table-always-show-header');
             /*
                 table ALWAYS SHOW HEAD
             */
             $table.floatThead();
-        }, 2000);
+        }, 2000);  --}}
 
         const G = {
             name: 'logistic',

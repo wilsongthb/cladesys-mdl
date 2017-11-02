@@ -21,10 +21,10 @@ class ProductsController extends Controller
                 'pa.value AS packing',
                 'c.value AS categorie'
             )->from('products AS p')
-            ->leftJoin('brands AS b', 'b.id', '=', 'p.brands_id')
-            ->leftJoin('measurements AS m', 'm.id', '=', 'p.measurements_id')
             ->leftJoin('packings AS pa', 'pa.id', '=', 'p.packings_id')
             ->leftJoin('categories AS c', 'c.id', '=', 'p.categories_id')
+            ->leftJoin('brands AS b', 'b.id', '=', 'p.brands_id')
+            ->leftJoin('measurements AS m', 'm.id', '=', 'p.measurements_id')
             ->where('p.flagstate', 1);// si esta desactivado
         return $res;
     }
@@ -38,11 +38,12 @@ class ProductsController extends Controller
         if(strlen($query) > 0){// si se envia algun argumento de busqueda
             // condiciones de busqueda
             $res
-                ->where('p.name', 'LIKE', "%$query%")
-                ->orWhere('p.code', 'LIKE', "%$query%")
-                ->orWhere('pa.value', 'LIKE', "%$query%")
-                ->orWhere('c.value', 'LIKE', "%$query%")
-                ->orWhere('b.value', 'LIKE', "%$query%");
+                ->where('p.name', 'LIKE', "%$query%") // product
+                ->orWhere('p.code', 'LIKE', "%$query%") // product code
+                ->orWhere('pa.value', 'LIKE', "%$query%") // packing
+                ->orWhere('c.value', 'LIKE', "%$query%") // categorie
+                ->orWhere('b.value', 'LIKE', "%$query%") // brand
+                ->orWhere('m.value', 'LIKE', "%$query%"); // measurement
         }
         return $res;
     }
@@ -116,9 +117,22 @@ class ProductsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public static function show($id)
     {
-        return Products::find($id);
+        return Products::
+            select(
+                'p.*',
+                'b.value AS brand',
+                'm.value AS measurement',
+                'pa.value AS packing',
+                'c.value AS categorie'
+            )->
+            from('products AS p')->
+            leftJoin('brands AS b', 'b.id', 'p.brands_id')->
+            leftJoin('categories AS c', 'c.id', 'p.categories_id')->
+            leftJoin('measurements AS m', 'm.id', 'p.measurements_id')->
+            leftJoin('packings AS pa', 'pa.id', 'p.packings_id')->
+            where('p.id', $id)->first();
     }
 
     /**

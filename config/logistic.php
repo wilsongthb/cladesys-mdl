@@ -45,6 +45,11 @@ return [
             'description' => 'Modulo para registrar productos que salen del almacén',
             'categorie' => 'distribution',
         ],
+        'ez-outputs' => [
+            'title' => 'EZ Salida',
+            'description' => 'Modulo para registrar productos que salen del almacén de manera mucho mas sencilla',
+            'categorie' => 'distribution',
+        ],
         'inventory' => [
             'title' => 'Inventario',
             'description' => 'Modulo para registrar productos que salen del almacén',
@@ -101,6 +106,7 @@ return [
                 'icon' => '<i class="fa fa-tasks"></i>',
                 'modules' => [
                     'outputs',
+                    'ez-outputs'
                 ]
             ],
             'reports' => [
@@ -151,9 +157,11 @@ return [
             ]
         ],
         'inputs' => [
+            'enableTypes' => [1, 3],
             'type' => [
                 1 => 'ENTRADA',
                 2 => 'DISTRIBUCION',
+                3 => 'INVENTARIO'
             ],
             'status' => [
                 1 => 'ACTIVO',

@@ -384,7 +384,7 @@
             // template:'htmlTemplate',
             //templateUrl: 'templateUrl',
             template: `
-                <span title="{{$ctrl.datetime}}" ng-bind="date"></span>
+                <span title="{{$ctrl.datetime}}" ng-bind="$ctrl.datetime.split(' ')[0]"></span>
             `,
             controller: LaravelDateViewerController,
             controllerAs: '$ctrl',
@@ -400,48 +400,72 @@
 
         ////////////////
 
-        $ctrl.$onInit = function() { 
-            $scope.date = $ctrl.datetime.split(' ')[0]
-        };
+        $ctrl.$onInit = function() { };
         $ctrl.$onChanges = function(changesObj) { };
         $ctrl.$onDestroy = function() { };
     }
 })();
 
-// (function() {
-//     'use strict';
+(function(G) {
+    'use strict';
 
-//     // Usage:
-//     // 
-//     // Creates:
-//     // 
+    // Usage:
+    // 
+    // Creates:
+    // 
 
-//     angular
-//         .module('logistic')
-//         .component('inputOrigin', {
-//             // template:'htmlTemplate',
-//             //templateUrl: 'templateUrl',
-//             controller: InputOriginController,
-//             controllerAs: '$ctrl',
-//             bindings: {
-//                 input: '=',
-//             },
-//         });
+    angular
+        .module('logistic')
+        .component('productRow', {
+            // template:'htmlTemplate',
+            templateUrl: `${G.url}/view/components.product-row.html`,
+            controller: ProductRowController,
+            controllerAs: '$ctrl',
+            bindings: {
+                product: '=',
+            },
+        });
 
-//     InputOriginController.$inject = ['$scope'];
-//     function InputOriginController($scope) {
-//         var $ctrl = this;
+    ProductRowController.$inject = ['$scope'];
+    function ProductRowController($scope) {
+        var $ctrl = this;
+        ////////////////
+
+        $ctrl.$onInit = function() { };
+        $ctrl.$onChanges = function(changesObj) { };
+        $ctrl.$onDestroy = function() { };
+    }
+})(G);
+
+(function(G) {
+    'use strict';
+
+    // Usage:
+    // 
+    // Creates:
+    // 
+
+    angular
+        .module('logistic')
+        .component('formEditHeader', {
+            // template:'htmlTemplate',
+            templateUrl: G.url + '/view/components.form-edit-header.html',
+            controller: FormEditHeaderController,
+            controllerAs: '$ctrl',
+            bindings: {
+                reg: '=',
+            },
+        });
+
+    FormEditHeaderController.$inject = ['$scope'];
+    function FormEditHeaderController($scope) {
+        var $ctrl = this;
         
 
-//         ////////////////
+        ////////////////
 
-//         $ctrl.$onInit = function() { 
-//             // console.log($ctrl.input)
-//             // if(!$ctrl.outputs_id){
-//             //     // $scope.origin = ""
-//             // }
-//         };
-//         $ctrl.$onChanges = function(changesObj) { };
-//         $ctrl.$onDestroy = function() { };
-//     }
-// })();
+        $ctrl.$onInit = function() { };
+        $ctrl.$onChanges = function(changesObj) { };
+        $ctrl.$onDestroy = function() { };
+    }
+})(G);

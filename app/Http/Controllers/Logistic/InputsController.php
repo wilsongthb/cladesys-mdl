@@ -10,6 +10,29 @@ use DB;
 class InputsController extends Controller
 {
     /**
+     * Selector de la base de datos
+     * 
+     * la idea es tener un solo select para user en index y show
+     */
+    public function select(){
+        return Inputs::
+            select(
+                'i.*',
+                'l.name AS locations_name',
+                'l_o.name AS outputs_locations_name',
+                'us.name AS user_name',
+                DB::raw('COUNT(id.id) AS total_details')
+            )->
+            from('inputs AS i')->
+            leftJoin('locations AS l', 'l.id', '=', 'i.locations_id')->
+            leftJoin('outputs AS o', 'o.id', 'i.outputs_id')->
+            leftJoin('locations AS l_o', 'l_o.id', '=', 'o.locations_id')->
+            leftJoin('users AS us', 'us.id', '=', 'i.user_id')->
+            leftJoin('input_details AS id', 'i.id', '=', 'id.inputs_id')->
+            groupBy('i.id');
+    }
+
+    /**
     * @return Array of Inputs
     */
 
@@ -23,16 +46,7 @@ class InputsController extends Controller
         $per_page = $this->getPerPage($request);
         $locations_id = $request->locations_id;
 
-        return Inputs::
-            select(
-                'i.*',
-                'l.name AS locations_name',
-                // DB::raw('IFNULL(l_o.name, "COMPRA DIRECTA") AS outputs_locations_name')
-                'l_o.name AS outputs_locations_name'
-            )->from('inputs AS i')
-            ->leftJoin('locations AS l', 'l.id', '=', 'i.locations_id')
-            ->leftJoin('outputs AS o', 'o.id', 'i.outputs_id')
-            ->leftJoin('locations AS l_o', 'l_o.id', '=', 'o.locations_id')
+        return $this->select()
             ->where('i.locations_id', $locations_id)
             ->orderBy('i.id', 'DESC')
             ->paginate($per_page);
@@ -72,7 +86,8 @@ class InputsController extends Controller
      */
     public function show($id)
     {
-        return Inputs::find($id);
+        // return Inputs::find($id);
+        return $this->select()->where('i.id', $id)->first();
     }
 
     /**

@@ -96,12 +96,6 @@
                 (res) => {
                     this.list = []
                     this.list = res.data.data
-                    // this.list = []
-                    // for(let i in res.data.data){
-                    //     let row = res.data.data[i]
-                    //     this.list[row.id] = row
-                    // }
-                    // this.list = res.data.data
                 }
             )
         }

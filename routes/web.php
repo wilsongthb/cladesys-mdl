@@ -11,30 +11,6 @@
 |
 */
 
-// Route::get('/home', 'HomeController@index')->name('home');
-
-use Illuminate\Http\Request;
-use App\Models\Products;
-use App\Models\Locations;
-
-
-
-Route::get('/test', function (Request $request) {
-    dd(auth()->user());
-
-
-    // $l = Locations::all();
-    // dd($l);
-    // dd(Products::find(1));
-    // return view('test');
-});
-// Route::post('/test', function (Request $request) {
-//     // dd($request->all());
-//     // return $request->all();
-//     // dd($request);
-//     exit(print_r($request->all(), true));
-// });
-
 Route::get('/', function () {
     return view('index');
 });
@@ -101,4 +77,11 @@ Route::group(['middleware' => 'auth'], function(){
         Route::get('user-locations/all', 'Logistic\UserLocationsController@getAllLocations');
         Route::resource('user-locations', 'Logistic\UserLocationsController');
     });
+});
+
+use App\Http\Controllers\Logistic\InputDetailsController;
+use App\Models\Inputs;
+
+Route::get('/test', function (Request $request) {
+    // dd(InputDetailsController::getDetailsFrom(13));
 });

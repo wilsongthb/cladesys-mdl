@@ -157,6 +157,11 @@
                         templateUrl: G.url + '/view/permissions.html',
                         controller: 'PermissionsController'
                     })
+
+                    .when('/ez-outputs', {
+                        templateUrl: G.url + '/view/outputs.ez.html',
+                        controller: 'EzOutputsController'
+                    })
             }
         ])
         .run(function ($rootScope, $location,$route, $timeout) {

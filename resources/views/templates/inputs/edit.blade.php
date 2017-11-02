@@ -1,200 +1,248 @@
 @extends('templates.layouts.container')
 
 @section('content')
-<h3 class="text-center">EDITAR ENTRADA</h3>
-<div class="row" ng-if="resource.fila.status === 1">
-    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-        <form ng-submit="detalle.save()">
-            <div class="row">
-                <div class="col-xs-12 col-sm-4 col-md-3 col-lg-3">
-                    <div class="form-group">
-                        <label for="">ID</label>
-                        <p class="form-control" disabled ng-bind="detalle.fila.id"></p>
-                    </div>
-                </div>
-                <div class="col-xs-12 col-sm-4 col-md-3 col-lg-3">
-                    <label>Tipo ticket *</label>
-                    <select ng-model="detalle.fila.ticket_type" class="form-control" required>
-                        <?php foreach(config('logistic.client.ticket.type') as $key => $ticket){ ?>
-                            <option ng-value="<?= $key ?>"><?= $ticket ?> </option>
-                        <?php } ?>
-                    </select>
-                </div>
-                <div class="col-xs-12 col-sm-4 col-md-3 col-lg-3">
-                    <div class="form-group">
-                        <label>Numero Ticket *</label>
-                        <input type="text" ng-model="detalle.fila.ticket_number" class="form-control" required>
-                    </div>
-                </div>
-                <div class="col-xs-12 col-sm-4 col-md-3 col-lg-3">
-                    <div class="form-group">
-                        <label>Proveedor *</label>
-                        <select 
-                            ng-model="detalle.fila.suppliers_id" 
-                            class="form-control"  
-                            required>
-                            <option 
-                                ng-repeat="s in Suppliers.list" 
-                                ng-value="s.id">
-                                @{{s.company_name}} - @{{s.contact_name}}
-                            </option>
-                        </select>
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-xs-12 col-sm-4 col-md-3 col-lg-3">
-                    <div class="form-group">
-                        <label for="">Producto *</label>
-                        {{--  <product-selector products-id="detalle.fila.products_id" requerido="true"></product-selector>  --}}
-                        <p class="form-control" title="Click para editar" disabled ng-if="detalle.fila.products_name" ng-bind="detalle.fila.products_name" ng-click="detalle.fila.products_name = null"></p>
-                        <ui-select ng-model="detalle.fila.products_id">
-                            <ui-select-match 
-                                ng-show="!detalle.fila.products_name" 
-                                placeholder="Escribe para buscar">
-                                @{{$select.selected.name}} 
-                            </ui-select-match>
-                            <ui-select-choices 
-                                repeat="p.id as p in Products.list track by $index" 
-                                refresh="Products.get($select.search)" 
-                                refresh-delay="250">
-                                <div title="@{{p.name}}">
-                                    <p>@{{p.name}}</p>
-                                    <small>@{{p.categorie}} - @{{p.packing}} </small>
-                                </div>
-                            </ui-select-choices>
-                        </ui-select>
-                    </div>
-                </div>
-                <div class="col-xs-12 col-sm-4 col-md-3 col-lg-3">
-                    <label>Cantidad *</label>
-                    <input type="number" ng-model="detalle.fila.quantity" class="form-control" required>
-                </div>
-                <div class="col-xs-12 col-sm-4 col-md-3 col-lg-3">
-                    <div class="form-group">
-                        <label>Precio Unitario *</label>
-                        <div class="input-group">
-                            <input type="text" ng-model="detalle.fila.unit_price" class="form-control" required>    
-                            <div class="input-group-addon">@{{detalle.enSoles(detalle.fila.unit_price)}}</div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-xs-12 col-sm-4 col-md-3 col-lg-3">
-                    <div class="form-group">
-                        <label>Fecha de Expiracion</label>
-                        <div class="input-group">
-                            <input 
-                                type="text" 
-                                class="form-control" 
-                                uib-datepicker-popup="dd/MM/yyyy"
-                                ng-model="detalle.fila.expiration" 
-                                is-open="pop1" 
-                                datepicker-options="dateOptions" 
-                                
-                                close-text="Close" />
-                            <span class="input-group-btn">
-                                <button 
-                                    type="button" 
-                                    class="btn btn-default" 
-                                    ng-click="pop1 = true">
-                                    <i class="glyphicon glyphicon-calendar"></i>
-                                </button>
-                            </span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-xs-12 col-sm-4 col-md-3 col-lg-3">
-                    <div class="form-group">
-                        <label>Fecha de Fabricación</label>
-                        <div class="input-group">
-                            <input 
-                                type="text" 
-                                class="form-control" 
-                                uib-datepicker-popup="dd/MM/yyyy"
-                                ng-model="detalle.fila.fabrication" 
-                                is-open="pop" 
-                                datepicker-options="dateOptions" 
-                                close-text="Close" />
-                            <span class="input-group-btn">
-                                <button 
-                                    type="button" 
-                                    class="btn btn-default" 
-                                    ng-click="pop = true">
-                                    <i class="glyphicon glyphicon-calendar"></i>
-                                </button>
-                            </span>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-xs-12 col-sm-4 col-md-3 col-lg-3">
-                    <div class="form-group">
-                        <label>Lote</label>
-                        <input type="text" class="form-control" ng-model="detalle.fila.lot">
-                    </div>
-                </div>
-                <div class="col-xs-12 col-sm-4 col-md-3 col-lg-3">
-                </div>
-                <div class="col-xs-12 col-sm-4 col-md-3 col-lg-3">
-                    <div class="form-group">
-                        <label for="">&nbsp;</label>
-                        <button type="submit" class="form-control btn btn-success">Guardar</button>
-                    </div>
-                </div>
-            </div>
-        </form>
+<div class="row">
+    <div class="form-group col-xs-12 col-sm-12 col-md-12 col-lg-12">
+        <span ng-if="resource.fila.status !== 2">
+            <a class="btn btn-success" data-toggle="modal" ng-click="detalle.showFormModal()">
+                <i class="fa fa-plus"></i> Agregar Productos</a>
+            <button class="btn btn-info" ng-click="resource.lock()">
+                <i class="fa fa-lock"></i> Bloquear Edicion</button>
+        </span>
+        <a class="btn btn-primary" data-toggle="modal" ng-click="dialogs.showInfoModal()">
+            <i class="fa fa-info"></i> Información</a>
     </div>
 </div>
 <div class="row">
     <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-        
+        <div class="form-group">
+            <input type="text" class="form-control" ng-model="buscarDetalle" placeholder="Buscar">
+        </div>
         <table class="table table-condensed table-hover table-bordered">
             <thead>
                 <tr>
                     <th>ID</th>
-                    <th>PRODUCTO</th>
-                    <th>CATEGORIA</th>
+                    <th class="col-sx-4 col-sm-4 col-md-4 col-lg-5">PRODUCTO</th>
+                    <th>COMPRA</th>
                     <th>CANTIDAD</th>
                     <th>PRECIO</th>
-                    <th ng-show="resource.fila.type !== 2">PROVEEDOR</th>
-                    <th ng-show="resource.fila.type !== 2">TIPO TICKET</th>
-                    <th ng-show="resource.fila.type !== 2">NUMERO TICKET</th>
                     <th>SUBTOTTAL</th>
+                    <th ng-if="resource.fila.status !== 2"></th>
                 </tr>
             </thead>
             <tbody>
-                <tr ng-repeat="id in detalle.list">
+                <tr ng-repeat="id in detalle.list | filter: buscarDetalle" title="Fecha de Creacion: @{{id.created_at}}">
                     <td ng-bind="id.id"></td>
-                    <td title="@{{id.products_name}}" ng-bind="id.products_name"></td>
-                    <td ng-bind="id.products_categorie"></td>
-                    <td ng-bind="id.quantity"></td>
+                    <td>
+                        <product-row product="id.product"></product-row>
+                    </td>
+                    <td>
+                        <span ng-bind="id.supplier_company_name"></span> -
+                        <span ng-bind="id.supplier_contact_name"></span>
+                        <br>
+                        <span class="label label-default" ng-bind="config.ticket.type[id.ticket_type]"></span>
+                        <span class="label label-primary" ng-bind="id.ticket_number"></span>
+                    </td>
+                    <td class="text-right" ng-bind="id.quantity"></td>
                     <td class="text-right" ng-bind="detalle.enSoles(id.unit_price)"></td>
-                    <td ng-show="resource.fila.type !== 2" ng-bind="id.suppliers_company_name"></td>
-                    <td ng-show="resource.fila.type !== 2" ng-bind="config.ticket.type[id.ticket_type]"></td>
-                    <td ng-show="resource.fila.type !== 2" ng-bind="id.ticket_number"></td>
                     <td class="text-right" ng-bind="detalle.enSoles(id.subtotal)"></td>
-                    <td ng-if="resource.fila.status === 1">
-                        <i title="Copiar" ng-click="detalle.copyToForm(id)" class="fa fa-copy"></i>
-                        <i title="Editar" ng-click="detalle.edit(id)" class="fa fa-edit"></i>
-                        <i title="Eliminar" ng-click="detalle.delete(id.id)" class="fa fa-trash"></i>
+                    <td ng-if="resource.fila.status !== 2">
+                        <div class="btn-group">
+                            <a title="Copiar Datos de Compra" ng-click="detalle.copyToForm(id)" class="btn btn-default"><i class="fa fa-copy"></i></a>
+                            <a title="Editar" ng-click="detalle.edit(id)" class="btn btn-default"><i class="fa fa-edit"></i></a>
+                            <a title="Eliminar" ng-click="detalle.delete(id.id)" class="btn btn-default"><i class="fa fa-trash"></i></a>
+                        </div>
                     </td>
                 </tr>
                 <tr>
-                    <td ng-show="resource.fila.type !== 2" colspan="3"></td>
-                    <td colspan="4"></td>
-                    <th>TOTAL</th>
+                    <th></th>
+                    <th colspan="4">TOTAL</th>
                     <td class="text-right" ng-bind="detalle.enSoles(detalle.total())"></td>
+                    <td ng-if="resource.fila.status !== 2"></td>
                 </tr>
             </tbody>
         </table>
-        
-    </div>
-</div>
-<div class="row">
-    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-        <h2>ESTADO: @{{config.inputs.status[resource.fila.status]}} </h2>
-        <button ng-if="resource.fila.status === 1" class="btn btn-info" ng-click="resource.lock()">Bloquear Edicion</button>
+
     </div>
 </div>
 @stop
+
+
+<!-- modals -->
+<div class="modal fade" id="input-info-modal">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title">INFORMACION DE ENTRADA</h4>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                        <form-edit-header reg="resource.fila"></form-edit-header>
+                        <p></p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                        <table class="table table-striped table-hover">
+                            <thead>
+                                <tr>
+                                    <th>FECHA</th>
+                                    <th>ALMACEN</th>
+                                    <th>TIPO</th>
+                                    <th>ORIGEN</th>
+                                    <th>ESTADO</th>
+                                    <th>FILAS</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>
+                                        <laravel-date-viewer datetime="resource.fila.created_at"></laravel-date-viewer>
+                                    </td>
+                                    <td ng-bind="resource.fila.locations_name"></td>
+                                    <td ng-bind="config.inputs.type[resource.fila.type]"></td>
+                                    <td>
+                                        <span ng-show="resource.fila.outputs_locations_name" ng-bind="resource.fila.outputs_locations_name"></span>
+                                        <span ng-show="!resource.fila.outputs_locations_name" class="badge">COMPRA</span>
+                                    </td>
+                                    <td ng-bind="config.inputs.status[resource.fila.status]"></td>
+                                    <td ng-bind="resource.fila.total_details"></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="row form-group">
+                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                        <label for="">Observacion</label>
+                        <textarea rows="1" ng-bind="resource.fila.observation" class="form-control" disabled></textarea>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="form-detail-modal">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title">DETALLE DE ENTRADA</h4>
+            </div>
+            <form ng-submit="detalle.save()">
+                <div class="modal-body">
+
+                    <form-edit-header reg="detalle.fila"></form-edit-header>
+                    <div class="row">
+                        <div class="col-xs-12 col-sm-4 col-md-3 col-lg-3">
+                            <label>Tipo ticket *</label>
+                            <select ng-model="detalle.fila.ticket_type" class="form-control" required>
+                                <?php foreach(config('logistic.client.ticket.type') as $key => $ticket){ ?>
+                                <option ng-value="<?= $key ?>">
+                                    <?= $ticket ?>
+                                </option>
+                                <?php } ?>
+                            </select>
+                        </div>
+                        <div class="col-xs-12 col-sm-4 col-md-3 col-lg-3">
+                            <div class="form-group">
+                                <label>Numero Ticket *</label>
+                                <input type="text" ng-model="detalle.fila.ticket_number" class="form-control" required>
+                            </div>
+                        </div>
+                        <div class="col-xs-12 col-sm-4 col-md-3 col-lg-3">
+                            <div class="form-group">
+                                <label>Proveedor *</label>
+                                <select ng-model="detalle.fila.suppliers_id" class="form-control" required>
+                                    <option ng-repeat="s in Suppliers.list" ng-value="s.id">
+                                        @{{s.company_name}} - @{{s.contact_name}}
+                                    </option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                            <div class="form-group">
+                                <label for="">Producto *</label>
+                                <p class="form-control" title="Click para editar" disabled ng-if="detalle.fila.products_name" ng-bind="detalle.fila.products_name"
+                                    ng-click="detalle.fila.products_name = null"></p>
+                                <ui-select ng-model="detalle.fila.products_id">
+                                    <ui-select-match ng-show="!detalle.fila.products_name" placeholder="Escribe para buscar">
+                                        @{{$select.selected.name}}
+                                    </ui-select-match>
+                                    <ui-select-choices repeat="p.id as p in Products.list track by $index" refresh="Products.get($select.search)" refresh-delay="250">
+                                        <div title="@{{p.name}}">
+                                            <product-row product="p"></product-row>
+                                        </div>
+                                    </ui-select-choices>
+                                </ui-select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-12 col-sm-4 col-md-3 col-lg-3">
+                            <label>Cantidad *</label>
+                            <input type="number" ng-model="detalle.fila.quantity" class="form-control" required>
+                        </div>
+                        <div class="col-xs-12 col-sm-4 col-md-3 col-lg-3">
+                            <div class="form-group">
+                                <label>Precio Unitario *</label>
+                                <div class="input-group">
+                                    <input type="text" ng-model="detalle.fila.unit_price" class="form-control" required>
+                                    <div class="input-group-addon">@{{detalle.enSoles(detalle.fila.unit_price)}}</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-12 col-sm-4 col-md-3 col-lg-3">
+                            <div class="form-group">
+                                <label>Fecha de Expiracion</label>
+                                <div class="input-group">
+                                    <input type="text" class="form-control" uib-datepicker-popup="dd/MM/yyyy" ng-model="detalle.fila.expiration" is-open="pop1"
+                                        datepicker-options="dateOptions" close-text="Close" />
+                                    <span class="input-group-btn">
+                                        <button type="button" class="btn btn-default" ng-click="pop1 = true">
+                                            <i class="glyphicon glyphicon-calendar"></i>
+                                        </button>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xs-12 col-sm-4 col-md-3 col-lg-3">
+                            <div class="form-group">
+                                <label>Fecha de Fabricación</label>
+                                <div class="input-group">
+                                    <input type="text" class="form-control" uib-datepicker-popup="dd/MM/yyyy" ng-model="detalle.fila.fabrication" is-open="pop"
+                                        datepicker-options="dateOptions" close-text="Close" />
+                                    <span class="input-group-btn">
+                                        <button type="button" class="btn btn-default" ng-click="pop = true">
+                                            <i class="glyphicon glyphicon-calendar"></i>
+                                        </button>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xs-12 col-sm-4 col-md-3 col-lg-3">
+                            <div class="form-group">
+                                <label>Lote</label>
+                                <input type="text" class="form-control" ng-model="detalle.fila.lot">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-success">Guardar</button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

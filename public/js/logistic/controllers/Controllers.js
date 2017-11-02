@@ -6,21 +6,25 @@
         .module('logistic')
         .controller('Ctrl1Controller', Ctrl1Controller);
 
-    Ctrl1Controller.$inject = ['$scope', 'myService', 'myFactory'];
+    Ctrl1Controller.$inject = ['$scope', 'myService', 'myFactory', 'Products'];
 
-    function Ctrl1Controller($scope, myService, myFactory) {
+    function Ctrl1Controller($scope, myService, myFactory, Products) {
         var vm = this;
 
         $scope.resource = {
             myService,
-            myFactory
+            myFactory,
+            Products
         }
 
         activate();
 
         ////////////////
 
-        function activate() {}
+        function activate() {
+            Products.get()
+            $scope.Products = Products
+        }
     }
 })();
 (function () {
@@ -358,6 +362,7 @@ const InputsConfig = {
                         this.error = err
                     }
                 )
+                this.fila = {}
             }
         }
         
@@ -378,7 +383,6 @@ const InputsConfig = {
     InputsEditController.$inject = ['$routeParams', '$scope', '$http', 'Suppliers', '$window', 'Products'];
     function InputsEditController($routeParams, $scope, $http, Suppliers, $window, Products) {
         var vm = this;
-
         // datos para las fechas
         $scope.dateOptions = {
             // dateDisabled: disabled,
@@ -387,14 +391,15 @@ const InputsConfig = {
             // minDate: new Date(),
             startingDay: 1
         };
-        $scope.pop = false
-        $scope.pop1 = false
+        $scope.dialogs = {
+            showInfoModal: function() {
+                $('#input-info-modal').modal('show')
+            }
+        }
         $scope.Products = Products
         $scope.Suppliers = Suppliers
         $scope.Suppliers.get()
-
         $scope.config = G.config
-        
         $scope.resource = {
             fila: {},
             get: function(){
@@ -411,7 +416,7 @@ const InputsConfig = {
                     $http.put(G.apiUrl + '/' + Config.name + '/' + $routeParams.id, this.fila)
                     .then(
                         res => {
-                            alert('Bloqueado -_-');
+                            alert('Bloqueado');
                         }
                     )
                 }
@@ -422,6 +427,10 @@ const InputsConfig = {
             name: 'input-details',
             fila: {},
             list: [],
+            showFormModal: function(editar = false){
+                if(!editar) this.fila = {}
+                $('#form-detail-modal').modal('show')
+            },
             total: function(){
                 let total = 0
                 for(let i in this.list){
@@ -434,6 +443,7 @@ const InputsConfig = {
                 this.fila = fila
                 this.fila.expiration = new Date(this.fila.expiration)
                 this.fila.fabrication = new Date(this.fila.fabrication)
+                this.showFormModal(true)
             },
             delete: function(id){
                 let msj = 'Eliminar el registro con id: ' 
@@ -453,6 +463,7 @@ const InputsConfig = {
                     ticket_number: fila.ticket_number,
                     suppliers_id: fila.suppliers_id,
                 }
+                this.showFormModal(true)
             },
             enSoles: function(dinero){
                 return moneyFormatter.format('PEN', dinero)
@@ -463,9 +474,21 @@ const InputsConfig = {
                         id: $routeParams.id // inputs_id
                     }
                 }).then(
-                    res => {
+                    (res) => {
                         // this.list = []
+
+                        // load suppliers and states
+                        // for()
+
                         this.list = res.data
+
+                        // if(this.suppliers){
+                            // this.suppliers = {}
+                            // for(var i in $scope.Suppliers.list){
+                            //     var fila = $scope.Suppliers.list[i]
+                            //     this.suppliers[fila.id] = fila
+                            // }
+                        // }
                     }
                 )
             },
@@ -478,7 +501,7 @@ const InputsConfig = {
                             activate();
                         }
                     )
-                    this.fila = {}
+                    // this.fila = {}
                 }else{
                     this.fila.user_id = G.user.id
                     this.fila.inputs_id = $routeParams.id
@@ -488,8 +511,9 @@ const InputsConfig = {
                             activate();
                         }
                     )
-                    this.fila = {}
+                    // this.fila = {}
                 }
+                this.fila = {}
             }
         }
 
@@ -1780,5 +1804,25 @@ const ComparisonConfig = {
         function activate() { 
             $scope.rsc.get()
         }
+    }
+})(G);
+
+(function(G) {
+    'use strict';
+
+    angular
+        .module('logistic')
+        .controller('EzOutputsController', EzOutputsController);
+
+    EzOutputsController.$inject = ['$scope'];
+    function EzOutputsController($scope) {
+        var vm = this;
+        
+
+        activate();
+
+        ////////////////
+
+        function activate() { }
     }
 })(G);

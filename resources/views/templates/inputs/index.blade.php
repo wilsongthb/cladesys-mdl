@@ -43,6 +43,7 @@
                     <th>TIPO</th>
                     <th>ORIGEN</th>
                     <th>ESTADO</th>
+                    <th>FILAS</th>
                     <th></th>
                 </tr>
             </thead>
@@ -59,14 +60,12 @@
                         <span ng-show="!d.outputs_locations_name" class="badge">COMPRA</span>
                     </td>
                     <td ng-bind="g_config.inputs.status[d.status]"></td>
-                    <td ng-bind="d.measurement"></td>
+                    <td ng-bind="d.total_details"></td>
                     <td>
                         <div class="btn-group">
                             <a href="@{{config.editUrl}}/@{{d.id}}" class="btn btn-default"><i ng-show="d.status === 1" class="fa fa-pencil"></i><i ng-show="d.status === 2" class="fa fa-eye"></i> </a>
                             <a ng-show="d.status === 1" ng-click="resource.delete(d.id)" class="btn btn-danger"><i class="fa fa-trash"></i> </a>
                         </div>
-                        
-                        
                     </td>
                 </tr>
             </tbody>

@@ -8,6 +8,6 @@ use App\Models\Brands;
 class Products extends Model
 {
     public function brand(){
-        return $this->hasOne('App\Models\Brands');
+        return $this->hasOne('App\Models\Brands', 'id', 'brands_id')->first();
     }
 }

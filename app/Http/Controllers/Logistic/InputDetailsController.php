@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\InputDetails;
 use App\Models\Inputs;
+use App\Http\Controllers\Logistic\ProductsController;
+use App\Http\Controllers\Logistic\SuppliersController;
 use DB;
 
 class InputDetailsController extends Controller
@@ -22,35 +24,64 @@ class InputDetailsController extends Controller
     }
 
     /**
-     * Obtener todos los registros
+     * SELECT
+     * Select para los input details
+     * @return QueryBuilder
      */
-    public function getDetailsFrom($inputs_id)
-    {
+    public function select(){
         return InputDetails::
             select(
                 'id.*',
-                'p.name AS products_name',
-                'c.value AS products_categorie',
-                's.company_name AS suppliers_company_name',
+                's.company_name AS supplier_company_name',
+                's.contact_name AS supplier_contact_name',
+                'us.name AS user_name',
                 DB::raw('(id.unit_price * id.quantity) AS subtotal')
-            )
-            ->from('input_details AS id')
-            ->leftJoin('inputs AS i', 'i.id', '=', 'id.inputs_id')
-            ->leftJoin('products AS p', 'p.id', '=', 'id.products_id')
-            ->leftJoin('suppliers AS s', 's.id', '=', 'id.suppliers_id')
-            ->leftJoin('categories AS c', 'c.id', '=', 'p.categories_id')
-            ->where('i.id', $inputs_id)
-            ->get();
+            )->
+            from('input_details AS id')->
+            leftJoin('inputs AS i', 'i.id', '=', 'id.inputs_id')->
+            leftJoin('suppliers AS s', 's.id', '=', 'id.suppliers_id')->
+            leftJoin('users AS us', 'us.id', '=', 'id.user_id');
+    }
+
+    /**
+     * Loader Relationals
+     * Se encarga de cargar objetos provenientes de modelos relacionados a este modelo
+     * @param Recive el resltado de un Query Builder
+     */
+    public function loadRelationals(&$array_result, $loadProducts = true, $loadSuppliers = false){
+        foreach ($array_result as $key => &$value) {
+            $value->product = $loadProducts ? ProductsController::show($value->products_id) : null;
+            $value->supplier = $loadSuppliers ? SuppliersController::show($value->suppliers_id) : null;
+        }
+    }
+
+    /**
+     * Obtener todos los registros relacionados a una entrada
+     */
+    public function getDetailsFrom($inputs_id)
+    {
+        $inputDetails = $this->select()->
+            where('i.id', $inputs_id)->
+            orderBy('id.id', 'DESC')->
+            get();
+
+        $this->loadRelationals($inputDetails);
+        
+        // dd($inputDetails[0]);
+        return $inputDetails;
     }
 
     /**
      * Display a listing of the resource.
      *
+     * @param Request => 'id' o 'inputs_id'
      * @return \Illuminate\Http\Response
      */
     public function index(Request $request)
     {
-        return $this->getDetailsFrom($request->id);
+        // RETRO COMPATIBILIDAD
+        $inputs_id = $request->get('inputs_id') ? $request->get('inputs_id') : $request->get('id');
+        return $this->getDetailsFrom($inputs_id);
     }
 
     /**
@@ -166,7 +197,10 @@ class InputDetailsController extends Controller
             return $this->lockedResponse();
         }
         
-        $fila = InputDetails::destroy($id);
-        return "deleted";
+        return InputDetails::destroy($id);
+        // $fila = InputDetails::find($id);
+        // $fila->flagstate = false;
+        // $fila->save();
+        // return "deleted";
     }
 }

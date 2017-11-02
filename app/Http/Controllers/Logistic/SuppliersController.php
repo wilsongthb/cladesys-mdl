@@ -79,14 +79,15 @@ class SuppliersController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public static function show($id)
     {
-        $registro = Suppliers::find($id);
-        if($registro){
-            return $registro;
-        }else {
-            return response()->json(['error' => 'Error, not found'], 404); // Status code here
-        }
+        return Suppliers::find($id);
+        // $registro = Suppliers::find($id);
+        // if($registro){
+        //     return $registro;
+        // }else {
+        //     return response()->json(['error' => 'Error, not found'], 404); // Status code here
+        // }
     }
 
     /**

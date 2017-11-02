@@ -4,12 +4,12 @@
 <div class="row">
     <div class="form-group col-xs-12 col-sm-12 col-md-12 col-lg-12">
         <span ng-if="resource.fila.status !== 2">
-            <a class="btn btn-success" data-toggle="modal" ng-click="detalle.showFormModal()">
+            <a class="btn btn-raised btn-success" data-toggle="modal" ng-click="detalle.showFormModal()">
                 <i class="fa fa-plus"></i> Agregar Productos</a>
-            <button class="btn btn-info" ng-click="resource.lock()">
+            <button class="btn btn-raised btn-info" ng-click="resource.lock()">
                 <i class="fa fa-lock"></i> Bloquear Edicion</button>
         </span>
-        <a class="btn btn-primary" data-toggle="modal" ng-click="dialogs.showInfoModal()">
+        <a class="btn btn-raised btn-primary" data-toggle="modal" ng-click="dialogs.showInfoModal()">
             <i class="fa fa-info"></i> Información</a>
     </div>
 </div>
@@ -48,9 +48,9 @@
                     <td class="text-right" ng-bind="detalle.enSoles(id.subtotal)"></td>
                     <td ng-if="resource.fila.status !== 2">
                         <div class="btn-group">
-                            <a title="Copiar Datos de Compra" ng-click="detalle.copyToForm(id)" class="btn btn-default"><i class="fa fa-copy"></i></a>
-                            <a title="Editar" ng-click="detalle.edit(id)" class="btn btn-default"><i class="fa fa-edit"></i></a>
-                            <a title="Eliminar" ng-click="detalle.delete(id.id)" class="btn btn-default"><i class="fa fa-trash"></i></a>
+                            <a title="Copiar Datos de Compra" ng-click="detalle.copyToForm(id)" class="btn btn-raised btn-default"><i class="fa fa-copy"></i></a>
+                            <a title="Editar" ng-click="detalle.edit(id)" class="btn btn-raised btn-default"><i class="fa fa-edit"></i></a>
+                            <a title="Eliminar" ng-click="detalle.delete(id.id)" class="btn btn-raised btn-default"><i class="fa fa-trash"></i></a>
                         </div>
                     </td>
                 </tr>
@@ -122,7 +122,7 @@
                 </div>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+                <button type="button" class="btn btn-raised btn-default" data-dismiss="modal">Cerrar</button>
             </div>
         </div>
     </div>
@@ -141,14 +141,16 @@
                     <form-edit-header reg="detalle.fila"></form-edit-header>
                     <div class="row">
                         <div class="col-xs-12 col-sm-4 col-md-3 col-lg-3">
-                            <label>Tipo ticket *</label>
-                            <select ng-model="detalle.fila.ticket_type" class="form-control" required>
-                                <?php foreach(config('logistic.client.ticket.type') as $key => $ticket){ ?>
-                                <option ng-value="<?= $key ?>">
-                                    <?= $ticket ?>
-                                </option>
-                                <?php } ?>
-                            </select>
+                            <div class="form-group">
+                                <label>Tipo ticket *</label>
+                                <select ng-model="detalle.fila.ticket_type" class="form-control" required>
+                                    <?php foreach(config('logistic.client.ticket.type') as $key => $ticket){ ?>
+                                    <option ng-value="<?= $key ?>">
+                                        <?= $ticket ?>
+                                    </option>
+                                    <?php } ?>
+                                </select>
+                            </div>
                         </div>
                         <div class="col-xs-12 col-sm-4 col-md-3 col-lg-3">
                             <div class="form-group">
@@ -188,8 +190,10 @@
                     </div>
                     <div class="row">
                         <div class="col-xs-12 col-sm-4 col-md-3 col-lg-3">
-                            <label>Cantidad *</label>
-                            <input type="number" ng-model="detalle.fila.quantity" class="form-control" required>
+                            <div class="form-group">
+                                <label>Cantidad *</label>
+                                <input type="number" ng-model="detalle.fila.quantity" class="form-control" required>
+                            </div>
                         </div>
                         <div class="col-xs-12 col-sm-4 col-md-3 col-lg-3">
                             <div class="form-group">
@@ -209,7 +213,7 @@
                                     <input type="text" class="form-control" uib-datepicker-popup="dd/MM/yyyy" ng-model="detalle.fila.expiration" is-open="pop1"
                                         datepicker-options="dateOptions" close-text="Close" />
                                     <span class="input-group-btn">
-                                        <button type="button" class="btn btn-default" ng-click="pop1 = true">
+                                        <button type="button" class="btn btn-raised btn-default" ng-click="pop1 = true">
                                             <i class="glyphicon glyphicon-calendar"></i>
                                         </button>
                                     </span>
@@ -223,7 +227,7 @@
                                     <input type="text" class="form-control" uib-datepicker-popup="dd/MM/yyyy" ng-model="detalle.fila.fabrication" is-open="pop"
                                         datepicker-options="dateOptions" close-text="Close" />
                                     <span class="input-group-btn">
-                                        <button type="button" class="btn btn-default" ng-click="pop = true">
+                                        <button type="button" class="btn btn-raised btn-default" ng-click="pop = true">
                                             <i class="glyphicon glyphicon-calendar"></i>
                                         </button>
                                     </span>
@@ -239,8 +243,8 @@
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="submit" class="btn btn-success">Guardar</button>
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+                    <button type="submit" class="btn btn-raised btn-success">Guardar</button>
+                    <button type="button" class="btn btn-raised btn-default" data-dismiss="modal">Cerrar</button>
                 </div>
             </form>
         </div>

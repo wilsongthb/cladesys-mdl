@@ -5,13 +5,13 @@
     <span class="input-group-btn">
         <button
             type="button" 
-            class="btn btn-default" 
+            class="btn btn-raised btn-default" 
             ng-switch-when="search" 
             ng-click="$parent.state = 'view'">
             <i class="fa fa-search"></i> 
         </button>
         <button 
-            class="btn btn-success" 
+            class="btn btn-raised btn-success" 
             ng-switch-default 
             ng-click="$parent.state = 'search'">
             <i class="fa fa-edit"></i> 

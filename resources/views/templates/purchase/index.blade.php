@@ -11,7 +11,7 @@
 </div>
 <div class="row">
     <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
-        <!-- <a ng-href="@{{config.createUrl}}"><button class="btn btn-success"><i class="fa fa-plus"></i> Nuevo</button></a> -->
+        <!-- <a ng-href="@{{config.createUrl}}"><button class="btn btn-raised btn-success"><i class="fa fa-plus"></i> Nuevo</button></a> -->
     </div>
 
     <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
@@ -21,7 +21,7 @@
         <div class="input-group">
             <input type="text" class="form-control" ng-model="rsc.search" ng-model-options="{debounce: 1000}" ng-change="rsc.get()" placeholder="Escribe...">
             <span class="input-group-btn">
-                <button class="btn btn-default" type="button" ng-click="rsc.get()">Buscar</button>
+                <button class="btn btn-raised btn-default" type="button" ng-click="rsc.get()">Buscar</button>
             </span>
         </div>
     </div>
@@ -51,11 +51,11 @@
                     <td ng-bind="d.measurement"></td>
                     <td>
                         <div class="btn-group">
-                            <a href="@{{ComparisonConfig.requerimentUrl}}/@{{d.id}} " class="btn btn-warning" title="Ver requerimiento"><i class="fa fa-eye"></i> </a>
-                            <a href="" title="Generar orden de compra" ng-click="dialogs.showModalSuppliers(d.id)" type="button" class="btn btn-default"><i class="fa fa-money"></i> </a>
-                            <a href="" title="Ingresar como entrada" disabled ng-click="" class="btn btn-success"><i class="fa fa-arrow-circle-down"></i> </a>
+                            <a href="@{{ComparisonConfig.requerimentUrl}}/@{{d.id}} " class="btn btn-raised btn-warning" title="Ver requerimiento"><i class="fa fa-eye"></i> </a>
+                            <a href="" title="Generar orden de compra" ng-click="dialogs.showModalSuppliers(d.id)" type="button" class="btn btn-raised btn-default"><i class="fa fa-money"></i> </a>
+                            <a href="" title="Ingresar como entrada" disabled ng-click="" class="btn btn-raised btn-success"><i class="fa fa-arrow-circle-down"></i> </a>
                         </div>
-                        <!-- <button ng-if="d.status === 1" ng-click="rsc.delete(d.id)" type="button" class="btn btn-danger"><i class="fa fa-trash"></i> </button> -->
+                        <!-- <button ng-if="d.status === 1" ng-click="rsc.delete(d.id)" type="button" class="btn btn-raised btn-danger"><i class="fa fa-trash"></i> </button> -->
                     </td>
                 </tr>
             </tbody>
@@ -84,7 +84,7 @@
 </div>
 
 
-{{--  <a class="btn btn-primary" data-toggle="modal" href='#modalSupplierSelect'>Trigger modal</a>  --}}
+{{--  <a class="btn btn-raised btn-primary" data-toggle="modal" href='#modalSupplierSelect'>Trigger modal</a>  --}}
 <div class="modal fade" id="modalSupplierSelect">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -101,8 +101,8 @@
                 </div>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
-                <!-- <button type="button" class="btn btn-primary">Save changes</button> -->
+                <button type="button" class="btn btn-raised btn-default" data-dismiss="modal">Cerrar</button>
+                <!-- <button type="button" class="btn btn-raised btn-primary">Save changes</button> -->
             </div>
         </div>
     </div>

@@ -63,7 +63,7 @@
                 </div>
             </div>
             <div class="form-group">
-                <button class="btn btn-success" type="submit">Continuar</button>
+                <button class="btn btn-raised btn-success" type="submit">Continuar</button>
             </div>
         </form>
     </div>

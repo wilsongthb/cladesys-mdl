@@ -7,9 +7,9 @@
     <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
 
         <h3 class="text-center">COTIZAR</h3>
-        <a class="btn btn-success" ng-click="rsc.dialogs.addSuppliers()"><i class="fa fa-plus"></i> Agregar Proveedor</a>
-        <a href="@{{config.requerimentUrl + '/' + $routeParams.id}} " class="btn btn-warning"><i class="fa fa-cubes"></i> Requerimiento</a>
-        <a href="@{{config.comparisonUrl + '/' + $routeParams.id}} " class="btn btn-warning"><i class="fa fa-cubes"></i> Comparacion</a>
+        <a class="btn btn-raised btn-success" ng-click="rsc.dialogs.addSuppliers()"><i class="fa fa-plus"></i> Agregar Proveedor</a>
+        <a href="@{{config.requerimentUrl + '/' + $routeParams.id}} " class="btn btn-raised btn-warning"><i class="fa fa-cubes"></i> Requerimiento</a>
+        <a href="@{{config.comparisonUrl + '/' + $routeParams.id}} " class="btn btn-raised btn-warning"><i class="fa fa-cubes"></i> Comparacion</a>
         <hr>
         <input type="text" placeholder="Buscar... " ng-model="rsc.dialogs.buscarDet" class="form-control">
         <table class="table table-bordered table-striped table-hover table-condensed">
@@ -51,7 +51,7 @@
 </div>
 
 
-<!-- <a class="btn btn-primary" data-toggle="modal" href='#addSuppliers'>Trigger modal</a> -->
+<!-- <a class="btn btn-raised btn-primary" data-toggle="modal" href='#addSuppliers'>Trigger modal</a> -->
 <div class="modal fade" id="addSuppliers">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -74,7 +74,7 @@
                             <td ng-bind="s.company_name"></td>
                             <td ng-bind="s.contact_name"></td>
                             <td>
-                                <a href="" class="btn btn-success" ng-click="det.addSupplier(s)"><i class="fa fa-plus"></i> </a>
+                                <a href="" class="btn btn-raised btn-success" ng-click="det.addSupplier(s)"><i class="fa fa-plus"></i> </a>
                             </td>
                         </tr>
                     </tbody>
@@ -82,8 +82,8 @@
 
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
-                <!-- <button type="button" class="btn btn-primary" ng-click="">Agregar</button> -->
+                <button type="button" class="btn btn-raised btn-default" data-dismiss="modal">Cerrar</button>
+                <!-- <button type="button" class="btn btn-raised btn-primary" ng-click="">Agregar</button> -->
             </div>
         </div>
     </div>

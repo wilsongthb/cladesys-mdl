@@ -41,14 +41,16 @@
                     </div>
                 </div>
                 <div class="col-xs-12 col-sm-4 col-md-3 col-lg-3">
-                    <label>Cantidad *</label>
-                    <input 
-                        type="number" 
-                        ng-model="det.fila.quantity" 
-                        class="form-control" 
-                        min="0"
-                        max="@{{det.fila.stock}}"
-                        required>
+                    <div class="form-group">
+                        <label>Cantidad *</label>
+                        <input 
+                            type="number" 
+                            ng-model="det.fila.quantity" 
+                            class="form-control" 
+                            min="0"
+                            max="@{{det.fila.stock}}"
+                            required>
+                    </div>
                 </div>
                 <div ng-if="rsc.fila.type !== 1">
                     <div class="col-xs-12 col-sm-4 col-md-3 col-lg-3">
@@ -79,7 +81,7 @@
                 <div class="col-xs-12 col-sm-4 col-md-3 col-lg-3">
                     <div class="form-group">
                         <label for="">&nbsp;</label>
-                        <button type="submit" class="form-control btn btn-success">Guardar</button>
+                        <button type="submit" class="form-control btn btn-raised btn-success">Guardar</button>
                     </div>
                 </div>
             </div>
@@ -136,8 +138,8 @@
 <div class="row">
     <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
         <h2>ESTADO: @{{config.outputs.status[rsc.fila.status]}} </h2>
-        <button ng-if="rsc.fila.status === 1 && (rsc.fila.type === 3 || rsc.fila.type === 1)" class="btn btn-info" ng-click="rsc.lock()">Bloquear Edicion</button>
-        <button ng-if="rsc.fila.status === 1 && rsc.fila.type === 2" class="btn btn-info" ng-click="rsc.send()">Enviar</button>
+        <button ng-if="rsc.fila.status === 1 && (rsc.fila.type === 3 || rsc.fila.type === 1)" class="btn btn-raised btn-info" ng-click="rsc.lock()">Bloquear Edicion</button>
+        <button ng-if="rsc.fila.status === 1 && rsc.fila.type === 2" class="btn btn-raised btn-info" ng-click="rsc.send()">Enviar</button>
     </div>
 </div>
 @stop

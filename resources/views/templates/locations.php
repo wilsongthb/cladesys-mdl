@@ -5,7 +5,7 @@
             <div class="row">
                 <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
                     <h4 class="text-center">AREAS</h4>
-                    <button class="btn btn-success" ng-click="resource.showFormCreate()">Crear Nueva Area</button>
+                    <button class="btn btn-raised btn-success" ng-click="resource.showFormCreate()">Crear Nueva Area</button>
                     <table class="table table-condensed table-hover">
                         <thead>
                             <tr>
@@ -30,8 +30,8 @@
                                 <td ng-bind="l.utility"></td>
                                 <td>
                                     <div class="btn-group">
-                                        <button class="btn btn-warning" ng-click="resource.showFormModal(l)"><i class="fa fa-edit"></i> </button>
-                                        <button class="btn btn-danger" ng-click="resource.delete(l)"><i class="fa fa-remove"></i> </button>
+                                        <button class="btn btn-raised btn-warning" ng-click="resource.showFormModal(l)"><i class="fa fa-edit"></i> </button>
+                                        <button class="btn btn-raised btn-danger" ng-click="resource.delete(l)"><i class="fa fa-remove"></i> </button>
                                     </div>
                                 </td>
                             </tr>
@@ -65,8 +65,8 @@
                                         </div>
                                     </div>
                                     <div class="modal-footer">
-                                        <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
-                                        <button type="submit" class="btn btn-primary">Guardar</button>
+                                        <button type="button" class="btn btn-raised btn-default" data-dismiss="modal">Cerrar</button>
+                                        <button type="submit" class="btn btn-raised btn-primary">Guardar</button>
                                     </div>
                                 </form>
                             </div>

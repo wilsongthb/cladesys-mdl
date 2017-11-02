@@ -11,10 +11,10 @@
 <div class="row">
     <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
         <div class="btn-group">
-            <a class="btn btn-warning" data-toggle="modal" ng-click="showModal('#modalCateg')"><i class="fa fa-cog"></i> CATEGORIAS</a>
-            <a class="btn btn-warning" data-toggle="modal" ng-click="showModal('#modalBrands')"><i class="fa fa-cog"></i> MARCAS</a>
-            <a class="btn btn-warning" data-toggle="modal" ng-click="showModal('#modalPackings')"><i class="fa fa-cog"></i> MEDIDA DE COMPRA</a>
-            <a class="btn btn-warning" data-toggle="modal" ng-click="showModal('#modalMeasu')"><i class="fa fa-cog"></i> MEDIDAD DE DISTRIBUCION</a>
+            <a class="btn btn-raised btn-warning" data-toggle="modal" ng-click="showModal('#modalCateg')"><i class="fa fa-cog"></i> CATEGORIAS</a>
+            <a class="btn btn-raised btn-warning" data-toggle="modal" ng-click="showModal('#modalBrands')"><i class="fa fa-cog"></i> MARCAS</a>
+            <a class="btn btn-raised btn-warning" data-toggle="modal" ng-click="showModal('#modalPackings')"><i class="fa fa-cog"></i> MEDIDA DE COMPRA</a>
+            <a class="btn btn-raised btn-warning" data-toggle="modal" ng-click="showModal('#modalMeasu')"><i class="fa fa-cog"></i> MEDIDAD DE DISTRIBUCION</a>
         </div>        
     </div>
 </div>
@@ -30,7 +30,7 @@
             <input type="text" class="form-control" ng-model="resource.search" ng-model-options="{debounce: 1000}" ng-change="resource.get()"
                     placeholder="Escribe...">
             <span class="input-group-btn">
-                <button class="btn btn-default" type="button" ng-click="resource.get()">Buscar</button>
+                <button class="btn btn-raised btn-default" type="button" ng-click="resource.get()">Buscar</button>
             </span>
         </div>
     </div>
@@ -71,8 +71,8 @@
                     <td ng-bind="d.brand" class="hidden-xs"></td>
                     <td>
                         <div class="btn-group">
-                            <a title="Editar" class="btn btn-warning" href="@{{config.editUrl}}/@{{d.id}}"><i class="fa fa-pencil"></i></a>
-                            <a title="Eliminar" class="btn btn-danger" ng-click="resource.delete(d.id)"><i class="fa fa-trash"></i></a>
+                            <a title="Editar" class="btn btn-raised btn-warning" href="@{{config.editUrl}}/@{{d.id}}"><i class="fa fa-pencil"></i></a>
+                            <a title="Eliminar" class="btn btn-raised btn-danger" ng-click="resource.delete(d.id)"><i class="fa fa-trash"></i></a>
                         </div>
                     </td>
                 </tr>
@@ -107,7 +107,7 @@
                 <product-value-crud name-model="packings"></product-value-crud>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+                <button type="button" class="btn btn-raised btn-default" data-dismiss="modal">Cerrar</button>
             </div>
         </div>
     </div>
@@ -123,7 +123,7 @@
                 <product-value-crud name-model="measurements"></product-value-crud>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+                <button type="button" class="btn btn-raised btn-default" data-dismiss="modal">Cerrar</button>
             </div>
         </div>
     </div>
@@ -139,7 +139,7 @@
                 <product-value-crud name-model="categories"></product-value-crud>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+                <button type="button" class="btn btn-raised btn-default" data-dismiss="modal">Cerrar</button>
             </div>
         </div>
     </div>
@@ -155,7 +155,7 @@
                 <product-value-crud name-model="brands"></product-value-crud>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+                <button type="button" class="btn btn-raised btn-default" data-dismiss="modal">Cerrar</button>
             </div>
         </div>
     </div>

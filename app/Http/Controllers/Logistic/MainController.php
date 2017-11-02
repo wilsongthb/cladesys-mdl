@@ -30,6 +30,18 @@ class MainController extends Controller
         if($logistic_theme === 'bootstrap'){
             return $this->bootstrap();
         }
+
+        if($logistic_theme === 'bootstrap-material'){
+            return $this->bootstrapMaterial();
+        }
+
+        if($logistic_theme === 'bootstrap-cosmo'){
+            return $this->bootstrapCosmo();
+        }
+
+        if($logistic_theme === 'bootstrap-lumen'){
+            return $this->bootstrapLumen();
+        }
     }
     /** 
      *  Funcion para obtener los modulos disponibles para el usuario
@@ -171,5 +183,32 @@ class MainController extends Controller
     */
     public function bootstrap(){
         return view('logistic.bootstrap.index', $this->resourcesToView());
+    }
+
+    /**
+    * BOOTSTRAP - MATERIAL
+    */
+    public function bootstrapMaterial(){
+        $rsc = $this->resourcesToView();
+        $rsc['material'] = true;
+
+        // dd($rsc);
+        return view('logistic.bootstrap.index', $rsc);
+    }
+    
+    public function bootstrapCosmo(){
+        $rsc = $this->resourcesToView();
+        $rsc['cosmo'] = true;
+
+        // dd($rsc);
+        return view('logistic.bootstrap.index', $rsc);
+    }
+
+    public function bootstrapLumen(){
+        $rsc = $this->resourcesToView();
+        $rsc['lumen'] = true;
+
+        // dd($rsc);
+        return view('logistic.bootstrap.index', $rsc);
     }
 }

@@ -11,7 +11,7 @@
 </div>
 <div class="row">
     <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
-        <!-- <a ng-href="@{{config.createUrl}}"><button class="btn btn-success"><i class="fa fa-plus"></i> Nuevo</button></a> -->
+        <!-- <a ng-href="@{{config.createUrl}}"><button class="btn btn-raised btn-success"><i class="fa fa-plus"></i> Nuevo</button></a> -->
     </div>
     
     <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
@@ -27,7 +27,7 @@
                 ng-change="rsc.get()"
                 placeholder="Escribe...">
             <span class="input-group-btn">
-                <button class="btn btn-default" type="button" ng-click="rsc.get()">Buscar</button>
+                <button class="btn btn-raised btn-default" type="button" ng-click="rsc.get()">Buscar</button>
             </span>
         </div>
     </div>
@@ -56,8 +56,8 @@
                     <td></td>
                     <td ng-bind="d.measurement"></td>
                     <td>
-                        <a href="@{{config.editUrl}}/@{{d.id}}" title="Cotizar"><button type="button" class="btn btn-default"><i class="fa fa-money"></i> </button></a>
-                        <!-- <button ng-if="d.status === 1" ng-click="rsc.delete(d.id)" type="button" class="btn btn-danger"><i class="fa fa-trash"></i> </button> -->
+                        <a href="@{{config.editUrl}}/@{{d.id}}" title="Cotizar"><button type="button" class="btn btn-raised btn-default"><i class="fa fa-money"></i> </button></a>
+                        <!-- <button ng-if="d.status === 1" ng-click="rsc.delete(d.id)" type="button" class="btn btn-raised btn-danger"><i class="fa fa-trash"></i> </button> -->
                     </td>
                 </tr>
             </tbody>

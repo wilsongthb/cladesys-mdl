@@ -20,7 +20,7 @@
                 <label>Duracion (dias):</label> <input type="text" class="form-control" ng-model="po.fila.duration" required>
             </p>
             <p>
-                <button type="submit" class="btn btn-default">Guardar</button>
+                <button type="submit" class="btn btn-raised btn-default">Guardar</button>
             </p>
         </form>
         

@@ -16,7 +16,7 @@
             <td ng-bind="u.id"></td>
             <td ng-bind="u.name"></td>
             <td>
-                <a class="btn btn-default" ng-click="dialogs.mostrarModalEditarPermisos(u)">
+                <a class="btn btn-raised btn-default" ng-click="dialogs.mostrarModalEditarPermisos(u)">
                     <i class="fa fa-edit"></i> Editar permisos
                 </a>
             </td>
@@ -28,7 +28,7 @@
 
 
 
-<!-- <a class="btn btn-primary" data-toggle="modal" href='#modalUserPermissions'>Trigger modal</a> -->
+<!-- <a class="btn btn-raised btn-primary" data-toggle="modal" href='#modalUserPermissions'>Trigger modal</a> -->
 <div class="modal fade" id="modalUserPermissions">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -40,8 +40,8 @@
                 
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
-                <!-- <button type="button" class="btn btn-primary">Save changes</button> -->
+                <button type="button" class="btn btn-raised btn-default" data-dismiss="modal">Cerrar</button>
+                <!-- <button type="button" class="btn btn-raised btn-primary">Save changes</button> -->
             </div>
         </div>
     </div>

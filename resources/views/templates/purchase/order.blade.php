@@ -49,7 +49,7 @@
                         </table>
                     </div>
                 </div>
-                <!-- <button class="btn btn-success" onclick="imprimir()">Imprimir</button> -->
+                <!-- <button class="btn btn-raised btn-success" onclick="imprimir()">Imprimir</button> -->
             </div>
         </div>
 

@@ -21,7 +21,10 @@ return [
     'user_config' => [
         // valores por defecto de la configuracion de usuario de logistica
         'logistic' => [
-            'theme' => 'bootstrap',
+            // 'theme' => 'bootstrap',
+            // 'theme' => 'bootstrap-material',
+            'theme' => 'bootstrap-lumen',
+            // 'theme' => 'bootstrap-cosmo',
             // 'theme' => 'gentelella',
             // 'theme' => 'mui',
         ]

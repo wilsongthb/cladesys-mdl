@@ -46,7 +46,7 @@
         </div>
         <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
             <br>
-            <a class="btn btn-success" ng-click="image.subir()">Subir Imagén</a>
+            <a class="btn btn-raised btn-success" ng-click="image.subir()">Subir Imagén</a>
         </div>
     </div>
     <div class="row form-group">
@@ -64,7 +64,7 @@
         </div>
     </div>
     <div class="form-group">
-        <button type="submit" class="btn btn-primary">Guardar</button>
+        <button type="submit" class="btn btn-raised btn-primary">Guardar</button>
     </div>
 </form>
 <!-- edit -->

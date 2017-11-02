@@ -11,17 +11,17 @@
                 <button 
                     ng-disabled="det.buttonAdd" 
                     ng-click="det.agregarRequeridos()" 
-                    class="btn btn-primary">
+                    class="btn btn-raised btn-primary">
                     <i class="fa fa-plus" ng-show="!det.buttonAdd"></i>
                     <i class="fa fa-spinner fa-pulse fa-fw" ng-show="det.buttonAdd"></i> 
                     @{{!det.buttonAdd ? 'Agregar Productos Requeridos' : 'Cargando'}} 
                 </button>
                 <a href="<?= url('/logistic/orders/') ?>/print/@{{$routeParams.id}}" target="_blank">
-                    <button class="btn btn-success"><i class="fa fa-print"></i> Imprimir</button>
+                    <button class="btn btn-raised btn-success"><i class="fa fa-print"></i> Imprimir</button>
                 </a>
-                <a href="@{{config.quotationsUrl + '/' + $routeParams.id}} " class="btn btn-warning"><i class="fa fa-money"></i> Cotización</a>
-                <a href="@{{config.comparisonUrl + '/' + $routeParams.id}} " class="btn btn-warning"><i class="fa fa-cubes"></i> Comparación</a>
-                <a href="" class="btn btn-success" ng-click="dialogs.toExcel()"><i class="fa fa-file-excel-o"></i> Exportar en Excel</a>
+                <a href="@{{config.quotationsUrl + '/' + $routeParams.id}} " class="btn btn-raised btn-warning"><i class="fa fa-money"></i> Cotización</a>
+                <a href="@{{config.comparisonUrl + '/' + $routeParams.id}} " class="btn btn-raised btn-warning"><i class="fa fa-cubes"></i> Comparación</a>
+                <a href="" class="btn btn-raised btn-success" ng-click="dialogs.toExcel()"><i class="fa fa-file-excel-o"></i> Exportar en Excel</a>
             </div>
         </div>
         <hr>
@@ -54,7 +54,7 @@
                         <textarea rows="2" ng-model="det.fila.detail" class="form-control"></textarea>
                     </div>
                     <div class="form-group">
-                        <button class="btn btn-success" type="submit">Guardar</button>
+                        <button class="btn btn-raised btn-success" type="submit">Guardar</button>
                     </div>
                 </form>
             </div>
@@ -81,8 +81,8 @@
                             <td ng-bind="d.detail"></td>
                             <td>
                                 <div class="btn-group">
-                                    <button class="btn btn-warning" title="Editar" ng-click="det.edit(d)"><i class="fa fa-pencil"></i> </button>
-                                    <button class="btn btn-danger" title="Eliminar" ng-click="det.delete(d)"><i class="fa fa-remove"></i> </button>
+                                    <button class="btn btn-raised btn-warning" title="Editar" ng-click="det.edit(d)"><i class="fa fa-pencil"></i> </button>
+                                    <button class="btn btn-raised btn-danger" title="Eliminar" ng-click="det.delete(d)"><i class="fa fa-remove"></i> </button>
                                 </div>
                             </td>
                         </tr>

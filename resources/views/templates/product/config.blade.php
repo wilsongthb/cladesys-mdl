@@ -27,7 +27,7 @@
                 ng-change="resource.get()"
                 placeholder="Escribe...">
             <span class="input-group-btn">
-                <button class="btn btn-default" type="button" ng-click="resource.get()">Buscar</button>
+                <button class="btn btn-raised btn-default" type="button" ng-click="resource.get()">Buscar</button>
             </span>
         </div>
     </div>
@@ -68,7 +68,7 @@
         <input type="text" placeholder="Duracion(dias)" class="form-control" ng-model="resource.fila.duration">    
     </div>
     <div class="col-xs-12 col-sm-2 col-md-2 col-lg-2">
-        <button ng-click="resource.post()" class="btn btn-large btn-block btn-success">Guardar</button>
+        <button ng-click="resource.post()" class="btn btn-raised btn-large btn-block btn-success">Guardar</button>
     </div>
 </div>
 
@@ -123,10 +123,10 @@
                     </td>
                     <td>
                         <div class="btn-group">
-                            <a href="" ng-switch-default class="btn btn-warning" ng-click="d.state = 'edit'"><i class="fa fa-cog"></i> </a>
-                            <a href="" ng-click="resource.put(d)" ng-switch-when="edit" class="btn btn-success"><i class="fa fa-save"></i> </a>
-                            <a href="@{{config.editUrl}}/@{{d.products_id}}" type="button" class="btn btn-default"><i class="fa fa-pencil"></i> </a>
-                            <a href="" ng-click="resource.delete(d.id)" type="button" class="btn btn-danger"><i class="fa fa-trash"></i> </a>
+                            <a href="" ng-switch-default class="btn btn-raised btn-warning" ng-click="d.state = 'edit'"><i class="fa fa-cog"></i> </a>
+                            <a href="" ng-click="resource.put(d)" ng-switch-when="edit" class="btn btn-raised btn-success"><i class="fa fa-save"></i> </a>
+                            <a href="@{{config.editUrl}}/@{{d.products_id}}" type="button" class="btn btn-raised btn-default"><i class="fa fa-pencil"></i> </a>
+                            <a href="" ng-click="resource.delete(d.id)" type="button" class="btn btn-raised btn-danger"><i class="fa fa-trash"></i> </a>
                         </div>
                     </td>
                 </tr>
@@ -165,11 +165,11 @@
                 <product-options></product-options>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+                <button type="button" class="btn btn-raised btn-default" data-dismiss="modal">Cerrar</button>
             </div>
         </div>
     </div>
 </div>
-<a class="btn btn-primary" data-toggle="modal" href='#formModal'>Configuracion de Stock</a> -->
+<a class="btn btn-raised btn-primary" data-toggle="modal" href='#formModal'>Configuracion de Stock</a> -->
 @stop
 

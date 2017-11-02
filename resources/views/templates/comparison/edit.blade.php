@@ -9,9 +9,9 @@
         <div class="row">
             <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
                 <h3 class="text-center">COMPARAR PRECIOS</h3>
-                <a href="" class="btn btn-success" ng-click="det.selectMoreCheap()"><i class="fa fa-cubes"></i> Seleccionar mas barato</a>
-                <a href="@{{config.requerimentUrl + '/' + $routeParams.id}} " class="btn btn-warning"><i class="fa fa-cubes"></i> Requerimiento</a>
-                <a href="@{{config.quotationsUrl + '/' + $routeParams.id}} " class="btn btn-warning"><i class="fa fa-cubes"></i> Cotización</a>
+                <a href="" class="btn btn-raised btn-success" ng-click="det.selectMoreCheap()"><i class="fa fa-cubes"></i> Seleccionar mas barato</a>
+                <a href="@{{config.requerimentUrl + '/' + $routeParams.id}} " class="btn btn-raised btn-warning"><i class="fa fa-cubes"></i> Requerimiento</a>
+                <a href="@{{config.quotationsUrl + '/' + $routeParams.id}} " class="btn btn-raised btn-warning"><i class="fa fa-cubes"></i> Cotización</a>
                 <hr>
                 <h4>PRODUCTOS REQUERIDOS</h4>
                 <input type="text" ng-model="det.buscar" class="form-control" placeholder="Buscar">

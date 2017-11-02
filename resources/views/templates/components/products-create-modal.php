@@ -1,4 +1,4 @@
-<button class="btn btn-success" ng-click="create.verForm()"><i class="fa fa-plus"></i> Crear Producto</button>
+<button class="btn btn-raised btn-success" ng-click="create.verForm()"><i class="fa fa-plus"></i> Crear Producto</button>
 <!-- modal -->
 <div class="modal fade" id="product-create-modal">
     <div class="modal-dialog modal-lg">
@@ -41,7 +41,7 @@
                         </div>
                         <div class="col-xs-12 col-sm-6 col-md-4 col-lg-4">
                             <br>
-                            <a class="btn btn-success" ng-click="image.subir()">Subir Imagén</a>
+                            <a class="btn btn-raised btn-success" ng-click="image.subir()">Subir Imagén</a>
                         </div>
                     </div>
                     <div class="row form-group">
@@ -77,8 +77,8 @@
                     
                 </div>
                 <div class="modal-footer">
-                    <button type="submit" class="btn btn-primary">Guardar</button>
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+                    <button type="submit" class="btn btn-raised btn-primary">Guardar</button>
+                    <button type="button" class="btn btn-raised btn-default" data-dismiss="modal">Cerrar</button>
                 </div>
             </form>
         </div>

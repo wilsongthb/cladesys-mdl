@@ -11,7 +11,7 @@
 </div>
 <div class="row">
     <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
-        <a ng-href="@{{config.createUrl}}"><button class="btn btn-success"><i class="fa fa-plus"></i> Nuevo</button></a>
+        <a ng-href="@{{config.createUrl}}"><button class="btn btn-raised btn-success"><i class="fa fa-plus"></i> Nuevo</button></a>
     </div>
     
     <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
@@ -27,7 +27,7 @@
                 ng-change="resource.get()"
                 placeholder="Escribe...">
             <span class="input-group-btn">
-                <button class="btn btn-default" type="button" ng-click="resource.get()">Buscar</button>
+                <button class="btn btn-raised btn-default" type="button" ng-click="resource.get()">Buscar</button>
             </span>
         </div>
     </div>
@@ -63,8 +63,8 @@
                     <td ng-bind="d.total_details"></td>
                     <td>
                         <div class="btn-group">
-                            <a href="@{{config.editUrl}}/@{{d.id}}" class="btn btn-default"><i ng-show="d.status === 1" class="fa fa-pencil"></i><i ng-show="d.status === 2" class="fa fa-eye"></i> </a>
-                            <a ng-show="d.status === 1" ng-click="resource.delete(d.id)" class="btn btn-danger"><i class="fa fa-trash"></i> </a>
+                            <a href="@{{config.editUrl}}/@{{d.id}}" class="btn btn-raised btn-default"><i ng-show="d.status === 1" class="fa fa-pencil"></i><i ng-show="d.status === 2" class="fa fa-eye"></i> </a>
+                            <a ng-show="d.status === 1" ng-click="resource.delete(d.id)" class="btn btn-raised btn-danger"><i class="fa fa-trash"></i> </a>
                         </div>
                     </td>
                 </tr>

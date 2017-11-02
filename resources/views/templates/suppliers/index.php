@@ -5,14 +5,14 @@
             <div class="row">
                 <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
                     <!-- boton enfocado en la carga de la pagina -->
-                    <a href="{{config.urlCreate}}" id="init_focus"><button type="button" class="btn btn-default"><i class="fa fa-plus"></i> Agregar</button></a>
+                    <a href="{{config.urlCreate}}" id="init_focus"><button type="button" class="btn btn-raised btn-default"><i class="fa fa-plus"></i> Agregar</button></a>
                 </div>
                 <div class="pull-right">
                     <div class="form-inline">
                         <div class="form-group">
                             <input type="text" class="form-control" ng-model="buscar" ng-keyup="buscarEnter($event.keyCode)">
                         </div>
-                        <button type="submit" class="btn btn-primary" ng-click="leer()"><i class="fa fa-search"></i> Buscar</button>
+                        <button type="submit" class="btn btn-raised btn-primary" ng-click="leer()"><i class="fa fa-search"></i> Buscar</button>
                     </div>
                 </div>
             </div>
@@ -48,15 +48,15 @@
                         <td ng-bind="r.postal_code"></td>
                         <td ng-bind="r.country"></td>
                         <td ng-bind="r.region"></td> -->
-                        <td><a ng-href="{{r.home_page}}" target="_blank"><button class="btn btn-primary"><i class="fa fa-link"></i></button></a> </td>
+                        <td><a ng-href="{{r.home_page}}" target="_blank"><button class="btn btn-raised btn-primary"><i class="fa fa-link"></i></button></a> </td>
                         <td ng-bind="r.email"></td>
                         <td>
                             <div class="btn-group" role="group" aria-label="...">
-                                <a href="{{config.urlEdit}}/{{r.id}}" type="button" class="btn btn-default"> 
+                                <a href="{{config.urlEdit}}/{{r.id}}" type="button" class="btn btn-raised btn-default"> 
                                     <i class="fa fa-pencil"></i>
                                     Editar
                                 </a>
-                                <button type="button" class="btn btn-danger" ng-click="eliminar(r.id)">
+                                <button type="button" class="btn btn-raised btn-danger" ng-click="eliminar(r.id)">
                                     <i class="fa fa-trash"></i>
                                     Eliminar
                                 </button>
@@ -86,7 +86,7 @@
                 <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3">
                     <div class="input-group">
                         <span class="input-group-btn">
-                            <button class="btn btn-default" type="button">Pagina</button>
+                            <button class="btn btn-raised btn-default" type="button">Pagina</button>
                         </span>
                         <input type="number" class="form-control" ng-model="page" ng-change="leer()">
                     </div><!-- /input-group -->
@@ -111,8 +111,8 @@
                             
                         </div>
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
-                            <button type="button" class="btn btn-danger" ng-click="eliminar()">Confirmar eliminar</button>
+                            <button type="button" class="btn btn-raised btn-default" data-dismiss="modal">Cancelar</button>
+                            <button type="button" class="btn btn-raised btn-danger" ng-click="eliminar()">Confirmar eliminar</button>
                         </div>
                     </div>
                 </div>

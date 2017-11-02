@@ -39,9 +39,7 @@
                         <ui-select ng-model="det.fila.products_id">
                             <ui-select-match ng-show="!det.fila.p_name" placeholder="Escribe para buscar">@{{$select.selected.name}} </ui-select-match>
                             <ui-select-choices repeat="p.id as p in Products.list track by $index" refresh="Products.get($select.search)" refresh-delay="250">
-                                <img src="{{url('')}}@{{p.image_path}} " width="50" alt="IMG">
-                                <span>@{{p.name}}</span>
-                                <small>@{{p.categorie}} - @{{p.packing}} </small>
+                                <product-row product="p"></product-row>
                             </ui-select-choices>
                         </ui-select>
                     </div>
@@ -65,7 +63,7 @@
                     <thead>
                         <tr>
                             <th>ID</th>
-                            <th>Producto</th>
+                            <th class="col-md-4 col-lg-4">Producto</th>
                             <th>Categoria</th>
                             <th>Cantidad</th>
                             <th>Detalle</th>

@@ -707,6 +707,7 @@ const OutputsConfig = {
             name: 'output-details',
             fila: {},
             list: [],
+            loading: false,
             total: function(){
                 let total = 0
                 for(let i in this.list){
@@ -732,16 +733,6 @@ const OutputsConfig = {
                     )
                 }
             },
-            copyToForm: function(fila){
-                // this.fila = {
-                //     ticket_type: fila.ticket_type,
-                //     ticket_number: fila.ticket_number,
-                //     suppliers_id: fila.suppliers_id,
-                // }
-                this.fila.ticket_type = fila.ticket_type
-                this.fila.ticket_number = fila.ticket_number
-                this.fila.suppliers_id = fila.suppliers_id
-            },
             enSoles: function(dinero){
                 return moneyFormatter.format('PEN', dinero)
             },
@@ -766,8 +757,6 @@ const OutputsConfig = {
             //     )
             // },
             getRealPriceId: function(item){
-                
-
                 var input_details_id = item.id
                 this.fila.stock = item.stock
                 this.fila.quantity = 0
@@ -786,6 +775,7 @@ const OutputsConfig = {
                 this.fila.unit_price = this.fila.real_price + ((this.fila.utility/100) * this.fila.real_price)
             },
             save: function(){
+                this.loading = true
                 if(this.fila.id){
                     this.fila.user_id = G.user.id
                     $http.put(G.apiUrl +  '/' + this.name + '/' + this.fila.id, this.fila)
@@ -794,7 +784,7 @@ const OutputsConfig = {
                             activate();
                         }
                     )
-                    this.fila = {}
+                    // this.fila = {}
                 }else{
                     this.fila.user_id = G.user.id
                     this.fila.outputs_id = $routeParams.id
@@ -804,8 +794,9 @@ const OutputsConfig = {
                             activate();
                         }
                     )
-                    this.fila = {}
+                    // this.fila = {}
                 }
+                this.fila = {}
             }
         }
 
@@ -814,6 +805,7 @@ const OutputsConfig = {
         ////////////////
 
         function activate() {
+            $scope.det.loading = false
             $scope.det.fila = {
                 utility: Locations.list[Locations.get()].utility
             } 

@@ -12,26 +12,34 @@ use App\Models\Outputs;
 class OutputDetailsController extends Controller
 {
     /**
+     * SELECT
+     */
+    public function select(){
+        return OutputDetails::
+        select(
+            'od.*',
+            'id.products_id',
+            'p.name AS products_name',
+            'c.value AS products_categorie',
+            DB::raw('(od.unit_price * od.quantity) AS subtotal')
+        )
+        ->from('output_details AS od')
+        ->leftJoin('outputs AS o', 'o.id', '=', 'od.outputs_id')
+        ->leftJoin('input_details AS id', 'id.id', '=', 'od.input_details_id')
+        ->leftJoin('products AS p', 'p.id', '=', 'id.products_id')
+        ->leftJoin('categories AS c', 'c.id', '=', 'p.categories_id');
+    }
+
+    /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
     public function index(Request $request)
     {
-        return OutputDetails::
-            select(
-                'od.*',
-                'id.products_id',
-                'p.name AS products_name',
-                'c.value AS products_categorie',
-                DB::raw('(od.unit_price * od.quantity) AS subtotal')
-            )
-            ->from('output_details AS od')
-            ->leftJoin('outputs AS o', 'o.id', '=', 'od.outputs_id')
-            ->leftJoin('input_details AS id', 'id.id', '=', 'od.input_details_id')
-            ->leftJoin('products AS p', 'p.id', '=', 'id.products_id')
-            ->leftJoin('categories AS c', 'c.id', '=', 'p.categories_id')
+        return $this->select()
             ->where('o.id', $request->id)
+            ->orderBy('od.id', 'DESC')
             ->get();
     }
 

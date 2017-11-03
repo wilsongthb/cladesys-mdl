@@ -7,18 +7,11 @@
 <div class="row" ng-if="rsc.fila.status === 1">
     <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
         <form ng-submit="det.save()">
+            <loading-icon loading="det.saving"></loading-icon>
             <div class="row">
                 <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
                     <div class="form-group" title="[cantidad] Nombre">
                         <label for="">Producto *</label>
-                        <!-- {{--  <select 
-                            ng-model="det.fila.input_details_id" 
-                            class="form-control" 
-                            ng-change="det.getRealPriceId(det.fila.input_details_id)">
-                            <option ng-repeat="i in Inventory.list" ng-value="i.id">
-                                [@{{i.stock}}] @{{i.unit_price}} @{{i.products_name}} 
-                            </option>
-                        </select>  --}} -->
                         <p ng-show="det.fila.id" class="form-control" disabled>
                             <span class="badge" ng-bind="det.fila.stock"></span>
                             <span class="label label-success" ng-bind="det.enSoles(det.fila.unit_price)"></span>

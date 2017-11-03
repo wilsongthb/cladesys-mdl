@@ -469,3 +469,38 @@
         $ctrl.$onDestroy = function() { };
     }
 })(G);
+
+(function() {
+    'use strict';
+
+    // Usage:
+    // 
+    // Creates:
+    // 
+
+    angular
+        .module('logistic')
+        .component('loadingIcon', {
+            template: `
+                <i class="fa fa-spinner fa-pulse fa-fw" ng-show="$ctrl.loading"></i> Cargando
+            `,
+            //templateUrl: 'templateUrl',
+            controller: LoadingIconController,
+            controllerAs: '$ctrl',
+            bindings: {
+                loading: '=',
+            },
+        });
+
+    LoadingIconController.$inject = ['$scope'];
+    function LoadingIconController($scope) {
+        var $ctrl = this;
+        
+
+        ////////////////
+
+        $ctrl.$onInit = function() { };
+        $ctrl.$onChanges = function(changesObj) { };
+        $ctrl.$onDestroy = function() { };
+    }
+})();

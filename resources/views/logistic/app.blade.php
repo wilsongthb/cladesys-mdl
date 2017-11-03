@@ -8,6 +8,8 @@
     <link href="{{asset('/bower_components/angular-bootstrap/ui-bootstrap-csp.css') }} " rel="stylesheet">
     <link href="{{asset('/bower_components/angular-ui-select/dist/select.css') }} " rel="stylesheet">
     <!-- LOGISTIC SCRIPTS -->
+    <script src="{{asset('/js/logistic.vendor.min.js') }}"></script>      
+    {{--      
     <script src="{{asset('/bower_components/angular/angular.js') }} "></script>
     <script src="{{asset('/bower_components/angular-route/angular-route.js') }} "></script>
     <script src="{{asset('/bower_components/angular-bootstrap/ui-bootstrap.js') }} "></script>
@@ -23,6 +25,7 @@
     <script src="{{asset('/bower_components/file-saver/FileSaver.js') }} "></script>
     <script src="{{asset('/bower_components/angular-ui-uploader/dist/uploader.js')}} "></script>
     <script src="{{asset('/bower_components/jquery.floatThead/dist/jquery.floatThead.min.js')}} "></script>
+    --}}
     <!-- MIS SCRIPTS -->
     <script>
         {{--  setTimeout(function() {

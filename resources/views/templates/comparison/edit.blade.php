@@ -33,7 +33,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr ng-repeat="d in det.list | filter: rsc.dialogs.buscarDet">
+                        <tr ng-repeat="d in det.list | filter: det.buscar">
                             <td ng-bind="d.id"></td>
                             <td ng-bind="d.p_name"></td>
                             <td ng-bind="d.quantity" class="text-right"></td>

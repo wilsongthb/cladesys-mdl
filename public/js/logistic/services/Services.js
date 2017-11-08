@@ -199,3 +199,29 @@
         function exposedFn() { }
         }
 })();
+
+(function(G) {
+    'use strict';
+
+    angular
+        .module('logistic')
+        .service('InventoryService', InventoryService);
+
+    InventoryService.$inject = ['$http', 'Locations'];
+    function InventoryService($http, Locations) {
+        this.exposedFn = exposedFn;
+        
+        this.get = function(){
+            $http.get(G.apiUrl + '/inventory-by-location/' + Locations.get())
+            .then(
+                res => {
+                    this.list = res.data
+                }
+            )
+        }
+
+        ////////////////
+
+        function exposedFn() { }
+        }
+})(G);

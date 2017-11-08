@@ -1806,15 +1806,78 @@ const ComparisonConfig = {
         .module('logistic')
         .controller('EzOutputsController', EzOutputsController);
 
-    EzOutputsController.$inject = ['$scope'];
-    function EzOutputsController($scope) {
+    EzOutputsController.$inject = ['$scope', 'InventoryService', '$http', 'Locations'];
+    function EzOutputsController($scope, InventoryService, $http, Locations) {
         var vm = this;
         
+        $scope.Inventory = InventoryService
+
+        $scope.html = {
+            moneyFormatter,
+            showHistory: function(item){
+                $scope.html.item = item
+                $('#history-modal').modal('show')
+                $scope.rsc.getHistory(item.products_id)
+                // $scope.rsc.reg = {}
+            },
+            showKardex: function(item){
+                $('#kardex-modal').modal('show')
+                $scope.html.item = item
+                $scope.rsc.getKardex(item.products_id)
+                // $scope.rsc.reg = {}
+            },
+            registrarUso: function(item){
+                $('#uso-modal').modal('show')
+                $scope.html.item = item
+                $scope.rsc.reg = {
+                    products_id: item.products_id
+                }
+            }
+        }
+
+        $scope.G = G
+
+        $scope.rsc = {
+            reg: {},
+            history: [],
+            kardex: [],
+            getHistory: function(product_id){
+                $http.get(G.apiUrl + '/history-product/' + Locations.get() + '/' + product_id)
+                .then(
+                    res => {
+                        this.history = res.data
+                    }
+                )
+            },
+            getKardex: function(product_id){
+                $http.get(G.apiUrl + '/kardex/' + Locations.get() + '/' + product_id)
+                .then(
+                    res => {
+                        this.kardex = res.data
+                    }
+                )
+            },
+            usoFinal: function(){
+                this.reg.locations_id = Locations.get()
+                $http.put(G.apiUrl + '/final-use', this.reg)
+                .then(
+                    res => {
+                        // console.log(res)
+                        activate()
+                        $('#uso-modal').modal('hide')
+                        
+                    }
+                )
+                this.reg = {}
+            }
+        }
 
         activate();
 
         ////////////////
 
-        function activate() { }
+        function activate() { 
+            $scope.Inventory.get()
+        }
     }
 })(G);

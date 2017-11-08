@@ -31,7 +31,6 @@ Route::group(['middleware' => 'auth'], function(){
         Route::get('/instruments/{a?}/{b?}/{c?}', 'InstrumentsController@index');
         Route::get('/lab', function(){ return view('lab.index');});
     });
-    
     Route::group([
         'prefix' => 'rsc',
         'middleware' => 'user-modules'
@@ -76,12 +75,21 @@ Route::group(['middleware' => 'auth'], function(){
         Route::resource('user-modules', 'UserModulesController');
         Route::get('user-locations/all', 'Logistic\UserLocationsController@getAllLocations');
         Route::resource('user-locations', 'Logistic\UserLocationsController');
+        Route::get('inventory-by-location/{locations_id}', 'Logistic\InventoryController@inventoryByLocation');
+        Route::get('history-product/{locations_id}/{product_id}/{showDeletes?}', 'Logistic\InventoryController@historyProduct');
+        Route::get('kardex/{locations_id}/{product_id}/{showDeletes?}', 'Logistic\InventoryController@kardex');
+        Route::put('final-use', 'Logistic\OutputsController@finalUseReq');
     });
 });
 
-use App\Http\Controllers\Logistic\InputDetailsController;
-use App\Models\Inputs;
+use App\Http\Controllers\Logistic\InventoryController;
+use App\Http\Controllers\Logistic\OutputsController;
 
-Route::get('/test', function (Request $request) {
-    // dd(InputDetailsController::getDetailsFrom(13));
+Route::get('/test', function(){
+    $locations_id = 6;
+    $products_id = 339;
+    // $i = new InventoryController;
+    // $i->stockFromInputDetails($locations_id, $products_id);
+    $o = new OutputsController;
+    $o->finalUse($locations_id, $products_id, 4);
 });

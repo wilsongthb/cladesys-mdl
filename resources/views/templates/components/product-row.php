@@ -1,4 +1,5 @@
 <span title="{{$ctrl.product.name}}">
+    <span class="label label-default" ng-bind="$ctrl.product.id"></span>
     <span ng-bind="$ctrl.product.name"></span>
     <br>
     <span class="label label-default" ng-bind="$ctrl.product.brand"></span>

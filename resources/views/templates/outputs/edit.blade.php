@@ -1,7 +1,6 @@
 
 @extends('templates.layouts.container')
 
-
 @section('content')
 <h3 class="text-center">EDITAR SALIDA</h3>
 <div class="row" ng-if="rsc.fila.status === 1">

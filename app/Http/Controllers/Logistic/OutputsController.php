@@ -8,10 +8,100 @@ use App\Models\Outputs;
 use App\Models\OutputDetails;
 use App\Models\InputDetails;
 use App\Models\Inputs;
+use App\Http\Controllers\Logistic\InventoryController;
 use Auth;
 
 class OutputsController extends Controller
 {
+    /**
+     * FINAL USE REQ
+     * el mismo FINAL USE pero recibe como parametro el Request
+     */
+    public function finalUseReq(Request $request){
+        // print_r($request->all());
+        return $this->finalUse(
+            $request->get('locations_id'),
+            $request->get('products_id'),
+            $request->get('quantity')
+        );
+    }
+
+    /**
+     * FINAL USE
+     */
+    public function finalUse($locations_id, $products_id, $quantity = 0){
+        $inventory = new InventoryController;
+        $inputs = $inventory->stockFromInputDetails($locations_id, $products_id);
+
+        // test
+        $original = $inventory->stockFromInputDetails($locations_id, $products_id);
+        $orgQuantity = $quantity;
+        
+        // calcula cuanto quitar de cada input_details
+        $outputs = [];
+        foreach ($inputs as $key => &$value) {
+            if($quantity >= $value->stock){
+                $temp = [
+                    'input_details_id' => $value->id,
+                    'quantity' => $value->stock
+                ];
+                if($temp['quantity'] !== 0){
+                    $outputs[] = $temp;
+                }
+                $quantity = $quantity - $value->stock;
+                $value->stock = 0;
+            }else{
+                $temp = [
+                    'input_details_id' => $value->id,
+                    'quantity' => $quantity
+                ];
+                if($temp['quantity'] !== 0){
+                    $outputs[] = $temp;
+                }
+                $value->stock = $value->stock - $quantity;
+                $quantity = 0;
+                break;
+            }
+        }
+
+        // exit(print_r([
+        //     $quantity,
+        //     $inputs,
+        //     $outputs
+        // ]));
+
+
+        $output = null;
+        if(count($outputs) > 0){
+            $output = new Outputs;
+            $output->user_id = auth()->user()->id;
+            $output->type = 1;
+            $output->locations_id = $locations_id;
+            $output->observation = "Generado con finalUse";
+            $output->save();
+            foreach ($outputs as $key => &$value) {
+                $input_detail = InputDetails::find($value['input_details_id']);
+                $output_detail = new OutputDetails;
+                $output_detail->user_id = auth()->user()->id;
+                $output_detail->unit_price = $input_detail->unit_price;
+                $output_detail->quantity = $value['quantity'];
+                $output_detail->input_details_id = $value['input_details_id'];
+                $output_detail->outputs_id = $output->id;
+                $output_detail->save();
+                $value = $output_detail;
+            }
+        }
+        return "ok";
+
+        // dd(
+        //     $orgQuantity,
+        //     $quantity,
+        //     $original,
+        //     $inputs,
+        //     $output,
+        //     $outputs
+        // );
+    }
     /**
      * SEND
      * 

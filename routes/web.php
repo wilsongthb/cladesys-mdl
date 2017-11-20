@@ -64,6 +64,12 @@ Route::group(['middleware' => 'auth'], function(){
         Route::get('quotations/select-suppliers', 'Logistic\QuotationsController@selectSuppliers');
         Route::Resource('quotations', 'Logistic\QuotationsController');
         Route::Resource('images', 'ImagesController');
+        Route::get('user-locations/all', 'Logistic\UserLocationsController@getAllLocations');
+        Route::resource('user-locations', 'Logistic\UserLocationsController');
+        Route::get('inventory-by-location/{locations_id}', 'Logistic\InventoryController@inventoryByLocation');
+        Route::get('history-product/{locations_id}/{product_id}/{showDeletes?}', 'Logistic\InventoryController@historyProduct');
+        Route::get('kardex/{locations_id}/{product_id}/{showDeletes?}', 'Logistic\InventoryController@kardex');
+        Route::post('final-use', 'Logistic\OutputsController@finalUseReq');
         // LABORATORY
         Route::Resource('lab-encharged-jobs', 'Lab\LabEnchargedJobsController');
         // CLINIC
@@ -73,12 +79,6 @@ Route::group(['middleware' => 'auth'], function(){
         // CREDENTIALS
         Route::resource('users', 'UsersController');
         Route::resource('user-modules', 'UserModulesController');
-        Route::get('user-locations/all', 'Logistic\UserLocationsController@getAllLocations');
-        Route::resource('user-locations', 'Logistic\UserLocationsController');
-        Route::get('inventory-by-location/{locations_id}', 'Logistic\InventoryController@inventoryByLocation');
-        Route::get('history-product/{locations_id}/{product_id}/{showDeletes?}', 'Logistic\InventoryController@historyProduct');
-        Route::get('kardex/{locations_id}/{product_id}/{showDeletes?}', 'Logistic\InventoryController@kardex');
-        Route::put('final-use', 'Logistic\OutputsController@finalUseReq');
     });
 });
 
@@ -87,9 +87,15 @@ use App\Http\Controllers\Logistic\OutputsController;
 
 Route::get('/test', function(){
     $locations_id = 6;
-    $products_id = 339;
-    // $i = new InventoryController;
-    // $i->stockFromInputDetails($locations_id, $products_id);
-    $o = new OutputsController;
-    $o->finalUse($locations_id, $products_id, 4);
+    // $products_id = 339;
+
+    $i = new InventoryController;
+
+    dd(
+        "INVENTORY GROUPED",
+        $i->indexGrouped($locations_id),
+        "INVENTORY BY LOCATION",
+        $i->inventoryByLocation($locations_id)
+    );
+    // $i->indexGrouped($locations_id);
 });

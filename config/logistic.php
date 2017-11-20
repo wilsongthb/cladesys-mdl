@@ -46,7 +46,7 @@ return [
             'categorie' => 'distribution',
         ],
         'ez-outputs' => [
-            'title' => 'EZ Salida',
+            'title' => 'Uso Final',
             'description' => 'Modulo para registrar productos que salen del almacén de manera mucho mas sencilla',
             'categorie' => 'distribution',
         ],
@@ -131,7 +131,7 @@ return [
     'client' => [
         'per_page' => 8,
         'location' => [
-            'default_id' => 1,
+            'default_id' => false,
             'type' => [
                 1 => 'ALMACEN',
                 2 => 'SUCURSAL',

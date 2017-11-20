@@ -104,8 +104,10 @@
                 res => {
                     // this.list = {}
                     this.list = []
+                    // this.list[0] = res.data
                     this.list[res.data.id] = res.data
-
+                    this.one = res.data
+                    // console.log(this)
                 }
             )
         }

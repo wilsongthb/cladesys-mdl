@@ -9,7 +9,7 @@
             <loading-icon loading="det.saving"></loading-icon>
             <div class="row">
                 <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-                    <div class="form-group" title="[cantidad] Nombre">
+                    <div class="form-group">
                         <label for="">Producto *</label>
                         <p ng-show="det.fila.id" class="form-control" disabled>
                             <span class="badge" ng-bind="det.fila.stock"></span>
@@ -21,13 +21,13 @@
                             on-select="det.getRealPriceId($item)">
                             <ui-select-match  ng-show="!det.fila.id"
                                 placeholder="Escribe para buscar">
-                                [@{{$select.selected.stock}}] [@{{det.enSoles($select.selected.unit_price)}}] @{{$select.selected.products_name}}
+                                [@{{$select.selected.stock}}] [@{{det.enSoles($select.selected.unit_price)}}] @{{$select.selected.product.name}}
                             </ui-select-match>
                             <ui-select-choices
                                 repeat="i.id as i in Inventory.list | filter : $select.search">
-                                <span class="badge" ng-bind="i.stock"></span>
-                                <span class="label label-success" ng-bind="det.enSoles(i.unit_price)"></span>
-                                <span ng-bind="i.products_name"></span>
+                                <span class="badge" title="Stock" ng-bind="'Stock: ' + i.stock"></span>
+                                <span class="label label-danger" title="Valor" ng-bind="'Valor: ' + det.enSoles(i.unit_price)"></span>
+                                <product-row product="i.product"></product-row>
                             </ui-select-choices>
                         </ui-select>
                     </div>
@@ -84,13 +84,14 @@
 
 <div class="row">
     <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-        
+        <div class="form-group">
+            <input type="text" class="form-control" ng-model="buscar" placeholder="Buscar...">
+        </div>
         <table class="table table-condensed table-hover table-bordered">
             <thead>
                 <tr>
                     <th>ID</th>
                     <th>PRODUCTO</th>
-                    <th>CATEGORIA</th>
                     <th>CANTIDAD</th>
                     <th>PRECIO</th>
                     <!-- <th>PROVEEDOR</th>
@@ -100,10 +101,12 @@
                 </tr>
             </thead>
             <tbody>
-                <tr ng-repeat="id in det.list">
+                <tr ng-repeat="id in det.list | filter: buscar">
                     <td ng-bind="id.id"></td>
-                    <td title="@{{id.products_name}}" ng-bind="id.products_name"></td>
-                    <td ng-bind="id.products_categorie"></td>
+                    <td>
+                        <product-row product="id.product"></product-row>
+                    </td>
+                    <!-- <td ng-bind="id.products_categorie"></td> -->
                     <td ng-bind="id.quantity"></td>
                     <td class="text-right" ng-bind="det.enSoles(id.unit_price)"></td>
                     <!-- <td ng-bind="id.suppliers_company_name"></td>
@@ -112,8 +115,8 @@
                     <td class="text-right" ng-bind="det.enSoles(id.subtotal)"></td>
                     <td ng-if="rsc.fila.status === 1">
                         <!-- <i title="Copiar" ng-click="det.copyToForm(id)" class="fa fa-copy"></i> -->
-                        <i title="Editar" ng-click="det.edit(id)" class="fa fa-edit"></i>
-                        <i title="Eliminar" ng-click="det.delete(id.id)" class="fa fa-trash"></i>
+                        {{--  <i title="Editar" ng-click="det.edit(id)" class="fa fa-edit"></i>  --}}
+                        <a href="" class="btn btn-default" ng-click="det.delete(id.id)"><i title="Eliminar" class="fa fa-trash"></i></a>
                     </td>
                 </tr>
                 <tr>

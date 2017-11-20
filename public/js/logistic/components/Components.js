@@ -504,3 +504,59 @@
         $ctrl.$onDestroy = function() { };
     }
 })();
+
+(function(G) {
+    'use strict';
+
+    // Usage:
+    // 
+    // Creates:
+    // 
+
+    angular
+        .module('logistic')
+        .component('kardexProduct', {
+            // template:'htmlTemplate',
+            templateUrl: G.url + '/view/components.kardex.html',
+            controller: kardexProductController,
+            controllerAs: '$ctrl',
+            bindings: {
+                product: '=',
+                productId: '='
+            },
+        });
+
+    kardexProductController.$inject = ['$scope', '$http', 'Locations', 'Products'];
+    function kardexProductController($scope, $http, Locations, Products) {
+        var $ctrl = this;
+        
+        $scope.rsc = {
+            kardex: [],
+            getKardex: function(){
+                $http.get(G.apiUrl + '/kardex/' + Locations.get() + '/' + $scope.product_id)
+                .then(
+                    res => {
+                        this.kardex = res.data
+                        if(res.data.length === 0) this.msj = 'No hay movimientos registrados'
+                    }
+                )
+            }
+        }
+
+        ////////////////
+
+        $ctrl.$onInit = function() { 
+            setTimeout(function() {
+                console.log($ctrl)
+                $scope.product_id = ($ctrl.productId) ? $ctrl.productId : $ctrl.product.id
+                $scope.rsc.getKardex()
+                $scope.Products = Products
+                if(!$ctrl.product){
+                    Products.getOne($scope.product_id)
+                }
+            }, 1000);
+        };
+        $ctrl.$onChanges = function(changesObj) { };
+        $ctrl.$onDestroy = function() { };
+    }
+})(G);

@@ -4,7 +4,7 @@
 
 @section('content')
 <div class="form-group">
-    <input type="text" ng-model="buscar" class="form-control">    
+    <input type="text" ng-model="buscar" class="form-control">
 </div>
 <table class="table table-hover">
     <thead>
@@ -117,8 +117,8 @@
                     <tbody>
                         <tr ng-repeat="k in rsc.kardex">
                             <td>
-                                <a href="@{{G.appUrl + '/inputs/edit/' + k.i_id}}" target="blank" ng-bind="k.i_id"></a>
-                                <a href="@{{G.appUrl + '/outputs/edit/' + k.o_id}}" target="blank" ng-bind="k.o_id"></a>
+                                <a ng-show="k.type === 'ENTRADA'" href="@{{G.appUrl + '/inputs/edit/' + k.h_id}}" target="blank" ng-bind="k.h_id"></a>
+                                <a ng-show="k.type === 'SALIDA'" href="@{{G.appUrl + '/outputs/edit/' + k.h_id}}" target="blank" ng-bind="k.h_id"></a>
                             </td>
                             <td ng-bind="k.datetime"></td>
                             <td class="text-right" ng-bind="k.input_quantity"></td>

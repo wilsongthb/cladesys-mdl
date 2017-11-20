@@ -932,6 +932,21 @@ const OutputsConfig = {
         $scope.Locations = Locations
 
         $scope.G = G
+
+        $scope.html = {
+            kardexModal: {
+                show: function(product){
+                    $('#kardex-modal').modal('show')
+                    this.product = product
+                    console.log(this)
+                },
+            }
+        }
+
+        $('#kardex-modal').on('hidden.bs.modal', function(){
+            console.log('jaja')
+            $scope.html.kardexModal.product = false
+        })
         
         $scope.rsc = {
             agrupar: true,
@@ -1859,7 +1874,7 @@ const ComparisonConfig = {
             },
             usoFinal: function(){
                 this.reg.locations_id = Locations.get()
-                $http.put(G.apiUrl + '/final-use', this.reg)
+                $http.post(G.apiUrl + '/final-use', this.reg)
                 .then(
                     res => {
                         // console.log(res)

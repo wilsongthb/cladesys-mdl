@@ -13,8 +13,7 @@
                 <tr>
                     <th>UBICACION</th>
                     <th>ID DE ENTRADA</th>
-                    <th>Nombre</th>
-                    <th>Categoria</th>
+                    <th>Producto</th>
                     <th>Cantidad Ingresada</th>
                     <th>Fecha de Entrada</th>
                     <th>Total salidas</th>
@@ -26,10 +25,11 @@
                 <tr ng-repeat="l in rsc.list | filter: buscar">
                     <td ng-bind="l.locations_name"></td>
                     <td ng-bind="l.id"></td>
-                    <td ng-bind="l.products_name"></td>
-                    <td ng-bind="l.p_categorie"></td>
+                    <td>
+                        <product-row product="l.product"></product-row>
+                    </td>
                     <td ng-bind="l.quantity"></td>
-                    <td ng-bind="l.created_at"></td>
+                    <td ng-bind="l.id_last_time"></td>
                     <td ng-bind="l.od_total"></td>
                     <td ng-bind="l.od_last_time"></td>
                     <td ng-bind="l.stock"></td>

@@ -8,6 +8,7 @@ use App\Models\OutputDetails;
 use App\Models\InputDetails;
 use DB;
 use App\Models\Outputs;
+use App\Http\Controllers\Logistic\InventoryController;
 
 class OutputDetailsController extends Controller
 {
@@ -37,10 +38,15 @@ class OutputDetailsController extends Controller
      */
     public function index(Request $request)
     {
-        return $this->select()
+        $res = $this->select()
             ->where('o.id', $request->id)
             ->orderBy('od.id', 'DESC')
             ->get();
+
+        $inv = new InventoryController;
+        $inv->insertProducts($res);
+
+        return $res;
     }
 
     /**

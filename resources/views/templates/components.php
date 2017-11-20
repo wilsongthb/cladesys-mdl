@@ -3,7 +3,9 @@
     <input type="text" ng-model="resource.myFactory.id">
     <pre>{{resource}} </pre> -->
 
-    <product-row product="Products.list[0]"></product-row>
+    <!-- <product-row product="Products.list[0]"></product-row> -->
+    <!-- <kardex-product product="Products.list[0]"></kardex-product> -->
+    <kardex-product product-id="Products.list[0].id"></kardex-product>
 </div>
 
 <!-- <div ng-controller="Ctrl2Controller">
@@ -20,3 +22,4 @@
 
 
 
+<!-- <kardex-product product-id="286"></kardex-product> -->

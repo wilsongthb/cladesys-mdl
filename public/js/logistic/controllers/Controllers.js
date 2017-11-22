@@ -716,6 +716,7 @@ const OutputsConfig = {
             fila: {},
             list: [],
             loading: false,
+            recalcularPrecio: true,
             reestablecerPrecios: function(){
                 if(confirm('Esta seguro(a)')){
                     $http.put(G.apiUrl + '/outputs/reeboot-prices', {
@@ -790,7 +791,13 @@ const OutputsConfig = {
                 )
             },
             calculateUnitPrice: function(){
-                this.fila.unit_price = this.fila.real_price + ((this.fila.utility/100) * this.fila.real_price)
+                if(this.fila.utility && this.recalcularPrecio){
+                    if(this.fila.unit_price){
+                        this.fila.unit_price = parseFloat(this.fila.unit_price) + parseFloat((this.fila.utility/100) * this.fila.unit_price)
+                    }else{
+                        this.fila.unit_price = this.fila.real_price + ((this.fila.utility/100) * this.fila.real_price)
+                    }
+                }
             },
             save: function(){
                 this.loading = true

@@ -16,14 +16,16 @@ use Auth;
 class OutputsController extends Controller
 {
     public function toUnlock($outputs_id){
-        $output = Outputs::find($outputs_id);
-        $output->status = true;
-
-        if($output->type === 2){
-            Inputs::where('outputs_id', $outputs_id)->delete();
-        }
-
-        $output->save();
+        // if(auth()->user()->id === 1){
+            $output = Outputs::find($outputs_id);
+            $output->status = true;
+    
+            if($output->type === 2){
+                Inputs::where('outputs_id', $outputs_id)->delete();
+            }
+    
+            $output->save();
+        // }
     }
     /**
      * REESTABLECER PRECIOS

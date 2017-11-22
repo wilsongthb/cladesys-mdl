@@ -56,6 +56,7 @@
                     <div class="col-xs-12 col-sm-4 col-md-3 col-lg-3">
                         <div class="form-group">
                             <label for="">Utilidad *</label>
+                            <input type="checkbox" ng-model="det.recalcularPrecio"> Autorecalcular
                             <input type="text" ng-model="det.fila.utility" required class="form-control" ng-change="det.calculateUnitPrice()">
                         </div>
                     </div>
@@ -63,7 +64,7 @@
                         <div class="form-group">
                             <label>Precio Unitario *</label>
                             <div class="input-group">
-                                <input type="text" ng-model="det.fila.unit_price" class="form-control" required>
+                                <input type="text" ng-model="det.fila.unit_price" class="form-control" ng-change="det.calculateUnitPrice()" ng-model-options="{ debounce: 1000 }" required>
                                 <div class="input-group-addon">@{{det.enSoles(det.fila.unit_price)}}</div>
                             </div>
                         </div>

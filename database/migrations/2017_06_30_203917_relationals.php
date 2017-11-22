@@ -21,7 +21,7 @@ class Relationals extends Migration
             $table->foreign('user_id')->references('id')->on('users');
             
             $table->string('name');
-            $table->string('code', '128');
+            $table->string('code', '128')->nullable();
             $table->string('image_path')->nullable();
             $table->tinyInteger('level')->default('1');
             $table->integer('units')->default('1');

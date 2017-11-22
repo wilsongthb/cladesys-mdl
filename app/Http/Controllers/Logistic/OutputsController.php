@@ -8,11 +8,53 @@ use App\Models\Outputs;
 use App\Models\OutputDetails;
 use App\Models\InputDetails;
 use App\Models\Inputs;
+use App\Models\Locations;
 use App\Http\Controllers\Logistic\InventoryController;
+use App\Http\Controllers\Logistic\OutputDetailsController;
 use Auth;
 
 class OutputsController extends Controller
 {
+    public function toUnlock($outputs_id){
+        $output = Outputs::find($outputs_id);
+        $output->status = true;
+
+        if($output->type === 2){
+            Inputs::where('outputs_id', $outputs_id)->delete();
+        }
+
+        $output->save();
+    }
+    /**
+     * REESTABLECER PRECIOS
+     * Reestablece los precios a los orginales
+     * @param Int Output_ID
+     */
+    public function reebootPrices($outputs_id){
+        $output_details = OutputDetailsController::select($outputs_id);
+        $output = Outputs::find($outputs_id);
+        $location = Locations::find($output->locations_id);
+
+        foreach ($output_details as $key => $value) {
+            $input_detail = InputDetails::find($value->input_details_id);
+            $temp_price = $value->unit_price;
+            // $value->real_unit_price = $value->unit_price;
+            if(!$value->real_unit_price) $value->real_unit_price = $value->unit_price;
+            $value->unit_price = $input_detail->unit_price + (($input_detail->unit_price / 100) * $location->utility);
+            $value->save();
+        }
+
+        return $output_details;
+    }
+
+    /**
+     * PSEUDO FUNCION DE REEBOOT - PRICES
+     * @param Request
+     */
+    public function reebootPricesReq(Request $request){
+        return $this->reebootPrices($request->outputs_id);
+    }
+
     /**
      * FINAL USE REQ
      * el mismo FINAL USE pero recibe como parametro el Request

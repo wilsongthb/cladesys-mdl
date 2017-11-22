@@ -670,6 +670,14 @@ const OutputsConfig = {
         
         $scope.rsc = {
             fila: {},
+            desbloquear: function(){
+                if(confirm('Desbloquear registro? \nEsto eliminara la entrada relacionada de ser esta una distribucion')){
+                    $http.put(G.apiUrl + '/outputs/to-unlock/' + $routeParams.id)
+                    .then(
+                        res => activate()
+                    )
+                }
+            },
             get: function(){
                 $http.get(G.apiUrl + '/' + Config.name + '/' + $routeParams.id).then(
                     res => {
@@ -708,6 +716,16 @@ const OutputsConfig = {
             fila: {},
             list: [],
             loading: false,
+            reestablecerPrecios: function(){
+                if(confirm('Esta seguro(a)')){
+                    $http.put(G.apiUrl + '/outputs/reeboot-prices', {
+                        outputs_id: $routeParams.id
+                    })
+                    .then(
+                        res => activate()
+                    )
+                }
+            },
             total: function(){
                 let total = 0
                 for(let i in this.list){

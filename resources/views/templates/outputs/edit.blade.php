@@ -3,10 +3,18 @@
 
 @section('content')
 <h3 class="text-center">EDITAR SALIDA</h3>
+
+<div class="row">
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 form-group">
+        <a href="" class="btn btn-default" ng-click="det.reestablecerPrecios()"><i class="fa fa-default"></i> Reestablecer Precios</a>
+        <a ng-if="rsc.fila.status !== 1" href="" class="btn btn-default" ng-click="rsc.desbloquear()"><i class="fa fa-unlock"></i> Desbloquear</a>
+        <!-- <a href="" class="btn btn-default" ng-click="rsc.desbloquear()"><i class="fa fa-unlock"></i> Desbloquear</a> -->
+    </div>
+</div>
+
 <div class="row" ng-if="rsc.fila.status === 1">
     <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
         <form ng-submit="det.save()">
-            <loading-icon loading="det.saving"></loading-icon>
             <div class="row">
                 <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
                     <div class="form-group">
@@ -106,21 +114,15 @@
                     <td>
                         <product-row product="id.product"></product-row>
                     </td>
-                    <!-- <td ng-bind="id.products_categorie"></td> -->
                     <td ng-bind="id.quantity"></td>
                     <td class="text-right" ng-bind="det.enSoles(id.unit_price)"></td>
-                    <!-- <td ng-bind="id.suppliers_company_name"></td>
-                    <td ng-bind="config.ticket.type[id.ticket_type]"></td>
-                    <td ng-bind="id.ticket_number"></td> -->
                     <td class="text-right" ng-bind="det.enSoles(id.subtotal)"></td>
                     <td ng-if="rsc.fila.status === 1">
-                        <!-- <i title="Copiar" ng-click="det.copyToForm(id)" class="fa fa-copy"></i> -->
-                        {{--  <i title="Editar" ng-click="det.edit(id)" class="fa fa-edit"></i>  --}}
                         <a href="" class="btn btn-default" ng-click="det.delete(id.id)"><i title="Eliminar" class="fa fa-trash"></i></a>
                     </td>
                 </tr>
                 <tr>
-                    <td colspan="4"></td>
+                    <td colspan="3"></td>
                     <th>TOTAL</th>
                     <td class="text-right" ng-bind="det.enSoles(det.total())"></td>
                 </tr>

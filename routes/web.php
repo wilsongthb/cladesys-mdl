@@ -47,6 +47,8 @@ Route::group(['middleware' => 'auth'], function(){
         Route::resource('inputs', 'Logistic\InputsController');
         Route::resource('input-details', 'Logistic\InputDetailsController');
         Route::post('outputs/send/{id}', 'Logistic\OutputsController@send');
+        Route::put('outputs/to-unlock/{outputs_id}', 'Logistic\OutputsController@toUnlock');
+        Route::put('outputs/reeboot-prices', 'Logistic\OutputsController@reebootPricesReq');
         Route::resource('outputs', 'Logistic\OutputsController');
         Route::resource('output-details', 'Logistic\OutputDetailsController');
         Route::resource('requeriments', 'Logistic\RequerimentsController');

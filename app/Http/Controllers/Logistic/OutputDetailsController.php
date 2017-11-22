@@ -15,8 +15,8 @@ class OutputDetailsController extends Controller
     /**
      * SELECT
      */
-    public function select(){
-        return OutputDetails::
+    public static function select($outputs_id = false){
+        $QueryBuilder = OutputDetails::
         select(
             'od.*',
             'id.products_id',
@@ -29,6 +29,12 @@ class OutputDetailsController extends Controller
         ->leftJoin('input_details AS id', 'id.id', '=', 'od.input_details_id')
         ->leftJoin('products AS p', 'p.id', '=', 'id.products_id')
         ->leftJoin('categories AS c', 'c.id', '=', 'p.categories_id');
+
+        if($outputs_id){
+            return $QueryBuilder->where('o.id', $outputs_id)->get();
+        }
+        
+        return $QueryBuilder;
     }
 
     /**
@@ -80,7 +86,7 @@ class OutputDetailsController extends Controller
         $fila->unit_price = ($output->type === 1) ? $inputDetail->unit_price : $request->unit_price;
         // $fila->unit_price = $request->unit_price;
         // $fila->unit_price = isset($request->unit_price) ? $request->unit_price : '';
-        // $fila->real_unit_price = 
+        $fila->real_unit_price = ($output->type === 1) ? $inputDetail->unit_price : $request->unit_price;
         $fila->quantity = $request->quantity;
         $fila->input_details_id = $request->input_details_id;
         $fila->outputs_id = $request->outputs_id;

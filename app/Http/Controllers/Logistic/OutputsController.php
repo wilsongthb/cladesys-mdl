@@ -41,7 +41,7 @@ class OutputsController extends Controller
             $input_detail = InputDetails::find($value->input_details_id);
             $temp_price = $value->unit_price;
             // $value->real_unit_price = $value->unit_price;
-            if(!$value->real_unit_price) $value->real_unit_price = $value->unit_price;
+            // if(!$value->real_unit_price) $value->real_unit_price = $value->unit_price;
             $value->unit_price = $input_detail->unit_price + (($input_detail->unit_price / 100) * $location->utility);
             $value->save();
         }

@@ -737,8 +737,6 @@ const OutputsConfig = {
             },
             edit: function(fila){
                 this.fila = fila
-                this.fila.expiration = new Date(this.fila.expiration)
-                this.fila.fabrication = new Date(this.fila.fabrication)
             },
             delete: function(id){
                 let msj = 'Eliminar el registro con id: ' 
@@ -767,18 +765,12 @@ const OutputsConfig = {
                     }
                 )
             },
-            // getRealPrice: function(products_id){
-            //     $http.get(G.apiUrl + '/real-price/' + Locations.get() + '/' + products_id)
-            //     .then(
-            //         res => {
-            //             this.fila.real_price = res[0].real_price
-            //         }
-            //     )
-            // },
+
             getRealPriceId: function(item){
                 var input_details_id = item.id
                 this.fila.stock = item.stock
                 this.fila.quantity = 0
+                this.fila.real_unit_price = item.unit_price
                 // console.log(input_details_id)
                 // return 
 
@@ -791,11 +783,12 @@ const OutputsConfig = {
                 )
             },
             calculateUnitPrice: function(){
+                // console.log('ja')
                 if(this.fila.utility && this.recalcularPrecio){
                     if(this.fila.unit_price){
                         this.fila.unit_price = parseFloat(this.fila.unit_price) + parseFloat((this.fila.utility/100) * this.fila.unit_price)
                     }else{
-                        this.fila.unit_price = this.fila.real_price + ((this.fila.utility/100) * this.fila.real_price)
+                        this.fila.unit_price = parseFloat(this.fila.real_price) + parseFloat(((this.fila.utility/100) * this.fila.real_price))
                     }
                 }
             },

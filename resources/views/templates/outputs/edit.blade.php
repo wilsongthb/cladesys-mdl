@@ -6,7 +6,7 @@
 
 <div class="row">
     <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 form-group">
-        <a href="" class="btn btn-default" ng-click="det.reestablecerPrecios()"><i class="fa fa-default"></i> Reestablecer Precios</a>
+        <a href="" class="btn btn-default" ng-click="det.reestablecerPrecios()"><i class="fa fa-asterisk"></i> Reestablecer Precios</a>
         <a ng-if="rsc.fila.status !== 1" href="" class="btn btn-default" ng-click="rsc.desbloquear()"><i class="fa fa-unlock"></i> Desbloquear</a>
         <!-- <a href="" class="btn btn-default" ng-click="rsc.desbloquear()"><i class="fa fa-unlock"></i> Desbloquear</a> -->
     </div>
@@ -70,7 +70,6 @@
                         </div>
                     </div>
                 </div>
-                
             </div>
             <div class="row">
                 <div class="col-xs-12 col-sm-4 col-md-3 col-lg-3">
@@ -119,6 +118,7 @@
                     <td class="text-right" ng-bind="det.enSoles(id.unit_price)"></td>
                     <td class="text-right" ng-bind="det.enSoles(id.subtotal)"></td>
                     <td ng-if="rsc.fila.status === 1">
+                        <a href="" class="btn btn-default" ng-click="det.edit(id)"><i class="fa fa-edit"></i> </a>
                         <a href="" class="btn btn-default" ng-click="det.delete(id.id)"><i title="Eliminar" class="fa fa-trash"></i></a>
                     </td>
                 </tr>

@@ -8,6 +8,8 @@
                 <i class="fa fa-plus"></i> Agregar Productos</a>
             <button class="btn btn-raised btn-info" ng-click="resource.lock()">
                 <i class="fa fa-lock"></i> Bloquear Edicion</button>
+            <a href="" class="btn btn-default" ng-click="dialogs.showEditModal()">
+                <i class="fa fa-edit"></i> Editar</a>
         </span>
         <a class="btn btn-raised btn-primary" data-toggle="modal" ng-click="dialogs.showInfoModal()">
             <i class="fa fa-info"></i> Información</a>
@@ -117,7 +119,7 @@
                 <div class="row form-group">
                     <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
                         <label for="">Observacion</label>
-                        <textarea rows="1" ng-bind="resource.fila.observation" class="form-control" disabled></textarea>
+                        <textarea rows="2" ng-bind="resource.fila.observation" class="form-control" disabled></textarea>
                     </div>
                 </div>
             </div>
@@ -173,18 +175,24 @@
                         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
                             <div class="form-group">
                                 <label for="">Producto *</label>
-                                <p class="form-control" title="Click para editar" disabled ng-if="detalle.fila.products_name" ng-bind="detalle.fila.products_name"
-                                    ng-click="detalle.fila.products_name = null"></p>
-                                <ui-select ng-model="detalle.fila.products_id">
-                                    <ui-select-match ng-show="!detalle.fila.products_name" placeholder="Escribe para buscar">
-                                        @{{$select.selected.name}}
-                                    </ui-select-match>
-                                    <ui-select-choices repeat="p.id as p in Products.list track by $index" refresh="Products.get($select.search)" refresh-delay="250">
-                                        <div title="@{{p.name}}">
-                                            <product-row product="p"></product-row>
-                                        </div>
-                                    </ui-select-choices>
-                                </ui-select>
+                                <div class="panel panel-default" ng-show="detalle.fila.products_id">
+                                    <div class="panel-body">
+                                        <p><product-row product="detalle.fila.product"></product-row></p>
+                                        <a href="" class="btn btn-default" ng-click="detalle.fila.products_id = false;detalle.fila.quantity = 0"><i class="fa fa-edit"></i> Cambiar Producto</a>
+                                    </div>
+                                </div>
+                                <span ng-show="!detalle.fila.products_id">
+                                    <ui-select ng-model="detalle.fila.products_id">
+                                        <ui-select-match placeholder="Escribe para buscar">
+                                            @{{$select.selected.name}}
+                                        </ui-select-match>
+                                        <ui-select-choices repeat="p.id as p in Products.list track by $index" refresh="Products.get($select.search)" refresh-delay="250">
+                                            <div title="@{{p.name}}">
+                                                <product-row product="p"></product-row>
+                                            </div>
+                                        </ui-select-choices>
+                                    </ui-select>
+                                </span>
                             </div>
                         </div>
                     </div>
@@ -245,6 +253,45 @@
                 <div class="modal-footer">
                     <button type="submit" class="btn btn-raised btn-success">Guardar</button>
                     <button type="button" class="btn btn-raised btn-default" data-dismiss="modal">Cerrar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+<!-- <a class="btn btn-primary" data-toggle="modal" href='#edit-modal'>Trigger modal</a> -->
+<div class="modal fade" id="edit-modal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title">EDITAR ENTRADA</h4>
+            </div>
+            <form ng-submit="resource.edit()">
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label for="">Tipo *</label>
+                        <select ng-model="resource.fila.type" required class="form-control">
+                            <?php foreach (config('logistic.client.inputs.type') as $key => $value) { 
+                                if (!in_array($key, config('logistic.client.inputs.disableTypes'))) { 
+                            ?>
+                                <option ng-value="<?= $key ?>">
+                                    <?= $value ?>
+                                </option>
+                            <?php
+                                }
+                            } ?>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="">Observacion</label>
+                        <textarea class="form-control" ng-model="resource.fila.observation"></textarea>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+                    <button type="submit" class="btn btn-primary">Guardar</button>
                 </div>
             </form>
         </div>

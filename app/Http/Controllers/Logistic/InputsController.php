@@ -118,11 +118,15 @@ class InputsController extends Controller
 
         // no se puede reactivar
         // if($fila->status === 1){
-        $fila->status = $request->status;
+        if(isset($request->status)) $fila->status = $request->status;
+        if(isset($request->type)) $fila->type = $request->type;
+        if(isset($request->observation)) $fila->observation = $request->observation;
+        // $fila->status = $request->status;
+        // $fila->type = $request->type;
             // return "locked";
         // }
         
-        $fila->observation = $request->observation;
+        // $fila->observation = $request->observation;
         $fila->user_id = auth()->user()->id;
 
         $fila->save();

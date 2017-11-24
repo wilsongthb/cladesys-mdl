@@ -157,7 +157,8 @@ return [
             ]
         ],
         'inputs' => [
-            'enableTypes' => [1, 3],
+            'defaultType' => 1,
+            'disableTypes' => [2],
             'type' => [
                 1 => 'ENTRADA',
                 2 => 'DISTRIBUCION',

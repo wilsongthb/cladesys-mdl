@@ -24,7 +24,7 @@ class ConfigProducts extends Seeder
         // $p = 1;
         
         $row = 1;
-        if (($handle = fopen("./database/seeds/csvSource.csv", "r")) !== FALSE) {
+        if (($handle = fopen("./database/seeds/data/csvSource.csv", "r")) !== FALSE) {
             while (($data = fgetcsv($handle, 1000, ",")) !== FALSE) {
                 if(!isset($categorias[$data[0]])){
                     // $categorias[$data[0]] = $c++;

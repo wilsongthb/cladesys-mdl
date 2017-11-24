@@ -15,6 +15,20 @@
                 </select>
             </div>
             <div class="form-group">
+                <label for="">Selecciona tipo de entrada</label>
+                <select ng-model="resource.fila.type" required class="form-control">
+                    <?php foreach (config('logistic.client.inputs.type') as $key => $value) { 
+                        if (!in_array($key, config('logistic.client.inputs.disableTypes'))) { 
+                    ?>
+                        <option ng-value="<?= $key ?>">
+                            <?= $value ?>
+                        </option>
+                    <?php
+                        }
+                    } ?>
+                </select>
+            </div>
+            <div class="form-group">
                 <button class="btn btn-raised btn-success" type="submit">Continuar</button>
             </div>
         </form>

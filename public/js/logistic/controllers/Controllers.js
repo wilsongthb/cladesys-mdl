@@ -345,12 +345,12 @@ const InputsConfig = {
 
         $scope.resource = {
             fila: {
-                locations_id: Locations.get()
+                locations_id: Locations.get(),
+                type: G.config.inputs.defaultType
             },
             error: false,
             save: function(){
                 this.fila.user_id = G.user.id
-                this.fila.type = 1 // ENTRADA
                 $http.post(G.apiUrl + '/' + Config.name, this.fila)
                 .then(
                     res => {
@@ -394,6 +394,9 @@ const InputsConfig = {
         $scope.dialogs = {
             showInfoModal: function() {
                 $('#input-info-modal').modal('show')
+            },
+            showEditModal: function(){
+                $('#edit-modal').modal('show')
             }
         }
         $scope.Products = Products
@@ -407,6 +410,14 @@ const InputsConfig = {
                     res => {
                         this.fila = res.data
                     }
+                )
+            },
+            edit: function(){
+                $http.put(G.apiUrl + '/' + Config.name + '/' + $routeParams.id, 
+                    this.fila
+                )
+                .then(
+                    res => $('#edit-modal').modal('hide')
                 )
             },
             lock: function(){
@@ -435,7 +446,7 @@ const InputsConfig = {
                 let total = 0
                 for(let i in this.list){
                     let fila = this.list[i]
-                    total += fila.subtotal
+                    total += parseFloat(fila.subtotal)
                 }
                 return total
             },
@@ -731,7 +742,7 @@ const OutputsConfig = {
                 let total = 0
                 for(let i in this.list){
                     let fila = this.list[i]
-                    total += fila.subtotal
+                    total += parseFloat(fila.subtotal)
                 }
                 return total
             },

@@ -80,7 +80,7 @@ class OutputsController extends Controller
         // test
         $original = $inventory->stockFromInputDetails($locations_id, $products_id);
         $orgQuantity = $quantity;
-        
+
         // calcula cuanto quitar de cada input_details
         $outputs = [];
         foreach ($inputs as $key => &$value) {

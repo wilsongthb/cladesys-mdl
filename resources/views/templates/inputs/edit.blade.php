@@ -175,13 +175,13 @@
                         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
                             <div class="form-group">
                                 <label for="">Producto *</label>
-                                <div class="panel panel-default" ng-show="detalle.fila.products_id">
+                                <div class="panel panel-default" ng-show="detalle.fila.product">
                                     <div class="panel-body">
                                         <p><product-row product="detalle.fila.product"></product-row></p>
-                                        <a href="" class="btn btn-default" ng-click="detalle.fila.products_id = false;detalle.fila.quantity = 0"><i class="fa fa-edit"></i> Cambiar Producto</a>
+                                        <a href="" class="btn btn-default" ng-click="detalle.fila.product = false;detalle.fila.quantity = 0"><i class="fa fa-edit"></i> Cambiar Producto</a>
                                     </div>
                                 </div>
-                                <span ng-show="!detalle.fila.products_id">
+                                <span ng-show="!detalle.fila.product">
                                     <ui-select ng-model="detalle.fila.products_id">
                                         <ui-select-match placeholder="Escribe para buscar">
                                             @{{$select.selected.name}}

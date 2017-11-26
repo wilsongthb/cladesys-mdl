@@ -164,7 +164,7 @@
                     })
             }
         ])
-        .run(function ($rootScope, $location,$route, $timeout) {
+        .run(function ($rootScope, $location, $route, $timeout) {
             // $rootScope.config = {};
             // $rootScope.config.app_url = $location.url();
             // $rootScope.config.app_path = $location.path();

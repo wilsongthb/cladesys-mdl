@@ -23,6 +23,7 @@
 
     @if(isset($lumen))
     <link rel="stylesheet" href="{{asset('css/bootstrap-lumen.min.css')}} ">
+    {{--  <link rel="stylesheet" href="{{asset('css/app.css')}} ">  --}}
     @endif
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->

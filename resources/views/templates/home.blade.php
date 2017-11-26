@@ -49,6 +49,19 @@
         </div>
     </div>
 </div>
+
+<div class="row">
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+        
+        <div class="panel panel-default">
+            <div class="panel-body">
+               <a href="" class="btn btn-default" ng-click=""><i class="fa fa-bars"></i> Seleccionar Etapa</a>
+            </div>
+        </div>
+        
+    </div>
+</div>
+
 @stop
 
 

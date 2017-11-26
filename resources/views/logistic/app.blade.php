@@ -28,13 +28,13 @@
     --}}
     <!-- MIS SCRIPTS -->
     <script>
-        {{--  setTimeout(function() {
+        setTimeout(function() {
             var $table = $('.table-always-show-header');
             /*
                 table ALWAYS SHOW HEAD
             */
             $table.floatThead();
-        }, 2000);  --}}
+        }, 2000);
 
         const G = {
             name: 'logistic',

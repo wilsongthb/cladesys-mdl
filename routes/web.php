@@ -15,21 +15,21 @@ Route::get('/', function () {
     return view('index');
 });
 Auth::routes();
-Route::get('/home', function(){ 
+Route::get('home', function(){ 
     return redirect('/');
 });
-Route::get('/presentation', 'PresentationsController@index');
+Route::get('presentation', 'PresentationsController@index');
 Route::group(['middleware' => 'auth'], function(){
     Route::get('view/{view}', 'HomeController@view');
     Route::group(['middleware' => 'user-modules'], function(){
         Route::group(['prefix' => 'logistic'], function(){
-            Route::get('/purchase-order/{requeriments_id}/{supppliers_id}', 'Logistic\QuotationsController@purchaseOrder');
-            Route::get('/orders/print/{id}', 'Logistic\RequerimentsController@imprimir');
-            Route::get('/{a?}/{b?}/{c?}', 'Logistic\MainController@index')->name('logistic');
+            Route::get('purchase-order/{requeriments_id}/{supppliers_id}', 'Logistic\QuotationsController@purchaseOrder');
+            Route::get('orders/print/{id}', 'Logistic\RequerimentsController@imprimir');
+            Route::get('{a?}/{b?}/{c?}', 'Logistic\MainController@index')->name('logistic');
         });
-        Route::get('/credentials/{a?}/{b?}/{c?}', 'CredentialsController@index');
-        Route::get('/instruments/{a?}/{b?}/{c?}', 'InstrumentsController@index');
-        Route::get('/lab', function(){ return view('lab.index');});
+        Route::get('credentials/{a?}/{b?}/{c?}', 'CredentialsController@index');
+        Route::get('instruments/{a?}/{b?}/{c?}', 'InstrumentsController@index');
+        Route::get('lab', function(){ return view('lab.index');});
     });
     Route::group([
         'prefix' => 'rsc',
@@ -86,18 +86,15 @@ Route::group(['middleware' => 'auth'], function(){
 
 use App\Http\Controllers\Logistic\InventoryController;
 use App\Http\Controllers\Logistic\OutputsController;
+use App\Models\InputDetails;
+use App\Models\Products;
 
 Route::get('/test', function(){
-    $locations_id = 6;
-    // $products_id = 339;
-
-    $i = new InventoryController;
-
-    dd(
-        "INVENTORY GROUPED",
-        $i->indexGrouped($locations_id),
-        "INVENTORY BY LOCATION",
-        $i->inventoryByLocation($locations_id)
-    );
-    // $i->indexGrouped($locations_id);
+    // session()->start();
+    // session()->set('jojo', 544353)
+    // session()->put('first', Products::select('*')->first());
+    // session()->save();
+    // session()->pull('jaja');
+    // echo session()->get('jaja');
+    dd(session()->all());
 });

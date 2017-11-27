@@ -70,6 +70,11 @@ return [
             'description' => 'Modulo para registrar productos que salen del almacén',
             'categorie' => 'directory',
         ],
+        'resume' => [
+            'title' => 'Resumen',
+            'description' => 'Muestra informacion resumida de los movimientos de la etapa',
+            'categorie' => 'reports'
+        ]
     ],
     'menu' => [
         'categories' => [
@@ -116,6 +121,7 @@ return [
                     'inventory',
                     'inventory-general',
                     'stock-status',
+                    'resume'
                 ]
             ],
             'directory' => [
@@ -129,6 +135,12 @@ return [
     ],
     'per_page' => 8,
     'client' => [
+        'stage' => [
+            'default' => [
+                'start' => false,
+                'end' => false
+            ]
+        ],
         'per_page' => 8,
         'location' => [
             'default_id' => false,

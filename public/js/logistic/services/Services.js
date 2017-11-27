@@ -44,13 +44,15 @@
         .module('logistic')
         .service('Locations', Locations);
 
-    Locations.$inject = ['$http', '$route'];
-    function Locations($http, $route) {
+    Locations.$inject = ['$http', '$route', '$window'];
+    function Locations($http, $route, $window) {
         this.exposedFn = exposedFn;
         this.get = function(){ return parseInt(localStorage.logistic_locations_id) }
         this.set = function(id){ 
             localStorage.logistic_locations_id = id // guarda cambios
-            $route.reload() // recarga la pagina
+            // recarga la pagina
+            $window.location.reload()
+            // $route.reload() 
         }
         this.init = function(){
             // id init
@@ -226,4 +228,70 @@
 
         function exposedFn() { }
         }
+})(G);
+
+(function(G) {
+    'use strict';
+
+    angular
+        .module('logistic')
+        .service('LocationsStages', LocationsStages);
+
+    LocationsStages.$inject = ['$http', 'Locations', '$route'];
+    function LocationsStages($http, Locations, $route) {
+        this.exposedFn = exposedFn;
+        
+        this.get = function(){
+            if(!localStorage.stage){
+                localStorage.stage = G.config.defaultStage
+            }
+            this.stage = localStorage.stage
+            return this.stage
+        }
+
+        this.noStage = function(){
+            $http.put(G.apiUrl + '/locations-stages-session', {
+                // locations_stages_id: value.id
+                no_stage: true
+            }).then(
+                res => {
+                    $route.reload()
+                    this.stage = false
+                }
+            )
+        }
+
+        this.set = function(value){
+            localStorage.stage = value
+            $http.put(G.apiUrl + '/locations-stages-session', {
+                locations_stages_id: value.id
+            }).then(
+                res => {
+                    $route.reload()
+                    this.stage = res.data
+                }
+            )
+        }
+
+        this.init = function(){
+            $http.get(G.apiUrl + '/locations-stages', {
+                // params: {locations_id: Locations.get()}
+            })
+            .then(
+                res => {
+                    this.list = res.data
+                }
+            )
+            $http.put(G.apiUrl + '/locations-stages-session', {
+            }).then(
+                res => this.stage = res.data
+            )
+        }
+
+        this.init();
+
+        ////////////////
+
+        function exposedFn() { }
+    }
 })(G);

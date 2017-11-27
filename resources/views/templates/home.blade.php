@@ -18,9 +18,8 @@
 
 @section('content')
 <div class="row">
-    <div class="col-sm-2 col-md-2 col-lg-2">
-    </div>
-    <div class="col-xs-12 col-sm-8 col-md-8 col-lg-8">
+    
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
         <div class="panel panel-default">
             <div class="panel-body">
                 <h1>CLADESYS - LOGISTICS</h1>
@@ -50,18 +49,4 @@
     </div>
 </div>
 
-<div class="row">
-    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-        
-        <div class="panel panel-default">
-            <div class="panel-body">
-               <a href="" class="btn btn-default" ng-click=""><i class="fa fa-bars"></i> Seleccionar Etapa</a>
-            </div>
-        </div>
-        
-    </div>
-</div>
-
 @stop
-
-

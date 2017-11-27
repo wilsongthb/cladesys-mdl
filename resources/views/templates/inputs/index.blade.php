@@ -54,12 +54,14 @@
                         <laravel-date-viewer datetime="d.created_at"></laravel-date-viewer>
                     </td>
                     <td ng-bind="d.locations_name"></td>
-                    <td ng-bind="g_config.inputs.type[d.type]"></td>
+                    {{--  <td ng-bind="g_config.inputs.type[d.type]"></td>  --}}
+                    <td ng-bind="d._type"></td>
                     <td>
                         <span ng-show="d.outputs_locations_name" ng-bind="d.outputs_locations_name"></span>
-                        <span ng-show="!d.outputs_locations_name" class="badge">COMPRA</span>
+                        <span ng-show="d.type === 1" class="badge">COMPRA</span>
                     </td>
-                    <td ng-bind="g_config.inputs.status[d.status]"></td>
+                    <!-- <td ng-bind="g_config.inputs.status[d.status]"></td> -->
+                    <td ng-bind="d._status"></td>
                     <td ng-bind="d.total_details"></td>
                     <td>
                         <div class="btn-group">
@@ -80,7 +82,7 @@
             items-per-page="resource.per_page" 
             total-items="resource.data.total" 
             ng-model="resource.page" 
-            ng-change="resource.get()"
+            ng-change="dialogs.changePage()"
             max-size="5" 
             boundary-links="true" 
             boundary-link-numbers="true"></ul>

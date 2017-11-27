@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\Inputs;
 use DB;
+use App\Models\LocationsStages;
+use App\Http\Controllers\Logistic\InventoryController;
 
 class InputsController extends Controller
 {
@@ -13,9 +15,10 @@ class InputsController extends Controller
      * Selector de la base de datos
      * 
      * la idea es tener un solo select para user en index y show
+     * @return QueryBuilder
      */
     public function select(){
-        return Inputs::
+        $res = Inputs::
             select(
                 'i.*',
                 'l.name AS locations_name',
@@ -30,11 +33,32 @@ class InputsController extends Controller
             leftJoin('users AS us', 'us.id', '=', 'i.user_id')->
             leftJoin('input_details AS id', 'i.id', '=', 'id.inputs_id')->
             groupBy('i.id');
+        
+
+        $stage = (new InventoryController)->stage;
+
+        // dd($stage);
+        if($stage){
+            if($stage->start){
+                $res = $res->where('i.created_at', '>=', $stage->start);
+                if($stage->end){
+                    $res = $res->where('i.created_at', '<=', $stage->end);
+                }
+            }
+        }
+
+        return $res;
     }
 
     /**
-    * @return Array of Inputs
-    */
+     * Carga expresiones para la API
+     */
+    private function cargarExpresiones(&$result){
+        foreach ($result as $key => &$value) {
+            $value->_type = config('logistic.client.inputs.type')[$value->type];
+            $value->_status = config('logistic.client.inputs.status')[$value->status];
+        }
+    }
 
     /**
      * Display a listing of the resource.
@@ -46,10 +70,16 @@ class InputsController extends Controller
         $per_page = $this->getPerPage($request);
         $locations_id = $request->locations_id;
 
-        return $this->select()
+        $res = $this->select()
             ->where('i.locations_id', $locations_id)
             ->orderBy('i.id', 'DESC')
             ->paginate($per_page);
+            // ->simplePaginate($per_page);
+
+        $items = $res->items();
+        $this->cargarExpresiones($items);
+
+        return $res;
     }
 
     /**

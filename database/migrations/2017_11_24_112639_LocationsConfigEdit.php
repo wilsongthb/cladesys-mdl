@@ -13,8 +13,18 @@ class LocationsConfigEdit extends Migration
      */
     public function up()
     {
-        Schema::table('locations_config', function (Blueprint $table) {
-            $table->dropColumn(['module', 'get', 'post', 'put', 'delete']);
+        Schema::dropIfExists('locations_config');
+        Schema::create('locations_config', function (Blueprint $table) {
+        // Schema::table('locations_config', function (Blueprint $table) {
+            $table->increments('id');
+            $table->timestamps();
+            $table->integer('user_id')->unsigned();
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+
+            $table->integer('locations_id')->unsigned();
+            $table->foreign('locations_id')->references('id')->on('locations')->onDelete('cascade');
+
+            // $table->dropColumn(['module', 'get', 'post', 'put', 'delete']);
             $table->integer('default_stage')->unsigned()->nullable();
         });
     }
@@ -26,8 +36,9 @@ class LocationsConfigEdit extends Migration
      */
     public function down()
     {
-        Schema::table('locations_config', function (Blueprint $table) {
-            // reexecute LocationsConfig Migration
-        });
+        // Schema::table('locations_config', function (Blueprint $table) {
+        //     // reexecute LocationsConfig Migration
+        // });
+        Schema::dropIfExists('locations_config');
     }
 }

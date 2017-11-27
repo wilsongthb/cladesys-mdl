@@ -73,6 +73,9 @@
                     <button type="submit" class="btn btn-default">Submit</button>
                 </form> -->
                 <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="" ng-click="dialogs.showSLSM()"><i class="fa fa-bars"></i> Seleccionar Etapa</a>
+                    </li>
                     <li class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                             <span ng-bind="Locations.list[Locations.get()].name"></span>
@@ -134,6 +137,28 @@
             <span ng-show="layout.loading"><i class="fa fa-spinner fa-pulse fa-fw"></i> Cargando</span>
         </div>
         <ng-view></ng-view>
+        
+        <div class="container">
+            
+            <div class="row form-group">
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                    
+                    <span ng-show="LocationsStages.stage.id">
+                        <span ng-bind="LocationsStages.stage.name"></span> 
+                        del 
+                        <span ng-bind="LocationsStages.stage.start"></span> 
+                        <span ng-show="LocationsStages.stage.end">
+                            al 
+                            <span ng-bind="LocationsStages.stage.end"></span>
+                        </span>
+                    </span>
+                    <hr>
+                    <a href="" class="btn btn-default" ng-click="dialogs.showSLSM()"><i class="fa fa-bars"></i> Seleccionar Etapa</a>
+                </div>
+            </div>
+            
+        </div>
+        @include('logistic.selectStage')
     </div>
 
 

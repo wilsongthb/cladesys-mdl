@@ -34,25 +34,3 @@
         });
 
 })();
-
-(function(G) {
-    'use strict';
-
-    angular
-        .module('logistic')
-        .controller('RootController', RootController);
-
-    RootController.$inject = ['$scope', 'Locations'];
-    function RootController($scope, Locations) {
-        var vm = this;
-
-        $scope.Locations = Locations
-        $scope.config = G.config
-
-        activate();
-
-        ////////////////
-
-        function activate() { }
-    }
-})(G);

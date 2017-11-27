@@ -202,7 +202,8 @@ class OutputsController extends Controller
     public function index(Request $request)
     {
         $per_page = $this->getPerPage($request);
-        return Outputs::
+        $stage = (new InventoryController)->stage;
+        $res = Outputs::
             select(
                 'o.*',
                 'l.name AS locations_name',
@@ -211,8 +212,15 @@ class OutputsController extends Controller
             ->leftJoin('locations AS l', 'l.id', 'o.locations_id') // almacen
             ->leftJoin('locations AS l_d', 'l_d.id', 'o.target_locations_id') // destino
             ->where('o.locations_id', $request->locations_id)
-            ->orderBy('o.id', 'DESC')
-            ->paginate($per_page);
+            ->orderBy('o.id', 'DESC');
+        if($stage->start){
+            $res = $res->where('o.created_at', '>=', $stage->start);
+            if($stage->end){
+                $res = $res->where('o.created_at', '<=', $stage->end);
+            }
+        }
+
+        return $res->paginate($per_page);
     }
 
     /**

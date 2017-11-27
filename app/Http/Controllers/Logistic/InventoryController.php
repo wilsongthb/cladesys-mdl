@@ -7,58 +7,42 @@ use App\Http\Controllers\Controller;
 use DB;
 use App\Models\InputDetails;
 use App\Models\OutputDetails;
+use App\Models\LocationsStages;
+use stdClass;
 
 class InventoryController extends Controller
 {
-    /**
-     * INPUT QUANTITY SELECT
-     * Es una funcion que forma parte del grupo de funciones
-     * que sirven para calcular el stock de los productos
-     * @return QueryBuilder
-     */
-    private function productsQuantity(){
-        $result = InputDetails::
-            select(
-                'id.products_id',
-                DB::raw('ROUND(SUM(id.quantity * id.unit_price)/SUM(id.quantity), 2) AS price'),
-                DB::raw('COUNT(id.id) AS total_input_details'),
-                DB::raw('SUM(id.quantity) AS id_quantity_sum'),
-                DB::raw('MAX(id.created_at) AS id_last_time')
-            )->
-            from('input_details AS id')->
-            groupBy('id.products_id')->
-            leftJoin('inputs AS i', 'i.id', 'id.inputs_id')->
-            // condicion de anulacion
-            where('id.flagstate', true)->
-            where('i.flagstate', true);
-        return $result;
-    }
-
-    /**
-     * PRODUCTS SEARCH
-     * Sirve para buscar o filtrar los input_details
-     * por el nombre de un producto
-     * @return QueryBuilder
-     */
-    private function productsSearch($str = ""){
-        $res = $this->productsQuantity();
-        if(count($str) > 0){
-            $res = $res->
-                leftJoin('products AS p', 'p.id', 'id.products_id')->
-                leftJoin('packings AS pa', 'pa.id', '=', 'p.packings_id')->
-                leftJoin('categories AS c', 'c.id', '=', 'p.categories_id')->
-                leftJoin('brands AS b', 'b.id', '=', 'p.brands_id')->
-                leftJoin('measurements AS m', 'm.id', '=', 'p.measurements_id')
-                ->where('p.name', 'LIKE', "%$str%") // product
-                ->orWhere('p.code', 'LIKE', "%$str%") // product code
-                ->orWhere('pa.value', 'LIKE', "%$str%") // packing
-                ->orWhere('c.value', 'LIKE', "%$str%") // categorie
-                ->orWhere('b.value', 'LIKE', "%$str%") // brand
-                ->orWhere('m.value', 'LIKE', "%$str%"); // measurement
+    public $stage;
+    public function __construct(){
+        $this->stage = LocationsStages::find(session()->get('locations_stages_id'));
+        if(!$this->stage){
+            $this->stage = new stdClass;
+            $stagedefault = config('logistic.client.stage.default');
+            $this->stage->start = $stagedefault['start'];
+            $this->stage->end = $stagedefault['end'];
         }
-        return $res;
-    }
+        $inputCondicion = "";
+        $outputCondicion = "";
 
+        $start = $this->stage->start;
+        $end = $this->stage->end;
+
+        // dd($start, $end);
+
+        if($start){
+            $inputCondicion = "AND i.created_at >= '$start'";
+            $inputCondicion = $end ? 
+                $inputCondicion . " AND i.created_at <= '$end'" : 
+                $inputCondicion;
+            $outputCondicion = "AND i.created_at >= '$start' AND o.created_at >= '$start'";
+            $outputCondicion = $end ? 
+                $outputCondicion . " AND i.created_at <= '$end'  AND o.created_at <= '$end'" : 
+                $outputCondicion;
+        }
+
+        $this->inputCondicion = $inputCondicion;
+        $this->outputCondicion = $outputCondicion;
+    }
     /**
      * INSERT PRODUCTS
      * inserta objetos producto a la lista
@@ -71,7 +55,57 @@ class InventoryController extends Controller
             $value->product = ProductsController::show($value->products_id);
         }
     }
+    /**
+     * INVENTORY BY LOCATION
+     * 
+     * Funcion que calcula el inventario de forma interna
+     * @param $locations_id - ID DEL AREA
+     */
+    public function inventoryByLocation($locations_id = false){
+        $this->__construct();
+        // si se llama esta funcion sin argumentos
+        if(!$locations_id){
+            $locations_id = $this->stage->locations_id;
+        }
+        // calcula cantidad total ingresada
+        $res = $this->productsQuantity()->
+            where('i.locations_id', $locations_id)->
+            get();
+        $this->stockCalculator($res, $locations_id);
+        $this->insertProducts($res);
+        return $res;
+    }
+    /**
+     * INPUT QUANTITY SELECT
+     * Es una funcion que forma parte del grupo de funciones
+     * que sirven para calcular el stock de los productos
+     * @return QueryBuilder
+     */
+    private function productsQuantity(){
+        $res = InputDetails::
+            select(
+                'id.products_id',
+                DB::raw('IFNULL(ROUND(SUM(id.quantity * id.unit_price)/SUM(id.quantity), 2), 0) AS price'),
+                DB::raw('COUNT(id.id) AS total_input_details'),
+                DB::raw('IFNULL(SUM(id.quantity), 0) AS id_quantity_sum'),
+                DB::raw('MAX(id.created_at) AS id_last_time')
+            )->
+            from('input_details AS id')->
+            groupBy('id.products_id')->
+            leftJoin('inputs AS i', 'i.id', 'id.inputs_id')->
+            // condicion de anulacion
+            where('id.flagstate', true)->
+            where('i.flagstate', true);
 
+        if($this->stage->start){
+            $res = $res->where('i.created_at', '>=', $this->stage->start);
+            if($this->stage->end){
+                $res = $res->where('i.created_at', '<=', $this->stage->end);
+            }
+        }
+        
+        return $res;
+    }
     /**
      * STOCK CALCULATOR
      * @param QueryBuilder
@@ -79,7 +113,7 @@ class InventoryController extends Controller
      * las funciones anteriores, y calcula el stock de
      * esos products 
      */
-    public function stockCalculator(&$list, $locations_id = 0){
+    private function stockCalculator(&$list, $locations_id = 0){
         // calcular stock
         foreach ($list as $key => &$value) {
             $od = OutputDetails::
@@ -105,7 +139,18 @@ class InventoryController extends Controller
                     ->where('i.locations_id', $locations_id)
                     ->where('o.locations_id', $locations_id);
             }
-            // dd($od->get());
+
+            // stage condicion
+            if($this->stage->start){
+                $od = $od->where('i.created_at', '>=', $this->stage->start);
+                $od = $od->where('o.created_at', '>=', $this->stage->start);
+                if($this->stage->end){
+                    $od = $od->where('i.created_at', '<=', $this->stage->end);
+                    $od = $od->where('o.created_at', '<=', $this->stage->end);
+                }
+            }
+
+            //obtener resultado
             $od = $od->first();
             // determinar stock
             if($od){
@@ -119,60 +164,87 @@ class InventoryController extends Controller
         }
     }
 
+
     /**
      * KARDEX DE PRODUCTO
      * muestra kardex de un producto en un almacen o area
      */
     public function kardex($locations_id, $products_id, $showDeletes = false){
-        $res = DB::select(
+        $this->__construct();
+        $inputCondicion = "";
+        $outputCondicion = "";
+
+        $start = $this->stage->start;
+        $end = $this->stage->end;
+
+        // dd($start, $end);
+
+        if($start){
+            $inputCondicion = "AND i.created_at >= '$start'";
+            $inputCondicion = $end ? 
+                $inputCondicion . " AND i.created_at <= '$end'" : 
+                $inputCondicion;
+            $outputCondicion = "AND i.created_at >= '$start' AND o.created_at >= '$start'";
+            $outputCondicion = $end ? 
+                $outputCondicion . " AND i.created_at <= '$end'  AND o.created_at <= '$end'" : 
+                $outputCondicion;
+        }
+        $sql = 
         "SELECT
             k.*
         FROM (SELECT
-            'ENTRADA' AS type,
-            id.id AS id,
-            i.id AS h_id,
-            id.quantity AS input_quantity,
-            id.unit_price AS input_price,
-            '' AS output_quantity,
-            '' AS output_price,
-            id.created_at AS datetime
-        FROM input_details AS id
-        LEFT JOIN inputs AS i ON i.id = id.inputs_id
-        WHERE 
-            id.flagstate = true AND
-            i.flagstate = true AND
-            i.locations_id = '$locations_id' AND
-            id.products_id = '$products_id'
+                'ENTRADA' AS type,
+                id.id AS id,
+                i.id AS h_id,
+                id.quantity AS input_quantity,
+                id.unit_price AS input_price,
+                '' AS output_quantity,
+                '' AS output_price,
+                id.created_at AS datetime
+            FROM input_details AS id
+            LEFT JOIN inputs AS i ON i.id = id.inputs_id
+            WHERE 
+                id.flagstate = true AND
+                i.flagstate = true AND
+                i.locations_id = '$locations_id' AND
+                id.products_id = '$products_id'
+                $inputCondicion
+            UNION
 
-        UNION
-         
-        SELECT
-            'SALIDA' AS type,
-            od.id AS id,
-            o.id AS h_id,
-            '' AS input_quantity,
-            '' AS input_price,
-            od.quantity AS output_quantity,
-            od.unit_price AS output_price,
-            od.created_at AS datetime
-        FROM output_details AS od
-        LEFT JOIN outputs AS o ON o.id = od.outputs_id
-        LEFT JOIN input_details AS id ON id.id = od.input_details_id
-        LEFT JOIN inputs AS i ON i.id = id.inputs_id
-        WHERE 
-            id.flagstate = true AND
-            i.flagstate = true AND
-            od.flagstate = true AND
-            o.flagstate = true AND
-            i.locations_id = '$locations_id' AND
-            id.products_id = '$products_id') AS k
-        ORDER BY k.datetime ASC
-        ");
+            SELECT
+                'SALIDA' AS type,
+                od.id AS id,
+                o.id AS h_id,
+                '' AS input_quantity,
+                '' AS input_price,
+                od.quantity AS output_quantity,
+                od.unit_price AS output_price,
+                od.created_at AS datetime
+            FROM output_details AS od
+            LEFT JOIN outputs AS o ON o.id = od.outputs_id
+            LEFT JOIN input_details AS id ON id.id = od.input_details_id
+            LEFT JOIN inputs AS i ON i.id = id.inputs_id
+            WHERE 
+                id.flagstate = true AND
+                i.flagstate = true AND
+                od.flagstate = true AND
+                o.flagstate = true AND
+                i.locations_id = '$locations_id' AND
+                id.products_id = '$products_id'
+                $outputCondicion
+        ) AS k
+        ORDER BY k.datetime ASC";
+        // return $sql;
+        
+        $res = DB::select($sql);
+        // dd(session()->all(), $this->stage, $sql, $res);
+        // dd($this->stage);
+        // dd($res);
         return $res;
     }
 
     /**
-     * HITORIAL DE PRODUCTO
+     * HISTORIAL DE PRODUCTO
      * Muestra un listado de todos los movimientos de un producto en algun almacen
      * @param $locations_id
      * @param $products_id
@@ -181,7 +253,7 @@ class InventoryController extends Controller
     public function historyProduct($locations_id, $product_id, $showDeletes = false){
         // entradas
         $inputs = InputDetails::
-            select('id.*')->
+            select('id.*', 'i.created_at AS i_created_at')->
             from('input_details AS id')->
             join('inputs AS i', 'i.id', 'id.inputs_id')->
             where('id.flagstate', true);
@@ -218,6 +290,26 @@ class InventoryController extends Controller
         ];
     }
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    /**
+     * BASURITA EN PROCESO DE RENOVACION ----------------------------------
+     */
+
     /**
      * STOCK FROM INPUT DETAILS
      * Se encarga de calcular el stock de cada una de las entradas
@@ -245,6 +337,7 @@ class InventoryController extends Controller
         $productCondicion = $products_id ? "AND id.products_id = '$products_id'" : "";
         $locationCondicion = $locations_id ? "AND i.locations_id = '$locations_id'" : "";
         $onlyPositivesCondicion = $onlyPositives ? "WHERE s.stock > 0" : "";
+
         $sql = 
         "SELECT
             s.*
@@ -280,6 +373,7 @@ class InventoryController extends Controller
             AND IFNULL(od.flagstate, true) = true
             AND IFNULL(o.flagstate, true) = true
 
+            -- condiciones adicionales
             $locationCondicion
             $productCondicion
 
@@ -289,26 +383,6 @@ class InventoryController extends Controller
         $onlyPositivesCondicion
         ";
         $res = DB::select($sql);
-        // $this->insertProducts($res);
-        return $res;
-        // return $sql;
-    }
-
-    /**
-     * INVENTORY BY LOCATION
-     * 
-     * Funcion que calcula el inventario de forma interna
-     * @param $locations_id - ID DEL AREA
-     */
-    public function inventoryByLocation($locations_id){
-        // calcula cantidad total ingresada
-        $res = $this->productsQuantity()->
-            where('i.locations_id', $locations_id)->
-            get();
-
-        $this->stockCalculator($res, $locations_id);
-        $this->insertProducts($res);
-
         return $res;
     }
 
@@ -445,32 +519,6 @@ class InventoryController extends Controller
         $this->insertProducts($res);
         return $res;
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    /**
-     * BASURITA EN PROCESO DE RENOVACION
-     */
-    
-
 
     public function stock_location(Request $request, $locations_id = null){
         return DB::select(DB::raw(

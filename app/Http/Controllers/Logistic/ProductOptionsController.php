@@ -11,8 +11,8 @@ class ProductOptionsController extends Controller
 {
     /**
      * Se encarga de devolver una configuracion de todas maneras
-     * si la encuentra la @return
-     * si no la encuentra la crea y la @return
+     * si la encuentra la retorna
+     * si no la encuentra la crea y la retorna
      */
     public function getOrCreate(Request $request, $locations_id, $products_id){
         // unico metodo para crear

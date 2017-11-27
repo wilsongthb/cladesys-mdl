@@ -47,15 +47,18 @@
             'X-CSRF-TOKEN': '{{csrf_token()}}'
         }
     </script>
-    <script src="{{ asset('/js/logistic/app.js') }} "></script>
-    <script src="{{ asset('/js/logistic/routes.js') }} "></script>
+    <script src="{{asset('/js/logistic/app.js')}} "></script>
+    <script src="{{asset('/js/logistic/routes.js')}} "></script>
     
     {{--  Services  --}}
-    <script src="{{ asset('/js/logistic/services/Services.js') }} "></script>
+    <script src="{{asset('/js/logistic/services/Services.js')}} "></script>
     {{--  contoladores  --}}
-    <script src="{{ asset('/js/logistic/controllers/Controllers.js') }} "></script>
-    <script src="{{ asset('/js/logistic/controllers/HomeController.js') }} "></script>
-    <script src="{{ asset('/js/logistic/controllers/ProductsController.js') }} "></script>
+    <script src="{{asset('/js/logistic/controllers/RootController.js')}} "></script>
+    <script src="{{asset('/js/logistic/controllers/Controllers.js')}} "></script>
+    <script src="{{asset('/js/logistic/controllers/InputsController.js')}} "></script>
+
+    <script src="{{asset('/js/logistic/controllers/HomeController.js')}} "></script>
+    <script src="{{asset('/js/logistic/controllers/ProductsController.js')}} "></script>
     {{--  Componentes  --}}
-    <script src="{{ asset('/js/logistic/components/Components.js') }} "></script>
-    <script src="{{ asset('/js/logistic/components/productValues.js') }} "></script>
+    <script src="{{asset('/js/logistic/components/Components.js')}} "></script>
+    <script src="{{asset('/js/logistic/components/productValues.js')}} "></script>

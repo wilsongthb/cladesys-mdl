@@ -72,6 +72,8 @@ Route::group(['middleware' => 'auth'], function(){
         Route::get('history-product/{locations_id}/{product_id}/{showDeletes?}', 'Logistic\InventoryController@historyProduct');
         Route::get('kardex/{locations_id}/{product_id}/{showDeletes?}', 'Logistic\InventoryController@kardex');
         Route::post('final-use', 'Logistic\OutputsController@finalUseReq');
+        Route::put('locations-stages-session', 'Logistic\LocationsStagesController@session');
+        Route::resource('locations-stages', 'Logistic\LocationsStagesController');
         // LABORATORY
         Route::Resource('lab-encharged-jobs', 'Lab\LabEnchargedJobsController');
         // CLINIC
@@ -88,13 +90,29 @@ use App\Http\Controllers\Logistic\InventoryController;
 use App\Http\Controllers\Logistic\OutputsController;
 use App\Models\InputDetails;
 use App\Models\Products;
+use App\Models\LocationsStages;
 
-Route::get('/test', function(){
-    // session()->start();
-    // session()->set('jojo', 544353)
-    // session()->put('first', Products::select('*')->first());
-    // session()->save();
-    // session()->pull('jaja');
-    // echo session()->get('jaja');
-    dd(session()->all());
+Route::group(['middleware' => 'auth'], function(){
+    Route::get('/test', function(){
+        // session()->start();
+        // session()->put('locations_stage_id', 2);
+        // session()->save();
+        session(['locations_stages_id' => 1]);
+        session()->save();
+
+        echo "<pre>";
+        echo "Etapa: " . session()->get('locations_stages_id') . PHP_EOL;
+    
+        $inventory = new InventoryController;
+    
+        dd(
+            session()->all(),
+            $inventory->stage,
+            $inventory->inventoryByLocation()
+        );
+    });
+    
+    Route::get('/tist', function(){
+        dd(session()->all());
+    });
 });

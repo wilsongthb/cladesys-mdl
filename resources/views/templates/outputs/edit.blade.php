@@ -8,6 +8,7 @@
     <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 form-group">
         <a href="" class="btn btn-default" ng-click="det.reestablecerPrecios()"><i class="fa fa-asterisk"></i> Reestablecer Precios</a>
         <a ng-if="rsc.fila.status !== 1" href="" class="btn btn-default" ng-click="rsc.desbloquear()"><i class="fa fa-unlock"></i> Desbloquear</a>
+        <a href="" class="btn btn-default" ng-click="dialogs.ticketModal()"><i class="fa fa-bars"></i> Generar Comprobante de pago</a>
         <!-- <a href="" class="btn btn-default" ng-click="rsc.desbloquear()"><i class="fa fa-unlock"></i> Desbloquear</a> -->
     </div>
 </div>
@@ -141,3 +142,30 @@
     </div>
 </div>
 @stop
+
+
+
+<!-- <a class="btn btn-primary" data-toggle="modal" href='#ticket-modal'>Trigger modal</a> -->
+<div class="modal fade" id="ticket-modal">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title">GENERAR COMPROBANTE DE PAGO</h4>
+            </div>
+            <div class="modal-body">
+                <a href="" class="btn btn-default" ng-click="ticket.generate()"><i class="fa fa-plus"></i> Generar</a>
+                <hr>
+                
+                <div class="list-group">
+                    <a ng-repeat="t in ticket.list" href="@{{G.apiUrl}}/tickets/@{{t.id}}" target="_blank" class="list-group-item" ng-bind="t.name"> </a>
+                </div>
+                
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+                <button type="button" class="btn btn-primary">Guardar</button>
+            </div>
+        </div>
+    </div>
+</div>

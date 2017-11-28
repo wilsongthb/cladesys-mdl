@@ -398,10 +398,37 @@ const OutputsConfig = {
         $scope.pop1 = false;
 
         $scope.Suppliers = Suppliers
-
         $scope.Inventory = Inventory
-
         $scope.config = G.config
+        $scope.G = G
+
+        $scope.dialogs = {
+            ticketModal: function(){
+                $('#ticket-modal').modal('show')
+                $scope.ticket.getTickets()
+            }
+        }
+        $scope.ticket = {
+            generate: function(){
+                $http.post(G.apiUrl + '/outputs/generate-ticket/' + $routeParams.id)
+                .then(
+                    res => {
+                        alert('hecho')
+                        this.getTickets()
+                    }
+                )
+            },
+            getTickets: function(){
+                $http.get(G.apiUrl + '/tickets', {
+                    params: {
+                        table: 'outputs',
+                        id: $routeParams.id
+                    }
+                }).then(
+                    res => this.list = res.data
+                )
+            }
+        }
         
         $scope.rsc = {
             fila: {},

@@ -81,7 +81,12 @@ class InventoryController extends Controller
      * que sirven para calcular el stock de los productos
      * @return QueryBuilder
      */
-    private function productsQuantity(){
+    public function productsQuantityByLocations($locations_id){
+        return $this->productsQuantity()->
+            where('i.locations_id', $locations_id)->
+            get();
+    }
+    public function productsQuantity(){
         $res = InputDetails::
             select(
                 'id.products_id',
@@ -103,7 +108,6 @@ class InventoryController extends Controller
                 $res = $res->where('i.created_at', '<=', $this->stage->end);
             }
         }
-        
         return $res;
     }
     /**
@@ -113,7 +117,8 @@ class InventoryController extends Controller
      * las funciones anteriores, y calcula el stock de
      * esos products 
      */
-    private function stockCalculator(&$list, $locations_id = 0){
+    public function stockCalculator(&$list, $locations_id = 0, $returnOutputs = false){
+        $outputs = [];
         // calcular stock
         foreach ($list as $key => &$value) {
             $od = OutputDetails::
@@ -139,7 +144,6 @@ class InventoryController extends Controller
                     ->where('i.locations_id', $locations_id)
                     ->where('o.locations_id', $locations_id);
             }
-
             // stage condicion
             if($this->stage->start){
                 $od = $od->where('i.created_at', '>=', $this->stage->start);
@@ -149,9 +153,10 @@ class InventoryController extends Controller
                     $od = $od->where('o.created_at', '<=', $this->stage->end);
                 }
             }
-
-            //obtener resultado
+            // obtener resultado
             $od = $od->first();
+            if($returnOutputs) $outputs[] = $od;
+            
             // determinar stock
             if($od){
                 $value->od_quantity_sum = $od->od_quantity_sum;
@@ -162,6 +167,7 @@ class InventoryController extends Controller
                 $value->stock = $value->id_quantity_sum;
             }
         }
+        if($returnOutputs) return $outputs;
     }
 
 

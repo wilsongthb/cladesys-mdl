@@ -49,6 +49,7 @@ Route::group(['middleware' => 'auth'], function(){
         Route::post('outputs/send/{id}', 'Logistic\OutputsController@send');
         Route::put('outputs/to-unlock/{outputs_id}', 'Logistic\OutputsController@toUnlock');
         Route::put('outputs/reeboot-prices', 'Logistic\OutputsController@reebootPricesReq');
+        Route::post('outputs/generate-ticket/{outputs_id}', 'Logistic\OutputsController@generateTicket');
         Route::resource('outputs', 'Logistic\OutputsController');
         Route::resource('output-details', 'Logistic\OutputDetailsController');
         Route::resource('requeriments', 'Logistic\RequerimentsController');
@@ -83,6 +84,7 @@ Route::group(['middleware' => 'auth'], function(){
         // CREDENTIALS
         Route::resource('users', 'UsersController');
         Route::resource('user-modules', 'UserModulesController');
+        Route::resource('tickets', 'TicketsController');
     });
 });
 
@@ -94,24 +96,9 @@ use App\Models\LocationsStages;
 
 Route::group(['middleware' => 'auth'], function(){
     Route::get('/test', function(){
-        // session()->start();
-        // session()->put('locations_stage_id', 2);
-        // session()->save();
-        session(['locations_stages_id' => 1]);
-        session()->save();
-
-        echo "<pre>";
-        echo "Etapa: " . session()->get('locations_stages_id') . PHP_EOL;
-    
-        $inventory = new InventoryController;
-    
-        dd(
-            session()->all(),
-            $inventory->stage,
-            $inventory->inventoryByLocation()
-        );
+        $i = new InventoryController;
+        
     });
-    
     Route::get('/tist', function(){
         dd(session()->all());
     });

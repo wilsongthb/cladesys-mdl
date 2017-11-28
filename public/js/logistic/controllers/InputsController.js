@@ -1,4 +1,3 @@
-
 // INPUTS
 const InputsConfig = {
     name: 'inputs',

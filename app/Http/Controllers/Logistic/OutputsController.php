@@ -8,13 +8,49 @@ use App\Models\Outputs;
 use App\Models\OutputDetails;
 use App\Models\InputDetails;
 use App\Models\Inputs;
+use App\Models\Products;
 use App\Models\Locations;
 use App\Http\Controllers\Logistic\InventoryController;
 use App\Http\Controllers\Logistic\OutputDetailsController;
+use App\Models\Tickets;
+use App\Models\TicketDetails;
 use Auth;
 
 class OutputsController extends Controller
 {
+    public function generateTicket($outputs_id){
+        // recolectar datos
+        $ticket = new Tickets;
+        $output = Outputs::find($outputs_id);
+        $location = Locations::find($output->locations_id);
+        $location_target = Locations::find($output->target_locations_id);
+
+        //ticket
+        $ticket->name = $location_target->name;
+        $ticket->table_foreign_name = 'outputs';
+        $ticket->table_foreign_id = $outputs_id;
+        $ticket->user_id = auth()->user()->id;
+        $ticket->save();
+
+        $output_details = OutputDetails::where('outputs_id', $outputs_id)->get();
+        foreach ($output_details as $key => $value) {
+            $id = InputDetails::find($value->input_details_id);
+            $p = Products::find($id->products_id);
+
+            // ticket details
+            $td = new TicketDetails;
+            $td->user_id = auth()->user()->id;
+            $td->quantity = $value->quantity;
+            $td->description = $p->name;
+            $td->unit_price = $value->unit_price;
+            $td->real_unit_price = $value->real_unit_price ? $value->real_unit_price : 0;
+            $td->utility = $value->utility;
+            $td->tickets_id = $ticket->id;
+            $td->save();
+        }
+
+        return $ticket->id;
+    }
     public function toUnlock($outputs_id){
         // if(auth()->user()->id === 1){
             $output = Outputs::find($outputs_id);

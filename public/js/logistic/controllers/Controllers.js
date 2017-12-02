@@ -410,13 +410,17 @@ const OutputsConfig = {
         }
         $scope.ticket = {
             generate: function(){
-                $http.post(G.apiUrl + '/outputs/generate-ticket/' + $routeParams.id)
-                .then(
-                    res => {
-                        alert('hecho')
-                        this.getTickets()
-                    }
-                )
+                if(!this.sending){
+                    this.sending = true
+                    $http.post(G.apiUrl + '/outputs/generate-ticket/' + $routeParams.id)
+                    .then(
+                        res => {
+                            alert('hecho')
+                            this.getTickets()
+                            this.sending = false
+                        }
+                    )
+                }
             },
             getTickets: function(){
                 $http.get(G.apiUrl + '/tickets', {
@@ -480,7 +484,7 @@ const OutputsConfig = {
             loading: false,
             recalcularPrecio: true,
             reestablecerPrecios: function(){
-                if(confirm('Esta seguro(a)')){
+                if(confirm('Esta seguro(a) de reestablecer precios, se van a \nrecuperar el precio de compra y adicionar la utilidad')){
                     $http.put(G.apiUrl + '/outputs/reeboot-prices', {
                         outputs_id: $routeParams.id
                     })

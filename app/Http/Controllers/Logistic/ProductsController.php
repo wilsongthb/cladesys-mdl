@@ -9,6 +9,19 @@ use App\Models\ProductOptions;
 
 class ProductsController extends Controller
 {
+        /**
+     * INSERT PRODUCTS
+     * inserta objetos producto a la lista
+     * segun la clave products_id de cada fila
+     * @param Array ['products_id => val]
+     */
+    public function insertProducts(&$list){
+        foreach ($list as $key => &$value) {
+            // precio real
+            $value->product = $this->show($value->products_id);
+        }
+    }
+    
     /**
     * @return App\Models\Products; Query builder
     */

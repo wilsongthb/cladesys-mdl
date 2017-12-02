@@ -137,8 +137,9 @@ return [
     'client' => [
         'stage' => [
             'default' => [
-                'start' => false,
-                'end' => false
+                'name' => 'ETAPA',
+                'start' => '0000-00-00 00:00:00',
+                'end' => '9999-12-31 23:59:59'
             ]
         ],
         'per_page' => 8,
@@ -158,7 +159,8 @@ return [
         'ticket' => [
             'type' => [
                 1 => 'BOLETA',
-                2 => 'FACTURA'
+                2 => 'FACTURA',
+                3 => 'RECIBO'
             ]
         ],
         'order' => [
@@ -190,6 +192,13 @@ return [
                 1 => 'USO FINAL', //uso final
                 2 => 'DISTRIBUCION', // enviado a otra localizacion
                 3 => 'VENTA', // venta a una entidad
+            ]
+        ],
+        'locationsStages' => [
+            'type' => [
+                // SE PIENSA CREAR UN TIPO DE LOCATION STAGE
+                1 => 'ENCAPSULADO',
+                2 => 'PERSISTENTE'
             ]
         ],
     ],

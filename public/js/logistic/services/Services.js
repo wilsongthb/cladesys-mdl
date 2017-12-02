@@ -256,7 +256,7 @@
             }).then(
                 res => {
                     $route.reload()
-                    this.stage = false
+                    this.stage = res.data
                 }
             )
         }
@@ -275,7 +275,7 @@
 
         this.init = function(){
             $http.get(G.apiUrl + '/locations-stages', {
-                // params: {locations_id: Locations.get()}
+                params: {locations_id: Locations.get()}
             })
             .then(
                 res => {
@@ -283,6 +283,7 @@
                 }
             )
             $http.put(G.apiUrl + '/locations-stages-session', {
+
             }).then(
                 res => this.stage = res.data
             )

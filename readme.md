@@ -18,4 +18,10 @@ Incompatibilidades de Material Design Lite:
 - Basicamente no interactua bien con otros frameworks que no necesariamente son de css
 
 # Version
-0.0.1
+0.0.5
+
+# SOPORTE A LOCATIONS STAGES
+
+Se trata de encapsular las entradas de una fecha para vender solo las de esa fecha
+esto se hace normalmente al principio de cada año, se comprueba el inventario, para
+que todo cuadre y finalmente se reinicia todo desde cero con un nuevo inventario inicial

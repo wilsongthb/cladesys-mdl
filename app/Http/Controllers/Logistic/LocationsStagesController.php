@@ -5,25 +5,40 @@ namespace App\Http\Controllers\Logistic;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\LocationsStages;
+use stdClass;
 
 class LocationsStagesController extends Controller
 {
-    public function session(Request $request){
-        if($request->get('no_stage')){
-            session()->pull('locations_stages_id');
-            session()->save();
-            // return "nostage";
+    public static function getStage(){
+        $stage = LocationsStages::find(session()->get('locations_stages_id'));
+        if(!$stage){
+            $stage = new stdClass;
+            $stagedefault = config('logistic.client.stage.default');
+            $stage->start = $stagedefault['start'];
+            $stage->end = $stagedefault['end'];
         }
+        return $stage;
+    }
+
+    public function session(Request $request){
         if($request->get('locations_stages_id')){
             session(['locations_stages_id' => $request->get('locations_stages_id')]);
             session(['locations_stage' => LocationsStages::find(session()->get('locations_stages_id'))]);
             session()->save();
         }
         $stage = LocationsStages::find(session()->get('locations_stages_id'));
+
+        if($request->get('no_stage')){
+            session()->pull('locations_stages_id');
+            session()->save();
+            // return "nostage";
+            // return config('logistic.client.stage.default');
+            $stage = false;
+        }
         if($stage){
             return $stage;
         }else{
-            return "nostage";
+            return config('logistic.client.stage.default');
         }
         // return LocationsStages::find(session()->get('locations_stages_id'));
     }

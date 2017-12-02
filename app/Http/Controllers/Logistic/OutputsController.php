@@ -12,9 +12,12 @@ use App\Models\Products;
 use App\Models\Locations;
 use App\Http\Controllers\Logistic\InventoryController;
 use App\Http\Controllers\Logistic\OutputDetailsController;
+use App\Http\Controllers\Logistic\LocationsStagesController;
 use App\Models\Tickets;
 use App\Models\TicketDetails;
 use Auth;
+use Datetime;
+use DB;
 
 class OutputsController extends Controller
 {
@@ -26,6 +29,8 @@ class OutputsController extends Controller
         $location_target = Locations::find($output->target_locations_id);
 
         //ticket
+        $ticket->type = 3;
+        $ticket->sender = $location->name;
         $ticket->name = $location_target->name;
         $ticket->table_foreign_name = 'outputs';
         $ticket->table_foreign_id = $outputs_id;
@@ -65,7 +70,7 @@ class OutputsController extends Controller
     }
     /**
      * REESTABLECER PRECIOS
-     * Reestablece los precios a los orginales
+     * Reestablece los precios a los originales
      * @param Int Output_ID
      */
     public function reebootPrices($outputs_id){
@@ -75,13 +80,20 @@ class OutputsController extends Controller
 
         foreach ($output_details as $key => $value) {
             $input_detail = InputDetails::find($value->input_details_id);
-            $temp_price = $value->unit_price;
-            // $value->real_unit_price = $value->unit_price;
-            // if(!$value->real_unit_price) $value->real_unit_price = $value->unit_price;
-            $value->unit_price = $input_detail->unit_price + (($input_detail->unit_price / 100) * $location->utility);
+            $value->real_unit_price = $input_detail->unit_price;
+            $value->unit_price = $input_detail->unit_price;
+
+            // exit(print_r([
+            //     'value' => $value,
+            //     'utility' => (($input_detail->unit_price / 100) * $value->utility)
+            // ], true));
+
+            $value->unit_price = $input_detail->unit_price + (($input_detail->unit_price / 100) * $value->utility);
             $value->save();
         }
 
+        $output->updated_at = new Datetime;
+        $output->save();
         return $output_details;
     }
 
@@ -230,6 +242,22 @@ class OutputsController extends Controller
         return "ok";
     }
 
+    public function select(){
+        $res = Outputs
+            ::select(
+                DB::raw('COUNT(od.id) AS total_details'),
+                'o.*',
+                'l.name AS locations_name',
+                'l_d.name AS target_locations_id'
+            )
+            ->from('outputs AS o')
+            ->leftJoin('locations AS l', 'l.id', 'o.locations_id') // almacen
+            ->leftJoin('locations AS l_d', 'l_d.id', 'o.target_locations_id') // destino
+            ->leftJoin('output_details AS od', 'o.id', 'od.outputs_id');
+        // dd($res->toSql());
+        return $res;
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -238,24 +266,19 @@ class OutputsController extends Controller
     public function index(Request $request)
     {
         $per_page = $this->getPerPage($request);
-        $stage = (new InventoryController)->stage;
-        $res = Outputs::
-            select(
-                'o.*',
-                'l.name AS locations_name',
-                'l_d.name AS target_locations_id'
-            )->from('outputs AS o')
-            ->leftJoin('locations AS l', 'l.id', 'o.locations_id') // almacen
-            ->leftJoin('locations AS l_d', 'l_d.id', 'o.target_locations_id') // destino
+        $stage = LocationsStagesController::getStage();
+        $res = $this->select()
+            ->where('o.flagstate', true)
+            // ->where(DB::raw('IFNULL(od.flagstate, true)'), true)
             ->where('o.locations_id', $request->locations_id)
+            ->leftJoin('input_details AS id', 'id.id', 'od.input_details_id')
+            ->leftJoin('inputs AS i', 'i.id', 'id.inputs_id')
+            // ->where('o.created_at', '>=', $stage->start)
+            // ->where('o.created_at', '<=', $stage->end)
+            ->where('i.created_at', '>=', $stage->start)
+            ->where('i.created_at', '<=', $stage->end)
+            ->groupBy('o.id')
             ->orderBy('o.id', 'DESC');
-        if($stage->start){
-            $res = $res->where('o.created_at', '>=', $stage->start);
-            if($stage->end){
-                $res = $res->where('o.created_at', '<=', $stage->end);
-            }
-        }
-
         return $res->paginate($per_page);
     }
 
@@ -355,7 +378,6 @@ class OutputsController extends Controller
     public function destroy($id)
     {
         $fila = Outputs::find($id);
-        // dd($fila);
         if($fila->status === 2){
             return "locked";
         }

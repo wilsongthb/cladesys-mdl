@@ -34,7 +34,6 @@
         <![endif]-->
 
 </head>
-
 <body>
     <div ng-app="logistic" ng-controller="RootController">
         <nav class="navbar navbar-default" role="navigation">
@@ -74,7 +73,7 @@
                 </form> -->
                 <ul class="nav navbar-nav navbar-right">
                     <li>
-                        <a href="" ng-click="dialogs.showSLSM()"><i class="fa fa-bars"></i> Seleccionar Etapa</a>
+                        <a href="" ng-click="dialogs.showSLSM()"> <span ng-bind="LocationsStages.stage.name"></span></a>
                     </li>
                     <li class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">
@@ -152,8 +151,8 @@
                             <span ng-bind="LocationsStages.stage.end"></span>
                         </span>
                     </span>
-                    <hr>
-                    <a href="" class="btn btn-default" ng-click="dialogs.showSLSM()"><i class="fa fa-bars"></i> Seleccionar Etapa</a>
+                    {{--  <hr>
+                    <a href="" class="btn btn-default" ng-click="dialogs.showSLSM()"><i class="fa fa-bars"></i> Seleccionar Etapa</a>  --}}
                 </div>
             </div>
             

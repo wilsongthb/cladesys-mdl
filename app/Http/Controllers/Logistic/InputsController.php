@@ -6,8 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\Inputs;
 use DB;
-use App\Models\LocationsStages;
-use App\Http\Controllers\Logistic\InventoryController;
+use App\Http\Controllers\Logistic\LocationsStagesController;
 
 class InputsController extends Controller
 {
@@ -16,6 +15,7 @@ class InputsController extends Controller
      * 
      * la idea es tener un solo select para user en index y show
      * @return QueryBuilder
+     * 
      */
     public function select(){
         $res = Inputs::
@@ -33,25 +33,13 @@ class InputsController extends Controller
             leftJoin('users AS us', 'us.id', '=', 'i.user_id')->
             leftJoin('input_details AS id', 'i.id', '=', 'id.inputs_id')->
             groupBy('i.id');
-        
-
-        $stage = (new InventoryController)->stage;
-
-        // dd($stage);
-        if($stage){
-            if($stage->start){
-                $res = $res->where('i.created_at', '>=', $stage->start);
-                if($stage->end){
-                    $res = $res->where('i.created_at', '<=', $stage->end);
-                }
-            }
-        }
-
         return $res;
     }
 
     /**
+     * 
      * Carga expresiones para la API
+     * 
      */
     private function cargarExpresiones(&$result){
         foreach ($result as $key => &$value) {
@@ -69,12 +57,15 @@ class InputsController extends Controller
     {
         $per_page = $this->getPerPage($request);
         $locations_id = $request->locations_id;
+        $stage = LocationsStagesController::getStage();
 
-        $res = $this->select()
-            ->where('i.locations_id', $locations_id)
-            ->orderBy('i.id', 'DESC')
-            ->paginate($per_page);
-            // ->simplePaginate($per_page);
+        $res = $this->select()->
+            where('i.locations_id', $locations_id)->
+            where('i.flagstate', true)->
+            where('i.created_at', '>=', $stage->start)->
+            where('i.created_at', '<=', $stage->end)->
+            orderBy('i.id', 'DESC')->
+            paginate($per_page);
 
         $items = $res->items();
         $this->cargarExpresiones($items);

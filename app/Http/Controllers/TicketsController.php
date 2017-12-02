@@ -51,12 +51,15 @@ class TicketsController extends Controller
      */
     public function show($id)
     {
+        
+    }
+
+    public function getTicket($id){
         return [
             'ticket' => Tickets::find($id),
             'details' => TicketDetails::where('tickets_id', $id)->get()
         ];
     }
-
     /**
      * Show the form for editing the specified resource.
      *
@@ -65,7 +68,13 @@ class TicketsController extends Controller
      */
     public function edit($id)
     {
-        //
+        $data = $this->getTicket($id);
+        $total = 0;
+        foreach ($data['details'] as $key => $value) {
+            $total += $value->unit_price * $value->quantity;
+        }
+        $data['total'] = $total;
+        return view('templates.tickets.edit', $data);
     }
 
     /**
@@ -77,7 +86,11 @@ class TicketsController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $reg = Tickets::find($id);
+        $reg->cancelled = true;
+        $reg->save();
+        // return $request->all();
+        return back()->withInput();
     }
 
     /**

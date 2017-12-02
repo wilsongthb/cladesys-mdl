@@ -26,6 +26,7 @@ class LocationsConfigEdit extends Migration
 
             // $table->dropColumn(['module', 'get', 'post', 'put', 'delete']);
             $table->integer('default_stage')->unsigned()->nullable();
+            // $table->tinyInteger('default_type_stage')->nullable();
         });
     }
 

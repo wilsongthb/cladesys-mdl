@@ -1681,39 +1681,40 @@ const ComparisonConfig = {
     }
 })(G);
 
-(function() {
+(function(G) {
     'use strict';
 
     angular
         .module('logistic')
         .controller('ResumeController', ResumeController);
 
-    ResumeController.$inject = ['$http', '$scope', 'LocationsStages', 'InventoryService'];
-    function ResumeController($http, $scope, LocationsStages, InventoryService) {
+    ResumeController.$inject = ['$http', '$scope', 'LocationsStages', 'Locations'];
+    function ResumeController($http, $scope, LocationsStages, Locations) {
         var vm = this;
         $scope.html = {
-            moneyFormatter
-        }
-
-        $scope.InventoryService = InventoryService
-
-        
-        $scope.total = function(){
-            var total = 0
-            for(var i in InventoryService.list){
-                var fila = InventoryService.list[i]
-                total += parseFloat(fila.price ? fila.price : 0) * parseFloat(fila.stock ? fila.stock : 0)
-                // console.log(total)
+            enSoles: function(dinero){
+                return moneyFormatter.format('PEN', dinero)
             }
-            return total
         }
+        $scope.Locations = Locations
+        $scope.Resume = {
+            get: function(){
+                $http.get(G.apiUrl + '/location-resume/' + Locations.get())
+                .then(
+                    res => {
+                        this.data = res.data
+                    }
+                )
+            }
+        }
+        
 
         activate();
 
         ////////////////
 
         function activate() { 
-            InventoryService.get()
+            $scope.Resume.get();
         }
     }
-})();
+})(G);

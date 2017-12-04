@@ -157,7 +157,7 @@ class StockController extends Controller
         return $sqlStockByProduct;
     }
 
-    public function resume($locations_id, $stage = false){
+    public function locationResume($locations_id, $stage = false){
         if(!$stage){
             $stage = $this->getStage();
         }
@@ -167,23 +167,28 @@ class StockController extends Controller
         $sqlResume = 
         "SELECT
             COUNT(sbp.products_id) AS count_products,
-            SUM(sbp.sum_id_quantity) AS sum_id_quantity,
-            SUM(sbp.sum_od_quantity) AS sum_od_quantity,
-            SUM(sbp.count_id) AS sum_id,
-            SUM(sbp.count_od) AS sum_od,
-            SUM(sbp.count_id + sbp.count_od) AS sum_details,
-            SUM(sbp.sum_id_subtotal) AS sum_id_subtotal,
-            SUM(sbp.sum_od_subtotal) AS sum_od_subtotal,
-            SUM(sbp.stock) AS stock,
-            SUM(sbp.profit) AS profit
+            IFNULL(SUM(sbp.sum_id_quantity), 0) AS sum_id_quantity,
+            IFNULL(SUM(sbp.sum_od_quantity), 0) AS sum_od_quantity,
+            IFNULL(SUM(sbp.count_id), 0) AS sum_id,
+            IFNULL(SUM(sbp.count_od), 0) AS sum_od,
+            IFNULL(SUM(sbp.count_id + sbp.count_od), 0) AS sum_details,
+            IFNULL(SUM(sbp.sum_id_subtotal), 0) AS sum_id_subtotal,
+            IFNULL(SUM(sbp.sum_od_subtotal), 0) AS sum_od_subtotal,
+            IFNULL(SUM(sbp.stock), 0) AS stock,
+            IFNULL(SUM(sbp.profit), 0) AS profit
         FROM ($sqlStockByProduct) AS sbp
         ";
 
-        dd(
-            $sqlResume,
-            DB::select($this->sqlStockByInput($locations_id)),
-            DB::select($sqlStockByProduct),
-            DB::select($sqlResume)
-        );
+        // dd(
+        //     $sqlResume,
+        //     DB::select($this->sqlStockByInput($locations_id)),
+        //     DB::select($sqlStockByProduct),
+        //     DB::select($sqlResume)
+        // );
+        return response()->json(DB::select($sqlResume)[0], 200);
+    }
+
+    public function locationStockByProduct($locations_id){
+        return DB::select($this->sqlStockByProduct($locations_id));
     }
 }

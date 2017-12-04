@@ -62,9 +62,10 @@ Route::group(['middleware' => 'auth'], function(){
         Route::Resource('images', 'ImagesController');
         Route::get('user-locations/all', 'Logistic\UserLocationsController@getAllLocations');
         Route::resource('user-locations', 'Logistic\UserLocationsController');
-        Route::get('location-resume/{locations_id}', 'Logistic\StockController@resume');
-        
+        Route::get('location-resume/{locations_id}', 'Logistic\StockController@locationResume');
+
         // EN MANTENIMIENTO
+        // Route::get('location-stock-product', 'Logistic\Stock')
         Route::get('inventory/{locations_id?}/{show_zeros?}', 'Logistic\InventoryController@index');
         // Route::get('inventory-grouped/{locations_id?}', 'Logistic\InventoryController@indexGrouped');
         // Route::get('stock/{locations_id}', 'Logistic\InventoryController@stock_location');
@@ -110,13 +111,19 @@ Route::group(['middleware' => 'auth'], function(){
         
         // PARAMETROS
         $stage = $s->stage;
-        $locations_id = 10;
+        $locations_id = 1;
 
-        $s->resume($locations_id);
+        // $s->locationResume($locations_id);
         
 
         // $sqlStockByInput = $s->sqlStockByInput($locations_id);
         $sqlStockByProduct = $s->sqlStockByProduct($locations_id);
+        $sqlStockByProduct = 
+        "SELECT
+            s.*
+        FROM ($sqlStockByProduct) AS s
+        ORDER BY s.profit ASC
+        ";
 
         // $sql = "SELECT 1+1";
 

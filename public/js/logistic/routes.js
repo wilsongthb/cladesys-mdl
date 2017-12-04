@@ -164,7 +164,7 @@
                     })
 
                     .when('/resume', {
-                        templateUrl: G.url + '/view/resume.html',
+                        templateUrl: G.url + '/view/locationResume.html',
                         controller: 'ResumeController'
                     })
             }

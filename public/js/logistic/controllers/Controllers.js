@@ -536,26 +536,43 @@ const OutputsConfig = {
                 var input_details_id = item.id
                 this.fila.stock = item.stock
                 this.fila.quantity = 0
-                this.fila.real_unit_price = item.unit_price
+                this.fila.real_unit_price = parseFloat(item.unit_price)
+                // this.fila.unit_price = parseFloat(item.unit_price) + parseFloat(item.unit_price * item.utility / 100)
+                // this.fila.unit_price = parseFloat(item.unit_price) + parseFloat(parseFloat(item.unit_price) * parseFloat(this.fila.utility) / 100)
+
+                this.calculateUnitPrice()                
+                // console.log(item)
+                // console.log(this.fila)
                 // console.log(input_details_id)
                 // return 
 
-                $http.get(G.apiUrl + '/real-price-id/' + Locations.get() + '/' + input_details_id)
-                .then(
-                    res => {
-                        this.fila.real_price = res.data[0].real_price
-                        this.calculateUnitPrice()
-                    }
-                )
+                // $http.get(G.apiUrl + '/real-price-id/' + Locations.get() + '/' + input_details_id)
+                // .then(
+                //     res => {
+                //         // this.fila.real_price = res.data[0].real_price
+
+
+                //     }
+                // )
             },
             calculateUnitPrice: function(){
                 // console.log('ja')
-                if(this.fila.utility && this.recalcularPrecio){
-                    if(this.fila.unit_price){
-                        this.fila.unit_price = parseFloat(this.fila.unit_price) + parseFloat((this.fila.utility/100) * this.fila.unit_price)
-                    }else{
-                        this.fila.unit_price = parseFloat(this.fila.real_price) + parseFloat(((this.fila.utility/100) * this.fila.real_price))
-                    }
+                // if(this.fila.utility && this.recalcularPrecio){
+                //     if(this.fila.unit_price){
+                //         this.fila.unit_price = parseFloat(this.fila.unit_price) + parseFloat((this.fila.utility/100) * this.fila.unit_price)
+                //     }else{
+                //         this.fila.unit_price = parseFloat(this.fila.real_price) + parseFloat(((this.fila.utility/100) * this.fila.real_price))
+                //     }
+                // }
+                // console.log(this.fila)
+
+                this.fila.utility = parseFloat(this.fila.utility)
+                if(this.recalcularPrecio){
+                    // if(this.fila.unit_price){
+                    //     this.fila.unit_price = parseFloat(this.fila.real_unit_price) + parseFloat((this.fila.utility/100) * this.fila.real_unit_price)
+                    // }else{
+                        this.fila.unit_price = parseFloat(this.fila.real_unit_price) + parseFloat(((this.fila.utility/100) * this.fila.real_unit_price))
+                    // }
                 }
             },
             save: function(){

@@ -58,7 +58,7 @@
                         <div class="form-group">
                             <label for="">Utilidad *</label>
                             <input type="checkbox" ng-model="det.recalcularPrecio"> Autorecalcular
-                            <input type="text" ng-model="det.fila.utility" required class="form-control">
+                            <input type="text" ng-model="det.fila.utility" ng-change="det.calculateUnitPrice()" required class="form-control">
                         </div>
                     </div>
                     <div class="col-xs-12 col-sm-4 col-md-3 col-lg-3">

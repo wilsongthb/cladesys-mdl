@@ -65,14 +65,13 @@ Route::group(['middleware' => 'auth'], function(){
         Route::get('location-resume/{locations_id}', 'Logistic\StockController@locationResume');
 
         // EN MANTENIMIENTO
-        // Route::get('location-stock-product', 'Logistic\Stock')
         Route::get('inventory/{locations_id?}/{show_zeros?}', 'Logistic\InventoryController@index');
-        // Route::get('inventory-grouped/{locations_id?}', 'Logistic\InventoryController@indexGrouped');
-        // Route::get('stock/{locations_id}', 'Logistic\InventoryController@stock_location');
-        // Route::get('stock-po/{locations_id}', 'Logistic\InventoryController@stock_location_po');
-        // Route::get('stock-status/{locations_id}', 'Logistic\InventoryController@stock_status');
-        // Route::get('real-price/{locations_id}/{products_id}', 'Logistic\InventoryController@real_price');
-        // Route::get('real-price-id/{locations_id}/{products_id}', 'Logistic\InventoryController@real_price_id');
+        Route::get('inventory-grouped/{locations_id?}', 'Logistic\InventoryController@indexGrouped');
+        Route::get('stock/{locations_id}', 'Logistic\InventoryController@stock_location');
+        Route::get('stock-po/{locations_id}', 'Logistic\InventoryController@stock_location_po');
+        Route::get('stock-status/{locations_id}', 'Logistic\InventoryController@stock_status');
+        Route::get('real-price/{locations_id}/{products_id}', 'Logistic\InventoryController@real_price');
+        Route::get('real-price-id/{locations_id}/{products_id}', 'Logistic\InventoryController@real_price_id');
         Route::get('inventory-by-location/{locations_id}', 'Logistic\InventoryController@inventoryByLocation');
         Route::get('history-product/{locations_id}/{product_id}/{showDeletes?}', 'Logistic\InventoryController@historyProduct');
         Route::get('kardex/{locations_id}/{product_id}/{showDeletes?}', 'Logistic\InventoryController@kardex');

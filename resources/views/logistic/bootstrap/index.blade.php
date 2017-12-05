@@ -57,7 +57,7 @@
                         <ul class="dropdown-menu">
                             @foreach ($categorie['modules'] as $module_name)
                                 @if (isset($modules[$module_name]))
-                                <li><a href="{{ $appUrl }}/{{$module_name}} ">{{ $modules[$module_name]['title'] }} </a></li>    
+                                <li><a href="{{ $appUrl }}/{{$module_name}} ">{{ $modules[$module_name]['title'] }} </a></li>
                                 @endif
                             @endforeach
                         </ul>

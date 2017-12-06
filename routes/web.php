@@ -115,7 +115,13 @@ Route::group(['middleware' => 'auth'], function(){
         // $s->locationResume($locations_id);
         
 
-        // $sqlStockByInput = $s->sqlStockByInput($locations_id);
+        $sqlStockByInput = $s->sqlStockByInput($locations_id);
+        $sqlStockByInput = 
+        "SELECT
+            s.*
+        FROM ($sqlStockByInput) AS s
+        ORDER BY s.profit ASC
+        ";
         $sqlStockByProduct = $s->sqlStockByProduct($locations_id);
         $sqlStockByProduct = 
         "SELECT
@@ -127,15 +133,15 @@ Route::group(['middleware' => 'auth'], function(){
         // $sql = "SELECT 1+1";
 
         $pro = DB::select($sqlStockByProduct);
-        // $inp = DB::select($sqlStockByInput);
+        $inp = DB::select($sqlStockByInput);
 
         // $p = new ProductsController;
         $p->insertProducts($pro);
 
         dd(
             // $sqlStockByProduct,
-            $pro
-            // $inp
+            $pro,
+            $inp
         );
     });
     Route::get('/tist', function(){

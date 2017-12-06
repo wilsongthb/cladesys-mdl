@@ -70,10 +70,14 @@ class TicketsController extends Controller
     {
         $data = $this->getTicket($id);
         $total = 0;
+        $real_price = 0;
         foreach ($data['details'] as $key => $value) {
             $total += $value->unit_price * $value->quantity;
+            $real_price += $value->real_unit_price * $value->quantity;
         }
         $data['total'] = $total;
+        $data['real_price'] = $real_price;
+        $data['utilidad'] = $total - $real_price;
         return view('templates.tickets.edit', $data);
     }
 

@@ -66,6 +66,14 @@ RECIBO {{$ticket->id}}
                                 <th class="text-right" colspan="3">TOTAL</th>
                                 <td class="text-right">S/. {{number_format($total, 2)}} </td>
                             </tr>
+                            <tr>
+                                <th class="text-right" colspan="3">PRECIO REAL</th>
+                                <td class="text-right">S/. {{number_format($real_price, 2)}} </td>
+                            </tr>
+                            <tr>
+                                <th class="text-right" colspan="3">UTILIDAD</th>
+                                <td class="text-right">S/. {{number_format($utilidad, 2)}} </td>
+                            </tr>
                         </tbody>
                     </table>
                     

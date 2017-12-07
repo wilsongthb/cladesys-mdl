@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use DB;
 use stdClass;
 use App\Http\Controllers\Logistic\LocationsStagesController;
+use App\Http\Controllers\Logistic\ProductsController;
 
 class StockController extends Controller
 {
@@ -179,16 +180,30 @@ class StockController extends Controller
         FROM ($sqlStockByProduct) AS sbp
         ";
 
-        // dd(
-        //     $sqlResume,
-        //     DB::select($this->sqlStockByInput($locations_id)),
-        //     DB::select($sqlStockByProduct),
-        //     DB::select($sqlResume)
-        // );
         return response()->json(DB::select($sqlResume)[0], 200);
     }
 
+    /**
+     * El stock por productos
+     */
     public function locationStockByProduct($locations_id){
-        return DB::select($this->sqlStockByProduct($locations_id));
+        $res = DB::select($this->sqlStockByProduct($locations_id));
+        $p = new ProductsController;
+        $p->insertProducts($res);
+
+        // dd($res);
+        return $res;
+    }
+
+    /**
+     * El stock por Entradas
+     */
+    public function locationStockByInput($locations_id){
+        $res = DB::select($this->sqlStockByInput($locations_id));
+        $p = new ProductsController;
+        $p->insertProducts($res);
+
+        // dd($res);
+        return $res;
     }
 }

@@ -9,6 +9,7 @@ use App\Models\InputDetails;
 use DB;
 use App\Models\Outputs;
 use App\Http\Controllers\Logistic\InventoryController;
+use App\Http\Controllers\Logistic\LocationsStagesController;
 
 class OutputDetailsController extends Controller
 {
@@ -44,7 +45,11 @@ class OutputDetailsController extends Controller
      */
     public function index(Request $request)
     {
+        $stage = LocationsStagesController::getStage();
         $res = $this->select()
+            ->leftJoin('inputs AS i', 'i.id', 'id.inputs_id')
+            ->where(DB::raw("IFNULL(i.created_at, '$stage->start')"), '>=', $stage->start)
+            ->where(DB::raw("IFNULL(i.created_at, '$stage->end')"), '<=', $stage->end)
             ->where('o.id', $request->id)
             ->orderBy('od.id', 'DESC')
             ->get();

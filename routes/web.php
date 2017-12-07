@@ -62,21 +62,25 @@ Route::group(['middleware' => 'auth'], function(){
         Route::Resource('images', 'ImagesController');
         Route::get('user-locations/all', 'Logistic\UserLocationsController@getAllLocations');
         Route::resource('user-locations', 'Logistic\UserLocationsController');
+        
+        // NUEVAS RUTAS DE FUNCION
         Route::get('location-resume/{locations_id}', 'Logistic\StockController@locationResume');
+        Route::get('stock/{locations_id}', 'Logistic\StockController@locationStockByProduct');
+        Route::get('stock-input/{locations_id}', 'Logistic\StockController@locationStockByInput');
 
         // EN MANTENIMIENTO
-        Route::get('inventory/{locations_id?}/{show_zeros?}', 'Logistic\InventoryController@index');
-        Route::get('inventory-grouped/{locations_id?}', 'Logistic\InventoryController@indexGrouped');
-        Route::get('stock/{locations_id}', 'Logistic\InventoryController@stock_location');
-        Route::get('stock-po/{locations_id}', 'Logistic\InventoryController@stock_location_po');
-        Route::get('stock-status/{locations_id}', 'Logistic\InventoryController@stock_status');
-        Route::get('real-price/{locations_id}/{products_id}', 'Logistic\InventoryController@real_price');
-        Route::get('real-price-id/{locations_id}/{products_id}', 'Logistic\InventoryController@real_price_id');
-        Route::get('inventory-by-location/{locations_id}', 'Logistic\InventoryController@inventoryByLocation');
-        Route::get('history-product/{locations_id}/{product_id}/{showDeletes?}', 'Logistic\InventoryController@historyProduct');
-        Route::get('kardex/{locations_id}/{product_id}/{showDeletes?}', 'Logistic\InventoryController@kardex');
-        Route::post('final-use', 'Logistic\OutputsController@finalUseReq');
-        // ////////////////////////////
+        // Route::get('inventory/{locations_id?}/{show_zeros?}', 'Logistic\InventoryController@index');
+        // Route::get('inventory-grouped/{locations_id?}', 'Logistic\InventoryController@indexGrouped');
+        // Route::get('stock/{locations_id}', 'Logistic\InventoryController@stock_location');
+        // Route::get('stock-po/{locations_id}', 'Logistic\InventoryController@stock_location_po');
+        // Route::get('stock-status/{locations_id}', 'Logistic\InventoryController@stock_status');
+        // Route::get('real-price/{locations_id}/{products_id}', 'Logistic\InventoryController@real_price');
+        // Route::get('real-price-id/{locations_id}/{products_id}', 'Logistic\InventoryController@real_price_id');
+        // Route::get('inventory-by-location/{locations_id}', 'Logistic\InventoryController@inventoryByLocation');
+        // Route::get('history-product/{locations_id}/{product_id}/{showDeletes?}', 'Logistic\InventoryController@historyProduct');
+        // Route::get('kardex/{locations_id}/{product_id}/{showDeletes?}', 'Logistic\InventoryController@kardex');
+        // Route::post('final-use', 'Logistic\OutputsController@finalUseReq');
+        // /////////////////
         
         Route::put('locations-stages-session', 'Logistic\LocationsStagesController@session');
         Route::resource('locations-stages', 'Logistic\LocationsStagesController');
@@ -107,14 +111,11 @@ Route::group(['middleware' => 'auth'], function(){
         // $p = new Products;
         $p = new ProductsController;
         $s = new StockController;
-        
+
         // PARAMETROS
         $stage = $s->stage;
         $locations_id = 1;
-
         // $s->locationResume($locations_id);
-        
-
         $sqlStockByInput = $s->sqlStockByInput($locations_id);
         $sqlStockByInput = 
         "SELECT
@@ -129,15 +130,11 @@ Route::group(['middleware' => 'auth'], function(){
         FROM ($sqlStockByProduct) AS s
         ORDER BY s.profit ASC
         ";
-
         // $sql = "SELECT 1+1";
-
         $pro = DB::select($sqlStockByProduct);
         $inp = DB::select($sqlStockByInput);
-
         // $p = new ProductsController;
         $p->insertProducts($pro);
-
         dd(
             // $sqlStockByProduct,
             $pro,

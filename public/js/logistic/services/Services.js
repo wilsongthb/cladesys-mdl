@@ -296,3 +296,29 @@
         function exposedFn() { }
     }
 })(G);
+
+(function(G) {
+    'use strict';
+
+    angular
+        .module('logistic')
+        .service('StockLocation', StockLocation);
+
+    StockLocation.$inject = ['$http'];
+    function StockLocation($http) {
+        this.exposedFn = exposedFn;
+        
+        this.get = function(locations_id){
+            $http.get(G.apiUrl + '/stock/' + locations_id)
+            .then(
+                res => {
+                    this.list = res.data
+                }
+            )
+        }
+
+        ////////////////
+
+        function exposedFn() { }
+        }
+})(G);

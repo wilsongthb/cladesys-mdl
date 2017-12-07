@@ -382,8 +382,8 @@ const OutputsConfig = {
         .module('logistic')
         .controller('OutputsEditController', OutputsEditController);
 
-    OutputsEditController.$inject = ['$routeParams', '$scope', '$http', 'Suppliers', '$window', 'Inventory', 'Locations'];
-    function OutputsEditController($routeParams, $scope, $http, Suppliers, $window, Inventory, Locations) {
+    OutputsEditController.$inject = ['$routeParams', '$scope', '$http', 'Suppliers', '$window', 'StockLocation', 'Locations'];
+    function OutputsEditController($routeParams, $scope, $http, Suppliers, $window, StockLocation, Locations) {
         var vm = this;
 
         // datos para las fechas
@@ -398,7 +398,7 @@ const OutputsConfig = {
         $scope.pop1 = false;
 
         $scope.Suppliers = Suppliers
-        $scope.Inventory = Inventory
+        $scope.StockLocation = StockLocation
         $scope.config = G.config
         $scope.G = G
 
@@ -444,10 +444,11 @@ const OutputsConfig = {
                     )
                 }
             },
-            get: function(){
+            get: function(Cback = function(data){}){
                 $http.get(G.apiUrl + '/' + Config.name + '/' + $routeParams.id).then(
                     res => {
                         this.fila = res.data
+                        Cback(res.data)
                     }
                 )
             },
@@ -611,8 +612,9 @@ const OutputsConfig = {
                 utility: Locations.list[Locations.get()].utility
             } 
             $scope.det.get()
-            $scope.rsc.get()
-            $scope.Inventory.get()
+            $scope.rsc.get(function(data){
+                $scope.StockLocation.get(data.locations_id)
+            })
             $scope.Suppliers.get()
         }
     }
@@ -1626,7 +1628,8 @@ const ComparisonConfig = {
     function EzOutputsController($scope, InventoryService, $http, Locations) {
         var vm = this;
         
-        $scope.Inventory = InventoryService
+        // $scope.Inventory = InventoryService
+        $scope.StockLocation = StockLocation
 
         $scope.html = {
             moneyFormatter,

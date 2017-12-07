@@ -43,6 +43,7 @@
                     <th>ESTADO</th>
                     <th>TIPO</th>
                     <th>DESTINO</th>
+                    <th>DETALLES</th>
                     <th></th>
                 </tr>
             </thead>
@@ -58,6 +59,7 @@
                     <td>
                         <span ng-bind="d.target_locations_id"></span>
                     </td>
+                    <td ng-bind="d.total_details"></td>
                     <td>
                         <div class="btn-group">
                             <a href="@{{config.editUrl}}/@{{d.id}}" class="btn btn-raised btn-default"><i class="fa fa-pencil"></i> </a>

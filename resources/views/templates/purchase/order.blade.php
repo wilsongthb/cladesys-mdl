@@ -24,27 +24,35 @@
                 <div class="panel panel-default">
                     <div class="panel-body">
                         <h3 class="text-center">ORDEN DE COMPRA</h3>
+                        <h3>RAZON SOCIAL: DENTOLIFE EIRL</h3>
+                        <h3>RUC: 20447828392</h3>
+                        <h3>DIRECCION: JR TACNA 121</h3>
                        @if (isset($proveedor->company_name))
-                            <h4><strong>Compañia: </strong>{{$proveedor->company_name}}</h4>
+                        <h4><strong>Compañia: </strong>{{$proveedor->company_name}}</h4>
                         @endif
                         <h4><strong>Contacto: </strong>{{$proveedor->contact_name}}</h4>
-                        <table class="table table-condensed table-hover">
+                        <table class="table table-condensed table-hover table-bordered">
                             <thead>
                                 <tr>
-                                    <th>ID</th>
-                                    <th>Producto</th>
+                				    <th class="col-lg-4">Producto</th>
                                     <th>Cantidad</th>
+                                    <th>Precio Unitario</th>
+                                    <th>Sub Total</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                
-                                @foreach ($filas as $fila)
-                                <tr>
-                                    <td>{{$fila->id}} </td>
-                                    <td>{{$fila->p_name}} </td>
-                                    <td>{{(isset($fila->quantity)) ? $fila->quantity : $fila->od_quantity}} </td>
-                                </tr>    
-                                @endforeach
+                            @foreach ($filas as $fila)
+                            <tr>
+                                <td>{{$fila->p_name}} </td>
+                                <td class="text-right">{{(isset($fila->quantity)) ? $fila->quantity : $fila->od_quantity}} </td>
+                                <td class="text-right">S/. {{$fila->unit_price}} </td>
+                                <td class="text-right">S/. {{((isset($fila->quantity)) ? $fila->quantity : $fila->od_quantity) * $fila->unit_price}} </td>
+                            </tr>    
+                            @endforeach
+                            <tr>
+                                <td colspan="3">TOTAL</td>
+                                <td>S/. {{$total}}</td>
+                            </tr>
                             </tbody>
                         </table>
                     </div>

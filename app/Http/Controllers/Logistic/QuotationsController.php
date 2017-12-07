@@ -26,10 +26,17 @@ class QuotationsController extends Controller
         ->where('q.suppliers_id', $suppliers_id)
         ->where('q.status', true)
         ->get();
+
+	$total = 0;
+	foreach($q as $fila){
+		$total += $fila->unit_price * ((isset($fila->quantity)) ? $fila->quantity : $fila->od_quantity);
+	}
+	
         $s = Suppliers::find($suppliers_id);
         return view('templates.purchase.order', [
             'proveedor' => $s,
-            'filas' => $q
+            'filas' => $q,
+	    'total' => $total
         ]);
     }
     public function selectMoreCheap(Request $request){

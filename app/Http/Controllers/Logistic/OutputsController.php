@@ -242,6 +242,9 @@ class OutputsController extends Controller
         return "ok";
     }
 
+    /**
+     * se encarga de cargar lo basico en un QueryBuilder
+     */
     public function select(){
         $res = Outputs
             ::select(
@@ -275,8 +278,10 @@ class OutputsController extends Controller
             ->leftJoin('inputs AS i', 'i.id', 'id.inputs_id')
             // ->where('o.created_at', '>=', $stage->start)
             // ->where('o.created_at', '<=', $stage->end)
-            ->where('i.created_at', '>=', $stage->start)
-            ->where('i.created_at', '<=', $stage->end)
+            // ->where('i.created_at', '>=', $stage->start)
+            ->where(DB::raw("IFNULL(i.created_at, '$stage->start')"), '>=', $stage->start)
+            // ->where('i.created_at', '<=', $stage->end)
+            ->where(DB::raw("IFNULL(i.created_at, '$stage->end')"), '<=', $stage->end)
             ->groupBy('o.id')
             ->orderBy('o.id', 'DESC');
         return $res->paginate($per_page);
@@ -323,7 +328,10 @@ class OutputsController extends Controller
      */
     public function show($id)
     {
-        return Outputs::find($id);
+        // return Outputs::find($id);
+        return $this->select()
+            ->where('o.id', $id)
+            ->first();
     }
 
     /**

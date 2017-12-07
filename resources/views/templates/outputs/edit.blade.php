@@ -4,6 +4,15 @@
 @section('content')
 <h3 class="text-center">EDITAR SALIDA</h3>
 
+
+<div class="row">
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+        
+        <pre>@{{rsc.fila | json}} </pre>
+    </div>
+</div>
+
+
 <div class="row">
     <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 form-group">
         <a href="" class="btn btn-default" ng-click="det.reestablecerPrecios()"><i class="fa fa-asterisk"></i> Reestablecer Precios</a>
@@ -33,7 +42,7 @@
                                 [@{{$select.selected.stock}}] [@{{det.enSoles($select.selected.unit_price)}}] @{{$select.selected.product.name}}
                             </ui-select-match>
                             <ui-select-choices
-                                repeat="i.id as i in Inventory.list | filter : $select.search">
+                                repeat="i.id as i in StockLocation.list | filter : $select.search">
                                 <span class="badge" title="Stock" ng-bind="'Stock: ' + i.stock"></span>
                                 <span class="label label-danger" title="Valor" ng-bind="'Valor: ' + det.enSoles(i.unit_price)"></span>
                                 <product-row product="i.product"></product-row>

@@ -167,6 +167,10 @@
                         templateUrl: G.url + '/view/locationResume.html',
                         controller: 'ResumeController'
                     })
+
+                    .when('/tickets', {
+                        templateUrl: G.url + '/view/tickets.list.html'
+                    })
             }
         ])
         .run([

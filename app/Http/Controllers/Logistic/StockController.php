@@ -6,8 +6,10 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use DB;
 use stdClass;
+use Datetime;
 use App\Http\Controllers\Logistic\LocationsStagesController;
 use App\Http\Controllers\Logistic\ProductsController;
+use App\Models\ProductOptions;
 
 class StockController extends Controller
 {
@@ -96,6 +98,7 @@ class StockController extends Controller
         $sqlStockByInput = 
         "SELECT
             id.*,
+            id.unit_price AS value,
             SUM(IFNULL(od.quantity, 0) * IFNULL(od.unit_price, 0)) AS sum_od_subtotal,
             COUNT(od.id) AS count_od,
             SUM(IFNULL(od.quantity, 0)) AS sum_od_quantity,
@@ -198,12 +201,51 @@ class StockController extends Controller
     /**
      * El stock por Entradas
      */
-    public function locationStockByInput($locations_id){
-        $res = DB::select($this->sqlStockByInput($locations_id));
+    public function locationStockByInput($locations_id, $products_id = false){
+        $query = $this->sqlStockByInput($locations_id);
+        if($products_id){
+            $query = "SELECT s.* FROM ($query) AS s WHERE s.products_id = '$products_id'";
+        }
+        
+        $res = DB::select($query);
         $p = new ProductsController;
         $p->insertProducts($res);
 
         // dd($res);
         return $res;
+    }
+
+    public function StockStatus($locations_id){
+        $list = $this->locationStockByProduct($locations_id);
+        foreach ($list as $key => &$value) {
+            $productOption = ProductOptions::where('locations_id', $locations_id)
+                ->where('products_id', $value->products_id)
+                ->first();
+            if($productOption){
+                $value->productOption = $productOption;
+                $alerts = new stdClass;
+                $alerts->minimum = $value->stock >= $productOption->minimum;
+                $alerts->permanent = $value->stock >= $productOption->permanent;
+                
+                // POR TIEMPO
+                $today = new DateTime();
+                $last_id = new DateTime($value->max_id_created_at);
+                $last_od = new DateTime($value->max_od_created_at);
+                $interval_id = $today->diff($last_id, true);
+                $interval_od = $today->diff($last_od, true);
+                $diff_id = (int)$interval_id->format('%a');
+                $diff_od = (int)$interval_od->format('%a');
+                $alerts->daysLastInput = $diff_id;
+                $alerts->daysLastOutput = $diff_od;
+                $alerts->duration = $diff_id <= $productOption->duration;
+
+                $value->alerts = $alerts;
+            }
+
+            // dd(
+            //     $value
+            // );
+        }
+        return $list;
     }
 }

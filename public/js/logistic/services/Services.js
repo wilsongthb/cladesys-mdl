@@ -44,15 +44,18 @@
         .module('logistic')
         .service('Locations', Locations);
 
-    Locations.$inject = ['$http', '$route', '$window'];
-    function Locations($http, $route, $window) {
+    Locations.$inject = ['$http', '$route', '$window', '$location', '$routeParams'];
+    function Locations($http, $route, $window, $location, $routeParams) {
         this.exposedFn = exposedFn;
         this.get = function(){ return parseInt(localStorage.logistic_locations_id) }
         this.set = function(id){ 
             localStorage.logistic_locations_id = id // guarda cambios
             // recarga la pagina
+            // $location.path('/')
+            // console.log($routeParams.id)
+            // console.log($location.search())
             $window.location.reload()
-            // $route.reload() 
+            // $route.reload()
         }
         this.init = function(){
             // id init
@@ -308,8 +311,18 @@
     function StockLocation($http) {
         this.exposedFn = exposedFn;
         
-        this.get = function(locations_id){
-            $http.get(G.apiUrl + '/stock/' + locations_id)
+        this.get = function(locations_id, byProducts = true){
+            var groupBy = byProducts ? '/stock/' : '/stock-input/'
+            $http.get(G.apiUrl + groupBy + locations_id)
+            .then(
+                res => {
+                    this.list = res.data
+                }
+            )
+        }
+
+        this.getStatus = function(locations_id){
+            $http.get(G.apiUrl + '/stock-status/' + locations_id)
             .then(
                 res => {
                     this.list = res.data

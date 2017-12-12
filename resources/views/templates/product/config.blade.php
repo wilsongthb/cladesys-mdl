@@ -42,7 +42,7 @@
                 repeat="p.id as p in Products.list track by $index"
                 refresh="Products.get($select.search)" 
                 refresh-delay="250">
-                <span title="@{{p.name}}">
+                <!-- <span title="@{{p.name}}">
                     <span ng-bind="p.name"></span>
                     <br>
                     <span class="label label-success" ng-bind="p.categorie"></span>
@@ -51,7 +51,8 @@
                         ng-bind="p.packing + ' ' + p.units + ' ' + p.measurement" 
                         title="Empaquetado - Unidades por paquete - Unidad de medida de distribucion"></span>
                     <span class="label label-primary" ng-bind="p.code"></span>
-                </span>
+                </span> -->
+                <product-row product="p"></product-row>
             </ui-select-choices>
         </ui-select>
     </div>
@@ -99,6 +100,7 @@
                     <td ng-bind="d.locations_name"></td>
                     <td>
                         <span title="@{{d.name}}">
+                            <span ng-bind="d.products_id"></span> - 
                             <span ng-bind="d.products_name"></span>
                             <br>
                             <span class="label label-success" ng-bind="d.categorie"></span>

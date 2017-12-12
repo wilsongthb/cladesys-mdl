@@ -18,7 +18,7 @@
         <h3 class="text-center">SALIDAS DE ALMACEN</h3>
     </div>
     <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
-        <div class="input-group">
+        {{--  <div class="input-group">
             <input 
                 type="text" 
                 class="form-control" 
@@ -29,7 +29,7 @@
             <span class="input-group-btn">
                 <button class="btn btn-raised btn-default" type="button" ng-click="resource.get()">Buscar</button>
             </span>
-        </div>
+        </div>  --}}
     </div>
 </div>            
 <div class="row">
@@ -57,7 +57,7 @@
                     <td ng-bind="g_config.outputs.status[d.status]"></td>
                     <td ng-bind="g_config.outputs.type[d.type]"></td>
                     <td>
-                        <span ng-bind="d.target_locations_id"></span>
+                        <span ng-bind="d.target_locations_name"></span>
                     </td>
                     <td ng-bind="d.total_details"></td>
                     <td>

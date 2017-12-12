@@ -67,6 +67,8 @@ Route::group(['middleware' => 'auth'], function(){
         Route::get('location-resume/{locations_id}', 'Logistic\StockController@locationResume');
         Route::get('stock/{locations_id}', 'Logistic\StockController@locationStockByProduct');
         Route::get('stock-input/{locations_id}', 'Logistic\StockController@locationStockByInput');
+        Route::get('stock-status/{locations_id}', 'Logistic\StockController@StockStatus');
+        Route::post('final-use', 'Logistic\OutputsController@finalUseReq');
 
         // EN MANTENIMIENTO
         // Route::get('inventory/{locations_id?}/{show_zeros?}', 'Logistic\InventoryController@index');
@@ -77,9 +79,9 @@ Route::group(['middleware' => 'auth'], function(){
         // Route::get('real-price/{locations_id}/{products_id}', 'Logistic\InventoryController@real_price');
         // Route::get('real-price-id/{locations_id}/{products_id}', 'Logistic\InventoryController@real_price_id');
         // Route::get('inventory-by-location/{locations_id}', 'Logistic\InventoryController@inventoryByLocation');
-        // Route::get('history-product/{locations_id}/{product_id}/{showDeletes?}', 'Logistic\InventoryController@historyProduct');
-        // Route::get('kardex/{locations_id}/{product_id}/{showDeletes?}', 'Logistic\InventoryController@kardex');
-        // Route::post('final-use', 'Logistic\OutputsController@finalUseReq');
+        Route::get('history-product/{locations_id}/{product_id}/{showDeletes?}', 'Logistic\InventoryController@historyProduct');
+        Route::get('kardex/{locations_id}/{product_id}/{showDeletes?}', 'Logistic\InventoryController@kardex');
+        
         // /////////////////
         
         Route::put('locations-stages-session', 'Logistic\LocationsStagesController@session');
@@ -105,40 +107,44 @@ use App\Models\InputDetails;
 use App\Models\Products;
 use App\Models\LocationsStages;
 
-
 Route::group(['middleware' => 'auth'], function(){
     Route::get('/test', function(){
         // $p = new Products;
         $p = new ProductsController;
         $s = new StockController;
+        $i = new InventoryController;
 
-        // PARAMETROS
-        $stage = $s->stage;
-        $locations_id = 1;
-        // $s->locationResume($locations_id);
-        $sqlStockByInput = $s->sqlStockByInput($locations_id);
-        $sqlStockByInput = 
-        "SELECT
-            s.*
-        FROM ($sqlStockByInput) AS s
-        ORDER BY s.profit ASC
-        ";
-        $sqlStockByProduct = $s->sqlStockByProduct($locations_id);
-        $sqlStockByProduct = 
-        "SELECT
-            s.*
-        FROM ($sqlStockByProduct) AS s
-        ORDER BY s.profit ASC
-        ";
-        // $sql = "SELECT 1+1";
-        $pro = DB::select($sqlStockByProduct);
-        $inp = DB::select($sqlStockByInput);
+        // // PARAMETROS
+        // $stage = $s->stage;
+        $locations_id = 10;
+        $products_id = 850;
+        // // $s->locationResume($locations_id);
+        // $sqlStockByInput = $s->sqlStockByInput($locations_id);
+        // $sqlStockByInput = 
+        // "SELECT
+        //     s.*
+        // FROM ($sqlStockByInput) AS s
+        // ORDER BY s.profit ASC
+        // ";
+        // $sqlStockByProduct = $s->sqlStockByProduct($locations_id);
+        // $sqlStockByProduct = 
+        // "SELECT
+        //     s.*
+        // FROM ($sqlStockByProduct) AS s
+        // ORDER BY s.profit ASC
+        // ";
+        // // $sql = "SELECT 1+1";
+        // $pro = DB::select($sqlStockByProduct);
+        // $inp = DB::select($sqlStockByInput);
         // $p = new ProductsController;
-        $p->insertProducts($pro);
+        // $p->insertProducts($pro);
         dd(
-            // $sqlStockByProduct,
-            $pro,
-            $inp
+            // // $sqlStockByProduct,
+            // $pro,
+            // $inp,
+            // $s->locationStockByInput($locations_id, $products_id),
+            // $i->stockFromInputDetails($locations_id, $products_id)
+            $s->StockStatus($locations_id)
         );
     });
     Route::get('/tist', function(){

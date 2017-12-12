@@ -52,10 +52,12 @@
     
     {{--  Services  --}}
     <script src="{{asset('/js/logistic/services/Services.js')}} "></script>
-    {{--  contoladores  --}}
+    {{--  Controladores  --}}
     <script src="{{asset('/js/logistic/controllers/RootController.js')}} "></script>
     <script src="{{asset('/js/logistic/controllers/Controllers.js')}} "></script>
     <script src="{{asset('/js/logistic/controllers/InputsController.js')}} "></script>
+    <script src="{{asset('/js/logistic/controllers/OutputsController.js')}} "></script>
+    <script src="{{asset('/js/logistic/controllers/StockStatusController.js')}} "></script>
 
     <script src="{{asset('/js/logistic/controllers/HomeController.js')}} "></script>
     <script src="{{asset('/js/logistic/controllers/ProductsController.js')}} "></script>

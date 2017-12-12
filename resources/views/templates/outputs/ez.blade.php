@@ -16,7 +16,7 @@
         </tr>
     </thead>
     <tbody>
-        <tr ng-repeat="i in Inventory.list | filter: buscar">
+        <tr ng-repeat="i in StockLocation.list | filter: buscar">
             <td>
                 <product-row product="i.product"></product-row>
             </td>

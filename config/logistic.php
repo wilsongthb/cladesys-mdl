@@ -118,8 +118,8 @@ return [
                 'title' => 'Reportes',
                 'icon' => '<i class="fa fa-info"></i>',
                 'modules' => [
-                    'inventory',
-                    'inventory-general',
+                    // 'inventory',
+                    // 'inventory-general',
                     'stock-status',
                     'resume'
                 ]

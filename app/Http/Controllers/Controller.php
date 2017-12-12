@@ -15,4 +15,11 @@ class Controller extends BaseController
     public function getPerPage(Request $request){
         return ($request->per_page) ? $request->per_page : config('logistic.client.per_page');
     }
+
+    /**
+     * Retorna un mensaje de bloqueado
+     */
+    public function lockedResponse($msj){
+        return response($msj, 401);
+    }
 }

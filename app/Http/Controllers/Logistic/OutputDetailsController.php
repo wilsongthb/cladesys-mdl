@@ -88,10 +88,8 @@ class OutputDetailsController extends Controller
 
         $fila = new OutputDetails;
         $fila->utility = isset($request->utility) ? $request->utility : 0;
-        $fila->unit_price = ($output->type === 1) ? $inputDetail->unit_price : $request->unit_price;
-        // $fila->unit_price = $request->unit_price;
-        // $fila->unit_price = isset($request->unit_price) ? $request->unit_price : '';
-        $fila->real_unit_price = ($output->type === 1) ? $inputDetail->unit_price : $request->unit_price;
+        $fila->unit_price = isset($request->unit_price) ? $request->unit_price : $inputDetail->unit_price;
+        $fila->real_unit_price = $inputDetail->unit_price;
         $fila->quantity = $request->quantity;
         $fila->input_details_id = $request->input_details_id;
         $fila->outputs_id = $request->outputs_id;

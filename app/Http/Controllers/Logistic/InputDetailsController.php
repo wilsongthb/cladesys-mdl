@@ -18,9 +18,9 @@ class InputDetailsController extends Controller
      * Retorna un response de error acerca del registro bloqueado
     * @return Response
     */
-    private function lockedResponse()
+    public function lockedResponse($str = "")
     {
-        return response("locked, Registro bloqueado", 401);
+        return response("locked, Registro bloqueado, $str", 401);
     }
 
     /**
@@ -46,7 +46,7 @@ class InputDetailsController extends Controller
     /**
      * Loader Relationals
      * Se encarga de cargar objetos provenientes de modelos relacionados a este modelo
-     * @param Recive el resltado de un Query Builder
+     * @param Recibe el resultado de un Query Builder
      */
     public function loadRelationals(&$array_result, $loadProducts = true, $loadSuppliers = false){
         foreach ($array_result as $key => &$value) {
@@ -64,10 +64,7 @@ class InputDetailsController extends Controller
             where('i.id', $inputs_id)->
             orderBy('id.id', 'DESC')->
             get();
-
         $this->loadRelationals($inputDetails);
-        
-        // dd($inputDetails[0]);
         return $inputDetails;
     }
 

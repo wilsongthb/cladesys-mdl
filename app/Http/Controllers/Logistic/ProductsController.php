@@ -51,7 +51,8 @@ class ProductsController extends Controller
         if(strlen($query) > 0){// si se envia algun argumento de busqueda
             // condiciones de busqueda
             $res
-                ->where('p.name', 'LIKE', "%$query%") // product
+                ->where('p.id', 'LIKE', "%$query%") // product
+                ->orWhere('p.name', 'LIKE', "%$query%")
                 ->orWhere('p.code', 'LIKE', "%$query%") // product code
                 ->orWhere('pa.value', 'LIKE', "%$query%") // packing
                 ->orWhere('c.value', 'LIKE', "%$query%") // categorie

@@ -27,8 +27,8 @@ class RequerimentDetailsController extends Controller
             if(
                 $value->po_minimum === 0 && 
                 $value->po_permanent === 0 && 
-                (int)$value->stock === 0)
-            {
+                (int)$value->stock === 0
+            ){
                 $datetime1 = new DateTime();
                 $datetime2 = new DateTime($value->od_updated_at);
                 $interval = $datetime1->diff($datetime2, true);

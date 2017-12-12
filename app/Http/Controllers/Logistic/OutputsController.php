@@ -13,6 +13,7 @@ use App\Models\Locations;
 use App\Http\Controllers\Logistic\InventoryController;
 use App\Http\Controllers\Logistic\OutputDetailsController;
 use App\Http\Controllers\Logistic\LocationsStagesController;
+use App\Http\Controllers\Logistic\StockController;
 use App\Models\Tickets;
 use App\Models\TicketDetails;
 use Auth;
@@ -21,6 +22,9 @@ use DB;
 
 class OutputsController extends Controller
 {
+    /**
+     * Genera un ticket de venta, el tipo es RECIBO
+     */
     public function generateTicket($outputs_id){
         // recolectar datos
         $ticket = new Tickets;
@@ -64,7 +68,6 @@ class OutputsController extends Controller
             if($output->type === 2){
                 Inputs::where('outputs_id', $outputs_id)->delete();
             }
-    
             $output->save();
         // }
     }
@@ -122,11 +125,14 @@ class OutputsController extends Controller
      * FINAL USE
      */
     public function finalUse($locations_id, $products_id, $quantity = 0){
-        $inventory = new InventoryController;
-        $inputs = $inventory->stockFromInputDetails($locations_id, $products_id);
+        // $inventory = new InventoryController;
+        // $inputs = $inventory->stockFromInputDetails($locations_id, $products_id);
+        $stock = new StockController;
+        $inputs = $stock->locationStockByInput($locations_id, $products_id);
 
         // test
-        $original = $inventory->stockFromInputDetails($locations_id, $products_id);
+        // $original = $inventory->stockFromInputDetails($locations_id, $products_id);
+        $original = $stock->locationStockByInput($locations_id, $products_id);
         $orgQuantity = $quantity;
 
         // calcula cuanto quitar de cada input_details
@@ -162,7 +168,7 @@ class OutputsController extends Controller
         //     $outputs
         // ]));
 
-
+        // guarda el resultado
         $output = null;
         if(count($outputs) > 0){
             $output = new Outputs;
@@ -251,12 +257,14 @@ class OutputsController extends Controller
                 DB::raw('COUNT(od.id) AS total_details'),
                 'o.*',
                 'l.name AS locations_name',
-                'l_d.name AS target_locations_id'
+                'l_d.name AS target_locations_name',
+                'u.name AS user_name'
             )
             ->from('outputs AS o')
             ->leftJoin('locations AS l', 'l.id', 'o.locations_id') // almacen
             ->leftJoin('locations AS l_d', 'l_d.id', 'o.target_locations_id') // destino
-            ->leftJoin('output_details AS od', 'o.id', 'od.outputs_id');
+            ->leftJoin('output_details AS od', 'o.id', 'od.outputs_id')
+            ->leftJoin('users AS u', 'u.id', 'o.user_id');
         // dd($res->toSql());
         return $res;
     }

@@ -74,6 +74,11 @@ return [
             'title' => 'Resumen',
             'description' => 'Muestra informacion resumida de los movimientos de la etapa',
             'categorie' => 'reports'
+        ],
+        'tickets' => [
+            'title' => 'Recibos',
+            'description' => 'Muestra la lista de recibos generados',
+            'categorie' => 'reports'
         ]
     ],
     'menu' => [
@@ -121,7 +126,8 @@ return [
                     // 'inventory',
                     // 'inventory-general',
                     'stock-status',
-                    'resume'
+                    'resume',
+                    'tickets'
                 ]
             ],
             'directory' => [

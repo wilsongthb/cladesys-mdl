@@ -5,9 +5,53 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Tickets;
 use App\Models\TicketDetails;
+use DB;
 
 class TicketsController extends Controller
 {
+    public function TicketsFromLocation($locations_id, $onlyCancelled = false){
+        if(request()->get('only-cancelled')){
+            $onlyCancelled = true;
+        }
+
+
+        $list = Tickets::
+            select(
+                't.*',
+                'o.locations_id AS o_locations_id',
+                DB::raw('SUM(td.real_unit_price * td.quantity) AS total_original'),
+                DB::raw('SUM(td.unit_price * td.quantity) AS total'),
+                DB::raw('SUM(td.unit_price * td.quantity) - SUM(td.real_unit_price * td.quantity) AS total_utility')
+            )
+            ->from('tickets AS t')
+            ->leftJoin('outputs AS o', 'o.id', 't.table_foreign_id')
+            ->leftJoin('ticket_details AS td', 'td.tickets_id', 't.id')
+            ->where('t.table_foreign_name', 'outputs')
+            ->where('o.locations_id', $locations_id)
+            ->groupBy('t.id');
+
+        $total = Tickets::
+            select(
+                // 't.*',
+                // 'o.locations_id AS o_locations_id',
+                DB::raw('SUM(td.real_unit_price * td.quantity) AS total_original'),
+                DB::raw('SUM(td.unit_price * td.quantity) AS total'),
+                DB::raw('SUM(td.unit_price * td.quantity) - SUM(td.real_unit_price * td.quantity) AS total_utility')
+            )
+            ->from('tickets AS t')
+            ->leftJoin('outputs AS o', 'o.id', 't.table_foreign_id')
+            ->leftJoin('ticket_details AS td', 'td.tickets_id', 't.id')
+            ->where('t.table_foreign_name', 'outputs')
+            ->where('o.locations_id', $locations_id);
+
+        $list = $onlyCancelled ? $list->where('t.cancelled', true) : $list;
+        $total = $onlyCancelled ? $total->where('t.cancelled', true) : $total;
+
+        return [
+            'list' => $list->get(),
+            'total' => $total->first()
+        ];
+    }
     /**
      * Display a listing of the resource.
      *
@@ -105,6 +149,12 @@ class TicketsController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $t = Tickets::find($id);
+        if(!$t->cancellled){
+            TicketDetails::where('tickets_id', $id)->delete();
+            Tickets::destroy($id);
+            return "ok";
+        }
+        return $this->lockedResponse('YA ESTA CANCELADO');
     }
 }

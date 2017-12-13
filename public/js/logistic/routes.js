@@ -169,7 +169,8 @@
                     })
 
                     .when('/tickets', {
-                        templateUrl: G.url + '/view/tickets.list.html'
+                        templateUrl: G.url + '/view/tickets.ng-list.html',
+                        controller: 'TicketsController'
                     })
             }
         ])

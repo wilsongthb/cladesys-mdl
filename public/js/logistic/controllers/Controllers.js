@@ -1322,3 +1322,61 @@ const ComparisonConfig = {
         }
     }
 })(G);
+
+(function(G) {
+    'use strict';
+
+    angular
+        .module('logistic')
+        .controller('TicketsController', TicketsController);
+
+    TicketsController.$inject = ['$scope', '$http', 'Locations'];
+    function TicketsController($scope, $http, Locations) {
+        var vm = this;
+
+        $scope.helpers = {
+            enSoles: function(dinero){
+                return moneyFormatter.format('PEN', dinero)
+            },
+            deleteTicket: function(tickets_id){
+                if(confirm('Eliminar el registro ' + tickets_id)){
+                    $scope.rsc.delete(tickets_id, function(data){
+                        activate()
+                    })
+                }
+            }
+        }
+        
+        $scope.G = G
+        
+        $scope.rsc = {
+            onlyCancelled: true,
+            get: function(){
+                var reqOptions = this.onlyCancelled ? { params: {'only-cancelled': true} } : {}
+                $http.get(G.apiUrl + '/tickets-locations/' + Locations.get(), reqOptions)
+                .then(
+                    res => {
+                        this.list = res.data.list
+                        this.total = res.data.total
+                    }
+                )
+            },
+            delete: function(tickets_id, callback){
+                $http.delete(G.apiUrl + '/tickets/' + tickets_id)
+                .then(
+                    res => {
+                        callback(res.data)
+                    }
+                )
+            }
+        }
+
+        activate();
+
+        ////////////////
+
+        function activate() { 
+            $scope.rsc.get()
+        }
+    }
+})(G);

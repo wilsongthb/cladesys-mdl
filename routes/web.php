@@ -22,6 +22,7 @@ Route::get('presentation', 'PresentationsController@index');
 Route::group(['middleware' => 'auth'], function(){
     Route::get('view/{view}', 'HomeController@view');
     Route::group(['middleware' => 'user-modules'], function(){
+        ROute::get('billing', 'Billing\BillingsController@index');
         Route::group(['prefix' => 'logistic'], function(){
             Route::get('purchase-order/{requeriments_id}/{supppliers_id}', 'Logistic\QuotationsController@purchaseOrder');
             Route::get('orders/print/{id}', 'Logistic\RequerimentsController@imprimir');
@@ -95,57 +96,18 @@ Route::group(['middleware' => 'auth'], function(){
         // CREDENTIALS
         Route::resource('users', 'UsersController');
         Route::resource('user-modules', 'UserModulesController');
+        Route::get('tickets-locations/{locations_id}', 'TicketsController@TicketsFromLocation');
         Route::resource('tickets', 'TicketsController');
     });
 });
 
-use App\Http\Controllers\Logistic\InventoryController;
-use App\Http\Controllers\Logistic\OutputsController;
-use App\Http\Controllers\Logistic\StockController;
-use App\Http\Controllers\Logistic\ProductsController;
-use App\Models\InputDetails;
-use App\Models\Products;
-use App\Models\LocationsStages;
+use App\Http\Controllers\TicketsController;
 
 Route::group(['middleware' => 'auth'], function(){
     Route::get('/test', function(){
-        // $p = new Products;
-        $p = new ProductsController;
-        $s = new StockController;
-        $i = new InventoryController;
-
-        // // PARAMETROS
-        // $stage = $s->stage;
-        $locations_id = 10;
-        $products_id = 850;
-        // // $s->locationResume($locations_id);
-        // $sqlStockByInput = $s->sqlStockByInput($locations_id);
-        // $sqlStockByInput = 
-        // "SELECT
-        //     s.*
-        // FROM ($sqlStockByInput) AS s
-        // ORDER BY s.profit ASC
-        // ";
-        // $sqlStockByProduct = $s->sqlStockByProduct($locations_id);
-        // $sqlStockByProduct = 
-        // "SELECT
-        //     s.*
-        // FROM ($sqlStockByProduct) AS s
-        // ORDER BY s.profit ASC
-        // ";
-        // // $sql = "SELECT 1+1";
-        // $pro = DB::select($sqlStockByProduct);
-        // $inp = DB::select($sqlStockByInput);
-        // $p = new ProductsController;
-        // $p->insertProducts($pro);
-        dd(
-            // // $sqlStockByProduct,
-            // $pro,
-            // $inp,
-            // $s->locationStockByInput($locations_id, $products_id),
-            // $i->stockFromInputDetails($locations_id, $products_id)
-            $s->StockStatus($locations_id)
-        );
+        $t = new TicketsController;
+        $locations_id = 1;
+        dd($t->TicketsFromLocation($locations_id, false));
     });
     Route::get('/tist', function(){
         dd(session()->all());

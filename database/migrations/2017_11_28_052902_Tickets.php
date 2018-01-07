@@ -37,6 +37,7 @@ class Tickets extends Migration
             // relation with other file
             $table->string('table_foreign_name')->nullable();
             $table->integer('table_foreign_id')->nullable();
+            
         });
 
         // create details ticket

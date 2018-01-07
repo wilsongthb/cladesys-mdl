@@ -113,6 +113,7 @@ class TicketsController extends Controller
     public function edit($id)
     {
         $data = $this->getTicket($id);
+        // dd($data);
         $total = 0;
         $real_price = 0;
         foreach ($data['details'] as $key => $value) {
@@ -122,6 +123,7 @@ class TicketsController extends Controller
         $data['total'] = $total;
         $data['real_price'] = $real_price;
         $data['utilidad'] = $total - $real_price;
+        $data['show_foreign'] = request()->get('show_foreign') && true;
         return view('templates.tickets.edit', $data);
     }
 

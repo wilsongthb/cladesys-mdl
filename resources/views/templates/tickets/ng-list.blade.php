@@ -8,8 +8,8 @@
             <th>ID</th>
             <th>EMISOR</th>
             <th>REMITENTE</th>
-            <th>VALOR</th>
             <th>SUBTOTAL</th>
+            <th>VALOR</th>
             <th>UTILIDAD</th>
             <th></th>
         </tr>
@@ -19,8 +19,8 @@
             <td ng-bind="t.id"></td>
             <td ng-bind="t.sender"></td>
             <td ng-bind="t.name"></td>
-            <td class="text-right" title="@{{t.total_original}}" ng-bind="helpers.enSoles(t.total_original)"></td>
             <td class="text-right" title="@{{t.total}}" ng-bind="helpers.enSoles(t.total)"></td>
+            <td class="text-right" title="@{{t.total_original}}" ng-bind="helpers.enSoles(t.total_original)"></td>
             <td class="text-right" title="@{{t.total_utility}}" ng-bind="helpers.enSoles(t.total_utility)"></td>
             <td>
                 <a href="@{{G.apiUrl}}/tickets/@{{t.id}}/edit" class="label label-info"><i class="fa fa-info"></i> detalles</a>
@@ -30,8 +30,8 @@
         </tr>
         <tr>
             <th colspan="3" class="text-right">TOTAL</th>
-            <td class="text-right" title="@{{rsc.total.total_original}}" ng-bind="helpers.enSoles(rsc.total.total_original)"></td>
             <td class="text-right" title="@{{rsc.total.total}}" ng-bind="helpers.enSoles(rsc.total.total)"></td>
+            <td class="text-right" title="@{{rsc.total.total_original}}" ng-bind="helpers.enSoles(rsc.total.total_original)"></td>
             <td class="text-right" title="@{{rsc.total.total_utility}}" ng-bind="helpers.enSoles(rsc.total.total_utility)"></td>
         </tr>
     </tbody>

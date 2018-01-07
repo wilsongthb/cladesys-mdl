@@ -78,9 +78,11 @@
             </div>
             <div class="modal-body">
                 <a href="" class="btn btn-default" ng-click="ticket.generate()"><i class="fa fa-plus"></i> Generar</a>
+                <br>
+                <input type="checkbox" ng-model="ticket.verRef"> Ver detalles de referencia en ticket
                 <hr>
                 <div class="list-group">
-                    <a ng-repeat="t in ticket.list" href="@{{G.apiUrl}}/tickets/@{{t.id}}/edit" target="_blank" class="list-group-item">
+                    <a ng-repeat="t in ticket.list" href="@{{G.apiUrl}}/tickets/@{{t.id}}/edit@{{ ticket.verRef ? '?show_foreign=1' : '' }}" target="_blank" class="list-group-item">
                         <span ng-bind="t.name"></span>
                         <span class="badge" ng-show="t.cancelled">Cancelado</span>
                     </a>
@@ -89,7 +91,7 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
-                <button type="button" class="btn btn-primary">Guardar</button>
+                {{--  <button type="button" class="btn btn-primary">Guardar</button>  --}}
             </div>
         </div>
     </div>
@@ -223,7 +225,6 @@
                         </form>
                     </div>
                 </div>
-                
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>

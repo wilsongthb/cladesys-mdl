@@ -1,3 +1,5 @@
+{{--  {{ $show_foreign }}  --}}
+
 @extends('templates.layouts.bootstrap')
 
 @section('title')
@@ -83,7 +85,7 @@ RECIBO {{$ticket->id}}
         </div>
     </div>
     
-    <div class="row">
+    <div class="row form-group">
         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
             @if(!$ticket->cancelled)
             <form method="POST" action="{{url('/rsc/tickets/'.$ticket->id)}}">
@@ -96,6 +98,15 @@ RECIBO {{$ticket->id}}
             @endif
         </div>
     </div>
+    @if ($show_foreign)
+    <div class="row">
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+            <pre>DETALLES DE REFERENCIA
+Tabla de referencia: {{$ticket->table_foreign_name}}
+Fecha de Creacion de referencia: {{$ticket->created_at}} </pre>
+        </div>
+    </div>    
+    @endif
     
 </div>
 @endsection

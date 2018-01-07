@@ -39,6 +39,7 @@ class OutputsController extends Controller
         $ticket->table_foreign_name = 'outputs';
         $ticket->table_foreign_id = $outputs_id;
         $ticket->user_id = auth()->user()->id;
+        $ticket->foreign_json = json_encode($output);
         $ticket->save();
 
         $output_details = OutputDetails::where('outputs_id', $outputs_id)->get();
@@ -60,6 +61,10 @@ class OutputsController extends Controller
 
         return $ticket->id;
     }
+
+    /**
+     * Desbloquear salida
+     */
     public function toUnlock($outputs_id){
         // if(auth()->user()->id === 1){
             $output = Outputs::find($outputs_id);

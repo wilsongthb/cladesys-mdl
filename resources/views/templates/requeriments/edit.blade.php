@@ -22,6 +22,7 @@
                 <a href="@{{config.quotationsUrl + '/' + $routeParams.id}} " class="btn btn-raised btn-warning"><i class="fa fa-money"></i> Cotización</a>
                 <a href="@{{config.comparisonUrl + '/' + $routeParams.id}} " class="btn btn-raised btn-warning"><i class="fa fa-cubes"></i> Comparación</a>
                 <a href="" class="btn btn-raised btn-success" ng-click="dialogs.toExcel()"><i class="fa fa-file-excel-o"></i> Exportar en Excel</a>
+                <a href="" class="btn btn-raised btn-default" ng-click="dialogs.DeleteUnselected()" title="Borrar los productos seleccionados"><i class="fa fa-trash"></i> Borrar <i class="fa fa-check"></i></a>
             </div>
         </div>
         <hr>
@@ -62,6 +63,7 @@
                 <table class="table table-striped table-hover" id="productosRequeridos">
                     <thead>
                         <tr>
+                            <th></th>
                             <th>ID</th>
                             <th class="col-md-4 col-lg-4">Producto</th>
                             <th>Categoria</th>
@@ -72,6 +74,9 @@
                     </thead>
                     <tbody>
                         <tr ng-repeat="d in det.list | filter: det.buscar">
+                            <td>
+                                <input type="checkbox" ng-model="d.check">
+                            </td>
                             <td ng-bind="d.id"></td>
                             <td ng-bind="d.p_name"></td>
                             <td ng-bind="d.p_categorie"></td>

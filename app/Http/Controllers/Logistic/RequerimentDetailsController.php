@@ -8,9 +8,21 @@ use App\Models\RequerimentDetails;
 use App\Http\Controllers\Logistic\InventoryController;
 use Auth;
 use DateTime;
+use DB;
 
 class RequerimentDetailsController extends Controller
 {
+    public function deleteList(){
+        // print_r(request()->all());
+        $list = request()->all();
+        
+        $out = DB::table('requeriment_details')
+            ->whereIn('id', $list)
+            ->delete();
+            // ->toSql();
+        
+        // return [$list, $out];
+    }
     public function addAllReq(Request $request, InventoryController $inventory){
         $stock_status = $inventory->stock_status($request->locations_id);
         foreach ($stock_status as $key => $value) {

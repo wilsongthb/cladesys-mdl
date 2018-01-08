@@ -98,6 +98,7 @@ Route::group(['middleware' => 'auth'], function(){
         Route::resource('user-modules', 'UserModulesController');
         Route::get('tickets-locations/{locations_id}', 'TicketsController@TicketsFromLocation');
         Route::resource('tickets', 'TicketsController');
+        Route::put('requeriments-delete-list', 'Logistic\RequerimentDetailsController@deleteList');
     });
 });
 

@@ -547,6 +547,22 @@ const RequerimentsConfig = {
         $scope.Products = Products
 
         $scope.dialogs = {
+            DeleteUnselected: function(){
+                var total = $scope.det.list.length
+                var totalFilas = []
+                for(var i in $scope.det.list){
+                    var fila = $scope.det.list[i]
+                    // if(fila.check){ totalFilas++ }
+                    if(fila.check){ totalFilas.push(fila.id) }
+                }
+
+                if(confirm('Esta seguro(a), vas a eliminar a ' + totalFilas.length + ' registros')){
+                    $http.put(G.apiUrl + '/requeriments-delete-list', totalFilas)
+                    .then(
+                        res => $scope.det.get()
+                    )
+                }
+            },
             toExcel: function () {
                 // console.log(XLSX)
                 var tbl = document.getElementById('productosRequeridos');

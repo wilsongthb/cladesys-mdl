@@ -1,6 +1,4 @@
-
 @extends('templates.layouts.container')
-
 
 @section('content')
 <div ng-if="rsc.error">
@@ -31,7 +29,7 @@
             </span>
         </div>
     </div>
-</div>            
+</div>
 <div class="row">
     <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
         <table class="table table-striped table-hover">
@@ -40,9 +38,7 @@
                     <th>ID</th>
                     <th>ALMACEN</th>
                     <th>ESTADO</th>
-                    <!-- <th>TIPO</th> -->
                     <th>PRODUCTOS</th>
-                    <!-- <th></th> -->
                     <th></th>
                 </tr>
             </thead>

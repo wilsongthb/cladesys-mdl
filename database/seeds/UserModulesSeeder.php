@@ -14,5 +14,6 @@ class UserModulesSeeder extends Seeder
         
         DB::table('user_modules')->insert(['user_id' => $userId, 'module' => 'credentials']);
         DB::table('user_modules')->insert(['user_id' => $userId, 'module' => 'rsc']);
+        DB::table('user_modules')->insert(['user_id' => $userId, 'module' => 'logistic']);
     }
 }

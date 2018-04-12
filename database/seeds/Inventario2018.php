@@ -56,7 +56,10 @@ class Inventario2018 extends Seeder
 
                 while (($data = fgetcsv($handle, 1000, ",")) !== FALSE) {
                     $productl = $product;
+                    // $product = false;
+
                     $product = DB::table('products')->where('name', 'LIKE', "%$data[1]%")->first();
+
                     if(!$product){
                         $product = new Products;
                         $product->user_id = 1;

@@ -181,6 +181,13 @@ const InputsConfig = {
             }
         }
 
+        $scope.last_input = function(){
+            var temp = JSON.parse(JSON.stringify($scope.detalle.list[0]))
+            // console.log(temp)
+            // temp.ticket_number = parseInt(temp.ticket_number)
+            return temp
+        }
+
         $scope.detalle = {
             name: 'input-details',
             fila: {},
@@ -201,6 +208,9 @@ const InputsConfig = {
                 this.fila = fila
                 this.fila.expiration = new Date(this.fila.expiration)
                 this.fila.fabrication = new Date(this.fila.fabrication)
+                this.fila.ticket_number = parseInt(this.fila.ticket_number)
+                this.fila.unit_price = parseFloat(this.fila.unit_price)
+
                 this.showFormModal(true)
             },
             delete: function(id){
@@ -218,7 +228,7 @@ const InputsConfig = {
             copyToForm: function(fila){
                 this.fila = {
                     ticket_type: fila.ticket_type,
-                    ticket_number: fila.ticket_number,
+                    ticket_number: parseInt(fila.ticket_number),
                     suppliers_id: fila.suppliers_id,
                 }
                 this.showFormModal(true)
@@ -251,6 +261,7 @@ const InputsConfig = {
                 )
             },
             save: function(){
+                // $scope.last_input = JSON.parse(JSON.stringify(this.fila))
                 if(this.fila.id){
                     this.fila.user_id = G.user.id
                     $http.put(G.apiUrl +  '/' + this.name + '/' + this.fila.id, this.fila)

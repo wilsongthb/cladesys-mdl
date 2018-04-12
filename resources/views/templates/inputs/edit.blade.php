@@ -157,7 +157,7 @@
                         <div class="col-xs-12 col-sm-4 col-md-3 col-lg-3">
                             <div class="form-group">
                                 <label>Numero Ticket *</label>
-                                <input type="text" ng-model="detalle.fila.ticket_number" class="form-control" required>
+                                <input type="number" ng-model="detalle.fila.ticket_number" class="form-control" required>
                             </div>
                         </div>
                         <div class="col-xs-12 col-sm-4 col-md-3 col-lg-3">
@@ -168,6 +168,12 @@
                                         @{{s.company_name}} - @{{s.contact_name}}
                                     </option>
                                 </select>
+                            </div>
+                        </div>
+                        <div class="col-xs-12 col-sm-4 col-md-3 col-lg-3">
+                            <label for="">Copiar del Ultimo</label>
+                            <div class="form-group">
+                                <a title="Copiar Datos de Compra" ng-click="detalle.copyToForm((last_input()))" class="btn btn-raised btn-default"><i class="fa fa-copy"></i></a>
                             </div>
                         </div>
                     </div>
@@ -207,7 +213,7 @@
                             <div class="form-group">
                                 <label>Precio Unitario *</label>
                                 <div class="input-group">
-                                    <input type="text" ng-model="detalle.fila.unit_price" class="form-control" required>
+                                    <input type="number" ng-model="detalle.fila.unit_price" class="form-control" required>
                                     <div class="input-group-addon">@{{detalle.enSoles(detalle.fila.unit_price)}}</div>
                                 </div>
                             </div>

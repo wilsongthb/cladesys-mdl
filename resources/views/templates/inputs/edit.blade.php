@@ -143,8 +143,8 @@
                     <form-edit-header reg="detalle.fila"></form-edit-header>
                     <div class="row">
                         <div class="col-xs-12 col-sm-4 col-md-3 col-lg-3">
+                            <label for="">Copiar del Ultimo</label>    
                             <div class="form-group">
-                                <label for="">Copiar del Ultimo</label>
                                 <a title="Copiar Datos de Compra" ng-click="detalle.copyToForm((last_input()))" class="btn btn-raised btn-default"><i class="fa fa-copy"></i></a>
                             </div>
                         </div>

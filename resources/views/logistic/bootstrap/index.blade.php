@@ -71,9 +71,11 @@
                     <button type="submit" class="btn btn-default">Submit</button>
                 </form> -->
                 <ul class="nav navbar-nav navbar-right">
+                    @if (config('logistic.stages'))
                     <li>
                         <a href="" ng-click="dialogs.showSLSM()"> <span ng-bind="LocationsStages.stage.name"></span></a>
                     </li>
+                    @endif
                     <li class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                             <span ng-bind="Locations.list[Locations.get()].name"></span>

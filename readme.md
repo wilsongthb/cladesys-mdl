@@ -25,3 +25,8 @@ Incompatibilidades de Material Design Lite:
 Se trata de encapsular las entradas de una fecha para vender solo las de esa fecha
 esto se hace normalmente al principio de cada año, se comprueba el inventario, para
 que todo cuadre y finalmente se reinicia todo desde cero con un nuevo inventario inicial
+
+## cambios
+
+* Busqueda con ;
+* Menu mas simple en moviles

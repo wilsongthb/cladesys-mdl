@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\Products;
 use App\Models\ProductOptions;
+use DB;
 
 class ProductsController extends Controller
 {
@@ -50,14 +51,31 @@ class ProductsController extends Controller
         $res = $this->select();
         if(strlen($query) > 0){// si se envia algun argumento de busqueda
             // condiciones de busqueda
-            $res
-                ->where('p.id', 'LIKE', "%$query%") // product
-                ->orWhere('p.name', 'LIKE', "%$query%")
-                ->orWhere('p.code', 'LIKE', "%$query%") // product code
-                ->orWhere('pa.value', 'LIKE', "%$query%") // packing
-                ->orWhere('c.value', 'LIKE', "%$query%") // categorie
-                ->orWhere('b.value', 'LIKE', "%$query%") // brand
-                ->orWhere('m.value', 'LIKE', "%$query%"); // measurement
+            $query = str_replace('  ', ' ', $query);
+            $list = explode(' ', $query);
+            $condiciones = "";
+
+            for($i = 0; $i < count($list); $i++) {
+                # code...
+                $ky = $list[$i];
+                if(strlen($ky) == 0) continue;
+
+                $condiciones .= $i != 0 ? " AND " : " (
+                    p.name LIKE '%$ky%'
+                    OR p.code LIKE '%$ky%'
+                    OR pa.value LIKE '%$ky%'
+                    OR c.value LIKE '%$ky%'
+                    OR b.value LIKE '%$ky%'
+                    OR m.value LIKE '%$ky%'
+                ) ";
+                $condiciones .= $i == 0 ? "" : "
+                    (
+                        p.name LIKE '%$ky%'
+                    )
+                ";
+            }
+
+            $res->whereRaw(DB::raw($condiciones));
         }
         return $res;
     }

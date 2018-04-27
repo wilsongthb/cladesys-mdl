@@ -1,18 +1,19 @@
 <?php
 return [
     'name' => 'logistic',
+    'stages' => false,
 
     // STATIC
     // ===========================================================
     'modules' => [
         'products' => [
             'title' => 'Registro de Productos',
-            'description' => 'Modulo para registrar los productos',
+            'description' => 'Modulo para registrar los productos, crear, editar, eliminar, buscar',
             'categorie' => 'products'
         ],
         'products-config' => [
-            'title' => 'Configuracion de Productos',
-            'description' => 'Configuraciones de los productos, individual por cada Area',
+            'title' => 'Configuracion de Stock',
+            'description' => 'Configuraciones del stock de los productos, individual por cada Area',
             'categorie' => 'products',
         ],
         'requeriments' => [

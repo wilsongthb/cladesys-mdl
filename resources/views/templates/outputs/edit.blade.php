@@ -168,8 +168,12 @@
                                             <ui-select-match  ng-show="!det.fila.id" placeholder="Escribe para buscar">
                                                 [@{{$select.selected.stock}}] [@{{det.enSoles($select.selected.value)}}] @{{$select.selected.product.name}}
                                             </ui-select-match>
+                                            <!-- <ui-select-choices
+                                                repeat="i.id as i in StockLocation.list | filter : $select.search"> -->
                                             <ui-select-choices
-                                                repeat="i.id as i in StockLocation.list | filter : $select.search">
+                                                repeat="i.id as i in stockSearch"
+                                                refresh="stockSearchCustom($select.search)" 
+                                                refresh-delay="500">
                                                 <span class="badge" title="Stock" ng-bind="'Stock: ' + i.stock"></span>
                                                 <span class="label label-danger" title="Valor" ng-bind="'Valor: ' + det.enSoles(i.value)"></span>
                                                 <product-row product="i.product"></product-row>

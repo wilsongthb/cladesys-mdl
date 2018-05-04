@@ -28,5 +28,10 @@ que todo cuadre y finalmente se reinicia todo desde cero con un nuevo inventario
 
 ## cambios
 
-* Busqueda con ;
-* Menu mas simple en moviles
+* [H] Boton Copiar ultimos datos de facturacion en entrada a almacen
+* [H] Cambiado tipo de dato de entrada en formulario de entrada a almacen
+* [H] Busqueda con espacio
+* [H] Menu mas simple en moviles
+
+* [H] Busqueda intuitiva en salidas de inventario
+* [H] desactivar recalculo de precios en salidas de almacen

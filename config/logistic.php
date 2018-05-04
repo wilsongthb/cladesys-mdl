@@ -2,6 +2,7 @@
 return [
     'name' => 'logistic',
     'stages' => false,
+    
 
     // STATIC
     // ===========================================================
@@ -193,6 +194,7 @@ return [
             ]
         ],
         'outputs' => [
+            'getRealPrice' => false,
             'status' => [
                 1 => 'ACTIVO',
                 2 => 'ENVIADO/BLOQUEADO'

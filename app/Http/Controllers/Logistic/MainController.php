@@ -98,6 +98,7 @@ class MainController extends Controller
             'apiUrl' => url('rsc'),
             'modules' => $modules,
             'categories' => $categories
+            // 'config' => 
         ];
     }
 

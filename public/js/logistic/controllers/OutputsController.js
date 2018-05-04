@@ -15,10 +15,10 @@ const OutputsConfig = {
     OutputsController.$inject = ['$scope', '$http', '$window', 'Locations'];
     function OutputsController($scope, $http, $window, Locations) {
         var vm = this;
-        
+
         $scope.config = Config
         $scope.g_config = G.config
-        
+
         $scope.resource = {
             data: {}, // respuesta de la base de datos
             per_page: G.config.per_page,
@@ -28,8 +28,8 @@ const OutputsConfig = {
             get: function(){
                 $http.get(G.apiUrl + '/' + Config.name, {
                     params: {
-                        search: this.search, 
-                        page: this.page, 
+                        search: this.search,
+                        page: this.page,
                         per_page: this.per_page,
                         locations_id: Locations.get()
                     }
@@ -61,7 +61,7 @@ const OutputsConfig = {
 
         ////////////////
 
-        function activate() { 
+        function activate() {
             $scope.resource.get();
         }
     }
@@ -76,7 +76,7 @@ const OutputsConfig = {
     OutputsCreateController.$inject = ['$scope', 'Locations', '$http', '$location'];
     function OutputsCreateController($scope, Locations, $http, $location) {
         var vm = this;
-        
+
         $scope.Locations = Locations
 
         $scope.numberFormat = numberFormat
@@ -106,7 +106,7 @@ const OutputsConfig = {
 
         ////////////////
 
-        function activate() { 
+        function activate() {
             $scope.resource.fila.locations_id = Locations.get()
         }
     }
@@ -137,6 +137,90 @@ const OutputsConfig = {
         $scope.StockLocation = StockLocation
         $scope.config = G.config
         $scope.G = G
+
+        // $scope.stockSearch = StockLocation.list
+        $scope.stockSearch = []
+        $scope.stockSearchCustom = function(buscar = ""){
+            console.log("CustomSearch")
+
+            if(buscar == "")
+                return []
+            var aBuscar = buscar.split(" ")
+            var aRespuesta = $scope.StockLocation.list
+            for(var a in aBuscar){
+                var q = aBuscar[a].toLowerCase()
+
+                // console.log("Buscar : " + q)
+
+                // if(aRespuesta.filter == undefined)
+                //     return
+
+
+                aRespuesta = aRespuesta.filter(function(fila){
+                    // console.log({
+                    //     fila,
+                    //     buscar : q
+                    // })
+
+                    if(q == "")
+                        return true
+
+                    if(parseInt(fila.stock) == 0)
+                        return false                    
+
+                    // console.log(fila.product.name)
+                    return fila.product.name.toLowerCase().indexOf(q) != -1
+                })
+            }
+            $scope.stockSearch = aRespuesta
+        }
+
+        $scope.busquedaEz = function(buscar = ""){
+            if(buscar == "")
+                return []
+
+            var aBuscar = buscar.split(" ")
+
+            console.log(aBuscar)
+
+            if($scope.StockLocation.list == undefined){
+                console.log("Undefined")
+                return []
+            }
+
+
+            var aRespuesta = $scope.StockLocation.list
+
+
+            for(var a in aBuscar){
+                var q = aBuscar[a].toLowerCase()
+
+                // console.log("Buscar : " + q)
+
+                // if(aRespuesta.filter == undefined)
+                //     return
+
+
+                aRespuesta = aRespuesta.filter(function(fila){
+                    // console.log({
+                    //     fila,
+                    //     buscar : q
+                    // })
+
+                    if(q == "")
+                        return true
+
+                    if(parseInt(fila.stock) == 0)
+                        return false                    
+
+                    // console.log(fila.product.name)
+                    return fila.product.name.toLowerCase().indexOf(q) != -1
+                })
+            }
+
+            console.log(aRespuesta[0])
+            return aRespuesta
+        }
 
         $scope.dialogs = {
             ticketModal: function(){
@@ -176,7 +260,7 @@ const OutputsConfig = {
                 )
             }
         }
-        
+
         $scope.rsc = {
             fila: {},
             byProduct: false, // configuracion por producto
@@ -250,8 +334,8 @@ const OutputsConfig = {
                 this.fila = fila
             },
             delete: function(id){
-                let msj = 'Eliminar el registro con id: ' 
-                    + id 
+                let msj = 'Eliminar el registro con id: '
+                    + id
                     + '\nAlerta, si hay salidas relacionadas a este registro, se eliminaran tambien'
                 if($window.confirm(msj)){
                     $http.delete(G.apiUrl + '/' + this.name + '/' + id).then(
@@ -278,6 +362,9 @@ const OutputsConfig = {
             },
 
             getRealPriceId: function(item){
+                if(!G.config.outputs.getRealPrice)
+                    return
+
                 // console.log(item)
                 // var input_details_id = item.id
 
@@ -286,19 +373,19 @@ const OutputsConfig = {
                 this.fila.real_unit_price = parseFloat(item.value)
 
                 // // this.fila.unit_price = parseFloat(item.unit_price) + parseFloat(item.unit_price * item.utility / 100)
-                this.fila.unit_price = 
-                    parseFloat(item.value) + 
+                this.fila.unit_price =
+                    parseFloat(item.value) +
                     parseFloat(
-                        parseFloat(item.value) * 
-                        parseFloat(this.fila.utility) / 
+                        parseFloat(item.value) *
+                        parseFloat(this.fila.utility) /
                         100
                     )
 
-                // this.calculateUnitPrice()                
+                // this.calculateUnitPrice()
                 // console.log(item)
                 // console.log(this.fila)
                 // console.log(input_details_id)
-                // return 
+                // return
 
                 // $http.get(G.apiUrl + '/real-price-id/' + Locations.get() + '/' + input_details_id)
                 // .then(
@@ -354,7 +441,7 @@ const OutputsConfig = {
             }
         }
 
-        
+
         // $scope.activate = activate();
 
         ////////////////

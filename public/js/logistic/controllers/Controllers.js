@@ -588,6 +588,10 @@ const RequerimentsConfig = {
 
         $scope.det = {
             list: [],
+            claveParaOrdenar: '',
+            ordenarPor (val) {
+                this.claveParaOrdenar = val
+            },
             buttonAdd: false,
             name: 'requeriment-details',
             fila: {

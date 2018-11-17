@@ -64,16 +64,16 @@
                     <thead>
                         <tr>
                             <th></th>
-                            <th>ID</th>
-                            <th class="col-md-4 col-lg-4">Producto</th>
-                            <th>Categoria</th>
-                            <th>Cantidad</th>
-                            <th>Detalle</th>
+                            <th style="cursor: pointer;" ng-click="det.ordenarPor('id')">ID</th>
+                            <th style="cursor: pointer;" ng-click="det.ordenarPor('p_name')" class="col-md-4 col-lg-4">Producto</th>
+                            <th style="cursor: pointer;" ng-click="det.ordenarPor('p_categorie')">Categoria</th>
+                            <th style="cursor: pointer;" ng-click="det.ordenarPor('quantity')">Cantidad</th>
+                            <th style="cursor: pointer;" ng-click="det.ordenarPor('detail')">Detalle</th>
                             <th></th>
                         </tr>
                     </thead>
                     <tbody>
-                        <tr ng-repeat="d in det.list | filter: det.buscar">
+                        <tr ng-repeat="d in det.list | filter: det.buscar | orderBy : det.claveParaOrdenar">
                             <td>
                                 <input type="checkbox" ng-model="d.check">
                             </td>

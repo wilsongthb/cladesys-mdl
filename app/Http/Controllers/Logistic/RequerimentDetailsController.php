@@ -26,52 +26,56 @@ class RequerimentDetailsController extends Controller
     public function addAllReq(Request $request, InventoryController $inventory){
         $stock_status = $inventory->stock_status($request->locations_id);
         foreach ($stock_status as $key => $value) {
-            if($value->po_minimum > (int)$value->stock || $value->po_permanent > (int)$value->stock){
-                $resto = $value->po_permanent - (int)$value->stock;
+            $stockByPackage = (int)((int)$value->stock * $value->p_units);
+            if($value->po_minimum > $stockByPackage || $value->po_permanent > $stockByPackage){
+                // $resto = $value->po_permanent - (int)$value->stock;
+                $resto = $value->po_permanent - $stockByPackage;
                 $fila = new RequerimentDetails;
                 $fila->user_id = Auth::user()->id;
                 $fila->quantity = $resto;
                 $fila->products_id = $value->p_id;
-                $fila->detail = "Requieres Comprar";
+                $fila->detail = "Requieres comprar " . $fila->quantity . " paquetes";
                 $fila->requeriments_id = $request->requeriments_id;
                 $fila->save();
             }
-            if(
-                $value->po_minimum === 0 && 
-                $value->po_permanent === 0 && 
-                (int)$value->stock === 0
-            ){
-                $datetime1 = new DateTime();
-                $datetime2 = new DateTime($value->od_updated_at);
-                $interval = $datetime1->diff($datetime2, true);
-                $diff = (int)$interval->format('%a');
-                if(((int)$value->po_duration - $diff) < 30){
-                    $fila = new RequerimentDetails;
-                    $fila->user_id = Auth::user()->id;
-                    $fila->quantity = 1;
-                    $fila->products_id = $value->p_id;
-                    $quedan = (int)$value->po_duration - $diff;
-                    $abs_quedan = $quedan*-1;
-                    $quedan = ($quedan < 0) ? "se te paso el tiempo, $abs_quedan dias" : "$quedan dias";
-                    $fila->detail = "
-                        Duracion: $value->po_duration dias,
-                        Usado: hace $diff dias,
-                        Tiempo restante: $quedan
-                    ";
-                    $fila->requeriments_id = $request->requeriments_id;
-                    $fila->save();
-                }
 
-                // var_dump('duration');
-                // var_dump([
-                //     'products_name' => $value->p_name,
-                //     'last_time' => $value->od_updated_at,
-                //     'stock' => (int)$value->stock,
-                //     'minimum' => $value->po_minimum,
-                //     'permanent' => $value->po_permanent,
-                //     'duration' => $value->po_duration
-                // ]);
-            }
+            // /** para requerir por duracion */
+            // if(
+            //     $value->po_minimum === 0 && 
+            //     $value->po_permanent === 0 && 
+            //     (int)$value->stock === 0
+            // ){
+            //     $datetime1 = new DateTime();
+            //     $datetime2 = new DateTime($value->od_updated_at);
+            //     $interval = $datetime1->diff($datetime2, true);
+            //     $diff = (int)$interval->format('%a');
+            //     if(((int)$value->po_duration - $diff) < 30){
+            //         $fila = new RequerimentDetails;
+            //         $fila->user_id = Auth::user()->id;
+            //         $fila->quantity = 1;
+            //         $fila->products_id = $value->p_id;
+            //         $quedan = (int)$value->po_duration - $diff;
+            //         $abs_quedan = $quedan*-1;
+            //         $quedan = ($quedan < 0) ? "se te paso el tiempo, $abs_quedan dias" : "$quedan dias";
+            //         $fila->detail = "
+            //             Duracion: $value->po_duration dias,
+            //             Usado: hace $diff dias,
+            //             Tiempo restante: $quedan
+            //         ";
+            //         $fila->requeriments_id = $request->requeriments_id;
+            //         $fila->save();
+            //     }
+
+            //     // var_dump('duration');
+            //     // var_dump([
+            //     //     'products_name' => $value->p_name,
+            //     //     'last_time' => $value->od_updated_at,
+            //     //     'stock' => (int)$value->stock,
+            //     //     'minimum' => $value->po_minimum,
+            //     //     'permanent' => $value->po_permanent,
+            //     //     'duration' => $value->po_duration
+            //     // ]);
+            // }
         }
         // return "ok";
     }

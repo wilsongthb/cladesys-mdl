@@ -35,3 +35,10 @@ que todo cuadre y finalmente se reinicia todo desde cero con un nuevo inventario
 
 * [H] Busqueda intuitiva en salidas de inventario
 * [H] desactivar recalculo de precios en salidas de almacen
+
+
+ #cambios 2018/11/15
+
+ * [H] Corregir el calculo de la cantidad en el calculo de productos requeridos
+ * [H] Agregar boton de ordenacion en las tablas del sistema de logistica
+ * [H] Quitar duracion del calculo de productos requerido

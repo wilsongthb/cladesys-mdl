@@ -612,6 +612,7 @@ class InventoryController extends Controller
         "SELECT
             p.id AS p_id,
             p.name AS p_name,
+            p.units AS p_units,
             c.value AS p_categorie,
             SUM(IFNULL(s.id_quantity, 0)) AS sum_id_quantity,
             -- SUM(IFNULL(s.id_price_value, 0))/SUM(IFNULL(s.id_quantity, 0)) AS real_price,

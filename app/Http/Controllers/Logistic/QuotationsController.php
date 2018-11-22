@@ -158,31 +158,50 @@ class QuotationsController extends Controller
      */
     public function index(Request $request, RequerimentDetailsController $od)
     {
-        $quotations = Quotations::
-            select(
-                'q.*'
-            )->from('quotations AS q')
-            // ->join('suppliers AS s', 's.id', '=', 'q.suppliers_id')
-            ->leftJoin('requeriment_details AS od', 'od.id', '=', 'q.requeriment_details_id')
-            ->leftJoin('requeriments AS o', 'o.id', '=', 'od.requeriments_id')
-            ->where('o.id', $request->id)
-            ->get();
+        $quotations = DB::table('quotations AS q')
+                ->select(
+                    'q.*'
+                )->from('quotations AS q')
+                // ->join('suppliers AS s', 's.id', '=', 'q.suppliers_id')
+                ->leftJoin('requeriment_details AS od', 'od.id', '=', 'q.requeriment_details_id')
+                ->leftJoin('requeriments AS o', 'o.id', '=', 'od.requeriments_id')
+                ->where('o.id', $request->id)
+                // ->where('q.status', 1)
+                ->get();
 
         $suppliers = DB::
             table('quotations AS q')
             ->select(
                 's.*'
             )
+            ->distinct('s.id')
             ->join('suppliers AS s', 's.id', '=', 'q.suppliers_id')
             ->leftJoin('requeriment_details AS od', 'od.id', '=', 'q.requeriment_details_id')
             ->leftJoin('requeriments AS o', 'o.id', '=', 'od.requeriments_id')
             ->where('o.id', $request->id)
+            ->where('q.status', 1)
             ->get();
 
-        // dd($suppliers);
+        $data = [];
+        foreach ($quotations as $key => $value) {
+            array_push($data, (array)$value);
+        }
+
+        $orderDetails = $od->index($request);
+        foreach ($orderDetails as $key => &$value) {
+            $value->suppliers = [];
+            foreach ($suppliers as $key1 => $value1) {
+                array_where($data, function($value2, $key2) use ($value1, &$value){
+                    if($value2['suppliers_id'] == $value1->id && $value2['requeriment_details_id'] == $value->id){
+                        $value->suppliers[$value1->id] = $value2;
+                    }
+                    return false;
+                });
+            }
+        }
 
         return [
-            'requeriment_details' => $od->index($request),
+            'requeriment_details' => $orderDetails,
             'quotations' => $quotations,
             'suppliers' => $suppliers
         ];

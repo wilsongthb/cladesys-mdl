@@ -26,6 +26,7 @@
     <script src="{{asset('/bower_components/angular-ui-uploader/dist/uploader.js')}} "></script>
     <script src="{{asset('/bower_components/jquery.floatThead/dist/jquery.floatThead.min.js')}} "></script>
     --}}
+    <script src="{{asset('/js/lodash.min.js')}}"></script>
     <!-- MIS SCRIPTS -->
     <script>
         setTimeout(function() {

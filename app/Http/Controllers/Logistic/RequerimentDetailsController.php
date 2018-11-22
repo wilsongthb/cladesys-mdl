@@ -88,16 +88,17 @@ class RequerimentDetailsController extends Controller
     {
         
         $per_page = $this->getPerPage($request);
-        return RequerimentDetails::
-            select(
+        return DB::table('requeriment_details AS ord')
+            ->select(
                 'ord.*',
                 'p.name AS p_name',
                 'c.value AS p_categorie'
             )
-            ->from('requeriment_details AS ord')
+            // ->from('requeriment_details AS ord')
             ->leftJoin('products AS p', 'p.id', '=', 'ord.products_id')
             ->leftJoin('categories AS c', 'c.id', '=', 'p.categories_id')
             ->where('requeriments_id', $request->id)
+            ->where('ord.flagstate', 1)
             ->orderBy('ord.id', 'DESC')
             // ->paginate($per_page);
             ->get();

@@ -948,6 +948,26 @@ const ComparisonConfig = {
             list: [],
             quotations: {},
             Suppliers: {},
+            setOrdenacion: function (key) {
+                this.list = [
+                    ...this.list.filter(x => {
+                        if(x.suppliers[key]){
+                            return x.suppliers[key].status == 1
+                        }else{
+                            return false;
+                        }
+                    }),
+                    ...this.list.filter(x => {
+                        if(x.suppliers[key]){
+                            return x.suppliers[key].status == 0
+                        }else{
+                            return true;
+                        }
+                    }),
+                ]
+
+                // console.log(this.list)
+            },
             selectMoreCheap: function(){
                 this.list = []
                 $http.put(G.apiUrl + '/quotations/select-more-cheap', {
@@ -962,7 +982,6 @@ const ComparisonConfig = {
                 .then(
                     res => { // success
                         this.list = res.data.requeriment_details
-                        
                         for(let i in res.data.suppliers){
                             let fila = res.data.suppliers[i]
                             this.Suppliers[fila.id] = fila
@@ -977,6 +996,59 @@ const ComparisonConfig = {
                             }else
                                 this.quotations[fila.requeriment_details_id][fila.suppliers_id] = fila
                         }
+
+                        // this.list.sort(x => {
+                            
+                        //     for(let sup of this.suppliers){
+                                
+                        //     }
+                        // })
+
+                        // for(let item of res.data.requeriment_details){
+                        //     // console.log(item)
+
+                        // }
+
+                        // /** Mejora, ordenacion */
+                        // let nuevaLista = [];
+                        // for(let l in this.Suppliers){
+                        //     let supplier = this.Suppliers[l]
+                        //     for(let k in this.list){
+                        //         let fila = this.list[k]
+                        //         if(fila.suppliers === undefined){
+                        //             fila.suppliers = {}
+                        //         }
+                        //         fila.suppliers[supplier.id] = this.quotations[fila.id] ? (this.quotations[fila.id][supplier.id] ? this.quotations[fila.id][supplier.id].status : false) : false
+                        //         nuevaLista.push(fila)
+                        //     }
+                        // }
+                        // // ordenar
+                        // let laNuevaLista = []
+                        // for(let l in this.Suppliers){
+                        //     let sup = this.Suppliers[l]
+                        //     laNuevaLista = [
+                        //         ...laNuevaLista,
+                        //         ...nuevaLista.filter(x => {
+                        //             return x.suppliers[sup.id]
+                        //         })
+                        //     ]
+                        // }
+                        // /** los que no tienen proveedor */
+                        // laNuevaLista = [
+                        //     ...laNuevaLista,
+                        //     ...nuevaLista.filter(x => {
+                        //         for(let l in this.Suppliers){
+                        //             let sup = this.Suppliers[l]
+                        //             if(x.suppliers[sup.id]) return false
+                        //         }
+                        //         return true
+                        //     })
+                        // ]
+                        // _.uniqBy(laNuevaLista, x => {
+                        //     return x.id
+                        // })
+                        // console.log(laNuevaLista)
+                        // this.nuevaLista = laNuevaLista
                     }
                 )
             },

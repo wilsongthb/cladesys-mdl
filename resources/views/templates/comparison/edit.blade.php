@@ -25,7 +25,12 @@
                             <th>ID</th>
                             <th>Producto</th>
                             <th>Cantidad</th>
-                            <th ng-repeat="s in det.Suppliers" title="@{{s.id}}" class="text-center">
+                            <th 
+                                ng-repeat="s in det.Suppliers" 
+                                title="@{{s.id}}" 
+                                class="text-center" 
+                                style="cursor:pointer;" 
+                                ng-click="det.setOrdenacion(s.id)">
                                 <p ng-bind="s.company_name"></p>
                                 <p ng-bind="s.contact_name"></p>
                                 <i ng-click="det.removeSupplier(s)" class="fa fa-remove"></i>
@@ -38,7 +43,10 @@
                             <td ng-bind="d.p_name"></td>
                             <td ng-bind="d.quantity" class="text-right"></td>
                             <td ng-repeat="s in det.Suppliers" ng-click="det.quotations[d.id][s.id].edit = true" class="text-right">
-                                <input type="checkbox" ng-model="det.quotations[d.id][s.id].status" ng-change="det.save(det.quotations[d.id][s.id])">
+                                <input 
+                                    type="checkbox" 
+                                    ng-model="det.quotations[d.id][s.id].status" 
+                                    ng-change="det.save(det.quotations[d.id][s.id])">
                                 @{{ enSoles(det.quotations[d.id][s.id].unit_price) }}
                             </td>
                         </tr>

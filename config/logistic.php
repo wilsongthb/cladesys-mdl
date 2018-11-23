@@ -1,7 +1,7 @@
 <?php
 return [
     'name' => 'logistic',
-    'stages' => false,
+    'stages' => true,
     
 
     // STATIC

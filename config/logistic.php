@@ -1,7 +1,7 @@
 <?php
 return [
     'name' => 'logistic',
-    'stages' => true,
+    'stages' => env('LOG_STAGES', false),
     
 
     // STATIC

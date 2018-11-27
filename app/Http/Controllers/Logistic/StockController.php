@@ -186,6 +186,63 @@ class StockController extends Controller
         return response()->json(DB::select($sqlResume)[0], 200);
     }
 
+    /** Resultado de movimientos, entradas y salidas de un mes */
+    public function locationMoveResume($locations_id){
+        // dd(request()->all());
+
+        $stage = new stdClass;
+        $stage->start = request()->year.'-'.request()->month.'-01';
+        $stage->end = request()->year.'-'.(request()->month + 1).'-01';
+
+        $sqlStockByProduct = $this->sqlStockByProductTruth($locations_id, $stage);
+
+        
+
+        $sqlResumeInput = "
+        SELECT
+            SUM(B.quantity) AS quantity,
+            SUM(B.unit_price * B.quantity) AS sub_total,
+            COUNT(B.id) AS quantity_details
+        FROM inputs A
+        LEFT JOIN input_details B ON A.id = B.inputs_id
+        LEFT JOIN products C ON B.products_id = C.id
+        WHERE B.created_at >= '$stage->start' AND B.created_at <= '$stage->end'
+        AND B.flagstate = 1 AND A.flagstate = 1
+        AND A.locations_id = $locations_id
+        ";
+
+        $sqlResumeOutput = "
+        SELECT
+            SUM(B.unit_price) AS unit_price,
+            SUM(B.quantity) AS quantity,
+            SUM(B.unit_price * B.quantity) AS sub_total,
+            SUM(B.real_unit_price * B.quantity) AS real_result,
+            COUNT(B.id) AS quantity_details
+        FROM outputs A
+        LEFT JOIN output_details B ON A.id = B.outputs_id
+        LEFT JOIN input_details C ON B.input_details_id = C.id
+        LEFT JOIN products D ON D.id = C.products_id
+        WHERE B.created_at >= '$stage->start' AND B.created_at <= '$stage->end'
+        AND B.flagstate = 1 AND A.flagstate = 1
+        AND A.locations_id = $locations_id
+        ";
+
+        // dd($sqlResumeInput, $sqlResumeOutput);
+
+        return response()->json([
+            'inputs' => DB::select($sqlResumeInput)[0],
+            'outputs' => DB::select($sqlResumeOutput)[0]
+        ], 200);
+    }
+
+    public function sqlStockByProductTruth($locations_id, $stage = false){
+        if(!$stage){
+            $stage = $this->getStage();
+        }
+
+        
+    }
+
     /**
      * El stock por productos
      */

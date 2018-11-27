@@ -168,6 +168,16 @@
                         controller: 'ResumeController'
                     })
 
+                    .when('/move-resume', {
+                        templateUrl: G.url + '/view/moveResume.html',
+                        controller: 'MoveResumeController'
+                    })
+
+                    .when('/history-resume', {
+                        templateUrl: G.url + '/view/historyResume.html',
+                        controller: 'HistoryResumeController'
+                    })
+
                     .when('/tickets', {
                         templateUrl: G.url + '/view/tickets.ng-list.html',
                         controller: 'TicketsController'

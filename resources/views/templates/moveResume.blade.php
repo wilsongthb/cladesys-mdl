@@ -1,5 +1,5 @@
 @extends('templates.layouts.container')
 
 @section('content')
-@include('templates.locationResumeB')
+@include('templates.moveResumeB')
 @endsection

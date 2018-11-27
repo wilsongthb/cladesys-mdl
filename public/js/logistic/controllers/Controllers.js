@@ -1420,6 +1420,65 @@ const ComparisonConfig = {
 
     angular
         .module('logistic')
+        .controller('MoveResumeController', MoveResumeController);
+
+    MoveResumeController.$inject = ['$http', '$scope', 'LocationsStages', 'Locations'];
+    function MoveResumeController($http, $scope, LocationsStages, Locations) {
+        var vm = this;
+        $scope.html = {
+            enSoles: function(dinero){
+                return moneyFormatter.format('PEN', dinero)
+            }
+        }
+        $scope.Locations = Locations
+        $scope.Resume = {
+            year: 2018,
+            month: 0,
+            get: function(){
+                $http.get(G.apiUrl + '/location-move-resume/' + Locations.get(), {
+                    params: {
+                        year: this.year,
+                        month: this.month
+                    }
+                })
+                .then(
+                    res => {
+                        // res.data
+                        this.data = {
+                            // 'count_products': 0
+                            'sum_id_quantity': res.data.inputs.quantity,
+                            'sum_od_quantity': res.data.outputs.quantity,
+                            'sum_id': res.data.inputs.quantity_details,
+                            'sum_od': res.data.outputs.quantity_details,
+                            'sum_details': res.data.inputs.quantity_details + res.data.outputs.quantity_details,
+                            'sum_id_subtotal': res.data.inputs.sub_total,
+                            'sum_od_subtotal': res.data.outputs.sub_total,
+                            // 'stock': res.data
+                            'profit': res.data.outputs.sub_total - res.data.outputs.real_result
+                        }
+
+                        console.log(this.data)
+                    }
+                )
+            }
+        }
+
+        activate();
+
+        ////////////////
+
+        function activate() { 
+            $scope.Resume.month = ((new Date()).getMonth() + 1).toString()
+            $scope.Resume.get()
+        }
+    }
+})(G);
+
+(function(G) {
+    'use strict';
+
+    angular
+        .module('logistic')
         .controller('TicketsController', TicketsController);
 
     TicketsController.$inject = ['$scope', '$http', 'Locations'];
@@ -1469,6 +1528,43 @@ const ComparisonConfig = {
 
         function activate() { 
             $scope.rsc.get()
+        }
+    }
+})(G);
+
+(function(G) {
+    'use strict';
+
+    angular
+        .module('logistic')
+        .controller('HistoryResumeController', HistoryResumeController);
+
+    HistoryResumeController.$inject = ['$http', '$scope', 'LocationsStages', 'Locations'];
+    function HistoryResumeController($http, $scope, LocationsStages, Locations) {
+        var vm = this;
+        // $scope.html = {
+        //     enSoles: function(dinero){
+        //         return moneyFormatter.format('PEN', dinero)
+        //     }
+        // }
+        // $scope.Locations = Locations
+        // $scope.Resume = {
+        //     get: function(){
+        //         $http.get(G.apiUrl + '/location-resume/' + Locations.get())
+        //         .then(
+        //             res => {
+        //                 this.data = res.data
+        //             }
+        //         )
+        //     }
+        // }
+        
+        activate();
+
+        ////////////////
+
+        function activate() { 
+            // $scope.Resume.get();
         }
     }
 })(G);

@@ -66,6 +66,7 @@ Route::group(['middleware' => 'auth'], function(){
         
         // NUEVAS RUTAS DE FUNCION
         Route::get('location-resume/{locations_id}', 'Logistic\StockController@locationResume');
+        Route::get('location-move-resume/{locations_id}', 'Logistic\StockController@locationMoveResume');
         Route::get('stock/{locations_id}', 'Logistic\StockController@locationStockByProduct');
         Route::get('stock-input/{locations_id}', 'Logistic\StockController@locationStockByInput');
         Route::get('stock-status/{locations_id}', 'Logistic\StockController@StockStatus');

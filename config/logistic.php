@@ -81,6 +81,16 @@ return [
             'title' => 'Recibos',
             'description' => 'Muestra la lista de recibos generados',
             'categorie' => 'reports'
+        ],
+        'move-resume' => [
+            'title' => 'Movimientos',
+            'descripcion' => 'Muestra el resumen de movimientos',
+            'categorie' => 'reports'
+        ],
+        'history-resume' => [
+            'title' => 'Resumen Historico',
+            'descripcion' => 'Muestra el resumen de movimientos total y por mes',
+            'categorie' => 'reports'
         ]
     ],
     'menu' => [
@@ -129,7 +139,9 @@ return [
                     // 'inventory-general',
                     'stock-status',
                     'resume',
-                    'tickets'
+                    'tickets',
+                    'move-resume',
+                    'history-resume'
                 ]
             ],
             'directory' => [

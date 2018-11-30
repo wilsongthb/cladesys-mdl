@@ -206,7 +206,7 @@ return [
             ]
         ],
         'outputs' => [
-            'getRealPrice' => false,
+            'getRealPrice' => env('LOG_OUT_GET_REAL_PRICE', false),
             'status' => [
                 1 => 'ACTIVO',
                 2 => 'ENVIADO/BLOQUEADO'

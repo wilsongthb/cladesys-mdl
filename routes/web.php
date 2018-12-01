@@ -70,6 +70,7 @@ Route::group(['middleware' => 'auth'], function(){
         Route::get('stock/{locations_id}', 'Logistic\StockController@locationStockByProduct');
         Route::get('stock-input/{locations_id}', 'Logistic\StockController@locationStockByInput');
         Route::get('stock-status/{locations_id}', 'Logistic\StockController@StockStatus');
+        Route::get('stock-simple/{anio}/{mes}/{locationId}', 'Logistic\StockController@simpleReport');
         Route::post('final-use', 'Logistic\OutputsController@finalUseReq');
 
         // EN MANTENIMIENTO

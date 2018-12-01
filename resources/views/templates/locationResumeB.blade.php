@@ -107,7 +107,7 @@
                 <div class="panel panel-warning">
                     <div class="panel-heading">
                         <div class="huge" ng-bind="html.enSoles(Resume.data.sum_od_subtotal)"></div>
-                        <h3 class="panel-title">Valor Productos Extraidos</h3>
+                        <h3 class="panel-title">Valor Productos Extraidos + Ganancia</h3>
                     </div>
                     <div class="panel-body">
                         El valor de productos extraidos, resultado de la suma total de la multiplicacion del precio unitario y la cantidad de cada uno de los registros de salida.

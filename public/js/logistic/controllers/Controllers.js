@@ -1430,11 +1430,29 @@ const ComparisonConfig = {
                 return moneyFormatter.format('PEN', dinero)
             }
         }
+        $scope.formatear = function(dinero) {
+            return moneyFormatter.format('PEN', dinero)
+        }
         $scope.Locations = Locations
         $scope.Resume = {
             year: 2018,
             month: 0,
+            simpleList: {},
             get: function(){
+                $http.get(
+                    G.apiUrl
+                    + '/stock-simple/'
+                    + this.year 
+                    + '/' 
+                    + this.month 
+                    + '/' + Locations.get()
+                ).then(
+                    res => {
+                        this.simpleList = res.data
+
+                        console.log(this)
+                    })
+
                 $http.get(G.apiUrl + '/location-move-resume/' + Locations.get(), {
                     params: {
                         year: this.year,

@@ -305,4 +305,98 @@ class StockController extends Controller
         }
         return $list;
     }
+
+    public function simpleReport($anio, $mes, $locationId){
+        $fecha = new DateTime($anio.'-'.$mes.'-01');
+        $fechamesesAnteriores = new DateTime($anio.'-'.$mes.'-01');
+        $fechamesesAnteriores = $fechamesesAnteriores->modify('-1 month');
+
+        $fecha = $fecha->format('Y-m-d h:m');
+        $fechamesesAnteriores = $fechamesesAnteriores->format('Y-m-d h:m');
+
+        // dd($fecha, $fechamesesAnteriores);
+
+        
+
+        $mesesAnteriores = DB::select("SELECT
+        'MESES ANTERIORES' AS title,
+        (
+            SELECT
+                SUM(B.quantity * B.unit_price) AS value_p_input
+            FROM inputs A
+            INNER JOIN input_details B ON A.id = B.inputs_id AND B.flagstate = 1
+            WHERE A.flagstate AND B.flagstate = 1
+            AND B.created_at <= '$fecha'
+            AND A.locations_id = $locationId
+        ) AS value_p_input,
+        (
+            SELECT
+                SUM(B.quantity * C.unit_price) AS value_o_calc
+            FROM outputs A
+            INNER JOIN output_details B ON A.id = B.outputs_id
+            INNER JOIN input_details C ON B.input_details_id = C.id
+            WHERE A.flagstate = 1 AND B.flagstate = 1 AND C.flagstate = 1
+            AND B.created_at <= '$fecha'
+            AND A.locations_id = $locationId
+        ) AS value_p_output
+        ");
+
+        $esteMes = DB::select("SELECT
+        'MES ACTUAL' AS title,
+        (
+            SELECT
+                
+                SUM(B.quantity * B.unit_price) AS value_p_input
+            FROM inputs A
+            INNER JOIN input_details B ON A.id = B.inputs_id AND B.flagstate = 1
+            WHERE A.flagstate AND B.flagstate = 1
+            AND B.created_at >= '$fecha'
+            AND A.locations_id = $locationId
+        ) AS value_p_input,
+        (
+            SELECT
+                SUM(B.quantity * C.unit_price) AS value_o_calc
+            FROM outputs A
+            INNER JOIN output_details B ON A.id = B.outputs_id
+            INNER JOIN input_details C ON B.input_details_id = C.id
+            WHERE A.flagstate = 1 AND B.flagstate = 1 AND C.flagstate = 1
+            AND B.created_at >= '$fecha'
+            AND A.locations_id = $locationId
+        ) AS value_p_output
+        ");
+
+
+        $total = DB::select("SELECT
+        'TOTAL' AS title,
+        (
+            SELECT
+                SUM(B.quantity * B.unit_price) AS value_p_input
+            FROM inputs A
+            INNER JOIN input_details B ON A.id = B.inputs_id AND B.flagstate = 1
+            WHERE A.flagstate AND B.flagstate = 1
+            AND A.locations_id = $locationId
+        ) AS value_p_input,
+        (
+            SELECT
+                SUM(B.quantity * C.unit_price) AS value_o_calc
+            FROM outputs A
+            INNER JOIN output_details B ON A.id = B.outputs_id
+            INNER JOIN input_details C ON B.input_details_id = C.id
+            WHERE A.flagstate = 1 AND B.flagstate = 1 AND C.flagstate = 1
+            AND A.locations_id = $locationId
+        ) AS value_p_output
+        ");
+
+        // dd($mesesAnteriores, $esteMes, $total);
+        // dd([
+        //     'fecha_1' => $fechamesesAnteriores,
+        //     'fecha_2' => $fecha,
+        //     'lista' => array_merge($mesesAnteriores, $esteMes, $total)
+        // ]);
+        return [
+            // 'fecha_1' => $fechamesesAnteriores,
+            'fecha' => $fecha,
+            'lista' => array_merge($mesesAnteriores, $esteMes, $total)
+        ];
+    }
 }
